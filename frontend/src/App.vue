@@ -1,13 +1,17 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <router-link class="black--text" to="/login">Login</router-link>
+      <router-view/>
+  </v-app>
 </template>
 
-<style>
+<script>
 
-</style>
+export default {
+  name: 'App',
+  components: {
+
+  },
+
+};
+</script>

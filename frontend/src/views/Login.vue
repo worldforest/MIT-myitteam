@@ -1,5 +1,24 @@
 <template>
-  <div class="about">
-    <h1>로그인 페이지입니당.</h1>
-  </div>
+  <Loginfo/>
 </template>
+
+<script>
+import Loginfo from "../components/user/Loginfo.vue" 
+
+export default {
+  name: 'Login',
+  components: {
+    Loginfo,
+  },
+  data () {
+    return {
+      
+    }
+  }
+  
+}
+</script>
+
+<style>
+
+</style>
