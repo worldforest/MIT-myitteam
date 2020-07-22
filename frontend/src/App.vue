@@ -1,5 +1,6 @@
 <template>
   <v-app>
+
     <v-container>
       <router-link class="black--text" to="/signup">SIGNUP</router-link>
       <router-link to="/profile">Profile</router-link>
@@ -8,6 +9,7 @@
         <router-view/>
       </v-main>
     </v-container>
+
   </v-app>
 </template>
 
@@ -21,3 +23,4 @@ export default {
 
 };
 </script>
+
