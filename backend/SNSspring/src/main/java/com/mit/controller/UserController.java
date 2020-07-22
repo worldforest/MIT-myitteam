@@ -24,13 +24,13 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
-	
+
 	private static Token token = new Token();
 	// Service
 	@Autowired
 	private UserService userService;
-	
-	@ApiOperation(value = "로그인 처리")
+
+	@ApiOperation(value = "로그인 (토큰반환)")
 	@PostMapping("login")
 	public ResponseEntity<String> login(@RequestBody User user) {
 		user = userService.login(user);
@@ -38,7 +38,19 @@ public class UserController {
 			String tokenstr = token.getToken(user);
 			return new ResponseEntity<String>(tokenstr, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+		//417에러
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
+
+	@ApiOperation(value = "회원 가입")
+	@PostMapping("Join")
+	public ResponseEntity<String> Join(@RequestBody User user) {
+
+		if (userService.join(user)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		//417에러
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
 
 }

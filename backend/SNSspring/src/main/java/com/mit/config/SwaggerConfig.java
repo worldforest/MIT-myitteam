@@ -22,7 +22,7 @@ public class SwaggerConfig {
 				.groupName("mitboard")
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.sns.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.mit.controller"))
 				.paths(PathSelectors.ant("/api/**"))
 				.build();
 	}
