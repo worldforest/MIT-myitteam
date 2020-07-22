@@ -86,4 +86,10 @@ public class User {
 	public void setDetails(String details) {
 		this.details = details;
 	}
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", pwd=" + pwd + ", name=" + name + ", nickname=" + nickname + ", joindate="
+				+ joindate + ", age=" + age + ", gender=" + gender + ", major=" + major + ", city=" + city + ", gu="
+				+ gu + ", dong=" + dong + ", details=" + details + "]";
+	}
 }
