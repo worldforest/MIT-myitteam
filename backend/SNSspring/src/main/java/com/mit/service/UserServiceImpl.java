@@ -11,7 +11,7 @@ public class UserServiceImpl implements UserService {
 	private UserRepo userRepo;
 	
 	@Override
-	public int join(User user) {
+	public boolean join(User user) {
 		return userRepo.join(user);
 	}
 

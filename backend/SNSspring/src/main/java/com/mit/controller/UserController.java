@@ -35,8 +35,8 @@ public class UserController {
 	public ResponseEntity<String> login(@RequestBody User user) {
 		user = userService.login(user);
 		if (user != null) {
-			String token = token.getToken(user);
-			return new ResponseEntity<String>(token, HttpStatus.OK);
+			String tokenstr = token.getToken(user);
+			return new ResponseEntity<String>(tokenstr, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
