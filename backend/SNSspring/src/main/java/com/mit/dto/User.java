@@ -6,7 +6,7 @@ public class User {
 	String name;
 	String nickname;
 	String joindate;
-	String age;
+	int age;
 	String gender;
 	String major;
 	String city;
