@@ -1,5 +1,8 @@
 package com.mit.repo;
 
-public class UserRepo {
+import com.mit.dto.User;
 
+public interface UserRepo {
+	public User login(User user);
+	public int join(User user);
 }

@@ -2,6 +2,7 @@ package com.mit.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mit.algorithm.Token;
 import com.mit.dto.User;
+import com.mit.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -25,6 +27,9 @@ public class UserController {
 
 	private static Token token = new Token();
 	// Service
+	@Autowired
+	private UserService userService;
+	
 	@ApiOperation(value = "로그인 처리")
 	@PostMapping("login")
 	public ResponseEntity<String> login(@RequestBody User user) {
