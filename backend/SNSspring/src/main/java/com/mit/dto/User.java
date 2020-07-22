@@ -44,10 +44,10 @@ public class User {
 	public void setJoindate(String joindate) {
 		this.joindate = joindate;
 	}
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 	public String getGender() {
