@@ -24,7 +24,7 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
-
+	
 	private static Token token = new Token();
 	// Service
 	@Autowired
@@ -38,7 +38,7 @@ public class UserController {
 			String token = token.getToken(user);
 			return new ResponseEntity<String>(token, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(userService.login(user), HttpStatus.OK);
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
 
 }
