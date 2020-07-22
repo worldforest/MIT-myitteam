@@ -12,7 +12,7 @@
         </v-avatar>
       </v-flex>
       <v-flex xs9 class="box">
-        <div class="ml-10">
+        <div class="ml-5">
           <span>"((아이디 표시하세요))"</span>
 
             <v-btn
@@ -21,6 +21,10 @@
             >
               팔로우
             </v-btn>
+        </div>
+        <div class="mt-4 ml-5">
+          <span>팔로워</span>
+          <span>팔로우</span>
         </div>
       </v-flex>
     </v-layout>
