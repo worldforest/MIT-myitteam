@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <router-link class="black--text" to="/login">Login</router-link>
     <router-link class="black--text" to="/signup">SIGNUP</router-link>
     <v-main>
       <router-view/>
@@ -17,3 +18,4 @@ export default {
 
 };
 </script>
+
