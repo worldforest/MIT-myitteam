@@ -51,7 +51,8 @@ public class UserController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
-
+ 
+	
 	@ApiOperation(value = "email 을 주면 token을 반환")
 	@PostMapping("getToken")
 	public ResponseEntity<String> getToken(@RequestBody String email) {
