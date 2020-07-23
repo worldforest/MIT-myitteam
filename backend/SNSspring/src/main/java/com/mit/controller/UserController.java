@@ -71,6 +71,7 @@ public class UserController {
 	}
 	
 	// 비밀번호 변경
+	// 테스트
 	@ApiOperation(value = "비밀번호를 변경합니다.")
 	@PutMapping("updatepwd")
 	public ResponseEntity<String> update(@RequestBody String tokenstr) {
