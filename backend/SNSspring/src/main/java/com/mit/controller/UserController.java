@@ -1,5 +1,7 @@
 package com.mit.controller;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import com.mit.dto.User;
 import com.mit.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
@@ -31,7 +34,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@ApiOperation(value = "로그인 (토큰반환) email , pwd 만 정보를 주면된다.")
+	@ApiOperation(value = "로그인 ", notes="성공시 jwt 토큰을 반환합니다.")
 	@PostMapping("login")
 	public ResponseEntity<String> login(@RequestBody User user) {
 		user = userService.login(user);
@@ -42,7 +45,7 @@ public class UserController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
 
-	@ApiOperation(value = "회원 가입 회원가입에 필요한 정보를 주면된다. 등록날짜는 입력안해도된다.")
+	@ApiOperation(value = "회원 가입 ", notes="성공시 200, 실패시 에러를 반환합니다.")
 	@PostMapping("join")
 	public ResponseEntity<String> Join(@RequestBody User user) {
 
@@ -53,14 +56,14 @@ public class UserController {
 	}
  
 	
-	@ApiOperation(value = "email 을 주면 token을 반환")
+	@ApiOperation(value = "getToken",notes="이메일을 주면 Token을 반환합니다.")
 	@PostMapping("getToken")
 	public ResponseEntity<String> getToken(@RequestBody String email) {
 		Token token = new Token();
 		return new ResponseEntity<String>(token.getToken(email), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "token을 주면 email을 반환")
+	@ApiOperation(value = "getEmail", notes="Token을 주면 email을 반환합니다. 이때 유효하지 않은 토큰은 에러처리합니다.")
 	@PostMapping("getEmail")
 	public ResponseEntity<String> getEmail(@RequestBody String tokenstr) {
 		Token token = new Token();
@@ -73,12 +76,12 @@ public class UserController {
 	
 	// 비밀번호 변경
 	// 테스트
-	@ApiOperation(value = "비밀번호를 변경합니다.")
+	@ApiOperation(value = "비밀번호변경",notes="비밀번호 변경 성공시 success 실패시 에러를 반환합니다.")
 	@PutMapping("updatepwd")
-	public ResponseEntity<String> update(@RequestBody String tokenstr) {
+	public ResponseEntity<String> update(@RequestBody Map<String, String> map) {
 		Token token = new Token();
-		if (token.cmpToekn(tokenstr)) {
-			return new ResponseEntity<String>(token.getEmail(tokenstr), HttpStatus.OK);
+		if (token.cmpToekn(map.get("tokenstr"))) {
+			return new ResponseEntity<String>(token.getEmail(map.get("tokenstr")), HttpStatus.OK);
 		}
 
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
