@@ -71,7 +71,7 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "비밀번호를 변경합니다.")
-	@PutMapping("getEmail")
+	@PutMapping("updatepwd")
 	public ResponseEntity<String> update(@RequestBody String tokenstr) {
 		Token token = new Token();
 		if (token.cmpToekn(tokenstr)) {
