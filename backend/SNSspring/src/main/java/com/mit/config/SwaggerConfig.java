@@ -34,7 +34,4 @@ public class SwaggerConfig {
 				.license("MIT License")
 				.licenseUrl("wjdals0471@naver.com").version("1.0").build();
 	}
-
 }
-
-

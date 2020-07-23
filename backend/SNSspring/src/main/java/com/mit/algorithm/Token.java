@@ -21,7 +21,7 @@ public class Token {
 		// plusMinutes 는 토큰을 등록하는 시간임 지금은 1분
 		JWT jwt = new JWT().setIssuer(user.getEmail()).setIssuedAt(ZonedDateTime.now(ZoneOffset.UTC))
 				.setSubject("f1e33ab3-027f-47c5-bb07-8dd8ab37a2d3")
-				.setExpiration(ZonedDateTime.now(ZoneOffset.UTC).plusMinutes(30));
+				.setExpiration(ZonedDateTime.now(ZoneOffset.UTC).plusMinutes(100));
 		// Sign and encode the JWT to a JSON string representation
 		String token = JWT.getEncoder().encode(jwt, signer);
 
@@ -33,7 +33,7 @@ public class Token {
 		// plusMinutes 는 토큰을 등록하는 시간임 지금은 1분
 		JWT jwt = new JWT().setIssuer(data).setIssuedAt(ZonedDateTime.now(ZoneOffset.UTC))
 				.setSubject("f1e33ab3-027f-47c5-bb07-8dd8ab37a2d3")
-				.setExpiration(ZonedDateTime.now(ZoneOffset.UTC).plusMinutes(3));
+				.setExpiration(ZonedDateTime.now(ZoneOffset.UTC).plusMinutes(100));
 		// Sign and encode the JWT to a JSON string representation
 		String token = JWT.getEncoder().encode(jwt, signer);
 
@@ -48,12 +48,21 @@ public class Token {
 	// API를 받을때 유효한 토큰인지 함께 검사한다.
 	public boolean cmpToekn(String token) {
 		try {
+			System.out.println(token);
 			// Build an HMC verifier using the same secret that was used to sign the JWT
 			JWT jwt = JWT.getDecoder().decode(token, verifier);
+
 			assertEquals(jwt.subject, "f1e33ab3-027f-47c5-bb07-8dd8ab37a2d3");
 		} catch (Exception e) {
 			return false;
 		}
 		return true;
+	}
+
+	public String getEmail(String token) {
+
+		JWT jwt = JWT.getDecoder().decode(token, verifier);
+		return jwt.issuer;
+
 	}
 }
