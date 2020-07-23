@@ -70,6 +70,7 @@ public class UserController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
 	
+	// 비밀번호 변경
 	@ApiOperation(value = "비밀번호를 변경합니다.")
 	@PutMapping("updatepwd")
 	public ResponseEntity<String> update(@RequestBody String tokenstr) {
