@@ -17,37 +17,37 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	public List<Feed> selectAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return feedRepo.selectAll();
 	}
 
 	@Override
 	public List<Feed> selectNikckname(String nickname) {
 		// TODO Auto-generated method stub
-		return null;
+		return feedRepo.selectNikckname(nickname);
 	}
 
 	@Override
 	public Feed selectOne(String no) {
 		// TODO Auto-generated method stub
-		return null;
+		return feedRepo.selectOne(no);
 	}
 
 	@Override
 	public boolean insert(Feed feed) {
 		// TODO Auto-generated method stub
-		return false;
+		return feedRepo.insert(feed);
 	}
 
 	@Override
 	public boolean update(Feed feed) {
 		// TODO Auto-generated method stub
-		return false;
+		return feedRepo.update(feed);
 	}
 
 	@Override
 	public boolean delete(String no) {
 		// TODO Auto-generated method stub
-		return false;
+		return feedRepo.delete(no);
 	}
 
 }

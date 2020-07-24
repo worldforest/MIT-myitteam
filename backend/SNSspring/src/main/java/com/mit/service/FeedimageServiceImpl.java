@@ -16,7 +16,12 @@ public class FeedimageServiceImpl implements FeedimageService {
 	@Override
 	public List<String> select(int no) {
 		// TODO Auto-generated method stub
-		return null;
+		return feedimageRepo.select(no);
+	}
+
+	@Override
+	public boolean insert(int no, String src) {
+		return feedimageRepo.insert(no, src);
 	}
 
 }
