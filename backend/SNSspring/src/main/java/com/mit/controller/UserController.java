@@ -19,7 +19,6 @@ import com.mit.dto.User;
 import com.mit.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
