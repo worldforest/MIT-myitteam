@@ -5,9 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.mit.repo.UserRepo">
 	<select id="login" parameterType="user" resultType="user">
 		select
-		email,
-		pwd, name, nickname, joindate, age, gender, major, city, gu, dong,
-		details
+		email, pwd, name, nickname, joindate, age, gender, major, city, gu, dong, details
 		from
 		user
 		where email = #{email} and pwd =#{pwd}

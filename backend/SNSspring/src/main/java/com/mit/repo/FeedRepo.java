@@ -2,8 +2,8 @@ package com.mit.repo;
 
 import java.util.List;
 
-import com.mit.dto.Feed;
 
+import com.mit.dto.Feed;
 public interface FeedRepo {
 	public List<Feed> selectAll();
 	public List<Feed> selectNikckname(String nickname);
