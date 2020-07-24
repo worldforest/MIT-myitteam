@@ -1,7 +1,5 @@
 package com.mit.controller;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,16 +72,16 @@ public class UserController {
 	
 	// 비밀번호 변경
 	// 테스트
-	@ApiOperation(value = "비밀번호변경",notes="비밀번호 변경 성공시 success 실패시 에러를 반환합니다.")
-	@PutMapping("updatepwd")
-	public ResponseEntity<String> update(@RequestBody Map<String, String> map) {
-		Token token = new Token();
-		if (token.cmpToekn(map.get("tokenstr"))) {
-			return new ResponseEntity<String>(token.getEmail(map.get("tokenstr")), HttpStatus.OK);
-		}
-
-		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
-	}
+//	@ApiOperation(value = "비밀번호변경",notes="비밀번호 변경 성공시 success 실패시 에러를 반환합니다.")
+//	@PutMapping("updatepwd")
+//	public ResponseEntity<String> update(@RequestBody Map<String, String> map) {
+//		Token token = new Token();
+//		if (token.cmpToekn(map.get("tokenstr"))) {
+//			return new ResponseEntity<String>(token.getEmail(map.get("tokenstr")), HttpStatus.OK);
+//		}
+//
+//		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+//	}
 	
 	
 //	@ApiOperation(value = "email, pwd 정보를 주면 비밀번호를 변경한다.")

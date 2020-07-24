@@ -2,9 +2,17 @@ package com.mit.service;
 
 import java.util.List;
 
-import com.mit.dto.Feed;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class FeedServiceImpl implements FeedService{
+import com.mit.dto.Feed;
+import com.mit.repo.FeedRepo;
+
+@Service
+public class FeedServiceImpl implements FeedService {
+
+	@Autowired
+	private FeedRepo feedRepo;
 
 	@Override
 	public List<Feed> selectAll() {
