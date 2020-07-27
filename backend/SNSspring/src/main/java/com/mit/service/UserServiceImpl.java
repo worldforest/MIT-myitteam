@@ -22,4 +22,16 @@ public class UserServiceImpl implements UserService {
 		return userRepo.login(user);
 	}
 
+	@Override
+	public int emailCheck(User user) {
+		int result = userRepo.emailCheck(user);
+		return result;
+	}
+
+	@Override
+	public int nicknameCheck(String nickname) {
+		int result = userRepo.nicknameCheck(nickname);
+		return result;
+	}
+
 }
