@@ -59,15 +59,16 @@ public class FeedController {
 	public ResponseEntity<String> createFeed(@RequestBody Feed feed, @RequestParam("file") MultipartFile file,
 			HttpServletRequest request) {
 
+		Date date = new Date();
+		StringBuilder sb = new StringBuilder();
+		sb.append("C:/Image/");
+		sb.append(file.getOriginalFilename());
+		sb.append(date.getTime());
+		feed.setSrc(sb.toString());
 		if (feedService.insert(feed)) {
 			// no는 무엇?
-			int no = 0;
 			// 파일 업로드 끝
 			if (!file.isEmpty()) {
-				Date date = new Date();
-				StringBuilder sb = new StringBuilder();
-				sb.append("C:/Image/");
-				sb.append(file.getOriginalFilename());
 				File dest = new File(sb.toString());
 				try {
 					file.transferTo(dest);
@@ -77,9 +78,7 @@ public class FeedController {
 					e.printStackTrace();
 				}
 				// db에 파일 위치랑 번호 등록
-				feedimageService.insert(no, sb.toString());
 			}
-
 		}
 		// feed 나머지 등록
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
