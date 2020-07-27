@@ -116,7 +116,6 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 			<version>1.4.3.RELEASE</version>
 		</dependency>
-
 		<!-- common fileupload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>

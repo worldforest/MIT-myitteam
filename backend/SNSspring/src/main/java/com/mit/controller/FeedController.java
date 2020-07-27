@@ -91,7 +91,7 @@ public class FeedController {
 		if (feedService.insert(feed)) {
 			// 파일 업로드 끝
 			if (!file.isEmpty()) {
-				File dest = new File("C://images/feed/"+sb.toString());
+				File dest = new File("C://images/feed/" + sb.toString());
 				try {
 					file.transferTo(dest);
 				} catch (IllegalStateException e) {
@@ -121,14 +121,12 @@ public class FeedController {
 
 	// feed image 반환하기
 	@ApiOperation(value = "feed image 조회 ", notes = "feed Image를 반환합니다. 못찾은경우 기본 image를 반환합니다.")
-	@GetMapping(value="image/{imagename}",produces = MediaType.IMAGE_JPEG_VALUE)
+	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<byte[]> userSearch(@PathVariable("imagename") String imagename) throws IOException {
-		InputStream imageStream = new FileInputStream("C://images/feed/"+imagename);
+		InputStream imageStream = new FileInputStream("C://images/feed/" + imagename);
 		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
 		imageStream.close();
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
 	}
-		
-	
 
 }
