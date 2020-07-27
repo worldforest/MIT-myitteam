@@ -33,5 +33,4 @@ public class UserServiceImpl implements UserService {
 		int result = userRepo.nicknameCheck(nickname);
 		return result;
 	}
-
 }

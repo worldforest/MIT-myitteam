@@ -1,81 +1,173 @@
 <template>
-  <v-card class="mx-auto py-5 my-8" max-width="500">
-    <h1 class="text-md-center mb-2">Signup</h1>
+  <v-card color="#FAFAFA">
+    <v-card id="card-signup" class="mx-auto py-5 px-2 my-8" outlined max-width="800">
+    <h2 class="text-center mb-5 h1-signup">회원가입해서 팀원을 만나보세요 :)</h2>
+
     <div>
-      <v-col cols="12" sm="6" md="11" class="mx-auto">
-        <v-text-field label="아이디" outlined></v-text-field>
+      <v-col md="11" >
+        <v-text-field :rules="emailRules" v-model="signupData.email" label="아이디" outlined id="email"></v-text-field>
       </v-col>
     </div>
 
     <div>
-      <v-col cols="12" sm="6" md="11" class="mx-auto">
-        <v-text-field label="비밀번호" outlined></v-text-field>
+      <v-col md="11">
+        <v-text-field :rules="[rules.required, rules.min]" v-model="signupData.pwd" label="비밀번호" outlined id="pwd" type="password"></v-text-field>
       </v-col>
     </div>
 
     <div>
-      <v-col cols="12" sm="6" md="11" class="mx-auto">
-        <v-text-field label="비밀번호 확인" outlined></v-text-field>
+      <v-col md="11">
+        <v-text-field :rules="[rules.pwdcheck]" v-model="signupData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
       </v-col>
     </div>
 
     <div>
-      <v-col cols="12" sm="6" md="11" class="mx-auto">
-        <v-text-field label="나이" outlined></v-text-field>
+      <v-col md="11">
+        <v-text-field v-model="signupData.name" label="이름" outlined id="name"></v-text-field>
       </v-col>
     </div>
 
     <div>
-      <v-col cols="12" sm="6" md="11" class="mx-auto">
-        <v-text-field label="성별" outlined></v-text-field>
+      <v-col md="11">
+        <v-text-field v-model="signupData.nickname" label="닉네임" outlined id="nickname"></v-text-field>
+        <v-btn depressed large class="white--text" color="#5C6BC0" @click="checkNickname">닉네임 중복 검사</v-btn>
       </v-col>
     </div>
 
     <div>
-      <v-col cols="12" sm="6" md="11" class="mx-auto">
-        <v-text-field label="전공" outlined></v-text-field>
+      <v-col md="11">
+        <v-text-field v-model="signupData.age" label="나이" outlined id="age"></v-text-field>
       </v-col>
     </div>
 
     <div>
-      <v-col cols="12" sm="6" md="11" class="mx-auto">
-        <v-text-field label="주소" outlined></v-text-field>
+      <v-col class="d-flex" cols="12" sm="6" md="11">
+        <v-select
+          :items="selectGender"
+          label="성별"
+          outlined
+          v-model="signupData.gender"
+        ></v-select>
       </v-col>
     </div>
 
-    <v-col class="text-center mx-auto" cols="12" sm="4">
+    <span>
+      <v-col md="11">
+        <v-text-field v-model="signupData.major" label="전공" outlined id="major"></v-text-field>
+      </v-col>
+    </span>
+
+    <span>
+      <v-col md="10">
+        <v-text-field class="d-inline" v-model="signupData.address" label="주소" outlined id="major"></v-text-field>
+          <div class="text-center d-inline">
+            <v-dialog
+              v-model="dialog"
+              width="500"
+            >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon
+              color="#5C6BC0"
+              dark
+              v-bind="attrs"
+              v-on="on"
+              class="d-inline"
+              >
+              <v-icon large color="#5C6BC0">mdi-magnify</v-icon>
+              </v-btn>
+            </template>
+
+            <v-card class="py-5">
+              <vue-daum-postcode@complete="getData" />
+              <v-divider></v-divider>
+            </v-card>
+          </v-dialog>
+        </div>
+      </v-col>
+    </span>
+
+    <v-col class="text-center mx-auto">
       <div class="my-2">
-        <v-btn depressed large color="primary">가입하기</v-btn>
+        <v-btn depressed large class="white--text" color="#5C6BC0" @click="signup">가입하기</v-btn>
       </div>
     </v-col>
+    </v-card>
   </v-card>
+
 </template>
 
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+import axios from 'axios'
+const SERVER_URL = 'http://localhost:8000'
+
 export default {
   name: "Signup",
   data() {
     return {
       signupData: {
-        userid: null,
-        password1: null,
-        password2: null,
+        email: null,
+        pwd: null,
+        pwd2: null,
+        name: null,
+        nickname: null,
         age: null,
-        sex: null,
+        gender: null,
         major: null,
         address: null,
-      }
+      },
+      dialog: false,
+      selectGender: ['남', '여'],
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 4 || 'Min 8 characters' ,
+        emailMatch: () => ('The email and password you entered don\'t match'),
+        pwdcheck: v => v == this.signupData.pwd || '비밀번호가 일치하지 않습니다',
+      },
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v =>
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || "E-mail must be valid"
+      ],
     }
   },
   methods:{
     signup() {
-      this.$emit('', this.signupData)
-    }
-  }
+      console.log(this.signupData);
+      this.$emit('submit-singup-data', this.signupData)
+    },
+    getData(data) {
+      // 클릭한 데이터를 address에 저장
+      this.signupData.address = data.address;
+      this.dialog = false;
+    },
+    checkNickname(){
 
+    },
+  }
 }
 </script>
 
 <style>
+  .h1-signup {
+    color: rgb(92, 107, 192);
+  }
+  #card-signup {
+    border:1px solid rgb(92, 107, 192);
+  }
+  #selectGender{
+    width: 100px;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+  }
+
+  #selectGender > option {
+    border: 1px solid black;
+  }
+
+  .warning{
+    color : red;
+    background-color: white;
+  }
 
 </style>

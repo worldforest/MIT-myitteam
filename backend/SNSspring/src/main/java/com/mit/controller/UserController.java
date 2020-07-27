@@ -1,5 +1,7 @@
 package com.mit.controller;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mit.algorithm.Token;
@@ -18,6 +21,8 @@ import com.mit.dto.User;
 import com.mit.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
+
+import io.swagger.annotations.ApiParam;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
@@ -32,7 +37,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@ApiOperation(value = "로그인 ", notes = "성공시 jwt 토큰을 반환합니다.")
+	@ApiOperation(value = "로그인 ", notes="성공시 jwt 토큰을 반환합니다.")
 	@PostMapping("login")
 	public ResponseEntity<String> login(@RequestBody User user) {
 		user = userService.login(user);
@@ -43,7 +48,8 @@ public class UserController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
 
-	@ApiOperation(value = "회원 가입 ", notes = "성공시 200, 실패시 에러를 반환합니다.")
+
+	@ApiOperation(value = "회원 가입 ", notes="성공시 200, 실패시 에러를 반환합니다.")
 	@PostMapping("join")
 	public ResponseEntity<String> Join(@RequestBody User user) {
 
@@ -53,14 +59,16 @@ public class UserController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
 
-	@ApiOperation(value = "getToken", notes = "이메일을 주면 Token을 반환합니다.")
+ 
+	
+	@ApiOperation(value = "getToken",notes="이메일을 주면 Token을 반환합니다.")
 	@PostMapping("getToken")
 	public ResponseEntity<String> getToken(@RequestBody String email) {
 		Token token = new Token();
 		return new ResponseEntity<String>(token.getToken(email), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "getEmail", notes = "Token을 주면 email을 반환합니다. 이때 유효하지 않은 토큰은 에러처리합니다.")
+	@ApiOperation(value = "getEmail", notes="Token을 주면 email을 반환합니다. 이때 유효하지 않은 토큰은 에러처리합니다.")
 	@PostMapping("getEmail")
 	public ResponseEntity<String> getEmail(@RequestBody String tokenstr) {
 		Token token = new Token();
@@ -108,6 +116,7 @@ public class UserController {
 //
 //		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 //	}
+
 
 //	@ApiOperation(value = "email, pwd 정보를 주면 비밀번호를 변경한다.")
 //	@PutMapping
