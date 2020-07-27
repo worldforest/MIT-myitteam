@@ -17,19 +17,19 @@ public class FeedlikeServiceImpl implements FeedlikeService {
 	@Override
 	public List<String> selectAll(String no) {
 		// TODO Auto-generated method stub
-		return null;
+		return feedlikeRepo.selectAll(no);
 	}
 
 	@Override
 	public boolean insert(Likefeed likefeed) {
 		// TODO Auto-generated method stub
-		return false;
+		return feedlikeRepo.insert(likefeed);
 	}
 
 	@Override
 	public boolean delete(Likefeed likefeed) {
 		// TODO Auto-generated method stub
-		return false;
+		return feedlikeRepo.delete(likefeed);
 	}
 
 
