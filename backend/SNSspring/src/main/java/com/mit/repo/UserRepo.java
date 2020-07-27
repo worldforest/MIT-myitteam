@@ -6,9 +6,9 @@ public interface UserRepo {
 	public User login(User user);
 
 	public boolean join(User user);
-	
-	
+
 	public int emailCheck(User user);
 
 	public int nicknameCheck(String nickname);
+
 }

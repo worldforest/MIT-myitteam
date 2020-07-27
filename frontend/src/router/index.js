@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
 import Profile from '@/views/Profile.vue'
+import Apply from '@/views/Apply.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ Vue.use(VueRouter)
     path: '/profile',
     name: "Profile",
     component: Profile
+  },
+  {
+    path: '/apply',
+    name: "apply",
+    component: Apply
   }
 ]
 

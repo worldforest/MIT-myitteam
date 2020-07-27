@@ -1,4 +1,9 @@
 backend/.gitignore
 backend/Servers/
+<<<<<<< HEAD
 backend/SNSspring/log/log.log
 .metadata/
+=======
+backend/.metadata/
+backend/SNSspring/log/log.log
+>>>>>>> 514fb2ec95113211bdb42b774dfed3228edd3631
