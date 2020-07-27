@@ -6,12 +6,9 @@
           <v-text-field
             label="Email"
             outlined
-<<<<<<< HEAD
             v-model="loginData.email"
             :rules="emailRules"
             required
-=======
->>>>>>> 514fb2ec95113211bdb42b774dfed3228edd3631
           ></v-text-field>
         </v-col>
       </v-row>
@@ -20,7 +17,6 @@
           <v-text-field
             label="Password"
             outlined
-<<<<<<< HEAD
             v-model="loginData.pwd"
             :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required, rules.min]"
@@ -34,12 +30,6 @@
         </v-col>
       </v-row>
           <v-btn width="100%" large color="#6200EA" @click="$emit('login', loginData)" >Login</v-btn>
-=======
-          ></v-text-field>
-        </v-col>
-      </v-row>
-          <v-btn width="100%" large color="primary">Login</v-btn>
->>>>>>> 514fb2ec95113211bdb42b774dfed3228edd3631
     </v-container>
   </v-form>
 </template>
@@ -51,7 +41,6 @@ export default {
   data () {
     return {
       loginData: {
-<<<<<<< HEAD
         email: null,
         pwd: null,
       },
@@ -71,12 +60,4 @@ export default {
   },
 }
 
-=======
-        username: null,
-        password: null,
-      }
-    }
-  }
-};
->>>>>>> 514fb2ec95113211bdb42b774dfed3228edd3631
 </script>
