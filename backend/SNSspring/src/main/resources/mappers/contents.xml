@@ -7,10 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- category가 0이면 공모전 1이면 프로젝트 -->
 		insert into contents(email, nickname, title, category, description,
 		start, end, reward, host, imagesrc, url, views)
-		values(#{email}, (select nickname from user where email=#{email}), #{title}, 0, #{description}, #{start}, #{end}, #{reward}, #{host}, #{imagesrc}, #{url}, #{views})
+		values(#{email}, (select nickname from user where email=#{email}), #{title}, #{category}, #{description}, #{start}, #{end}, #{reward}, #{host}, #{imagesrc}, #{url}, #{views})
 	</insert>
 	
 	<select id="select" parameterType="contents" resultType="contents">
-		select 
 	</select>
 </mapper>

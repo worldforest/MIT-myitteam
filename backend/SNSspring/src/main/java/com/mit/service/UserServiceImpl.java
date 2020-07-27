@@ -22,7 +22,6 @@ public class UserServiceImpl implements UserService {
 		return userRepo.login(user);
 	}
 
-<<<<<<< HEAD
 	@Override
 	public int emailCheck(User user) {
 		int result = userRepo.emailCheck(user);
@@ -34,7 +33,4 @@ public class UserServiceImpl implements UserService {
 		int result = userRepo.nicknameCheck(nickname);
 		return result;
 	}
-
-=======
->>>>>>> 514fb2ec95113211bdb42b774dfed3228edd3631
 }
