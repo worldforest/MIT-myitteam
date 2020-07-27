@@ -7,6 +7,7 @@
     <span v-else>
       <router-link class="black--text" to="/logout" @click.native="logout">Logout</router-link>
     </span>
+    <router-view/>
   </v-app>
 </template>
 
