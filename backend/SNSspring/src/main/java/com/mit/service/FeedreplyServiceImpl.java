@@ -17,25 +17,25 @@ public class FeedreplyServiceImpl implements FeedreplyService {
 	@Override
 	public List<Reply> selectAll(String no) {
 		// TODO Auto-generated method stub
-		return null;
+		return feedreplyRepo.selectAll(no);
 	}
 
 	@Override
 	public boolean insert(Reply reply) {
 		// TODO Auto-generated method stub
-		return false;
+		return feedreplyRepo.insert(reply);
 	}
 
 	@Override
 	public boolean update(Reply reply) {
 		// TODO Auto-generated method stub
-		return false;
+		return feedreplyRepo.update(reply);
 	}
 
 	@Override
 	public boolean delete(Reply reply) {
 		// TODO Auto-generated method stub
-		return false;
+		return feedreplyRepo.delete(reply);
 	}
 
 

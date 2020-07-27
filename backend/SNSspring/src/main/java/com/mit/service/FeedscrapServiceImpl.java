@@ -17,7 +17,7 @@ public class FeedscrapServiceImpl implements FeedscrapService {
 	@Override
 	public List<Feed> selectAll(String email) {
 		// TODO Auto-generated method stub
-		return null;
+		return feedscrapRepo.selectAll(email);
 	}
 
 }
