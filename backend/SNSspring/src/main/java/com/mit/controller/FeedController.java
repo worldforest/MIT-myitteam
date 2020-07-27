@@ -66,7 +66,6 @@ public class FeedController {
 		sb.append(date.getTime());
 		feed.setSrc(sb.toString());
 		if (feedService.insert(feed)) {
-			// no는 무엇?
 			// 파일 업로드 끝
 			if (!file.isEmpty()) {
 				File dest = new File(sb.toString());
