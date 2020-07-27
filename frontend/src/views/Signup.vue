@@ -1,24 +1,23 @@
 <template>
   <v-card color="#FAFAFA">
     <v-card id="card-signup" class="mx-auto py-5 px-2 my-8" outlined max-width="800">
-    <h3 class="text-md-center mb-5 h1-signup">회원가입해서 팀원을 만나보세요 :)</h3>
+    <h2 class="text-center mb-5 h1-signup">회원가입해서 팀원을 만나보세요 :)</h2>
 
     <div>
       <v-col md="11" >
-        <v-text-field v-model="signupData.email" label="아이디" outlined id="email"></v-text-field>
+        <v-text-field :rules="emailRules" v-model="signupData.email" label="아이디" outlined id="email"></v-text-field>
       </v-col>
     </div>
 
     <div>
       <v-col md="11">
-        <v-text-field v-model="signupData.pwd" label="비밀번호" outlined id="pwd" type="password"></v-text-field>
+        <v-text-field :rules="[rules.required, rules.min]" v-model="signupData.pwd" label="비밀번호" outlined id="pwd" type="password"></v-text-field>
       </v-col>
     </div>
 
     <div>
       <v-col md="11">
-        <v-text-field v-model="signupData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
-        <p class="warning" v-if="signupData.pwd != signupData.pwd2"> 비밀번호가 일치하지 않습니다. </p>
+        <v-text-field :rules="[rules.pwdcheck]" v-model="signupData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
       </v-col>
     </div>
 
@@ -41,11 +40,16 @@
       </v-col>
     </div>
 
-    <p>성별 : </p>
-    <select v-model="signupData.gender" name="gender" id="selectGender">
-      <option value="male">남자</option>
-      <option value="female">여자</option>
-    </select>
+    <div>
+      <v-col class="d-flex" cols="12" sm="6" md="11">
+        <v-select
+          :items="selectGender"
+          label="성별"
+          outlined
+          v-model="signupData.gender"
+        ></v-select>
+      </v-col>
+    </div>
 
     <span>
       <v-col md="11">
@@ -54,7 +58,7 @@
     </span>
 
     <span>
-      <v-col md="11">
+      <v-col md="10">
         <v-text-field class="d-inline" v-model="signupData.address" label="주소" outlined id="major"></v-text-field>
           <div class="text-center d-inline">
             <v-dialog
@@ -112,7 +116,19 @@ export default {
         major: null,
         address: null,
       },
-      dialog: false
+      dialog: false,
+      selectGender: ['남', '여'],
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 4 || 'Min 8 characters' ,
+        emailMatch: () => ('The email and password you entered don\'t match'),
+        pwdcheck: v => v == this.signupData.pwd || '비밀번호가 일치하지 않습니다',
+      },
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v =>
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || "E-mail must be valid"
+      ],
     }
   },
   methods:{
