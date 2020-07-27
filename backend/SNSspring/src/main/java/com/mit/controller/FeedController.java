@@ -1,19 +1,25 @@
 package com.mit.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,21 +76,22 @@ public class FeedController {
 		feed.setDescription(description);
 		Date date = new Date();
 		StringBuilder sb = new StringBuilder();
-		sb.append("C:/Image/");
+//		sb.append("C:/Image/");
+//		sb.append("C://images/feed/");
 
 		if (file.isEmpty()) {
 			// file image 가 없을 경우
 			sb.append("none");
 		} else {
-			sb.append(file.getOriginalFilename());
 			sb.append(date.getTime());
+			sb.append(file.getOriginalFilename());
 		}
 		feed.setSrc(sb.toString());
 
 		if (feedService.insert(feed)) {
 			// 파일 업로드 끝
 			if (!file.isEmpty()) {
-				File dest = new File(sb.toString());
+				File dest = new File("C://images/feed/"+sb.toString());
 				try {
 					file.transferTo(dest);
 				} catch (IllegalStateException e) {
@@ -111,5 +118,17 @@ public class FeedController {
 
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
+
+	// feed image 반환하기
+	@ApiOperation(value = "feed image 조회 ", notes = "feed Image를 반환합니다. 못찾은경우 기본 image를 반환합니다.")
+	@GetMapping(value="image/{imagename}",produces = MediaType.IMAGE_JPEG_VALUE)
+	public ResponseEntity<byte[]> userSearch(@PathVariable("imagename") String imagename) throws IOException {
+		InputStream imageStream = new FileInputStream("C://images/feed/"+imagename);
+		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
+		imageStream.close();
+		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
+	}
+		
+	
 
 }
