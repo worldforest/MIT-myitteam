@@ -50,4 +50,10 @@ public class FeedServiceImpl implements FeedService {
 		return feedRepo.delete(no);
 	}
 
+	@Override
+	public String Latestfeed(String email) {
+		// TODO Auto-generated method stub
+		return feedRepo.Latestfeed(email);
+	}
+
 }

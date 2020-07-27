@@ -14,13 +14,13 @@ public class FeedimageServiceImpl implements FeedimageService {
 	FeedimageRepo feedimageRepo;
 
 	@Override
-	public List<String> select(int no) {
+	public List<String> select(String no) {
 		// TODO Auto-generated method stub
 		return feedimageRepo.select(no);
 	}
 
 	@Override
-	public boolean insert(int no, String src) {
+	public boolean insert(String no, String src) {
 		return feedimageRepo.insert(no, src);
 	}
 

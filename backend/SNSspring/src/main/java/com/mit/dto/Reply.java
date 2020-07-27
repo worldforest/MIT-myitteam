@@ -1,15 +1,15 @@
 package com.mit.dto;
 
 public class Reply {
-	int no; 
+	String no; 
 	String email;
 	String writedate;
 	String nickname; 
 	String reply;
-	public int getNo() {
+	public String getNo() {
 		return no;
 	}
-	public void setNo(int no) {
+	public void setNo(String no) {
 		this.no = no;
 	}
 	public String getEmail() {
@@ -36,6 +36,7 @@ public class Reply {
 	public void setReply(String reply) {
 		this.reply = reply;
 	}
+	
 	
 	
 }
