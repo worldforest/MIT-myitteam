@@ -5,7 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.mit.repo.UserRepo">
 	<select id="login" parameterType="user" resultType="user">
 		select
-		email, pwd, name, nickname, joindate, age, gender, major, city, gu, dong, details
+		email,
+		pwd, name, nickname, joindate, age, gender, major, city, gu, dong,
+		details
 		from
 		user
 		where email = #{email} and pwd =#{pwd}
@@ -13,6 +15,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="join" parameterType="user">
 		insert into user values
-		(#{email}, #{pwd}, #{name}, #{nickname}, now(), #{age} #{gender}, #{major}, #{city}, #{gu}, #{dong}, #{details})
+		(#{email}, #{pwd}, #{name}, #{nickname}, now(), #{age}, #{gender},
+		#{major}, #{city}, #{gu}, #{dong}, #{details})
 	</insert>
+
+	<select id="findPwd" resultType="string">
+		select pwd from user
+		where email=#{email}
+	</select>
+
+	<select id="emailcheck" resultType="int">
+		select count(*) from user
+		where email = #{email}
+	</select>
+
+	<select id="nicknameCheck" resultType="int">
+		select count(*) from user
+		where nickname = #{nickname}
+	</select>
 </mapper>
