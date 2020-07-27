@@ -20,17 +20,33 @@
     </div>
 
     <v-app>
-      <router-view/>
+      <router-view @submit-signup-data="signup"/>
     </v-app>
   </v-card>
 </template>
 
 <script>
+import axios from 'axios'
+const SERVER_URL = 'http://localhost:8000'
+
 export default {
   name: 'App',
   components: {
 
   },
-
+  methods: {
+    setCookie(token) {
+      this.$cookies.set('auth-token', token)
+    },
+    signup(signupData) {
+      console.log(signupData)
+      axios.post(SERVER_URL + '/signup/', signupData)
+      .then(res => {
+        console.log(res.data.key)
+        this.setCookie(res.data.key)
+      })
+      .catch(err => this.errorMessages = err.response.data)
+    }
+  }
 };
 </script>
