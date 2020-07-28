@@ -106,15 +106,15 @@ export default {
   data() {
     return {
       signupData: {
-        email: null,
-        pwd: null,
-        pwd2: null,
-        name: null,
-        nickname: null,
-        age: null,
-        gender: null,
-        major: null,
-        address: null,
+        email: "",
+        pwd: "",
+        pwd2: "",
+        name: "",
+        nickname: "",
+        age: "",
+        gender: "",
+        major: "",
+        address: "",
       },
       dialog: false,
       selectGender: ['남', '여'],
@@ -134,7 +134,26 @@ export default {
   methods:{
     signup() {
       console.log(this.signupData);
-      this.$emit('submit-singup-data', this.signupData)
+      this.$emit('submit-singup-data', this.signupData);
+      axios.post("http://localhost:9999/mit/api/user/join",{
+        // headers: {
+        //   'Access-Control-Allow-Origin': '*',
+        //   'Content-Type': 'application/json; charset = utf-8'
+        // },
+        email: this.signupData.email,
+        pwd: this.signupData.pwd,
+        name: this.signupData.name,
+        nickname: this.signupData.nickname,
+        age: this.signupData.age,
+        gender: this.signupData.gender,
+        major: this.signupData.major,
+        address: this.signupData.address,
+      }).then(res => {
+        this.$router.push("/");
+      })
+      .catch(error => {
+        alert("회원가입중 오류가 발생했습니다.");
+      })
     },
     getData(data) {
       // 클릭한 데이터를 address에 저장
