@@ -27,26 +27,41 @@
 
 <script>
 import axios from 'axios'
-const SERVER_URL = 'http://localhost:8000'
+const SERVER_URL = 'http://localhost:9999/mit'
 
 export default {
   name: 'App',
   components: {
 
   },
-  methods: {
-    setCookie(token) {
-      this.$cookies.set('auth-token', token)
-    },
-    signup(signupData) {
-      console.log(signupData)
-      axios.post(SERVER_URL + '/signup/', signupData)
-      .then(res => {
-        console.log(res.data.key)
-        this.setCookie(res.data.key)
-      })
-      .catch(err => this.errorMessages = err.response.data)
+  data () {
+    return {
+      isLoggedIn: false,
+
     }
-  }
+  },
+  methods: {
+    onLogin(loginData) {
+      axios.post(`${SERVER_URL}/api/user/login/`, loginData)
+      .then(response => {
+        this.$cookies.set('token', response.data)
+        this.isLoggedIn = true
+        this.$router.push('/')
+      })
+      .catch(error => {
+        console.log(error.response)
+      })
+    },
+    logout() {
+      this.$cookies.remove('token')
+      this.isLoggedIn = false
+      this.$router.push('/')
+    },
+  },
+  mounted() {
+    this.isLoggedIn = this.$cookies.isKey('token')  
+  },
+
 };
 </script>
+
