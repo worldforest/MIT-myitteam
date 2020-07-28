@@ -1,45 +1,29 @@
 <template>
-  <v-card class="overflow-hidden">
-    <div class="v-toolbar__content" style="height: 80px;">
-      <img id="logo" src="./images/1.jpg" alt="logo">
-
-      <router-link to="/signup">SIGNUP</router-link>
-      <div class="spacer"></div>
-
-      <span>
-        <v-btn icon>
-          <v-icon large color="#5C6BC0">mdi-magnify</v-icon>
-        </v-btn>
-      </span>
-
-      <span>
-        <v-btn icon>
-          <v-icon color="#5C6BC0">mdi-account</v-icon>
-        </v-btn>
-      </span>
-    </div>
-
-    <v-app>
-      <router-view @submit-signup-data="signup"/>
-    </v-app>
-  </v-card>
+  <v-app>
+    <span v-if="!isLoggedIn">
+      <router-link class="black--text" to="/login">Login</router-link>
+      <router-link class="black--text" to="/signup">SIGNUP</router-link>
+    </span>
+    <span v-else>
+    <router-link id="tokenTrue" class="black--text" to="/logout" @click.native="logout">Logout</router-link>
+    </span>
+    <router-view />
+  </v-app>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
   components: {
-
-  },
-  data () {
-    return {
-
-    }
   },
   methods: {
-
-  }
+    ...mapActions(['logout'])
+  },
+  computed: {
+    ...mapGetters(['isLoggedIn'])
+  },
 };
 </script>
 

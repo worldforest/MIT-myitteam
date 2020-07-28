@@ -1,6 +1,4 @@
 <template>
-
-
   <div>
     <v-layout no wrap>
       <v-flex xs3 class="box">
