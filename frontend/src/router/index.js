@@ -14,17 +14,17 @@ Vue.use(VueRouter)
     name: 'Home',
     component: Home
   },
-  {
-    component: Login,
-    beforeEnter(to, from, next) {
-      if (Vue.$cookies.isKey('token')) {
-        next('/')
-      }
-      else {
-        next()
-      }
-    }
-  },
+  // {
+  //   component: Login,
+  //   beforeEnter(to, from, next) {
+  //     if (Vue.$cookies.isKey('token')) {
+  //       next('/')
+  //     }
+  //     else {
+  //       next()
+  //     }
+  //   }
+  // },
   {
     path: '/login',
     name: 'Login',
