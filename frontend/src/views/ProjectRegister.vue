@@ -25,16 +25,15 @@
 			<div>
 				<h3 class="ml-4">프로젝트 기간 : </h3>
 				<v-row>
-					<v-col class="d-flex mx-auto" cols="4">
-						<v-text-field label="프로젝트 시작"
-							outlined
-							v-model="projectData.startdate"></v-text-field>
-
-							<v-expansion-panels>
+					<v-col class="d-flex mx-auto" cols="5">
+							<v-expansion-panels class="v-expansion-panels">
 								<v-expansion-panel>
-									<v-expansion-panel-header><v-icon large color="#5C6BC0">mdi-calendar</v-icon></v-expansion-panel-header>
+									<v-expansion-panel-header>
+										<v-text-field label="프로젝트 시작"
+											outlined
+											v-model="projectData.startdate"></v-text-field></v-expansion-panel-header>
 									<v-expansion-panel-content>
-										<v-flex xs12 sm6>
+										<v-flex >
 											<v-date-picker v-model="projectData.startdate" color="green lighten-1"></v-date-picker>
 										</v-flex>
 									</v-expansion-panel-content>	
@@ -42,16 +41,15 @@
 							</v-expansion-panels>
 					</v-col>
 
-					<v-col class="d-flex mx-auto" cols="4">
-						<v-text-field label="프로젝트 종료"
-							outlined
-							v-model="projectData.enddate"></v-text-field>
-
-							<v-expansion-panels>
+					<v-col class="d-flex mx-auto" cols="5">
+							<v-expansion-panels class="v-expansion-panels">
 								<v-expansion-panel>
-									<v-expansion-panel-header><v-icon large color="#5C6BC0">mdi-calendar</v-icon></v-expansion-panel-header>
+									<v-expansion-panel-header>
+										<v-text-field label="프로젝트 종료"
+											outlined
+											v-model="projectData.enddate"></v-text-field></v-expansion-panel-header>
 									<v-expansion-panel-content>
-										<v-flex xs12 sm6>
+										<v-flex>
 											<v-date-picker v-model="projectData.enddate" color="green lighten-1" header-color="primary"></v-date-picker>
 										</v-flex>
 									</v-expansion-panel-content>	
@@ -59,7 +57,30 @@
 							</v-expansion-panels>
 					</v-col>
 				</v-row>
-			</div>
+
+				<div>
+					<h3 class="ml-4">지역 : </h3>
+						<v-col class="d-flex mx-auto" cols="12" md="11">
+							<v-select
+								:items="selectRegion"
+								label="지역 선택"
+								outlined
+								v-model="applyData.region"
+							></v-select>
+						</v-col>
+				</div>
+
+				<div>
+					<h3 class="ml-4">팀 소개 : </h3>
+					<v-col class="mx-auto" cols="12" md="11">
+						<v-text-field
+							label="팀 소개"
+							outlined
+							v-model="applyData.introduce"
+						></v-text-field>
+					</v-col>
+				</div>
+				</div>
 
     </v-card> 
   </v-card>
@@ -82,5 +103,7 @@ export default {
 </script>
 
 <style>
-
+	.v-expansion-panels{
+		max-width: 500px;
+	}
 </style>
