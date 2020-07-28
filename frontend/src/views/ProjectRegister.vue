@@ -133,12 +133,12 @@ export default {
 	},
 	methods: {
 		addProject(Data){
-      this.projectData.dataList = [...this.projectData.dataList, Data]
-    },
-    apply(){
-      console.log(this.projectData)
-      this.$emit('submit-project-data', this.projectData)
-    }
+			this.projectData.dataList = [...this.projectData.dataList, Data]
+		},
+		apply(){
+			console.log(this.projectData)
+			this.$emit('submit-project-data', this.projectData)
+		}
 	}
 }
 </script>
