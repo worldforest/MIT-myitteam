@@ -27,3 +27,9 @@ export default {
 };
 </script>
 
+<style scoped>
+  #logo{
+    height: 70px;
+    width: 100px;
+  }
+</style>

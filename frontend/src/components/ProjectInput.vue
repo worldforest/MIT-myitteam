@@ -1,0 +1,94 @@
+<template>
+	<div>
+      <h3 class="ml-4">모집 인원 : </h3>
+      <v-row>
+        <v-col class="d-flex mx-auto" cols="5">
+          <v-select
+          :items="selectArea"
+          label="분야"
+          outlined
+          v-model="projectData.part"
+          ></v-select>
+        </v-col>
+
+        <v-col class="d-flex mx-auto" cols="5">
+          <v-select
+            :items="selectPeople"
+            label="인원"
+            outlined
+            v-model="projectData.headcount"
+          ></v-select>
+        </v-col>
+      </v-row>
+
+      <v-col cols="12" md="11" class="mx-auto">
+      <v-textarea
+        outlined
+        label="담당 업무"
+        v-model="projectData.task"
+      ></v-textarea>
+      </v-col>
+
+      <v-col cols="12" md="11" class="mx-auto">
+      <v-textarea
+        outlined
+        label="필수 역량"
+        v-model="projectData.ability"
+      ></v-textarea>
+      </v-col>
+
+      <v-col cols="12" md="11" class="mx-auto">
+      <v-textarea
+        outlined
+        label="우대 사항"
+        v-model="projectData.advantage"
+      ></v-textarea>
+      </v-col>
+
+      <div color="transparent" class="mb-3 mr-8 d-flex justify-end">
+        <v-btn @click="setProjectData">+</v-btn>
+      </div>
+
+  </div>
+</template>
+
+<script>
+export default {
+	data() {
+		return{
+			selectArea: ['프론트엔드', '백엔드', '인공지능', '빅데이터', '블록체인'],
+			selectPeople: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+			projectData: {
+				id: Date.now(),
+				part: null,
+				headcount: null,
+				task: null,
+				ability: null,
+				advantage: null, 
+			},
+		}
+	},
+	methods: {
+		setProjectData() {
+			const setData = {
+				id : this.projectData.id,
+				part: this.projectData.part,
+				headcount: this.projectData.headcount,
+				task: this.projectData.task,
+				ability: this.projectData.ability,
+				advantage: this.projectData.advantage, 
+			}
+			this.$emit('add-project', setData)
+
+			for(var item in this.projectData){
+				this.projectData[item] = null
+			}
+		}
+	}
+}
+
+</script>
+
+<style>
+
+</style>

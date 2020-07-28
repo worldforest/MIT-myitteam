@@ -4,7 +4,8 @@ import Home from '../views/Home.vue'
 import Signup from '@/views/Signup.vue'
 import Login from '@/views/Login.vue'
 import Profile from '@/views/Profile.vue'
-import Apply from '@/views/Apply.vue'
+import TeamRegister from '@/views/TeamRegister.vue'
+import ProjectRegister from '@/views/ProjectRegister.vue'
 
 Vue.use(VueRouter)
 
@@ -48,11 +49,18 @@ Vue.use(VueRouter)
     name: "Profile",
     component: Profile
   },
+  //////////다인////////////
   {
-    path: '/apply',
-    name: "apply",
-    component: Apply
-  }
+    path: '/teamregister',
+    name: "TeamRegister",
+    component: TeamRegister
+  },
+  {
+    path: '/projectregister',
+    name: 'ProjectRegister',
+    component: ProjectRegister
+  },
+  //////////다인////////////
 ]
 
 const router = new VueRouter({
