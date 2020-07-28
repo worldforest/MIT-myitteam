@@ -37,7 +37,6 @@
         <v-btn depressed class="white--text" color="#5C6BC0" @click="checkNickname">중복 검사</v-btn>
         </v-col>
       </v-row>
-      <p v-if="usedNickName">사용중인 닉네임 입니다.</p>
     </div>
 
     <div>
@@ -101,7 +100,6 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 import axios from 'axios'
-const SERVER_URL = 'http://localhost:8000'
 
 export default {
   name: "Signup",
@@ -173,11 +171,6 @@ export default {
       this.signupData.address = data.address;
       this.dialog = false;
     },
-    isNumber(event){
-      if(event.keyCode < 48 || event.keyCode > 57){
-        event.returnValue = false;
-      }
-    }
   }
 }
 </script>
