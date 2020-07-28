@@ -1,7 +1,7 @@
 <template>
   <v-card class="overflow-hidden">
-    <div class="v-toolbar__content" style="height: 56px;">
-      <img id="logo" src="./images/1.png" alt="logo">
+    <div class="v-toolbar__content" style="height: 80px;">
+      <img id="logo" src="./images/1.jpg" alt="logo">
 
       <router-link to="/signup">SIGNUP</router-link>
       <div class="spacer"></div>
@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-const SERVER_URL = 'http://localhost:9999/mit'
 
 export default {
   name: 'App',
@@ -36,32 +34,18 @@ export default {
   },
   data () {
     return {
-      isLoggedIn: false,
 
     }
   },
   methods: {
-    onLogin(loginData) {
-      axios.post(`${SERVER_URL}/api/user/login/`, loginData)
-      .then(response => {
-        this.$cookies.set('token', response.data)
-        this.isLoggedIn = true
-        this.$router.push('/')
-      })
-      .catch(error => {
-        console.log(error.response)
-      })
-    },
-    logout() {
-      this.$cookies.remove('token')
-      this.isLoggedIn = false
-      this.$router.push('/')
-    },
-  },
-  mounted() {
-    this.isLoggedIn = this.$cookies.isKey('token')  
-  },
 
+  }
 };
 </script>
 
+<style scoped>
+  #logo{
+    height: 70px;
+    width: 100px;
+  }
+</style>

@@ -22,7 +22,7 @@
 				></v-textarea>
       </v-col>
 
-			<div>
+			<div class="mb-3">
 				<h3 class="ml-4">프로젝트 기간 : </h3>
 				<v-row>
 					<v-col class="d-flex mx-auto" cols="5">
@@ -65,40 +65,81 @@
 								:items="selectRegion"
 								label="지역 선택"
 								outlined
-								v-model="applyData.region"
+								v-model="projectData.region"
 							></v-select>
 						</v-col>
 				</div>
 
 				<div>
 					<h3 class="ml-4">팀 소개 : </h3>
-					<v-col class="mx-auto" cols="12" md="11">
+					<v-col class="mx-auto" cols="12" md="11">	
 						<v-text-field
 							label="팀 소개"
 							outlined
-							v-model="applyData.introduce"
+							v-model="projectData.introduce"
 						></v-text-field>
 					</v-col>
 				</div>
-				</div>
+			</div>
+
+			<ProjectInput @add-project="addProject"/>
+
+			<div>
+        <li class="itemLi" v-for="item in this.projectData.dataList" :key="item.id">
+          <v-col class="mx-auto" cols="12" md="11">
+            <div color="#FAFAFA" class="mb-3 py-4 px-3">
+              <h3 class="mb-3">{{ item.part }}</h3>
+              <hr class="mb-3">
+              <p>인원 : {{item.headcount}} </p>
+              <p style="white-space:pre-line;">담당 업무 : {{item.task}} </p>
+              <p>필수 역량 : {{item.ability}} </p>
+              <p>우대 사항 : {{item.advantage}} </p>
+            </div>
+          </v-col>
+        </li>
+      </div>
+
+      <v-col class="text-center mx-auto">
+        <div class="my-2">
+          <v-btn depressed large class="white--text" color="#5C6BC0" @click="apply">등록하기</v-btn>
+        </div>
+      </v-col>
 
     </v-card> 
   </v-card>
 </template>
 
 <script>
+import ProjectInput from '@/components/ProjectInput'
+
 export default {
 	name: "ProjectRegister",
+	components: {
+		ProjectInput
+	},
 	data() {
 		return{
+			selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
 			projectData: {
 				title: null,
 				project_introduce: null,
 				startdate: null,
 				enddate: null,
+				region: null,
+				introduce: null,
+				dataList: [],
 			}
 		}
 	},
+	methods: {
+		addProject(Data){
+      this.projectData.dataList = [...this.projectData.dataList, Data]
+    },
+    apply(){
+      console.log(this.projectData)
+      this.$emit('submit-project-data', this.projectData)
+    }
+	}
 }
 </script>
 

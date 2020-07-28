@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
 import Profile from '@/views/Profile.vue'
@@ -15,17 +15,17 @@ Vue.use(VueRouter)
     name: 'Home',
     component: Home
   },
-  {
-    component: Login,
-    beforeEnter(to, from, next) {
-      if (Vue.$cookies.isKey('token')) {
-        next('/')
-      }
-      else {
-        next()
-      }
-    }
-  },
+  // {
+  //   component: Login,
+  //   beforeEnter(to, from, next) {
+  //     if (Vue.$cookies.isKey('token')) {
+  //       next('/')
+  //     }
+  //     else {
+  //       next()
+  //     }
+  //   }
+  // },
   {
     path: '/login',
     name: 'Login',
@@ -41,12 +41,12 @@ Vue.use(VueRouter)
     name: "Profile",
     component: Profile
   },
+  //////////다인////////////
   {
     path: '/teamregister',
     name: "TeamRegister",
     component: TeamRegister
   },
-  //////////다인////////////
   {
     path: '/projectregister',
     name: 'ProjectRegister',
@@ -54,7 +54,6 @@ Vue.use(VueRouter)
   }
   //////////다인////////////
   
-
 ]
 
 const router = new VueRouter({

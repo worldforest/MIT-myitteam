@@ -2,9 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify';
-
+import BootstrapVue from 'bootstrap-vue'
 import VueDaumPostcode from "vue-daum-postcode"
 
+Vue.use(BootstrapVue)
 Vue.use(VueDaumPostcode)
 Vue.config.productionTip = false
 
