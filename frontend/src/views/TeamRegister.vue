@@ -34,10 +34,33 @@
             <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
               <h3 class="mb-3">{{ item.part }}</h3>
               <hr class="mb-3">
-              <p>인원 : {{item.headcount}} </p>
-              <p>담당 업무 : {{item.task}} </p>
-              <p>필수 역량 : {{item.ability}} </p>
-              <p>우대 사항 : {{item.advantage}} </p>
+
+              <v-list-item>
+								<v-list-item-content>
+									<v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+
+              <v-list-item>
+								<v-list-item-content>
+									<h4 class="mb-2">담당 업무</h4>
+									<v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+
+							<v-list-item>
+								<v-list-item-content>
+									<h4 class="mb-2">필수 역량</h4>
+									<v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+
+							<v-list-item>
+								<v-list-item-content>
+									<h4 class="mb-2">우대 사항</h4>
+									<v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
             </v-card>
           </v-col>
         </li>
@@ -49,16 +72,20 @@
         </div>
       </v-col>
     </v-card>
+
+    <PartDetail :applyData="applyData"/>
   </v-card>
 </template>
 
 <script>
 import TeamInput from '@/components/TeamInput'
+import PartDetail from '@/components/PartDetail'
 
 export default {
   name: 'TeamRegister',
   components: {
     TeamInput,
+    PartDetail,
   },
   data() {
     return{        

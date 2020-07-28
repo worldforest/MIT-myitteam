@@ -90,10 +90,33 @@
             <div color="#FAFAFA" class="mb-3 py-4 px-3">
               <h3 class="mb-3">{{ item.part }}</h3>
               <hr class="mb-3">
-              <p>인원 : {{item.headcount}} </p>
-              <p style="white-space:pre-line;">담당 업무 : {{item.task}} </p>
-              <p>필수 역량 : {{item.ability}} </p>
-              <p>우대 사항 : {{item.advantage}} </p>
+
+							<v-list-item>
+								<v-list-item-content>
+									<v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+							
+							<v-list-item>
+								<v-list-item-content>
+									<h4 class="mb-2">담당 업무</h4>
+									<v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+
+							<v-list-item>
+								<v-list-item-content>
+									<h4 class="mb-2">필수 역량</h4>
+									<v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
+
+							<v-list-item>
+								<v-list-item-content>
+									<h4 class="mb-2">우대 사항</h4>
+									<v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+								</v-list-item-content>
+							</v-list-item>
             </div>
           </v-col>
         </li>
@@ -104,8 +127,7 @@
           <v-btn depressed large class="white--text" color="#5C6BC0" @click="apply">등록하기</v-btn>
         </div>
       </v-col>
-
-    </v-card> 
+    </v-card>
   </v-card>
 </template>
 
@@ -115,7 +137,7 @@ import ProjectInput from '@/components/ProjectInput'
 export default {
 	name: "ProjectRegister",
 	components: {
-		ProjectInput
+		ProjectInput,
 	},
 	data() {
 		return{
