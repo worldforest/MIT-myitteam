@@ -7,6 +7,7 @@ import VueDaumPostcode from "vue-daum-postcode"
 
 Vue.use(BootstrapVue)
 Vue.use(VueDaumPostcode)
+
 Vue.config.productionTip = false
 
 new Vue({

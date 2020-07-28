@@ -51,9 +51,8 @@ Vue.use(VueRouter)
     path: '/projectregister',
     name: 'ProjectRegister',
     component: ProjectRegister
-  }
+  },
   //////////다인////////////
-  
 ]
 
 const router = new VueRouter({
