@@ -10,10 +10,6 @@ public class User {
 	String gender;
 	String major;
 	String address;
-//	String city;
-//	String gu;
-//	String dong;
-//	String details;
 
 	public String getEmail() {
 		return email;

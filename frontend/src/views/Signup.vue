@@ -158,14 +158,14 @@ export default {
       })
     },
     checkNickname(){
-      axios.post('http://localhost:9999/mit/api/user/checkNickname',{
-        nickname: this.signupData.nickname,
-      }).then(res => {
-        alert("사용중인 닉네임이 존재합니다.");
+      axios.post("http://localhost:9999/mit/api/user/checkNickname",
+        this.nickname,
+      ).then(res => {
+        alert("사용 가능한 닉네임입니다.");
+        this.$router.push("/signup");
       })
       .catch(error => {
-        this.$router.push("/signup");
-        alert("사용 가능한 닉네임입니다.");
+        alert("사용중인 닉네임이 존재합니다.");
       })
     },
     getData(data) {
