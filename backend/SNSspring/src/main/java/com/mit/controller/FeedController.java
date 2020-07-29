@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,12 +30,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mit.algorithm.Token;
 import com.mit.dto.Feed;
+import com.mit.dto.User;
 import com.mit.service.FeedService;
 import com.mit.service.FeedimageService;
 import com.mit.service.FeedlikeService;
 import com.mit.service.FeedreplyService;
 import com.mit.service.FeedscrapService;
 import com.mit.service.FeedtagService;
+import com.mit.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -46,7 +50,7 @@ public class FeedController {
 	private static final String FAIL = "fail";
 
 	private static Token token = new Token();
-
+	
 	@Autowired
 	private FeedService feedService;
 	@Autowired
@@ -66,7 +70,7 @@ public class FeedController {
 	@PostMapping("create")
 	public ResponseEntity<String> createFeed(@RequestParam("email") String email,
 			@RequestParam("description") String description, @RequestParam("tags") String tags,
-			@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+			@RequestParam("file") MultipartFile file) {
 		// 시간과 originalFilename으로 매핑 시켜서 src 주소를 만들어 낸다.
 		// feed-> image 는 대표이미지 feedimage에는 추가 이미지들을 삽입한다.
 		// feed tag들을 삽입한다 ,로 구분
@@ -76,8 +80,6 @@ public class FeedController {
 		feed.setDescription(description);
 		Date date = new Date();
 		StringBuilder sb = new StringBuilder();
-//		sb.append("C:/Image/");
-//		sb.append("C://images/feed/");
 
 		if (file.isEmpty()) {
 			// file image 가 없을 경우
@@ -109,10 +111,8 @@ public class FeedController {
 		StringTokenizer st = new StringTokenizer(tags, ",");
 		// no 정보 가져오기 등록 email의 최신 no를 가져온다.
 		String no = feedService.Latestfeed(email);
-		System.out.println(no);
 		while (st.hasMoreTokens()) {
 			String tag = st.nextToken();
-			System.out.println(tag);
 			feedtagService.insert(no, tag);
 		}
 
@@ -120,13 +120,24 @@ public class FeedController {
 	}
 
 	// feed image 반환하기
-	@ApiOperation(value = "feed image 조회 ", notes = "feed Image를 반환합니다. 못찾은경우 기본 image를 반환합니다.")
+	@ApiOperation(value = "feed image 조회 ", notes = "feed Ima	ge를 반환합니다. 못찾은경우 기본 image를 반환합니다.")
 	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<byte[]> userSearch(@PathVariable("imagename") String imagename) throws IOException {
 		InputStream imageStream = new FileInputStream("C://images/feed/" + imagename);
 		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
 		imageStream.close();
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "sns 계정 개인 페이지 조회", notes = " get 타입으로 email을 통회 개인페이지를 조회합니다.\n"
+			+ "Json 형태로 nickname , followerCnt , follwingCnt , description, feeds(개인피드들 정보 feed 번호, feedimagesrc 정보)Jsons 형태로 반환")
+	@GetMapping(value = "{email}")
+	public ResponseEntity<Map> userPage(@PathVariable("email") String email) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		
+		
+		return new ResponseEntity<Map>(map, HttpStatus.OK);
 	}
 
 }

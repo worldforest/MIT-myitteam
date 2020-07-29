@@ -58,7 +58,7 @@ public class Token {
 		}
 		return true;
 	}
-
+	
 	public String getEmail(String token) {
 
 		JWT jwt = JWT.getDecoder().decode(token, verifier);

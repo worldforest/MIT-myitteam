@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mit.dto.Contents;
-import com.mit.dto.User;
 import com.mit.service.ContentsService;
 
 import io.swagger.annotations.ApiOperation;

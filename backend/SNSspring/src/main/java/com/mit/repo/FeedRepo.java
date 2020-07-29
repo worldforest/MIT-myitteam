@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.mit.dto.Feed;
+import com.mit.dto.User;
 public interface FeedRepo {
 	public List<Feed> selectAll();
 	public List<Feed> selectNikckname(String nickname);
@@ -12,4 +13,5 @@ public interface FeedRepo {
 	public boolean update(Feed feed);
 	public boolean delete(String no);
 	public String Latestfeed(String email);
+	public User selectPrivate(String email);
 }
