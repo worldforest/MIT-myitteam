@@ -71,6 +71,7 @@
           ability: '',
           advantage: '', 
         },
+        plus: false,
       }
     },
     methods: {
@@ -83,12 +84,18 @@
           ability: this.applyData.ability,
           advantage: this.applyData.advantage, 
         }
-        this.$emit('add-apply', setData)
 
-        for(var item in this.applyData){
-          this.applyData[item] = null
+        if (this.applyData.task !== '' && this.applyData.ability !== '' && this.applyData.advantage !== ''){
+          this.$emit('add-apply', setData)
+
+          for(var item in this.applyData){
+            this.applyData[item] = ''
+          }
         }
       }
+    },
+    computed: {
+      
     }
   }
 </script>

@@ -1,14 +1,30 @@
 <template>
-  <v-app>
-    <span v-if="!isLoggedIn">
-      <router-link class="black--text" to="/login">Login</router-link>
-      <router-link class="black--text" to="/signup">SIGNUP</router-link>
-    </span>
-    <span v-else>
-    <router-link id="tokenTrue" class="black--text" to="/logout" @click.native="logout">Logout</router-link>
-    </span>
-    <router-view />
-  </v-app>
+  <v-card class="overflow-hidden">
+    <div class="v-toolbar__content" style="height: 90px;">
+      <img id="logo" src="./images/1.jpg" alt="logo">
+
+      <div class="spacer"></div>
+      <!--로그인 안 된 상태-->
+      <div v-if="!isLoggedIn">
+        <router-link class="mr-3" to="/login">LOGIN</router-link>
+        <router-link class="mr-3" to="/signup">SIGNUP</router-link>
+      </div>
+      <!--로그인 된 상태-->
+      <span v-else>
+        <router-link id="tokenTrue" to="/logout" @click.native="logout">LOGOUT</router-link>
+      </span>
+
+      <span>
+        <a href="/profile">
+          <v-icon class="accountIcon" x-large color="#5C6BC0">mdi-account-circle</v-icon>
+        </a>
+      </span>
+    </div>
+
+    <v-app color="#FAFAFA">
+      <router-view/>
+    </v-app>
+  </v-card>
 </template>
 
 <script>
@@ -28,8 +44,22 @@ export default {
 </script>
 
 <style scoped>
+  a { 
+    text-decoration: none;
+    color: "#5C6BC0k";
+    margin-right: 2rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+  a:hover{
+    color: blue;
+  }
   #logo{
     height: 70px;
-    width: 100px;
+    width: 120px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
   }
+
 </style>
