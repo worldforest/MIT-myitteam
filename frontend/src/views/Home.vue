@@ -29,17 +29,20 @@
             <div class="animated fadeIn">
               <b-card-group  deck class="d-flex justify-center">
                 <b-card v-for="(club,index) in currentPageClubs" :key="index"
-                        :img-src="club.imgUrl"
+                        :img-src="club.imagesrc"
                         img-alt="Img"
                         img-top
-                        :title="club.name"
-                        class="mx-2" >
+                        :title="club.title"
+                        class="mx-2"
+                         >
                   <b-card-text>
                     {{ club.dday }}
                   </b-card-text>
                   <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
                   <template v-slot:footer>
-                    <b-btn variant="primary" block>Add</b-btn>
+                    <router-link :to="{name: 'GongmoDetail', params:{club:club}}">
+                      자세히 보기
+                    </router-link>
                   </template>
                 </b-card>
               </b-card-group>
@@ -60,10 +63,10 @@
             <div class="animated fadeIn">
               <b-card-group  deck class="d-flex justify-space-around card-sm">
                 <b-card v-for="(club,index) in currentPageClubs3" :key="index"
-                        :img-src="club.imgUrl"
+                        :img-src="club.imagesrc"
                         img-alt="Img"
                         img-top
-                        :title="club.name"
+                        :title="club.title"
                         class="mx-2" >
                   <b-card-text>
 
@@ -71,7 +74,9 @@
                   </b-card-text>
                   <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
                   <template v-slot:footer>
-                    <b-btn variant="primary" block>Add</b-btn>
+                    <router-link :to="{name: 'GongmoDetail', params:{club:club}}">
+                      자세히 보기
+                    </router-link>
                   </template>
                 </b-card>
               </b-card-group>
@@ -92,17 +97,19 @@
             <div class="animated fadeIn">
               <b-card-group  deck class="d-flex justify-center">
                 <b-card v-for="(club,index) in currentPageClubs2" :key="index"
-                        :img-src="club.imgUrl"
+                        :img-src="club.imagesrc"
                         img-alt="Img"
                         img-top
-                        :title="club.name"
+                        :title="club.title"
                         class="mx-2" >
                   <b-card-text>
                     {{ club.dday }}
                   </b-card-text>
                   <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
                   <template v-slot:footer>
-                    <b-btn variant="primary" block>Add</b-btn>
+                    <router-link :to="{name: 'GongmoDetail', params:{club:club}}">
+                      자세히 보기
+                    </router-link>
                   </template>
                 </b-card>
               </b-card-group>
@@ -128,7 +135,7 @@
                         :img-src="club.imgUrl"
                         img-alt="Img"
                         img-top
-                        :title="club.name"
+                        :title="club.title"
                         class="mx-2" >
                   <b-card-text>
                     {{ club.dday }}
@@ -178,7 +185,7 @@
                         :img-src="club.imgUrl"
                         img-alt="Img"
                         img-top
-                        :title="club.name"
+                        :title="club.title"
                         class="mx-2" >
                   <b-card-text>
 
@@ -229,7 +236,7 @@
                         :img-src="club.imgUrl"
                         img-alt="Img"
                         img-top
-                        :title="club.name"
+                        :title="club.title"
                         class="mx-2" >
                   <b-card-text>
                     {{ club.dday }}
@@ -299,34 +306,58 @@ export default {
       // 추후에 우리가 데이터를 받아올 곳
       clubs: [
         {
-          name: "공모전1",
+          title: "공모전1",
+          category: 1,
+          reward: "100만원",
+          host: "싸피",
           dday: "D-3",
-          imgUrl: require("@/assets/공모1.png")
+          imagesrc: require("@/assets/공모1.png"),
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac."
         },
         {
-          name: "공모전2",
+          title: "공모전2",
+          category: 1,
+          reward: "100만원",
+          host: "싸피",
           dday: "D-166",
-          imgUrl: require("@/assets/공모2.png")
+          imagesrc: require("@/assets/공모2.png"),
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac."
         },
         {
-          name: "공모전3",
+          title: "공모전3",
+          category: 1,
+          reward: "100만원",
+          host: "싸피",
           dday: "D-123",
-          imgUrl: require("@/assets/공모3.png")
+          imagesrc: require("@/assets/공모3.png"),
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac."
         },
         {
-          name: "공모전4",
+          title: "공모전4",
+          category: 1,
+          reward: "100만원",
+          host: "싸피",
           dday: "D-45",
-          imgUrl: require("@/assets/공모4.png")
+          imagesrc: require("@/assets/공모4.png"),
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac."
         },
         {
-          name: "공모전5",
+          title: "공모전5",
+          category: 1,
+          reward: "100만원",
+          host: "싸피",
           dday: "D-21",
-          imgUrl: require("@/assets/user.png")
+          imagesrc: require("@/assets/user.png"),
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac."
         },
         {
-          name: "공모전1",
+          title: "공모전1",
+          category: 1,
+          reward: "100만원",
+          host: "싸피",
           dday: "D-3",
-          imgUrl: require("@/assets/공모1.png")
+          imagesrc: require("@/assets/공모1.png"),
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac."
         },
       ],
       clubs2: [
@@ -496,7 +527,7 @@ export default {
     },
     goto_pjt(i) {
       this.currentPageIndex_pjt = i-1;
-    }
+    },
   },
 
   computed: {
