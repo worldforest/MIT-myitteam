@@ -102,8 +102,17 @@ export default {
       this.applyData.dataList = [...this.applyData.dataList, Data]
     },
     apply(){
-      console.log(this.applyData)
-      this.$emit('submit-apply-data', this.applyData)
+      const setData = {
+        region : this.applyData.region,
+        introduce : this.applyData.introduce,
+        dataList : this.applyData.dataList
+      }
+      this.$emit('submit-apply-data', setData)
+      console.log(setData)
+
+      for(var item in this.applyData){
+          this.applyData[item] = null
+      }
     }
   }
 }

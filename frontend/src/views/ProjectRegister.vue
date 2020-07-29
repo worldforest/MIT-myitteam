@@ -87,7 +87,7 @@
 			<div>
         <li class="itemLi" v-for="item in this.projectData.dataList" :key="item.id">
           <v-col class="mx-auto" cols="12" md="11">
-            <div color="#FAFAFA" class="mb-3 py-4 px-3">
+            <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
               <h3 class="mb-3">{{ item.part }}</h3>
               <hr class="mb-3">
 
@@ -117,7 +117,7 @@
 									<v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
 								</v-list-item-content>
 							</v-list-item>
-            </div>
+            </v-card>
           </v-col>
         </li>
       </div>
@@ -128,16 +128,20 @@
         </div>
       </v-col>
     </v-card>
+		<!-- {{ this.setData }} -->
+		<ProjectPartDetail :setData="setData"/>
   </v-card>
 </template>
 
 <script>
 import ProjectInput from '@/components/ProjectInput'
+import ProjectPartDetail from '@/components/ProjectPartDetail'
 
 export default {
 	name: "ProjectRegister",
 	components: {
 		ProjectInput,
+		ProjectPartDetail,
 	},
 	data() {
 		return{
@@ -150,16 +154,37 @@ export default {
 				region: null,
 				introduce: null,
 				dataList: [],
-			}
+			},
+			setData: {
+				title: null,
+				project_introduce: null,
+				startdate: null,
+				enddate: null,
+				region: null,
+				introduce: null,
+				dataList: [],
+			}	
 		}
 	},
 	methods: {
 		addProject(Data){
 			this.projectData.dataList = [...this.projectData.dataList, Data]
 		},
-		apply(){
-			console.log(this.projectData)
-			this.$emit('submit-project-data', this.projectData)
+		apply(Data){
+			console.log(Data)
+			this.setData.title = this.projectData.title,
+			this.setData.project_introduce = this.projectData.project_introduce,
+			this.setData.startdate = this.projectData.startdate,
+			this.setData.enddata = this.projectData.enddate, 
+			this.setData.region = this.projectData.region,
+			this.setData.introduce = this.projectData.introduce,
+			this.setData.dataList = this.projectData.dataList
+
+			this.$emit('submit-project-data', this.setData)
+			console.log(this.setData)
+			for(var item in this.projectData){
+          this.projectData[item] = null
+      }
 		}
 	}
 }
@@ -169,4 +194,10 @@ export default {
 	.v-expansion-panels{
 		max-width: 500px;
 	}
+	.h1-apply {
+    color: rgb(92, 107, 192);
+  }
+  .itemLi{
+    list-style: none;
+  }
 </style>
