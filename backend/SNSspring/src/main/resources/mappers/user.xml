@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="join" parameterType="user">
-		insert into user values
+		insert into user(email, pwd, name, nickname, joindate, age, gender, major, address) values
 		(#{email}, #{pwd}, #{name}, #{nickname}, now(),
 		#{age}, #{gender},
 		#{major},#{address})

@@ -3,6 +3,7 @@ package com.mit.service;
 import java.util.List;
 
 import com.mit.dto.Feed;
+import com.mit.dto.User;
 
 public interface FeedService {
 	public List<Feed> selectAll();
@@ -12,4 +13,5 @@ public interface FeedService {
 	public boolean update(Feed feed);
 	public boolean delete(String no);
 	public String Latestfeed(String email);
+	public User selectPrivate(String email);
 }
