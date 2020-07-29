@@ -77,6 +77,7 @@ public class FeedController {
 	@ApiOperation(value = "피드 등록 ", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
 	@PostMapping("create")
 	public ResponseEntity<String> createFeed(@RequestParam("email") String email,
+			@RequestParam("category") String category,
 			@RequestParam("description") String description, @RequestParam("tags") String tags,
 			@RequestParam("file") MultipartFile file) {
 		// 시간과 originalFilename으로 매핑 시켜서 src 주소를 만들어 낸다.
@@ -85,18 +86,19 @@ public class FeedController {
 		Feed feed = new Feed();
 		feed.setEmail(email);
 		feed.setTag(tags);
+		feed.setCategory(category);
 		feed.setDescription(description);
 		Date date = new Date();
 		StringBuilder sb = new StringBuilder();
 
 		if (file.isEmpty()) {
 			// file image 가 없을 경우
-			sb.append("none");
+			sb.append("none.png");
 		} else {
 			sb.append(date.getTime());
 			sb.append(file.getOriginalFilename());
 		}
-		feed.setSrc("http://localhost:9999/mit/api/feed/image/" + sb.toString());
+		feed.setSrc(sb.toString());
 
 		if (feedService.insert(feed)) {
 			// 파일 업로드 끝
