@@ -37,7 +37,7 @@
         <v-btn depressed class="white--text" color="#5C6BC0" @click="checkNickname">중복 검사</v-btn>
         </v-col>
       </v-row>
-      <p v-if="usedNickName">사용중인 닉네임 입니다.</p>
+      <!-- <p v-if="usedNickName">사용중인 닉네임 입니다.</p> -->
     </div>
 
     <div>
@@ -101,7 +101,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 import axios from 'axios'
-const SERVER_URL = 'http://localhost:8000'
+const SERVER_URL = 'http://localhost:8080'
 
 export default {
   name: "Signup",
@@ -158,14 +158,17 @@ export default {
       })
     },
     checkNickname(){
-      axios.post("http://localhost:9999/mit/api/user/checkNickname",
-        this.signupData.nickname
-      ).then(res => {
+      console.log(this.signupData.nickname);
+      axios.get("http://localhost:9999/mit/api/user/checkNickname/"+this.signupData.nickname)
+      .then(data => {
         alert("사용 가능한 닉네임입니다.");
-        this.$router.push("/signup");
+        // this.$router.push("/signup");
+         console.log(this.signupData);
+        //  console.log(res);
       })
       .catch(error => {
         alert("사용중인 닉네임이 존재합니다.");
+        this.signupData.nickname="";
       })
     },
     getData(data) {
