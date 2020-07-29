@@ -12,11 +12,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{description},#{tag},#{src});
 	</insert>
 
-	<select id="Latestfeed" parameterType="String" resultType="String">
-		select no from feed where email = #{email} order by no limit 1;
-	</select>
+<!-- 	<select id="Latestfeed" parameterType="String" resultType="String"> -->
+<!-- 		select no from feed where email = #{email} order by no limit 1; -->
+<!-- 	</select> -->
 	
-	<select id="selectPrivate" parameterMap="String" resultType="user">
+<!-- 	<select id="selectPrivate" parameterMap="String" resultType="user"> -->
 		
-	</select>
+<!-- 	</select> -->
 </mapper>
