@@ -96,7 +96,7 @@ public class FeedController {
 			sb.append(date.getTime());
 			sb.append(file.getOriginalFilename());
 		}
-		feed.setSrc("http://localhost:9999/mit/feed/image/" + sb.toString());
+		feed.setSrc("http://localhost:9999/mit/api/feed/image/" + sb.toString());
 
 		if (feedService.insert(feed)) {
 			// 파일 업로드 끝
@@ -132,6 +132,7 @@ public class FeedController {
 	@ApiOperation(value = "feed image 조회 ", notes = "feed Ima	ge를 반환합니다. 못찾은경우 기본 image를 반환합니다.")
 	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<byte[]> userSearch(@PathVariable("imagename") String imagename) throws IOException {
+		System.out.println("test");
 		InputStream imageStream = new FileInputStream("C://images/feed/" + imagename);
 		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
 		imageStream.close();
@@ -150,10 +151,10 @@ public class FeedController {
 		User user = userService.selectPrivate(email);
 		privateFeedDto.setNickname(user.getNickname());
 		privateFeedDto.setDescription(user.getDescription());
-		privateFeedDto.setSrc("http://localhost:9999/mit/user/image/"+user.getSrc());
+		privateFeedDto.setSrc("http://localhost:9999/mit/api/user/image/"+user.getSrc());
 		List<Feed> feeds = feedService.selectEmail(email);
 		for (int i=0;i<feeds.size();i++) {
-			feeds.get(i).setSrc("http://localhost:9999/mit/feed/image/" + feeds.get(i).getSrc());
+			feeds.get(i).setSrc("http://localhost:9999/mit/api/feed/image/" + feeds.get(i).getSrc());
 		}
 		privateFeedDto.setFeeds(feeds);
 		privateFeedDto.setNickname(userService.selectNickname(email));
