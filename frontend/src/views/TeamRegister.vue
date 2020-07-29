@@ -40,7 +40,7 @@
 									<v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
 								</v-list-item-content>
 							</v-list-item>
-
+              
               <v-list-item>
 								<v-list-item-content>
 									<h4 class="mb-2">담당 업무</h4>

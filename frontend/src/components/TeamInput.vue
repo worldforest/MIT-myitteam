@@ -21,28 +21,31 @@
         </v-col>
       </v-row>
 
+      <h3 class="ml-4">담당 업무 : </h3>
       <v-col cols="12" md="11" class="mx-auto">
-      <v-textarea
-        outlined
-        label="담당 업무"
-        v-model="applyData.task"
-      ></v-textarea>
+        <v-textarea
+          outlined
+          label="담당 업무"
+          v-model="applyData.task"
+        ></v-textarea>
       </v-col>
 
+      <h3 class="ml-4">필수 역량 : </h3>
       <v-col cols="12" md="11" class="mx-auto">
-      <v-textarea
-        outlined
-        label="필수 역량"
-        v-model="applyData.ability"
-      ></v-textarea>
+        <v-textarea
+          outlined
+          label="필수 역량"
+          v-model="applyData.ability"
+        ></v-textarea>
       </v-col>
 
+      <h3 class="ml-4">우대 사항 : </h3>
       <v-col cols="12" md="11" class="mx-auto">
-      <v-textarea
-        outlined
-        label="우대 사항"
-        v-model="applyData.advantage"
-      ></v-textarea>
+        <v-textarea
+          outlined
+          label="우대 사항"
+          v-model="applyData.advantage"
+        ></v-textarea>
       </v-col>
 
       <div color="transparent" class="mb-3 mr-8 d-flex justify-end">

@@ -14,6 +14,7 @@
         </v-col>
       </div>
 
+			<h3 class="ml-4">프로젝트 소개 : </h3>
 			<v-col cols="12" md="11" class="mx-auto">
 				<v-textarea
 					outlined

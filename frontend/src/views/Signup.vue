@@ -4,34 +4,39 @@
     <h2 class="text-center mb-5 h1-signup">회원가입해서 팀원을 만나보세요 :)</h2>
 
     <div>
+      <h3 class="ml-4">아이디 : </h3>
       <v-col md="11" class="mx-auto">
         <v-text-field :rules="emailRules" v-model="signupData.email" label="아이디" outlined id="email"></v-text-field>
       </v-col>
     </div>
 
     <div>
+      <h3 class="ml-4">비밀번호 : </h3>
       <v-col md="11" class="mx-auto">
         <v-text-field :rules="[rules.required, rules.min]" v-model="signupData.pwd" label="비밀번호" outlined id="pwd" type="password"></v-text-field>
       </v-col>
     </div>
 
     <div>
+      <h3 class="ml-4">비밀번호 확인 : </h3>
       <v-col md="11" class="mx-auto">
-        <v-text-field :rules="[rules.pwdcheck]" v-model="signupData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
+        <v-text-field :rules="[rules.pwdcheck, rules.required]" v-model="signupData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
       </v-col>
     </div>
 
     <div>
+      <h3 class="ml-4">이름 : </h3>
       <v-col md="11" class="mx-auto">
         <v-text-field 
           v-model="signupData.name" label="이름" outlined id="name"></v-text-field>
       </v-col>
     </div>
 
+    <h3 class="ml-4">닉네임 : </h3>
     <div class="mx-7">
       <v-row class="mx-auto">
         <v-col md="10" class="mx-auto">
-        <v-text-field v-model="signupData.nickname" label="닉네임" outlined id="nickname"></v-text-field>
+        <v-text-field :rules="[rules.required]" v-model="signupData.nickname" label="닉네임" outlined id="nickname"></v-text-field>
         </v-col>
         <v-col md="2" class="mx-auto">
         <v-btn depressed class="white--text" color="#5C6BC0" @click="checkNickname">중복 검사</v-btn>
@@ -40,12 +45,14 @@
     </div>
 
     <div>
+      <h3 class="ml-4">나이 : </h3>
       <v-col md="11" class="mx-auto">
         <v-text-field :rules="ageRules" v-model="signupData.age" label="나이" outlined id="age"></v-text-field>
       </v-col>
     </div>
 
     <div>
+      <h3 class="ml-4">성별 : </h3>
       <v-col class="d-flex mx-auto" cols="12" sm="6" md="11">
         <v-select
           :items="selectGender"
@@ -56,13 +63,15 @@
       </v-col>
     </div>
 
-    <span>
+    <div>
+      <h3 class="ml-4">전공 : </h3>
       <v-col md="11" class="mx-auto">
         <v-text-field v-model="signupData.major" label="전공" outlined id="major"></v-text-field>
       </v-col>
-    </span>
+    </div>
 
     <div>
+      <h3 class="ml-4">주소 : </h3>
       <v-row class="mx-auto">
         <v-col md="11" class="mx-auto" >
           <div class="text-center">
@@ -125,7 +134,7 @@ export default {
         pwdcheck: v => v == this.signupData.pwd || '비밀번호가 일치하지 않습니다',
       },
       emailRules: [
-        v => !!v || "이메일은 필수 값 입니다.",
+        v => !!v || "아이디는 필수 값 입니다.",
         v =>
           /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || "이메일 형식으로 작성해주세요."
       ],

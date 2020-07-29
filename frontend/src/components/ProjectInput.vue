@@ -21,6 +21,7 @@
         </v-col>
       </v-row>
 
+      <h3 class="ml-4">담당 업무 : </h3>
       <v-col cols="12" md="11" class="mx-auto">
       <v-textarea
         outlined
@@ -29,6 +30,7 @@
       ></v-textarea>
       </v-col>
 
+      <h3 class="ml-4">필수 역량 : </h3>
       <v-col cols="12" md="11" class="mx-auto">
       <v-textarea
         outlined
@@ -37,6 +39,7 @@
       ></v-textarea>
       </v-col>
 
+      <h3 class="ml-4">우대 사항 : </h3>
       <v-col cols="12" md="11" class="mx-auto">
       <v-textarea
         outlined
