@@ -24,37 +24,55 @@
 
 			<div class="mb-3">
 				<h3 class="ml-4">프로젝트 기간 : </h3>
-				<v-row>
-					<v-col class="d-flex mx-auto" cols="5">
-							<v-expansion-panels class="v-expansion-panels">
-								<v-expansion-panel>
-									<v-expansion-panel-header>
-										<v-text-field label="프로젝트 시작"
-											outlined
-											v-model="projectData.startdate"></v-text-field></v-expansion-panel-header>
-									<v-expansion-panel-content>
-										<v-flex >
-											<v-date-picker v-model="projectData.startdate" color="green lighten-1"></v-date-picker>
-										</v-flex>
-									</v-expansion-panel-content>	
-								</v-expansion-panel>
-							</v-expansion-panels>
+				<v-row class="mx-auto">
+					<v-col class="d-flex mx-auto" cols="4">
+						<template>
+							<div class="text-center">
+								<v-menu offset-y>
+									<template v-slot:activator="{ on, attrs }">
+										<v-btn
+											text
+											v-bind="attrs"
+											v-on="on"
+											height="80px"
+										>
+											<v-text-field label="프로젝트 시작"
+													outlined
+													v-model="projectData.startdate"></v-text-field>
+										</v-btn>
+									</template>
+								
+									<v-flex>
+										<v-date-picker v-model="projectData.startdate" color="green lighten-1"></v-date-picker>
+									</v-flex>
+								</v-menu>
+							</div>
+						</template>
 					</v-col>
 
-					<v-col class="d-flex mx-auto" cols="5">
-							<v-expansion-panels class="v-expansion-panels">
-								<v-expansion-panel>
-									<v-expansion-panel-header>
-										<v-text-field label="프로젝트 종료"
-											outlined
-											v-model="projectData.enddate"></v-text-field></v-expansion-panel-header>
-									<v-expansion-panel-content>
+					<v-col class="d-flex mx-auto" cols="4">
+						<template>
+							<div class="text-center">
+								<v-menu offset-y>
+									<template v-slot:activator="{ on, attrs }">
+										<v-btn
+											text
+											v-bind="attrs"
+											v-on="on"
+											height="80px"
+										>
+											<v-text-field label="프로젝트 종료"
+													outlined
+													v-model="projectData.enddate"></v-text-field>
+										</v-btn>
+									</template>
+									
 										<v-flex>
-											<v-date-picker v-model="projectData.enddate" color="green lighten-1" header-color="primary"></v-date-picker>
+											<v-date-picker v-model="projectData.enddate" color="green lighten-1"></v-date-picker>
 										</v-flex>
-									</v-expansion-panel-content>	
-								</v-expansion-panel>
-							</v-expansion-panels>
+								</v-menu>
+							</div>
+						</template>
 					</v-col>
 				</v-row>
 
@@ -128,8 +146,8 @@
         </div>
       </v-col>
     </v-card>
-		<!-- {{ this.setData }} -->
-		<ProjectPartDetail :setData="setData"/>
+		<!-- {{ this.pojectSetData }} -->
+		<ProjectPartDetail v-if="show" :pojectSetData="pojectSetData"/>
   </v-card>
 </template>
 
@@ -147,43 +165,47 @@ export default {
 		return{
 			selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
 			projectData: {
-				title: null,
-				project_introduce: null,
-				startdate: null,
-				enddate: null,
-				region: null,
-				introduce: null,
+				id: Date.now(),
+				title: '',
+				project_introduce: '',
+				startdate: '',
+				enddate: '',
+				region:'',
+				introduce: '',
 				dataList: [],
 			},
-			setData: {
-				title: null,
-				project_introduce: null,
-				startdate: null,
-				enddate: null,
-				region: null,
-				introduce: null,
+			pojectSetData: {
+				id: Date.now(),
+				title: '',
+				project_introduce: '',
+				startdate: '',
+				enddate: '',
+				region: '',
+				introduce: '',
 				dataList: [],
-			}	
+			},
+			show: false,	
 		}
 	},
 	methods: {
 		addProject(Data){
 			this.projectData.dataList = [...this.projectData.dataList, Data]
 		},
-		apply(Data){
-			console.log(Data)
-			this.setData.title = this.projectData.title,
-			this.setData.project_introduce = this.projectData.project_introduce,
-			this.setData.startdate = this.projectData.startdate,
-			this.setData.enddata = this.projectData.enddate, 
-			this.setData.region = this.projectData.region,
-			this.setData.introduce = this.projectData.introduce,
-			this.setData.dataList = this.projectData.dataList
+		apply(){
+			this.pojectSetData.title = this.projectData.title,
+			this.pojectSetData.project_introduce = this.projectData.project_introduce,
+			this.pojectSetData.startdate = this.projectData.startdate,
+			this.pojectSetData.enddata = this.projectData.enddate, 
+			this.pojectSetData.region = this.projectData.region,
+			this.pojectSetData.introduce = this.projectData.introduce,
+			this.pojectSetData.dataList = this.projectData.dataList
+			this.show = true
 
-			this.$emit('submit-project-data', this.setData)
-			console.log(this.setData)
+			this.$emit('submit-project-data', this.pojectSetData)
+			console.log(this.pojectSetData)
+
 			for(var item in this.projectData){
-          this.projectData[item] = null
+        this.projectData[item] = null
       }
 		}
 	}

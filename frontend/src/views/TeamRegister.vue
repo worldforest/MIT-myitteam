@@ -73,7 +73,7 @@
       </v-col>
     </v-card>
 
-    <PartDetail :applyData="applyData"/>
+    <PartDetail v-if="show" :contestSetData="contestSetData"/>
   </v-card>
 </template>
 
@@ -91,10 +91,21 @@ export default {
     return{        
       selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
       applyData: {
-        region: null,
-        introduce: null,
+        region: '',
+        introduce: '',
         dataList: [],
       },
+      contestSetData: {
+				id: Date.now(),
+				title: '',
+				project_introduce: '',
+				startdate: '',
+				enddate: '',
+				region: '',
+				introduce: '',
+				dataList: [],
+      },
+      show: false,
     }
   },
   methods: {
@@ -102,13 +113,14 @@ export default {
       this.applyData.dataList = [...this.applyData.dataList, Data]
     },
     apply(){
-      const setData = {
-        region : this.applyData.region,
-        introduce : this.applyData.introduce,
-        dataList : this.applyData.dataList
-      }
-      this.$emit('submit-apply-data', setData)
-      console.log(setData)
+      
+      this.contestSetData.region = this.applyData.region,
+      this.contestSetData.introduce = this.applyData.introduce,
+      this.contestSetData.dataList = this.applyData.dataList
+      this.show = true 
+
+      this.$emit('submit-apply-data', this.contestSetData)
+      console.log(this.contestSetData)
 
       for(var item in this.applyData){
           this.applyData[item] = null

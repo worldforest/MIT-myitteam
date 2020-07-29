@@ -1,15 +1,20 @@
 <template>
   <v-card>
 		<div class="mx-auto my-2" max-width="800">
-			<v-btn depressed small color="primary" @click="buttonClick">백엔드</v-btn>
+			<v-btn depressed large class="mr-2" color="primary" @click="buttonClick">프론트엔드</v-btn>
+			<v-btn depressed large class="mr-2" color="primary" @click="buttonClick">백엔드</v-btn>
+			<v-btn depressed large class="mr-2" color="primary" @click="buttonClick">인공지능</v-btn>
+			<v-btn depressed large class="mr-2" color="primary" @click="buttonClick">빅데이터</v-btn>
+			<v-btn depressed large class="mr-2" color="primary" @click="buttonClick">블록체인</v-btn>
 			<p>{{ this.buttonvalue }}</p>
-			<p>{{ setData }}</p>
+			<p>{{ pojectSetData }}</p>
 		</div>
 
-		<div>
-			<li class="detailLi" v-for="item in setData.dataList" :key="item.id">
-				<v-card class="mx-auto py-5 px-5" max-width="800" v-id="item.part == '백엔드'">
-					<h2 class="mb-3">{{ item.part }}</h2>
+		<div>	
+			<li class="detailLi" v-for="item in pojectSetData.dataList" :key="item.id">
+				<v-card class="mx-auto py-5 px-5" max-width="800" v-if="item.part == buttonvalue">
+					<h1 class="mb-4 text-center">{{ pojectSetData.title }}</h1>
+					<h2 class="mb-2">{{ item.part }}</h2>
 					<hr class="mb-3">
 					<v-list-item>
 						<v-list-item-content>
@@ -82,12 +87,12 @@ export default {
 	name: 'ProjectPartDetail',
 	data(){
 		return{
-			buttonvalue: '하이',
+			buttonvalue: '인공지능',
 			dialog: false,
 		}
 	},
 	props: {
-		setData:{
+		pojectSetData:{
 			type: Array,
 			required: true,
 		}

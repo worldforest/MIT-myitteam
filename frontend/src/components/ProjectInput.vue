@@ -60,11 +60,11 @@ export default {
 			selectPeople: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 			projectData: {
 				id: Date.now(),
-				part: null,
-				headcount: null,
-				task: null,
-				ability: null,
-				advantage: null, 
+				part: '',
+				headcount: '',
+				task: '',
+				ability: '',
+				advantage: '', 
 			},
 		}
 	},
