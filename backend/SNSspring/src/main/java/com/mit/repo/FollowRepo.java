@@ -1,5 +1,5 @@
 package com.mit.repo;
 
 public interface FollowRepo {
-	public int followingCnt()
+	public int followingCnt();
 }
