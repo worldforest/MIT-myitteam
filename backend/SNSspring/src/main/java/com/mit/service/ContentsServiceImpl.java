@@ -16,5 +16,7 @@ public class ContentsServiceImpl implements ContentsService {
 	public boolean insert(Contents contents) {
 		return contentsRepo.insert(contents);
 	}
+	
+	
 
 }

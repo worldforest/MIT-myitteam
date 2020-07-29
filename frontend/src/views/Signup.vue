@@ -4,44 +4,50 @@
     <h2 class="text-center mb-5 h1-signup">회원가입해서 팀원을 만나보세요 :)</h2>
 
     <div>
-      <v-col md="11" >
+      <v-col md="11" class="mx-auto">
         <v-text-field :rules="emailRules" v-model="signupData.email" label="아이디" outlined id="email"></v-text-field>
       </v-col>
     </div>
 
     <div>
-      <v-col md="11">
+      <v-col md="11" class="mx-auto">
         <v-text-field :rules="[rules.required, rules.min]" v-model="signupData.pwd" label="비밀번호" outlined id="pwd" type="password"></v-text-field>
       </v-col>
     </div>
 
     <div>
-      <v-col md="11">
+      <v-col md="11" class="mx-auto">
         <v-text-field :rules="[rules.pwdcheck]" v-model="signupData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
       </v-col>
     </div>
 
     <div>
-      <v-col md="11">
-        <v-text-field v-model="signupData.name" label="이름" outlined id="name"></v-text-field>
+      <v-col md="11" class="mx-auto">
+        <v-text-field 
+          v-model="signupData.name" label="이름" outlined id="name"></v-text-field>
       </v-col>
     </div>
 
-    <div>
-      <v-col md="11">
+    <div class="mx-7">
+      <v-row class="mx-auto">
+        <v-col md="10" class="mx-auto">
         <v-text-field v-model="signupData.nickname" label="닉네임" outlined id="nickname"></v-text-field>
-        <v-btn depressed large class="white--text" color="#5C6BC0" @click="checkNickname">닉네임 중복 검사</v-btn>
+        </v-col>
+        <v-col md="2" class="mx-auto">
+        <v-btn depressed class="white--text" color="#5C6BC0" @click="checkNickname">중복 검사</v-btn>
+        </v-col>
+      </v-row>
+      <p v-if="usedNickName">사용중인 닉네임 입니다.</p>
+    </div>
+
+    <div>
+      <v-col md="11" class="mx-auto">
+        <v-text-field :rules="ageRules" v-model="signupData.age" label="나이" outlined id="age"></v-text-field>
       </v-col>
     </div>
 
     <div>
-      <v-col md="11">
-        <v-text-field v-model="signupData.age" label="나이" outlined id="age"></v-text-field>
-      </v-col>
-    </div>
-
-    <div>
-      <v-col class="d-flex" cols="12" sm="6" md="11">
+      <v-col class="d-flex mx-auto" cols="12" sm="6" md="11">
         <v-select
           :items="selectGender"
           label="성별"
@@ -52,39 +58,35 @@
     </div>
 
     <span>
-      <v-col md="11">
+      <v-col md="11" class="mx-auto">
         <v-text-field v-model="signupData.major" label="전공" outlined id="major"></v-text-field>
       </v-col>
     </span>
 
-    <span>
-      <v-col md="10">
-        <v-text-field class="d-inline" v-model="signupData.address" label="주소" outlined id="major"></v-text-field>
-          <div class="text-center d-inline">
+    <div>
+      <v-row class="mx-auto">
+        <v-col md="11" class="mx-auto" >
+          <div class="text-center">
             <v-dialog
               v-model="dialog"
-              width="500"
+              width="500" 
             >
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon
-              color="#5C6BC0"
-              dark
+              <v-text-field 
               v-bind="attrs"
               v-on="on"
-              class="d-inline"
-              >
-              <v-icon large color="#5C6BC0">mdi-magnify</v-icon>
-              </v-btn>
+              v-model="signupData.address" label="주소" outlined id="address"></v-text-field>
             </template>
 
             <v-card class="py-5">
               <vue-daum-postcode@complete="getData" />
               <v-divider></v-divider>
             </v-card>
-          </v-dialog>
-        </div>
-      </v-col>
-    </span>
+            </v-dialog>
+          </div>
+        </v-col>
+      </v-row>
+    </div>
 
     <v-col class="text-center mx-auto">
       <div class="my-2">
@@ -106,28 +108,31 @@ export default {
   data() {
     return {
       signupData: {
-        email: null,
-        pwd: null,
-        pwd2: null,
-        name: null,
-        nickname: null,
-        age: null,
-        gender: null,
-        major: null,
-        address: null,
+        email: "",
+        pwd: "",
+        pwd2: "",
+        name: "",
+        nickname: "",
+        age: "",
+        gender: "",
+        major: "",
+        address: "",
       },
       dialog: false,
       selectGender: ['남', '여'],
       rules: {
-        required: value => !!value || 'Required.',
-        min: v => v.length >= 4 || 'Min 8 characters' ,
+        required: value => !!value || '필수 값 입니다.',
+        min: v => v.length >= 4 || '비밀번호는 최소 8자리 이상 적어주세요.' ,
         emailMatch: () => ('The email and password you entered don\'t match'),
         pwdcheck: v => v == this.signupData.pwd || '비밀번호가 일치하지 않습니다',
       },
       emailRules: [
-        v => !!v || "E-mail is required",
+        v => !!v || "이메일은 필수 값 입니다.",
         v =>
-          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || "E-mail must be valid"
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || "이메일 형식으로 작성해주세요."
+      ],
+      ageRules: [
+        v => /^[0-9]+$/.test(v) || "숫자만 작성해주세요."
       ],
     }
   },
@@ -135,15 +140,44 @@ export default {
     signup() {
       console.log(this.signupData);
       this.$emit('submit-singup-data', this.signupData)
+
+      axios.post("http://localhost:9999/mit/api/user/join",{
+        email: this.signupData.email,
+        pwd: this.signupData.pwd,
+        name: this.signupData.name,
+        nickname: this.signupData.nickname,
+        age: this.signupData.age,
+        gender: this.signupData.gender,
+        major: this.signupData.major,
+        address: this.signupData.address,
+      }).then(res => {
+        this.$router.push("/");
+      })
+      .catch(error => {
+        alert("사용중인 아이디가 존재합니다.");
+      })
+    },
+    checkNickname(){
+      axios.post('http://localhost:9999/mit/api/user/checkNickname',{
+        nickname: this.signupData.nickname,
+      }).then(res => {
+        alert("사용중인 닉네임이 존재합니다.");
+      })
+      .catch(error => {
+        this.$router.push("/signup");
+        alert("사용 가능한 닉네임입니다.");
+      })
     },
     getData(data) {
       // 클릭한 데이터를 address에 저장
       this.signupData.address = data.address;
       this.dialog = false;
     },
-    checkNickname(){
-
-    },
+    isNumber(event){
+      if(event.keyCode < 48 || event.keyCode > 57){
+        event.returnValue = false;
+      }
+    }
   }
 }
 </script>

@@ -52,6 +52,7 @@ public class UserController {
 	@ApiOperation(value = "회원 가입 ", notes="성공시 200, 실패시 에러를 반환합니다.")
 	@PostMapping("join")
 	public ResponseEntity<String> Join(@RequestBody User user) {
+		System.out.println(user.getEmail());
 
 		if (userService.join(user)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);

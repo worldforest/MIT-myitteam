@@ -1,0 +1,24 @@
+@startuml test
+' scale 2
+' left to right direction
+' skinparam PackageStyle rect
+' actor customer
+' actor "another customer" as au
+' actor clerk
+' rectangle checkout {
+    '     customer -- (checkout)
+    '     au -- (checkout)
+    '     (checkout) .> (payment): include
+    '     (help).>(checkout): extand
+    '     (checkout)--clerk
+    '
+}
+' Aly+shift_F 자동정렬
+title TitleTest
+customer -> login : login 요청
+newpage
+customer -> login : 토큰 제공
+newpage A title for ths\nlast
+page
+customer -> login : 썸띵
+@enduml
