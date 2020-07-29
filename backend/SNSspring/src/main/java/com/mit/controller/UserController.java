@@ -92,14 +92,16 @@ public class UserController {
 	}
 
 	@ApiOperation(value = "checkNickname", notes = "nickname이 DB에 존재하는지 확인 / 닉네임이 존재하면 실패(FAIL) 존재하지 않으면 (SUCCES)")
-	@PostMapping("checkNickname")
-	public ResponseEntity<String> checkNickname(@RequestParam("nickname") String nickname) {
+	@GetMapping("checkNickname/{nickname}")
+	public ResponseEntity<String> checkNickname(@PathVariable("nickname") String nickname) {
+		System.out.println(nickname);
 		int result = userService.nicknameCheck(nickname);
 		if (result == 1) {// 있으면
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+		} else {
+			// 있지 않으면, 사용할 수 있어
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
-		// 있지 않으면, 사용할 수 있어
-		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
 	// userSrc 이미지 정보를 반환합니다

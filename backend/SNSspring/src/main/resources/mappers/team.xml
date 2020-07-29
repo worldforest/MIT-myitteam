@@ -10,9 +10,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into
 		team(leaderemail, title, local, description)
 		values(#{leaderemail},#{title},#{local},#{description});
-		insert ingo
-		teaminfo(part, task, ability)
-		values(#{)
 	</insert>
 
 </mapper>
