@@ -159,11 +159,12 @@ export default {
       axios.post('http://localhost:9999/mit/api/user/checkNickname',{
         nickname: this.signupData.nickname,
       }).then(res => {
+        this.$router.push("/signup");
+        alert("사용 가능한 닉네임입니다.");
         alert("사용중인 닉네임이 존재합니다.");
       })
       .catch(error => {
-        this.$router.push("/signup");
-        alert("사용 가능한 닉네임입니다.");
+        alert("사용중인 닉네임이 존재합니다.");
       })
     },
     getData(data) {
