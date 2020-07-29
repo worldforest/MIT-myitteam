@@ -25,7 +25,7 @@ public class ContentsServiceImpl implements ContentsService {
 	}
 
 	@Override
-	public Contents selectOne(String no) {
+	public Contents selectOne(int no) {
 		return contentsRepo.selectOne(no);
 	}
 

@@ -7,7 +7,7 @@ import com.mit.dto.Contents;
 public interface ContentsRepo {
 	public boolean insert(Contents contents);
 	public List<Contents> selectAll();
-	public Contents selectOne(String no);
+	public Contents selectOne(int no);
 	public boolean update(Contents contents);
 	public boolean delete(Contents contents);
 }

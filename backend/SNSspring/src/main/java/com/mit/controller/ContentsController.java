@@ -53,11 +53,18 @@ public class ContentsController {
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "공모전 조회 ", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
+	@ApiOperation(value = "모든 공모전 조회 ", notes = "JSON 형태로 공모전(category=0) 반환\n ")
 	@GetMapping("readAll/contest")
-	public List<Contents> readContests() {
+	public List<Contents> readAllContests() {
 		List<Contents> contestAll = contentsService.selectAll();
 		return contestAll;
 	}
+	
+	@ApiOperation(value = "공모전 상세정보 조회", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
+	@GetMapping("readOne/contest")
+	public Contents readOneContests(int no) {
+		return contentsService.selectOne(no);
+	}
+	
 
 }
