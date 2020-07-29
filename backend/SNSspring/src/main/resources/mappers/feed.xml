@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select no from feed where email = #{email} order by no limit 1;
 	</select>
 	
-	<select id="selectPrivate" parameterMap="String" resultType="user">
-		
+	<select id="selectEmail" parameterType="String" resultType="feed">
+		select * from feed where email = #{email}
 	</select>
 </mapper>

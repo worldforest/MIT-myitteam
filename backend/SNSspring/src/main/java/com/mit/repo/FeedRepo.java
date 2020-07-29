@@ -7,7 +7,7 @@ import com.mit.dto.Feed;
 import com.mit.dto.User;
 public interface FeedRepo {
 	public List<Feed> selectAll();
-	public List<Feed> selectNikckname(String nickname);
+	public List<Feed> selectEmail(String email);
 	public Feed selectOne(String no);
 	public boolean insert(Feed feed);
 	public boolean update(Feed feed);

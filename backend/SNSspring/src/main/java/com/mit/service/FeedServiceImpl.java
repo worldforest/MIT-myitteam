@@ -22,9 +22,9 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	@Override
-	public List<Feed> selectNikckname(String nickname) {
+	public List<Feed> selectEmail(String email) {
 		// TODO Auto-generated method stub
-		return feedRepo.selectNikckname(nickname);
+		return feedRepo.selectEmail(email);
 	}
 
 	@Override

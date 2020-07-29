@@ -1,6 +1,6 @@
-package com.mit.repo;
+package com.mit.service;
 
-public interface FollowRepo {
+public interface FollowService {
 	public int followingCnt(String follower);
 	public int followerCnt(String following);
 }
