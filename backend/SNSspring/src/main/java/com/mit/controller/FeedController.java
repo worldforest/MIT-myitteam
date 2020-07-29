@@ -150,7 +150,7 @@ public class FeedController {
 		User user = userService.selectPrivate(email);
 		privateFeedDto.setNickname(user.getNickname());
 		privateFeedDto.setDescription(user.getDescription());
-		privateFeedDto.setSrc(user.getSrc());
+		privateFeedDto.setSrc("http://localhost:9999/mit/user/image/"+user.getSrc());
 		List<Feed> feeds = feedService.selectEmail(email);
 		for (int i=0;i<feeds.size();i++) {
 			feeds.get(i).setSrc("http://localhost:9999/mit/feed/image/" + feeds.get(i).getSrc());
