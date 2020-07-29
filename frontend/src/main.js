@@ -6,7 +6,6 @@ import VueCookies from 'vue-cookies'
 import vuetify from './plugins/vuetify';
 import BootstrapVue from 'bootstrap-vue'
 import VueDaumPostcode from "vue-daum-postcode"
-import BootstrapVue from 'bootstrap-vue'
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
