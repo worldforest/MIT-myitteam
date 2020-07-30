@@ -70,14 +70,6 @@ export default {
         .catch(error=> {
             console.log(error)
         })
-        // axios.get(`${SERVER_URL}/api/feed`, {
-        //     params : {
-        //         email : context.state.email
-        //     }
-        // })
-        // .then(response => {
-        //     console.log(response)
-        // })
     },
     postEmailToken(context) {
         axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
