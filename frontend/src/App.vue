@@ -36,19 +36,24 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 
 export default {
   name: 'App',
   components: {
   },
   methods: {
-    ...mapActions(['logout'])
+    ...mapActions(['logout', 'profile', 'postEmailToken']),
   },
   computed: {
-    ...mapState(['nickname']),
-    ...mapGetters(['isLoggedIn'])
+    ...mapState(['email']),
+    ...mapGetters(['isLoggedIn', 'isEmail'])
   },
+  mounted() {
+    if (this.$cookies.isKey('auth-token')) {
+      this.postEmailToken()
+      }}
+  
 };
 </script>
 
