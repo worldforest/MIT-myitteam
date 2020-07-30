@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
@@ -25,6 +25,7 @@ export default {
     ...mapActions(['logout'])
   },
   computed: {
+    ...mapState(['nickname']),
     ...mapGetters(['isLoggedIn'])
   },
 };
