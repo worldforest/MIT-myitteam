@@ -101,7 +101,6 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 import axios from 'axios'
-const SERVER_URL = 'http://localhost:8000'
 import { mapActions } from 'vuex'
 
 export default {
