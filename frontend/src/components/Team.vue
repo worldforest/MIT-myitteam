@@ -16,6 +16,15 @@
               <img :src="i.imgUrl" alt="" style="width:100px; height:150px;">
             </div>
           </div>
+          <div class="mx-auto my-2" max-width="800">
+            <v-btn depressed class="mr-2" color="primary" @click="buttonClick">프론트엔드</v-btn>
+            <v-btn depressed class="mr-2" color="primary" @click="buttonClick">백엔드</v-btn>
+            <v-btn depressed class="mr-2" color="primary" @click="buttonClick">인공지능</v-btn>
+            <v-btn depressed class="mr-2" color="primary" @click="buttonClick">빅데이터</v-btn>
+            <v-btn depressed class="mr-2" color="primary" @click="buttonClick">블록체인</v-btn>
+            <TeamRegister @teamData="teamData"/>
+            <p>{{ this.applyData }}</p>
+          </div>
         </div>        
       </v-col>
     </v-row>
@@ -24,15 +33,33 @@
 </template>
 
 <script>
+
 export default {
   name: 'Intro',
+  components: {
+    
+  },
   methods: {
     gotoTeam() {
-      this.$router.push('/')
+      this.$router.push('/teamregister')
+    },
+    buttonClick(event){
+			console.log(event.target.innerText)
+			this.buttonvalue = event.target.innerText
+		},
+		submitProfile(){
+			alert('팀장에게 참여의사를 전달하였습니다.');
+    },
+    teamData(Data){
+      console.log(Data)
+      this.applyData = Data
     }
   },
   data() {
     return {
+      applyData: '',
+      buttonvalue: '',
+			dialog: false,
       community: [
         {
           title: '게시글1',
@@ -48,7 +75,7 @@ export default {
         }
       ]
     }
-  }
+  }, 
 }
 </script>
 

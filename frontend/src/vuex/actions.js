@@ -37,16 +37,16 @@ export default {
             }
             dispatch("postToken", loginInfo)
         })
-          .catch(() => {
-            alert("사용중인 아이디가 존재합니다.");
-          })
+				.catch(() => {
+					alert("사용중인 아이디가 존재합니다.");
+				})
     },
     signup({dispatch}, signupData) {
         const signupInfo = {
             data: signupData
         }
         dispatch('postSignup', signupInfo)
-    },
+		},
     checkNickname(context, signupData) {
         if (!context.state.isLoggedIn) {
             const nick = {
