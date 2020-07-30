@@ -6,8 +6,10 @@ public interface UserRepo {
 	public User login(User user);
 
 	public boolean join(User user);
+	
+	public String findPwd(String email);
 
-	public int emailCheck(User user);
+	public int emailCheck(String email);
 
 	public int nicknameCheck(String nickname);
 
