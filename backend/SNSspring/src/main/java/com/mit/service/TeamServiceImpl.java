@@ -11,10 +11,11 @@ public class TeamServiceImpl implements TeamService {
 
 	@Autowired
 	private TeamRepo teamRepo;
-	
+
 	@Override
 	public boolean insert(Team team) {
 		return teamRepo.insert(team);
 	}
+
 
 }
