@@ -2,11 +2,11 @@ import axios from 'axios'
 import router from '@/router'
 import cookies from 'vue-cookies'
 
+const SERVER_URL = 'http://localhost:9999/mit'
 
 
 export default {
     postToken({commit}, info) {
-        const SERVER_URL = 'http://localhost:9999/mit'
         axios.post(`${SERVER_URL}/api/user/login/`, info.data)
         .then(response => {
             commit('SET_TOKEN', response.data)

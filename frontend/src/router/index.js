@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 import Signup from '@/views/Signup.vue'
 import Login from '@/views/Login.vue'
 import Profile from '@/views/Profile.vue'
-import GongmoDetail from '@/views/GongmoDetail'
+import GongmoDetail from '@/views/GongmoDetail.vue'
 import TeamRegister from '@/views/TeamRegister.vue'
 import ProjectRegister from '@/views/ProjectRegister.vue'
 

@@ -29,7 +29,7 @@
           ></v-text-field>
         </v-col>
       </v-row>
-          <v-btn width="100%" class="white--text" large color="#5C6BC0k" @click="login(loginData)">Login</v-btn>
+          <v-btn width="100%" class="white--text" large color="#5C6BC0" @click="login(loginData)">Login</v-btn>
     </v-container>
   </v-form>
 </template>
