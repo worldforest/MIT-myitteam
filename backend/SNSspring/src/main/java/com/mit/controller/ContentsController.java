@@ -62,7 +62,7 @@ public class ContentsController {
 	
 	@ApiOperation(value = "공모전 상세정보 조회", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
 	@GetMapping("readOne/contest")
-	public Contents readOneContests(int no) {
+	public Contents readOneContests(String no) {
 		return contentsService.selectOne(no);
 	}
 	

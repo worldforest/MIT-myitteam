@@ -1,7 +1,7 @@
 package com.mit.dto;
 
 public class Contents {
-	int no;
+	String no;
 	String email;
 	String nickname;
 	String title;
@@ -15,11 +15,11 @@ public class Contents {
 	String url;
 	int views;
 
-	public int getNo() {
+	public String getNo() {
 		return no;
 	}
 
-	public void setNo(int no) {
+	public void setNo(String no) {
 		this.no = no;
 	}
 

@@ -19,4 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from contents
 		where no = #{no};
 	</select>
+	<select id="LatestContents" parameterType="String" resultType="String">
+		select no from contents where email = #{email} order by no limit 1;
+	</select>
 </mapper>
