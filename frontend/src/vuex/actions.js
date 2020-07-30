@@ -76,5 +76,12 @@ export default {
         .then(res => {
             context.commit('POST_EMAIL', res)
         })
+    },
+    getContestData({commit}) {
+        axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
+          .then(res => {
+              commit('contestData', res.data)
+          })
     }
+
 }

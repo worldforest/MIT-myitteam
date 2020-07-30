@@ -46,6 +46,7 @@ export default {
   props: {
     club: Object,
   },
+
   components: {
     Intro,
     Team,
@@ -73,24 +74,6 @@ export default {
 </script>
 
 <style>
-  /* .button {
-    background-color: #ddd;
-    border: none;
-    color: black;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin: auto;
-    border-radius: 16px;
-  }
-
-  h1 {
-    display: inline-block;
-    margin: auto auto;
-    margin: auto;
-  } */
-
   .title-img {
     width: 80px;
     height: 114px;

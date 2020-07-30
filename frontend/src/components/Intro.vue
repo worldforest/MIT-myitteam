@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <h3>접수 기간</h3>
-    <div class="pill ma-2"><span >{{ club.dday }}</span></div>
-    <div class="ml-16 mt-2"><span >여기다 start end</span></div>
+    <div class="pill ma-2"><span >D-23</span></div>
+    <div class="ml-16 mt-2"><span >{{ club.start }} ~ {{ club.end }}</span></div>
     <h3 class="mt-10">주최</h3>
     <div class="ma-2"><span>{{ club.host }}</span></div>
     <h3 class="mt-10">총 시상금</h3>
@@ -63,6 +63,10 @@ export default {
     font-size: 14px;
     font-weight: bold;
     background-color: #a6a6a6;
+  }
+
+  .container {
+    /* max-width: 50%; */
   }
 
 </style>

@@ -4,10 +4,10 @@ import Home from '../views/Home.vue'
 import Signup from '@/views/Signup.vue'
 import Login from '@/views/Login.vue'
 import Profile from '@/views/Profile.vue'
-import GongmoDetail from '@/views/GongmoDetail.vue'
+import GongmoDetail from '@/views/GongmoDetail'
 import TeamRegister from '@/views/TeamRegister.vue'
 import ProjectRegister from '@/views/ProjectRegister.vue'
-import test from '@/views/test.vue'
+import FeedDetail from '@/views/FeedDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -17,6 +17,17 @@ Vue.use(VueRouter)
     name: 'Home',
     component: Home
   },
+  // {
+  //   component: Login,
+  //   beforeEnter(to, from, next) {
+  //     if (Vue.$cookies.isKey('token')) {
+  //       next('/')
+  //     }
+  //     else {
+  //       next()
+  //     }
+  //   }
+  // },
   {
     path: '/login',
     name: 'Login',
@@ -51,11 +62,6 @@ Vue.use(VueRouter)
     name: 'ProjectRegister',
     component: ProjectRegister
   },
-  {
-    path: '/test',
-    name: 'test',
-    component: test
-  },
   //////////다인////////////
   //////////지훈////////////
   {
@@ -64,6 +70,11 @@ Vue.use(VueRouter)
     component: GongmoDetail,
     props: true,
   },
+  {
+    path: '/feed_detail',
+    name: "FeedDetail",
+    component: FeedDetail,
+  }
   //////////지훈////////////
 ]
 

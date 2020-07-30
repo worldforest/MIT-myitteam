@@ -16,15 +16,6 @@
               <img :src="i.imgUrl" alt="" style="width:100px; height:150px;">
             </div>
           </div>
-          <div class="mx-auto my-2" max-width="800">
-            <v-btn depressed class="mr-2" color="primary" @click="buttonClick">프론트엔드</v-btn>
-            <v-btn depressed class="mr-2" color="primary" @click="buttonClick">백엔드</v-btn>
-            <v-btn depressed class="mr-2" color="primary" @click="buttonClick">인공지능</v-btn>
-            <v-btn depressed class="mr-2" color="primary" @click="buttonClick">빅데이터</v-btn>
-            <v-btn depressed class="mr-2" color="primary" @click="buttonClick">블록체인</v-btn>
-            <TeamRegister @teamData="teamData"/>
-            <p>{{ this.applyData }}</p>
-          </div>
         </div>        
       </v-col>
     </v-row>
@@ -59,7 +50,7 @@ export default {
     return {
       applyData: '',
       buttonvalue: '',
-			dialog: false,
+      dialog: false,
       community: [
         {
           title: '게시글1',
@@ -75,7 +66,9 @@ export default {
         }
       ]
     }
-  }, 
+  },
+  mounted() {
+  } 
 }
 </script>
 
