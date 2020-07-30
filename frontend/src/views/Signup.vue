@@ -100,7 +100,7 @@
 
         <v-col class="text-center mx-auto">
           <div class="my-2">
-            <v-btn depressed large class="white--text" color="#5C6BC0" @click="signup">가입하기</v-btn>
+            <v-btn depressed large class="white--text" color="#5C6BC0" @click="signup(signupData)">가입하기</v-btn>
           </div>
         </v-col>
         </v-card>

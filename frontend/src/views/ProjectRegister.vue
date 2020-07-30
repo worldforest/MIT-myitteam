@@ -21,7 +21,7 @@
 						<v-textarea
 							outlined
 							label="프로젝트 소개 "
-							v-model="projectData.project_introduce"
+							v-model="projectData.description"
 						></v-textarea>
 					</v-col>
 
@@ -87,20 +87,9 @@
 										:items="selectRegion"
 										label="지역 선택"
 										outlined
-										v-model="projectData.region"
+										v-model="projectData.local"
 									></v-select>
 								</v-col>
-						</div>
-
-						<div>
-							<h3 class="ml-4">팀 소개 : </h3>
-							<v-col class="mx-auto" cols="12" md="11">	
-								<v-text-field
-									label="팀 소개"
-									outlined
-									v-model="projectData.introduce"
-								></v-text-field>
-							</v-col>
 						</div>
 					</div>
 
@@ -172,23 +161,24 @@ export default {
 		return{
 			selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
 			projectData: {
+				// email => 팀장 이메일 
 				id: Date.now(),
+				leaderemail: '',
 				title: '',
-				project_introduce: '',
+				description: '',
 				startdate: '',
 				enddate: '',
-				region:'',
-				introduce: '',
+				local:'',
 				dataList: [],
 			},
 			pojectSetData: {
 				id: Date.now(),
+				leaderemail : '',
 				title: '',
-				project_introduce: '',
+				description: '',
 				startdate: '',
 				enddate: '',
-				region: '',
-				introduce: '',
+				local: '',
 				dataList: [],
 			},
 			show: false,	

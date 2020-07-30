@@ -46,7 +46,6 @@ export default {
   props: {
     club: Object,
   },
-
   components: {
     Intro,
     Team,

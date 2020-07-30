@@ -1,7 +1,9 @@
 <template>
   <v-card class="overflow-hidden">
     <div class="v-toolbar__content" style="height: 90px;">
-      <img id="logo" src="./images/1.jpg" alt="logo">
+      <a href="/">
+        <img id="logo" src="./images/1.jpg" alt="logo">
+      </a>
 
       <div class="spacer"></div>
       <!--로그인 안 된 상태-->

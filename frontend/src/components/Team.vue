@@ -16,6 +16,9 @@
               <img :src="i.imgUrl" alt="" style="width:100px; height:150px;">
             </div>
           </div>
+          <div> 
+            <PartDetail/>
+          </div>
         </div>        
       </v-col>
     </v-row>
@@ -24,12 +27,17 @@
 </template>
 
 <script>
+import PartDetail from '@/components/PartDetail'
+
 export default {
   name: 'Intro',
+  components: {
+    PartDetail
+  },
   methods: {
     gotoTeam() {
       this.$router.push('/')
-    }
+    }, 
   },
   data() {
     return {
@@ -48,7 +56,7 @@ export default {
         }
       ]
     }
-  }
+  }, 
 }
 </script>
 
