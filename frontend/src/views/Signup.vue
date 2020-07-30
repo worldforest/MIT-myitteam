@@ -137,7 +137,7 @@ export default {
     }
   },
   methods:{
-    ...mapActions(['signup']),
+    ...mapActions(['signup', 'checkNickname']),
     getData(data) {
       // 클릭한 데이터를 address에 저장
       this.signupData.address = data.address;
