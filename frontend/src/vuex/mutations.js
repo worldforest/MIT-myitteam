@@ -5,7 +5,14 @@ export default {
         state.authToken = token
         cookies.set('auth-token', token)
     },
-    SET_NICKNAME(state, nick) {
-        state.nickname = nick
+    GET_EMAIL(state, res) {
+        state.email = res.email
+    },
+    POST_EMAIL(state, res) {
+        state.email = res.data
+    },
+    INPUTDATA (state, res) {
+        state.profileData = res
+        console.log(state.profileData)
     }
 }

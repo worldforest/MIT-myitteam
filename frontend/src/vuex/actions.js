@@ -5,9 +5,6 @@ import cookies from 'vue-cookies'
 
 
 export default {
-    hi (){
-        console.log('hi')
-    },
     postToken({commit}, info) {
         const SERVER_URL = 'http://localhost:9999/mit'
         axios.post(`${SERVER_URL}/api/user/login/`, info.data)
@@ -65,4 +62,16 @@ export default {
     //         })
     //     }
     // }
+    profile(context) {
+        axios.get(`${SERVER_URL}/api/feed/${context.state.email}`)
+        .then(response => {
+            context.commit('INPUTDATA', response.data)
+        })
+    },
+    postEmailToken(context) {
+        axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
+        .then(res => {
+            context.commit('POST_EMAIL', res)
+        })
+    }
 }

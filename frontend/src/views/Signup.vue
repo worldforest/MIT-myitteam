@@ -139,18 +139,6 @@ export default {
   },
   methods:{
     ...mapActions(['signup']),
-    // ...mapActions(['checkNickname']),
-    // checkNickname(){
-    //   axios.post('http://localhost:9999/mit/api/user/checkNickname',{
-    //     nickname: this.signupData.nickname,
-    //   }).then(res => {
-    //     alert("사용중인 닉네임이 존재합니다.");
-    //   })
-    //   .catch(error => {
-    //     this.$router.push("/signup");
-    //     alert("사용 가능한 닉네임입니다.");
-    //   })
-    // },
     getData(data) {
       // 클릭한 데이터를 address에 저장
       this.signupData.address = data.address;

@@ -8,5 +8,8 @@ export default {
             state.isLoggedIn = false
             return state.isLoggedIn
         }
+    },
+    isEmail(state) {
+        return state.email
     }
 }

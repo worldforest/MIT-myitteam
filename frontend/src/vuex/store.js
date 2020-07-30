@@ -11,7 +11,7 @@ Vue.use(Vuex)
 const state = {
     authToken: cookies.get('auth-token'),
     isLoggedIn : false,
-    nickname : ""
+    profileData: []
 }
 
 export default new Vuex.Store({
