@@ -76,29 +76,35 @@
         </v-card>
       </div>
     </v-container>
+
   </v-card>
 </template>
 
 <script>
 import TeamInput from '@/components/TeamInput'
+// import PartDetail from '@/components/PartDetail'
+// import Team from '@/components/Team'
+
 import axios from 'axios'
 
 export default {
   name: 'TeamRegister',
   components: {
     TeamInput,
+    // PartDetail,
   },
   data() {
     return{        
       selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
       applyData: {
         // no => 공모전 넘버, email => 팀장 정보, 등록하는 사람 정보 
-        no : 3,
+        no : '1',
         leaderemail : 'dlekdls0213@naver.com',
         region: '',
         description: '',
         dataList: [],
       },
+      show: false,
     }
   },
   methods: {
@@ -107,6 +113,8 @@ export default {
     },
     apply(){
       console.log(this.applyData)
+      this.$emit('teamData', this.applyData)
+      console.log(this.applyData.no)
       
       axios.post('http://localhost:9999/mit/api/team/contestteam', {
         description: this.applyData.description,

@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-layout>
+  <!-- <v-container>
+    <v-layout> -->
       <v-card class="overflow-hidden">
         <div class="v-toolbar__content" style="height: 90px;">
           <a href="/">
@@ -31,8 +31,8 @@
           <router-view/>
         </v-app>
       </v-card>
-    </v-layout>
-  </v-container>
+    <!-- </v-layout>
+  </v-container> -->
 </template>
 
 <script>
@@ -53,13 +53,13 @@ export default {
 </script>
 
 <style scoped>
-  /* a { 
+  a { 
     text-decoration: none;
     color: rgb(92, 107, 192);
     margin-right: 2rem;
     font-size: 1.3rem;
     font-weight: bold;
-  } */
+  }
   a:hover{
     color: blue;
   }

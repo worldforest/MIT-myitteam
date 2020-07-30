@@ -7,9 +7,10 @@
 			<v-btn depressed class="mr-2" color="primary" @click="buttonClick">빅데이터</v-btn>
 			<v-btn depressed class="mr-2" color="primary" @click="buttonClick">블록체인</v-btn>
 			<p>{{ this.buttonvalue }}</p>
+			<p>{{ applyData }}</p>
 		</div>
 
-		<div>
+		<!-- <div>
 			<li class="detailLi" v-for="item in contestSetData.dataList" :key="item.id">
 				<v-card class="mx-auto py-5 px-5" max-width="800" v-if="item.part ==  buttonvalue">
 					<h2 class="mb-3">{{ item.part }}</h2>
@@ -76,7 +77,7 @@
 					</v-row>
 				</v-card>
 			</li>
-		</div>
+		</div> -->
 	</v-card>
 </template>
 
@@ -90,10 +91,7 @@ export default {
 		}
 	},
 	props: {
-		contestSetData:{
-			type: Array,
-			required: true,
-		}
+		applyData: Object,
 	},
 	methods: {
 		buttonClick(event){
