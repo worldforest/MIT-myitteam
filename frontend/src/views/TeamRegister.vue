@@ -127,7 +127,7 @@ export default {
       console.log(this.contestSetData)
 
       for(var item in this.applyData){
-          this.applyData[item] = null
+          this.applyData[item] = ''
       }
     }
   }

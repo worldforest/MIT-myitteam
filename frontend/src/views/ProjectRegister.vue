@@ -212,7 +212,7 @@ export default {
 			console.log(this.pojectSetData)
 
 			for(var item in this.projectData){
-        this.projectData[item] = null
+        this.projectData[item] = ''
       }
 		}
 	}
