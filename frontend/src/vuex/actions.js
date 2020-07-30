@@ -9,11 +9,11 @@ export default {
     postToken({commit}, info) {
         axios.post(`${SERVER_URL}/api/user/login/`, info.data)
         .then(response => {
-            commit('SET_TOKEN', response.data)
-            router.push({ name: "Home"})
+            commit('SET_TOKEN', response.data.token)
+            commit('GET_EMAIL', response.data.email)
+            router.go({ name: "Home"})
         })
         .catch(error => console.log(error.response.data))
-
     },
     login({dispatch}, loginData) {
         const info = {
@@ -23,10 +23,10 @@ export default {
     },
     logout() {
         cookies.remove('auth-token')
+        cookies.remove('auth-email')
         router.go({ name: "Home" })
     },
     postSignup({dispatch}, signupInfo) {
-        console.log(signupInfo)
         axios.post("http://localhost:9999/mit/api/user/join", signupInfo.data)
         .then(() => {
             const loginInfo = {
@@ -54,7 +54,6 @@ export default {
             }
             axios.get(`http://localhost:9999/mit/api/user/checkNickname/${nick.data}`)
             .then(() => {
-                console.log(nick.data)
                 alert('사용가능한 별명입니다')
             })
             .catch(() => {
@@ -68,6 +67,17 @@ export default {
         .then(response => {
             context.commit('INPUTDATA', response.data)
         })
+        .catch(error=> {
+            console.log(error)
+        })
+        // axios.get(`${SERVER_URL}/api/feed`, {
+        //     params : {
+        //         email : context.state.email
+        //     }
+        // })
+        // .then(response => {
+        //     console.log(response)
+        // })
     },
     postEmailToken(context) {
         axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
