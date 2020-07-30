@@ -7,7 +7,10 @@
         <router-link class="black--text" to="/">Home</router-link>
       </span>
       <span v-else>
-      <router-link id="tokenTrue" class="black--text" to="/logout" @click.native="logout">Logout</router-link>
+        {{ email }}
+        <router-link class="black--text" to="/">Home</router-link>
+        <router-link class="black--text mx-3" to="/profile" @click.native="profile">Profile</router-link>
+        <router-link id="tokenTrue" class="black--text" to="/" @click.native="logout">Logout</router-link>
       </span>
       <router-view />
     </v-container>
@@ -15,19 +18,24 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 
 export default {
   name: 'App',
   components: {
   },
   methods: {
-    ...mapActions(['logout'])
+    ...mapActions(['logout', 'profile', 'postEmailToken']),
   },
   computed: {
-    ...mapState(['nickname']),
-    ...mapGetters(['isLoggedIn'])
+    ...mapState(['email']),
+    ...mapGetters(['isLoggedIn', 'isEmail'])
   },
+  mounted() {
+    if (this.$cookies.isKey('auth-token')) {
+      this.postEmailToken()
+      }}
+  
 };
 </script>
 

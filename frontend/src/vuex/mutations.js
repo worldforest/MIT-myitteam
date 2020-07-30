@@ -10,9 +10,9 @@ export default {
     },
     POST_EMAIL(state, res) {
         state.email = res.data
+        cookies.set('auth-email', res.data)
     },
     INPUTDATA (state, res) {
         state.profileData = res
-        console.log(state.profileData)
     }
 }
