@@ -4,7 +4,7 @@ public class RegTeamInfo {
 	String headCount;
 	String task;
 	String part;
-	String ablity;
+	String ability;
 	String advantage;
 	public String getHeadCount() {
 		return headCount;
@@ -25,10 +25,10 @@ public class RegTeamInfo {
 		this.part = part;
 	}
 	public String getAblity() {
-		return ablity;
+		return ability;
 	}
 	public void setAblity(String ablity) {
-		this.ablity = ablity;
+		this.ability = ablity;
 	}
 	public String getAdvantage() {
 		return advantage;
@@ -38,7 +38,7 @@ public class RegTeamInfo {
 	}
 	@Override
 	public String toString() {
-		return "RegTeamInfo [headCount=" + headCount + ", task=" + task + ", part=" + part + ", ablity=" + ablity
+		return "RegTeamInfo [headCount=" + headCount + ", task=" + task + ", part=" + part + ", ablity=" + ability
 				+ ", advantage=" + advantage + "]";
 	}
 	
