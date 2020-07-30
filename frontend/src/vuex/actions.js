@@ -47,21 +47,22 @@ export default {
         }
         dispatch('postSignup', signupInfo)
     },
-    // checkNickname(state, signupData) {
-    //     if (!state.isLoggedIn) {
-    //         const nick = {
-    //             data: signupData.nickname
-    //         }
-    //         axios.post('http://localhost:9999/mit/api/user/checkNickname', nick.data)
-    //         .then(()=> {
-    //             console.log('얍')
-    //             alert("사용중인 니크네임이다")
-    //         })
-    //         .catch(() => {
-    //             // router.push({ name: "Signup" })
-    //         })
-    //     }
-    // }
+    checkNickname(context, signupData) {
+        if (!context.state.isLoggedIn) {
+            const nick = {
+                data: signupData.nickname
+            }
+            axios.get(`http://localhost:9999/mit/api/user/checkNickname/${nick.data}`)
+            .then(() => {
+                console.log(nick.data)
+                alert('사용가능한 별명입니다')
+            })
+            .catch(() => {
+                alert('사용중인 별명입니다.')
+                signupData.nickname= ''
+            })
+        }
+    },
     profile(context) {
         axios.get(`${SERVER_URL}/api/feed/${context.state.email}`)
         .then(response => {

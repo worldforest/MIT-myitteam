@@ -111,7 +111,7 @@
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
   name: "Signup",
@@ -147,38 +147,7 @@ export default {
     }
   },
   methods:{
-    signup() {
-      console.log(this.signupData);
-      this.$emit('submit-singup-data', this.signupData)
-
-      axios.post("http://localhost:9999/mit/api/user/join",{
-        email: this.signupData.email,
-        pwd: this.signupData.pwd,
-        name: this.signupData.name,
-        nickname: this.signupData.nickname,
-        age: this.signupData.age,
-        gender: this.signupData.gender,
-        major: this.signupData.major,
-        address: this.signupData.address,
-      }).then(res => {
-        this.$router.push("/");
-      })
-      .catch(error => {
-        alert("사용중인 아이디가 존재합니다.");
-      })
-    },
-    checkNickname(){
-      axios.post('http://localhost:9999/mit/api/user/checkNickname',{
-        nickname: this.signupData.nickname,
-      }).then(res => {
-        this.$router.push("/signup");
-        alert("사용 가능한 닉네임입니다.");
-        alert("사용중인 닉네임이 존재합니다.");
-      })
-      .catch(error => {
-        alert("사용중인 닉네임이 존재합니다.");
-      })
-    },
+    ...mapActions(['signup', 'checkNickname']),
     getData(data) {
       // 클릭한 데이터를 address에 저장
       this.signupData.address = data.address;
