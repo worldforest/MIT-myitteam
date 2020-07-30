@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="Latestfeed" parameterType="String" resultType="String">
-		select no from feed where email = #{email} order by no limit 1;
+		select no from feed where email = #{email} order by no desc limit 1;
 	</select>
 	
 	<select id="selectEmail" parameterType="String" resultType="feed">

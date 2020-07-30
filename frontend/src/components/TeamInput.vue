@@ -64,9 +64,8 @@
         selectArea: ['프론트엔드', '백엔드', '인공지능', '빅데이터', '블록체인'],
         selectPeople: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         applyData: {
-          id: Date.now(),
           part: '',
-          headcount: '',
+          headCount: '',
           task: '',
           ability: '',
           advantage: '', 
@@ -77,7 +76,6 @@
     methods: {
       setApplyData() {
         const setData = {
-          id : this.applyData.id,
           part: this.applyData.part,
           headcount: this.applyData.headcount,
           task: this.applyData.task,
@@ -85,6 +83,8 @@
           advantage: this.applyData.advantage, 
         }
 
+        console.log(setData)
+        
         if (this.applyData.task !== '' && this.applyData.ability !== '' && this.applyData.advantage !== ''){
           this.$emit('add-apply', setData)
 
