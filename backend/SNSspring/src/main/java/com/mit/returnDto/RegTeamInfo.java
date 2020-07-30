@@ -1,15 +1,15 @@
 package com.mit.returnDto;
 
 public class RegTeamInfo {
-	int headCount;
+	String headCount;
 	String task;
 	String part;
 	String ablity;
 	String advantage;
-	public int getHeadCount() {
+	public String getHeadCount() {
 		return headCount;
 	}
-	public void setHeadCount(int headCount) {
+	public void setHeadCount(String headCount) {
 		this.headCount = headCount;
 	}
 	public String getTask() {

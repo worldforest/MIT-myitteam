@@ -59,27 +59,43 @@ public class TeamController {
 		if (!contentsService.insert(contents))
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 
-		// 방금 등록한 contents 번호 얻어오기
+		Team team = new Team();
 		String no = contentsService.LatestContents(email);
+
+		team.setNo(no);
+		team.setLeaderemail(email);
+		team.setDescription(description);
+		// title은 sql 문에서 찾아온다.
+		team.setTitle(contentsService.selectOne(no).getTitle());
+		// DB에 team 등록
+		if (!teamService.insert(team))
+			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+
+		// 방금 등록한 contents 번호 얻어오기
+		System.out.println(no + "제발");
 		for (RegTeamInfo regTeamInfo : datalist) {
+			System.out.println("gogo");
 			Teaminfo teaminfo = new Teaminfo();
 			teaminfo.setNo(no);
-			teaminfo.setLeader(email);
+			teaminfo.setLeaderemail(email);
 			teaminfo.setAbility(regTeamInfo.getAblity());
 			teaminfo.setPart(regTeamInfo.getPart());
 			teaminfo.setTask(regTeamInfo.getTask());
+			teaminfo.setAdvantage(regTeamInfo.getAdvantage());
+			teaminfo.setHeadcount(regTeamInfo.getHeadCount());
+			System.out.println(teaminfo);
 			// DB 에 등록하기
 			if (!teaminfoService.insert(teaminfo))
 				return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "공모전 팀을 생성합니다. ", notes = "성공시 SUCESS를 반환합니다")
 	@PostMapping("contestteam")
 	public ResponseEntity<String> contestTeamCreate(@RequestParam("no") String no, @RequestParam("local") String local,
 			@RequestParam("description") String description, @RequestParam("email") String leaderemail,
-			@RequestBody List<RegTeamInfo> datalist) {
+			@RequestParam("headcount") String headcount, @RequestBody List<RegTeamInfo> datalist) {
 
 		Team team = new Team();
 
@@ -95,10 +111,12 @@ public class TeamController {
 		for (RegTeamInfo regTeamInfo : datalist) {
 			Teaminfo teaminfo = new Teaminfo();
 			teaminfo.setNo(no);
-			teaminfo.setLeader(leaderemail);
+			teaminfo.setLeaderemail(leaderemail);
 			teaminfo.setAbility(regTeamInfo.getAblity());
 			teaminfo.setPart(regTeamInfo.getPart());
 			teaminfo.setTask(regTeamInfo.getTask());
+			teaminfo.setAdvantage(regTeamInfo.getAdvantage());
+			teaminfo.setHeadcount(headcount);
 			// DB 에 등록하기
 			if (!teaminfoService.insert(teaminfo))
 				return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
