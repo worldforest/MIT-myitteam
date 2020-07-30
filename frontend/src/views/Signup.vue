@@ -37,7 +37,7 @@
         <v-btn depressed class="white--text" color="#5C6BC0" @click="checkNickname(signupData)">중복 검사</v-btn>
         </v-col>
       </v-row>
-      <p v-if="usedNickName">사용중인 닉네임 입니다.</p>
+      <!-- <p v-if="usedNickName">사용중인 닉네임 입니다.</p> -->
     </div>
 
     <div>

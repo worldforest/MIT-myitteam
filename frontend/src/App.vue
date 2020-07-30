@@ -1,14 +1,16 @@
 <template>
   <v-app>
-    <span v-if="!isLoggedIn">
-      <router-link class="black--text" to="/login">Login</router-link><br>
-      <router-link class="black--text" to="/signup">SIGNUP</router-link>
-    </span>
-    <span v-else>
-      {{ nickname }}
-      <router-link class="black--text" to="/" @click.native="logout">Logout</router-link>
-    </span>
-    <router-view />
+    <v-container>
+      <span v-if="!isLoggedIn">
+        <router-link class="black--text" to="/login">Login</router-link>
+        <router-link class="black--text" to="/signup">SIGNUP</router-link>
+        <router-link class="black--text" to="/">Home</router-link>
+      </span>
+      <span v-else>
+      <router-link id="tokenTrue" class="black--text" to="/logout" @click.native="logout">Logout</router-link>
+      </span>
+      <router-view />
+    </v-container>
   </v-app>
 </template>
 
