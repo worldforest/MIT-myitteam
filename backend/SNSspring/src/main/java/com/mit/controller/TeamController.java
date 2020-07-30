@@ -116,7 +116,7 @@ public class TeamController {
 			teaminfo.setPart(regTeamInfo.getPart());
 			teaminfo.setTask(regTeamInfo.getTask());
 			teaminfo.setAdvantage(regTeamInfo.getAdvantage());
-			teaminfo.setHeadcount(headcount);
+			teaminfo.setHeadcount(regTeamInfo.getHeadCount());
 			// DB 에 등록하기
 			if (!teaminfoService.insert(teaminfo))
 				return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
