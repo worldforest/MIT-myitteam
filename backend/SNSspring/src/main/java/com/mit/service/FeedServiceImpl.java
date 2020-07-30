@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mit.dto.Feed;
+import com.mit.dto.User;
 import com.mit.repo.FeedRepo;
 
 @Service
@@ -21,9 +22,9 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	@Override
-	public List<Feed> selectNikckname(String nickname) {
+	public List<Feed> selectEmail(String email) {
 		// TODO Auto-generated method stub
-		return feedRepo.selectNikckname(nickname);
+		return feedRepo.selectEmail(email);
 	}
 
 	@Override
@@ -54,6 +55,12 @@ public class FeedServiceImpl implements FeedService {
 	public String Latestfeed(String email) {
 		// TODO Auto-generated method stub
 		return feedRepo.Latestfeed(email);
+	}
+
+	@Override
+	public User selectPrivate(String email) {
+		// TODO Auto-generated method stub
+		return feedRepo.selectPrivate(email);
 	}
 
 }

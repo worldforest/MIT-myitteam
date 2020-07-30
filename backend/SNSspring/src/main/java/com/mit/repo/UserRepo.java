@@ -11,4 +11,10 @@ public interface UserRepo {
 
 	public int nicknameCheck(String nickname);
 
+	public String selectDescription(String email);
+
+	public String selectNickname(String email);
+
+	public User selectPrivate(String email);
+
 }

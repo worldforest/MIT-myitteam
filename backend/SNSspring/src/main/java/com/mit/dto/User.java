@@ -10,10 +10,24 @@ public class User {
 	String gender;
 	String major;
 	String address;
-//	String city;
-//	String gu;
-//	String dong;
-//	String details;
+	String description;
+	String src;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getSrc() {
+		return src;
+	}
+
+	public void setSrc(String src) {
+		this.src = src;
+	}
 
 	public String getEmail() {
 		return email;
@@ -87,36 +101,11 @@ public class User {
 		this.address = address;
 	}
 
-//	public String getCity() {
-//		return city;
-//	}
-//	public void setCity(String city) {
-//		this.city = city;
-//	}
-//	public String getGu() {
-//		return gu;
-//	}
-//	public void setGu(String gu) {
-//		this.gu = gu;
-//	}
-//	public String getDong() {
-//		return dong;
-//	}
-//	public void setDong(String dong) {
-//		this.dong = dong;
-//	}
-//	public String getDetails() {
-//		return details;
-//	}
-//	public void setDetails(String details) {
-//		this.details = details;
-//	}
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", pwd=" + pwd + ", name=" + name + ", nickname=" + nickname + ", joindate="
-				+ joindate + ", age=" + age + ", gender=" + gender + ", major=" + major + ","+
-//						+ "city=" + city + ", gu="
-//				+ gu + ", dong=" + dong + ", details=" + details + 
-				"address : " + address + "]";
+				+ joindate + ", age=" + age + ", gender=" + gender + ", major=" + major + ", address=" + address
+				+ ", src=" + src + "]";
 	}
+
 }

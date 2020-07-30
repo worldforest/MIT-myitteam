@@ -10,6 +10,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{email}, (select nickname from user where email=#{email}), #{title}, #{category}, #{description}, #{start}, #{end}, #{reward}, #{host}, #{imagesrc}, #{url}, #{views})
 	</insert>
 	
-	<select id="select" parameterType="contents" resultType="contents">
+	<select id="selectAll" parameterType="map" resultType="contents">
+		select no, email, nickname, title, category, description, start, end, reward, host, imagesrc, url, views
+		from contents;
+	</select>
+	<select id="selectOne" parameterType="contents" resultType="contents">
+		select no, email, nickname, title, category, description, start, end, reward, host, imagesrc, url, views
+		from contents
+		where no = #{no};
+	</select>
+	<select id="LatestContents" parameterType="String" resultType="String">
+		select no from contents where email = #{email} order by no limit 1;
 	</select>
 </mapper>

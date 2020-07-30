@@ -34,10 +34,10 @@
         <v-text-field v-model="signupData.nickname" label="닉네임" outlined id="nickname"></v-text-field>
         </v-col>
         <v-col md="2" class="mx-auto">
-        <v-btn depressed class="white--text" color="#5C6BC0" @click="checkNickname">중복 검사</v-btn>
+        <v-btn depressed class="white--text" color="#5C6BC0" @click="checkNickname(signupData)">중복 검사</v-btn>
         </v-col>
       </v-row>
-      <p v-if="usedNickName">사용중인 닉네임 입니다.</p>
+      <!-- <p v-if="usedNickName">사용중인 닉네임 입니다.</p> -->
     </div>
 
     <div>
@@ -90,7 +90,7 @@
 
     <v-col class="text-center mx-auto">
       <div class="my-2">
-        <v-btn depressed large class="white--text" color="#5C6BC0" @click="signup">가입하기</v-btn>
+        <v-btn depressed large class="white--text" color="#5C6BC0" @click="signup(signupData)">가입하기</v-btn>
       </div>
     </v-col>
     </v-card>
@@ -101,7 +101,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 import axios from 'axios'
-const SERVER_URL = 'http://localhost:8000'
+import { mapActions } from 'vuex'
 
 export default {
   name: "Signup",
@@ -137,37 +137,7 @@ export default {
     }
   },
   methods:{
-    signup() {
-      console.log(this.signupData);
-      this.$emit('submit-singup-data', this.signupData)
-
-      axios.post("http://localhost:9999/mit/api/user/join",{
-        email: this.signupData.email,
-        pwd: this.signupData.pwd,
-        name: this.signupData.name,
-        nickname: this.signupData.nickname,
-        age: this.signupData.age,
-        gender: this.signupData.gender,
-        major: this.signupData.major,
-        address: this.signupData.address,
-      }).then(res => {
-        this.$router.push("/");
-      })
-      .catch(error => {
-        alert("사용중인 아이디가 존재합니다.");
-      })
-    },
-    checkNickname(){
-      axios.post('http://localhost:9999/mit/api/user/checkNickname',{
-        nickname: this.signupData.nickname,
-      }).then(res => {
-        alert("사용중인 닉네임이 존재합니다.");
-      })
-      .catch(error => {
-        this.$router.push("/signup");
-        alert("사용 가능한 닉네임입니다.");
-      })
-    },
+    ...mapActions(['signup', 'checkNickname']),
     getData(data) {
       // 클릭한 데이터를 address에 저장
       this.signupData.address = data.address;

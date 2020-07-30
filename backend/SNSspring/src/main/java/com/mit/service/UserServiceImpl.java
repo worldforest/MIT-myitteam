@@ -33,4 +33,20 @@ public class UserServiceImpl implements UserService {
 		int result = userRepo.nicknameCheck(nickname);
 		return result;
 	}
+
+	@Override
+	public String selectDescription(String email) {
+		return userRepo.selectDescription(email);
+	}
+
+	@Override
+	public String selectNickname(String email) {
+		return userRepo.selectNickname(email);
+	}
+
+	@Override
+	public User selectPrivate(String email) {
+		// TODO Auto-generated method stub
+		return userRepo.selectPrivate(email);
+	}
 }
