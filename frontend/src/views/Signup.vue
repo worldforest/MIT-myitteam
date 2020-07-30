@@ -101,7 +101,6 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 import axios from 'axios'
-const SERVER_URL = 'http://localhost:8000'
 import { mapActions } from 'vuex'
 
 export default {
@@ -138,7 +137,7 @@ export default {
     }
   },
   methods:{
-    ...mapActions(['signup']),
+    ...mapActions(['signup', 'checkNickname']),
     getData(data) {
       // 클릭한 데이터를 address에 저장
       this.signupData.address = data.address;
