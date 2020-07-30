@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <v-row>
-      <v-col col="4" sm="4">
+  <div class="cont10">
+    <v-row v-if="windowWidth >= 1270">
+      <v-col col="2" sm="2" class="fg1">
         <div class="pf-box">
-          <img  v-if="profileData.src" :src="profileData.src" class="프로필이미지" style="width:100%; height:250px;">
+          <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
         </div>
-        <div class="filebox"> 
-          <label for="ex_file">프로필 변경</label>
+        <div class="filebox ml-4"> 
+          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
           <input 
             type="file" 
             id="ex_file"
@@ -14,7 +14,8 @@
             @change="onChange">
         </div>
       </v-col>
-      <v-col col="8" sm="8">
+      
+      <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
           <span>{{ profileData.nickname }}</span>
 
@@ -38,10 +39,88 @@
       </v-col>
     </v-row>
 
+    <v-row v-else-if="windowWidth >= 788">
+      <v-col col="2" sm="2" class="fg1 mr-6">
+        <div class="pf-box">
+          <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
+        </div>
+        <div class="filebox ml-4"> 
+          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
+          <input 
+            type="file" 
+            id="ex_file"
+            accept="image/*"
+            @change="onChange">
+        </div>
+      </v-col>
+      
+      <v-col col="10" sm="10" class="fg2">
+        <div class="ml-5">
+          <span>{{ profileData.nickname }}</span>
+
+            <v-btn
+              class="ml-3"
+              color="primary"
+              @click="follow()"
+            >
+              팔로우
+            </v-btn>
+        </div>
+        <div class="d-flex my-5 ml-5">
+          <span>팔로우| {{ profileData.followingCnt }}명</span>
+          <span class="mx-auto">팔로워| {{ profileData.followerCnt }}명</span>
+        </div>
+        <div class="d-flex ml-5">
+          {{ profileData.description }}
+          <br>
+          
+        </div>
+      </v-col>
+    </v-row>
+    
+    <v-row v-else>
+      <v-col col="2" sm="2" class="fg1 mr-6">
+        <div class="pf-box">
+          <img  v-if="profileData.src" :src="profileData.src" class="box2" style="width:77px; height:77px;">
+        </div>
+        <div class="filebox ml-4"> 
+          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px"></label>
+          <input 
+            type="file" 
+            id="ex_file"
+            accept="image/*"
+            @change="onChange">
+        </div>
+      </v-col>
+      
+      <v-col col="10" sm="10" class="fg2">
+        <div class="ml-5">
+          <p class="ml-5">{{ profileData.nickname }}</p>
+
+            <v-btn
+              class="ml-3"
+              color="primary"
+              @click="follow()"
+            >
+              팔로우
+            </v-btn>
+        </div>
+      </v-col>
+    </v-row>
+    {{ profileData.description }}
+    <hr>
+    <v-row v-if="windowWidth < 788">
+      <v-col cols="6">
+        팔로우| {{ profileData.followingCnt }}명
+      </v-col>
+      <v-col cols="6">
+        팔로워| {{ profileData.followerCnt }}명
+      </v-col>
+    </v-row>    
+    <hr>
     <div class="text-center">
       피드
     </div>
-    <hr>
 
     <v-row>
       <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">
@@ -73,13 +152,29 @@ export default {
       full: true,
       daily: false,
       project: false,
+      windowWidth: window.innerWidth,
     }
   },
+  watch: {
+    windowWidth(newWidth, oldWidth) {
+    this.txt = `it changed to ${newWidth} from ${oldWidth}`;
+    }
+  },
+
+  beforeDestroy() { 
+    window.removeEventListener('resize', this.onResize); 
+  },
+
   methods: {
     onChange(e) {
       const file = e.target.files[0];
       this.profileData.src = URL.createObjectURL(file)
     },
+
+    onResize() {
+      this.windowWidth = window.innerWidth
+    },
+
     follow() {
       this.profileData.followerCnt += 1
     },
@@ -99,6 +194,9 @@ export default {
     else {
       console.log('d')
     }
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
   }
 
 }
@@ -133,5 +231,33 @@ export default {
 
   .detail_hover:hover {
     opacity: 0.5;
+  }
+
+  .cont10 {
+    margin: 0 10%;
+  }
+
+  .box{
+    width: 150px;
+    height: 150px; 
+    border-radius: 70%;
+    overflow: hidden;
+  }
+
+  .fg1 {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  .fg2 {
+    flex-grow: 2;
+    flex-basis: 30px;
+  }
+
+  .box2 {
+    width: 77px;
+    height: 77px; 
+    border-radius: 70%;
+    overflow: hidden;
   }
 </style>

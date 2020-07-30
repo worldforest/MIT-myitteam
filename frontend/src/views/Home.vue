@@ -30,18 +30,26 @@
                         :img-src="club.imagesrc"
                         img-alt="Img"
                         img-top
-                        :title="club.title"
                         class="mx-2"
                          >
                   <b-card-text>
-                    {{ club.dday }}
+                    <div v-if="club.title.length >= 15" >
+                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
+                        {{ club.title.slice(0,15)}}...
+                      </router-link>
+                    </div>
+                    <div v-else>
+                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
+                        {{ club.title }}
+                      </router-link>
+                    </div>
                   </b-card-text>
                   <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
-                  <template v-slot:footer>
+                  <!-- <template v-slot:footer>
                     <router-link :to="{name: 'GongmoDetail', params:{club:club}}">
                       자세히 보기
                     </router-link>
-                  </template>
+                  </template> -->
                 </b-card>
               </b-card-group>
 
@@ -64,18 +72,25 @@
                         :img-src="club.imagesrc"
                         img-alt="Img"
                         img-top
-                        :title="club.title"
                         class="mx-2" >
                   <b-card-text>
-
-                    {{ club.dday }}
+                    <div v-if="club.title.length >= 15" >
+                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
+                        {{ club.title.slice(0,15)}}...
+                      </router-link>
+                    </div>
+                    <div v-else>
+                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
+                        {{ club.title }}
+                      </router-link>
+                    </div>
                   </b-card-text>
                   <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
-                  <template v-slot:footer>
+                  <!-- <template v-slot:footer>
                     <router-link :to="{name: 'GongmoDetail', params:{club:club}}">
                       자세히 보기
                     </router-link>
-                  </template>
+                  </template> -->
                 </b-card>
               </b-card-group>
 
@@ -98,17 +113,25 @@
                         :img-src="club.imagesrc"
                         img-alt="Img"
                         img-top
-                        :title="club.title"
                         class="mx-2" >
                   <b-card-text>
-                    {{ club.dday }}
+                    <div v-if="club.title.length >= 15" >
+                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
+                        {{ club.title.slice(0,15)}}...
+                      </router-link>
+                    </div>
+                    <div v-else>
+                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
+                        {{ club.title }}
+                      </router-link>
+                    </div>
                   </b-card-text>
                   <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
-                  <template v-slot:footer>
+                  <!-- <template v-slot:footer>
                     <router-link :to="{name: 'GongmoDetail', params:{club:club}}">
                       자세히 보기
                     </router-link>
-                  </template>
+                  </template> -->
                 </b-card>
               </b-card-group>
 
@@ -552,6 +575,12 @@ export default {
 
   .bg {
     background-color:#c0c0c0;
+  }
+
+  .non-dec {
+    text-decoration: none;
+    color: black !important;
+    font-weight: bold;
   }
 
   
