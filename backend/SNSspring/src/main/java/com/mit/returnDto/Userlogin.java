@@ -4,6 +4,13 @@ public class Userlogin {
 	String email;
 	String nickname;
 	String token;
+	String data;
+	public String getData() {
+		return data;
+	}
+	public void setData(String data) {
+		this.data = data;
+	}
 	public String getEmail() {
 		return email;
 	}
