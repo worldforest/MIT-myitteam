@@ -95,7 +95,7 @@ public class TeamController {
 	@PostMapping("contestteam")
 	public ResponseEntity<String> contestTeamCreate(@RequestParam("no") String no, @RequestParam("local") String local,
 			@RequestParam("description") String description, @RequestParam("email") String leaderemail,
-			@RequestParam("headcount") String headcount, @RequestBody List<RegTeamInfo> datalist) {
+			@RequestBody List<RegTeamInfo> datalist) {
 
 		Team team = new Team();
 
