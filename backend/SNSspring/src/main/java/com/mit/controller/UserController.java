@@ -44,7 +44,7 @@ public class UserController {
 
 	@ApiOperation(value = "로그인 ", notes = "성공시 jwt 토큰을 반환합니다.")
 	@PostMapping("login")
-	public ResponseEntity<Userlogin> login(@RequestParam("email") String email, @RequestParam("pwd") String pwd) {
+	public ResponseEntity<Userlogin> login(@RequestParam String email, @RequestParam String pwd) {
 		User user = new User();
 		Userlogin userlogin = new Userlogin();
 		user.setEmail(email);
