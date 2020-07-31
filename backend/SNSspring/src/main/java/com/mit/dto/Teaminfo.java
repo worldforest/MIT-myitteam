@@ -2,21 +2,23 @@ package com.mit.dto;
 
 public class Teaminfo {
 	String no;
-	String leader;
+	String leaderemail;
 	String part;
 	String task;
 	String ability;
+	String advantage;
+	String headcount;
 	public String getNo() {
 		return no;
 	}
 	public void setNo(String no) {
 		this.no = no;
 	}
-	public String getLeader() {
-		return leader;
+	public String getLeaderemail() {
+		return leaderemail;
 	}
-	public void setLeader(String leader) {
-		this.leader = leader;
+	public void setLeaderemail(String leaderemail) {
+		this.leaderemail = leaderemail;
 	}
 	public String getPart() {
 		return part;
@@ -36,4 +38,22 @@ public class Teaminfo {
 	public void setAbility(String ability) {
 		this.ability = ability;
 	}
+	public String getAdvantage() {
+		return advantage;
+	}
+	public void setAdvantage(String advantage) {
+		this.advantage = advantage;
+	}
+	public String getHeadcount() {
+		return headcount;
+	}
+	public void setHeadcount(String headcount) {
+		this.headcount = headcount;
+	}
+	@Override
+	public String toString() {
+		return "Teaminfo [no=" + no + ", leaderemail=" + leaderemail + ", part=" + part + ", task=" + task
+				+ ", ability=" + ability + ", advantage=" + advantage + ", headcount=" + headcount + "]";
+	}
+	
 }

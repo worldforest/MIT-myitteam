@@ -21,28 +21,31 @@
         </v-col>
       </v-row>
 
+      <h3 class="ml-4">담당 업무 : </h3>
       <v-col cols="12" md="11" class="mx-auto">
-      <v-textarea
-        outlined
-        label="담당 업무"
-        v-model="applyData.task"
-      ></v-textarea>
+        <v-textarea
+          outlined
+          label="담당 업무"
+          v-model="applyData.task"
+        ></v-textarea>
       </v-col>
 
+      <h3 class="ml-4">필수 역량 : </h3>
       <v-col cols="12" md="11" class="mx-auto">
-      <v-textarea
-        outlined
-        label="필수 역량"
-        v-model="applyData.ability"
-      ></v-textarea>
+        <v-textarea
+          outlined
+          label="필수 역량"
+          v-model="applyData.ability"
+        ></v-textarea>
       </v-col>
 
+      <h3 class="ml-4">우대 사항 : </h3>
       <v-col cols="12" md="11" class="mx-auto">
-      <v-textarea
-        outlined
-        label="우대 사항"
-        v-model="applyData.advantage"
-      ></v-textarea>
+        <v-textarea
+          outlined
+          label="우대 사항"
+          v-model="applyData.advantage"
+        ></v-textarea>
       </v-col>
 
       <div color="transparent" class="mb-3 mr-8 d-flex justify-end">
@@ -61,31 +64,38 @@
         selectArea: ['프론트엔드', '백엔드', '인공지능', '빅데이터', '블록체인'],
         selectPeople: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         applyData: {
-          id: Date.now(),
-          part: null,
-          headcount: null,
-          task: null,
-          ability: null,
-          advantage: null, 
+          part: '',
+          headCount: '',
+          task: '',
+          ability: '',
+          advantage: '', 
         },
+        plus: false,
       }
     },
     methods: {
       setApplyData() {
         const setData = {
-          id : this.applyData.id,
           part: this.applyData.part,
           headcount: this.applyData.headcount,
           task: this.applyData.task,
           ability: this.applyData.ability,
           advantage: this.applyData.advantage, 
         }
-        this.$emit('add-apply', setData)
 
-        for(var item in this.applyData){
-          this.applyData[item] = null
+        console.log(setData)
+        
+        if (this.applyData.task !== '' && this.applyData.ability !== '' && this.applyData.advantage !== ''){
+          this.$emit('add-apply', setData)
+
+          for(var item in this.applyData){
+            this.applyData[item] = ''
+          }
         }
       }
+    },
+    computed: {
+      
     }
   }
 </script>

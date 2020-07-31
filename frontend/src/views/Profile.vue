@@ -1,79 +1,268 @@
 <template>
-  <div>
-    <v-layout no wrap>
-      <v-flex xs3 class="box">
-        <v-avatar
-          width="100%"
-          height="80%"
-        >
-          <img src="../assets/user.png" alt=""/>
-        </v-avatar>
-      </v-flex>
-      <v-flex xs9 class="box">
+  <div class="cont10">
+    <v-row v-if="windowWidth >= 1270">
+      <v-col col="2" sm="2" class="fg1">
+        <div class="pf-box">
+          <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
+        </div>
+        <div class="filebox ml-4"> 
+          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
+          <input 
+            type="file" 
+            id="ex_file"
+            accept="image/*"
+            @change="onChange">
+        </div>
+      </v-col>
+      
+      <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <span>"((아이디 표시하세요))"</span>
+          <span>{{ profileData.nickname }}</span>
 
             <v-btn
-              class="ml-2"
+              v-if="profileData.feeds[0].email !== email"
+              class="ml-3"
               color="primary"
+              @click="follow()"
             >
               팔로우
             </v-btn>
         </div>
-        <div class="mt-4 ml-5">
-          <span>팔로워</span>
-          <span>팔로우</span>
+        <div class="d-flex my-5 ml-5">
+          <span>팔로우| {{ profileData.followingCnt }}명</span>
+          <span class="mx-auto">팔로워| {{ profileData.followerCnt }}명</span>
         </div>
-      </v-flex>
-    </v-layout>
-  </div>
-  <!-- <v-container>
-    <div class="d-flex flex-row mg">
-      
-          <div class="ml-10">
-            <v-avatar size="200">
-            <img
-                src="../assets/user.png"
-                alt="등록된 프로필 이미지"
-            >
-            </v-avatar>
-          </div>
-        <div class="ml-16">
-          <span>"((아이디 표시하세요))"</span>
-
-          <v-btn
-            class="mx-5"
-            color="primary"
-          >
-            팔로우
-          </v-btn>
+        <div class="d-flex ml-5">
+          {{ profileData.description }}
           <br>
-          <div class="mt-4">
-            <span>팔로워</span>
-            <span>팔로우</span>
-          </div>
+          
         </div>
+      </v-col>
+    </v-row>
+
+    <v-row v-else-if="windowWidth >= 788">
+      <v-col col="2" sm="2" class="fg1 mr-6">
+        <div class="pf-box">
+          <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
+        </div>
+        <div class="filebox ml-4"> 
+          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
+          <input 
+            type="file" 
+            id="ex_file"
+            accept="image/*"
+            @change="onChange">
+        </div>
+      </v-col>
+      
+      <v-col col="10" sm="10" class="fg2">
+        <div class="ml-5">
+          <span>{{ profileData.nickname }}</span>
+
+            <v-btn
+              class="ml-3"
+              color="primary"
+              v-if="profileData.feeds[0].email !== email"
+              @click="follow()"
+            >
+              팔로우
+            </v-btn>
+        </div>
+        <div class="d-flex my-5 ml-5">
+          <span>팔로우| {{ profileData.followingCnt }}명</span>
+          <span class="mx-auto">팔로워| {{ profileData.followerCnt }}명</span>
+        </div>
+        <div class="d-flex ml-5">
+          {{ profileData.description }}
+          <br>
+          
+        </div>
+      </v-col>
+    </v-row>
+    
+    <v-row v-else>
+      <v-col col="2" sm="2" class="fg1 mr-6">
+        <div class="pf-box">
+          <img  v-if="profileData.src" :src="profileData.src" class="box2" style="width:77px; height:77px;">
+        </div>
+        <div class="filebox ml-4"> 
+          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px"></label>
+          <input 
+            type="file" 
+            id="ex_file"
+            accept="image/*"
+            @change="onChange">
+        </div>
+      </v-col>
+      
+      <v-col col="10" sm="10" class="fg2">
+        <div class="ml-5">
+          <p class="ml-5">{{ profileData.nickname }}</p>
+
+            <v-btn
+              class="ml-3"
+              color="primary"
+              @click="follow()"
+            >
+              팔로우
+            </v-btn>
+        </div>
+      </v-col>
+    </v-row>
+    {{ profileData.description }}
+    <hr>
+    <v-row v-if="windowWidth < 788">
+      <v-col cols="6">
+        팔로우| {{ profileData.followingCnt }}명
+      </v-col>
+      <v-col cols="6">
+        팔로워| {{ profileData.followerCnt }}명
+      </v-col>
+    </v-row>    
+    <hr>
+    <div class="text-center">
+      피드
     </div>
-  </v-container>
-   -->
+    <router-link to="/feedcreate">
+      피드등록
+    </router-link>
+
+    <v-row>
+      <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">
+        <div class="mx-2 detail_hover">         
+          <img src="https://t1.daumcdn.net/cfile/tistory/9976523D5AD95B6627" 
+          alt="" 
+          style="width:100%;" 
+          :feed="feed" 
+          @click="feedDetail(feed)" >
+        </div>
+      </v-col>
+    </v-row>
+
+
+  </div>
+
 </template>
 
 <script>
-export default {
-name: 'Profile',
-components: {
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 
-}
+export default {
+  name: 'Profile',
+  components: {
+
+  },
+  data() {
+    return {
+      full: true,
+      daily: false,
+      project: false,
+      windowWidth: window.innerWidth,
+    }
+  },
+  watch: {
+    windowWidth(newWidth, oldWidth) {
+    this.txt = `it changed to ${newWidth} from ${oldWidth}`;
+    }
+  },
+
+  beforeDestroy() { 
+    window.removeEventListener('resize', this.onResize); 
+  },
+
+  methods: {
+    onChange(e) {
+      const file = e.target.files[0];
+      this.profileData.src = URL.createObjectURL(file)
+    },
+
+    onResize() {
+      this.windowWidth = window.innerWidth
+    },
+
+    follow() {
+      this.profileData.followerCnt += 1
+    },
+
+    ...mapMutations(['feedDetail']),
+    ...mapActions(['profile'])
+  },
+  computed : {
+    // ...mapGetter s(['isLoggedIn'])
+    ...mapState(['profileData', 'email']),
+    ...mapGetters(['isLoggedIn',])
+  },
+  mounted() {
+    if (this.email) {
+      this.profile()
+    }
+    else {
+      console.log('d')
+    }
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
+  }
+
 }
 </script>
 
 <style>
-  img::before {
-    border: 1px solid rgba(var(--jb7,0,0,0),.0975);
-    border-radius: 50%;
-  }
-
   .h1 {
     font-size: 30px;
+  }
+
+  .filebox label 
+    { display: inline-block;
+      padding: .5em .75em;
+      color: #999; font-size: inherit;
+      line-height: normal; 
+      vertical-align: middle; 
+      background-color: #fdfdfd; 
+      cursor: pointer; 
+      border: 1px solid #ebebeb; 
+      border-bottom-color: #e2e2e2; 
+      border-radius: .25em; } 
+      
+  .filebox input[type="file"] {
+    position: absolute; 
+    width: 1px; 
+    height: 1px; 
+    padding: 0; 
+    margin: -1px; 
+    overflow: hidden; 
+    clip:rect(0,0,0,0); 
+    border: 0; }
+
+  .detail_hover:hover {
+    opacity: 0.5;
+  }
+
+  .cont10 {
+    margin: 0 10%;
+  }
+
+  .box{
+    width: 150px;
+    height: 150px; 
+    border-radius: 70%;
+    overflow: hidden;
+  }
+
+  .fg1 {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  .fg2 {
+    flex-grow: 2;
+    flex-basis: 30px;
+  }
+
+  .box2 {
+    width: 77px;
+    height: 77px; 
+    border-radius: 70%;
+    overflow: hidden;
   }
 </style>

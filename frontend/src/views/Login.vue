@@ -29,7 +29,7 @@
           ></v-text-field>
         </v-col>
       </v-row>
-          <v-btn width="100%" large color="#6200EA" @click="login(loginData)">Login</v-btn>
+          <v-btn width="100%" class="white--text" large color="#5C6BC0" @click="login(loginData)">Login</v-btn>
     </v-container>
   </v-form>
 </template>
@@ -42,14 +42,14 @@ export default {
   data () {
     return {
       loginData: {
-        email: null,
-        pwd: null,
+        email: "",
+        pwd: '',
       },
       show2: false,
       password: 'Password',
       rules: {
         required: value => !!value || 'Required.',
-        min: v => v.length >= 4 || 'Min 8 characters' ,
+        min: v => v.length >= 4 || 'Min 4 characters' ,
         emailMatch: () => ('The email and password you entered don\'t match'),
       },
       emailRules: [

@@ -21,10 +21,18 @@ public class UserServiceImpl implements UserService {
 	public User login(User user) {
 		return userRepo.login(user);
 	}
+	
+	@Override
+	public String findPwd(String email) {
+		String result = userRepo.findPwd(email);
+		return result;
+	}
 
 	@Override
-	public int emailCheck(User user) {
-		int result = userRepo.emailCheck(user);
+	public int emailCheck(String email) {
+		System.out.println("test : !!");
+		int result = userRepo.emailCheck(email);
+		System.out.println(result);
 		return result;
 	}
 
@@ -49,4 +57,5 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userRepo.selectPrivate(email);
 	}
+
 }

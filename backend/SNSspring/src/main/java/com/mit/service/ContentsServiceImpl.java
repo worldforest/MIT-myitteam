@@ -25,8 +25,13 @@ public class ContentsServiceImpl implements ContentsService {
 	}
 
 	@Override
-	public Contents selectOne(int no) {
+	public Contents selectOne(String no) {
 		return contentsRepo.selectOne(no);
+	}
+
+	@Override
+	public String LatestContents(String email) {
+		return contentsRepo.LatestContents(email);
 	}
 
 	

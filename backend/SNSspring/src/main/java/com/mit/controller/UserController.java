@@ -33,6 +33,8 @@ import io.swagger.annotations.ApiOperation;
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	private static final String SUCCESS = "success";
+	private static final String PWDFAIL = "pwdfail";
+	private static final String NOTUSER = "not user";
 	private static final String FAIL = "fail";
 
 	private static Token token = new Token();
@@ -42,15 +44,19 @@ public class UserController {
 
 	@ApiOperation(value = "로그인 ", notes = "성공시 jwt 토큰을 반환합니다.")
 	@PostMapping("login")
-	public ResponseEntity<Userlogin> login(@RequestBody User user) {
-		user = userService.login(user);
+	public ResponseEntity<Userlogin> login(@RequestParam String email, @RequestParam String pwd) {
+		User user = new User();
 		Userlogin userlogin = new Userlogin();
+		user.setEmail(email);
+		user.setPwd(pwd);
+		user = userService.login(user);
 		if (user != null) {
-			String tokenstr = token.getToken(user);
-			userlogin.setEmail(user.getEmail());
+			// 로그인 성공시
+			userlogin.setEmail(email);
 			userlogin.setNickname(user.getNickname());
-			userlogin.setToken(tokenstr);
+			userlogin.setToken(token.getToken(email));
 			return new ResponseEntity<Userlogin>(userlogin, HttpStatus.OK);
+
 		}
 		return new ResponseEntity<Userlogin>(userlogin, HttpStatus.EXPECTATION_FAILED);
 	}
@@ -58,8 +64,8 @@ public class UserController {
 	@ApiOperation(value = "회원 가입 ", notes = "성공시 200, 실패시 에러를 반환합니다.")
 	@PostMapping("join")
 	public ResponseEntity<String> Join(@RequestBody User user) {
-		System.out.println(user.getEmail());
-
+		// join되면
+		user.setSrc("none.png");
 		if (userService.join(user)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
@@ -84,22 +90,17 @@ public class UserController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
 
-	@ApiOperation(value = "checkEmail", notes = "email이 DB에 존재하는지 확인")
-	@PostMapping("checkEmail")
-	public int emailCheck(User user) {
-		int result = userService.emailCheck(user);
-		return result;
-	}
-
 	@ApiOperation(value = "checkNickname", notes = "nickname이 DB에 존재하는지 확인 / 닉네임이 존재하면 실패(FAIL) 존재하지 않으면 (SUCCES)")
-	@PostMapping("checkNickname")
-	public ResponseEntity<String> checkNickname(@RequestParam("nickname") String nickname) {
+	@GetMapping("checkNickname/{nickname}")
+	public ResponseEntity<String> checkNickname(@PathVariable("nickname") String nickname) {
+		System.out.println(nickname);
 		int result = userService.nicknameCheck(nickname);
 		if (result == 1) {// 있으면
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+		} else {
+			// 있지 않으면, 사용할 수 있어
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
-		// 있지 않으면, 사용할 수 있어
-		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
 	// userSrc 이미지 정보를 반환합니다
@@ -113,12 +114,12 @@ public class UserController {
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
 	}
 
-//	@ApiOperation(value = "findPwd", notes="email과 일치하는 비밀번호 알려주기")//이메일로 보내기
-//	@PostMapping("checkEmail")
-//	public int findPwd(User user) {
-//		int result = userService.emailCheck(user);
-//		return result;
-//	}
+	@ApiOperation(value = "findPwd", notes = "email과 일치하는 비밀번호 알려주기") // 이메일로 보내기
+	@PostMapping("findPwd")
+	public String findPwd(User user) {
+		String result = userService.findPwd(user.getEmail());
+		return result;
+	}
 
 	// 비밀번호 변경
 	// 테스트

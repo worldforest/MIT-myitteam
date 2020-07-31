@@ -21,6 +21,7 @@
         </v-col>
       </v-row>
 
+      <h3 class="ml-4">담당 업무 : </h3>
       <v-col cols="12" md="11" class="mx-auto">
       <v-textarea
         outlined
@@ -29,6 +30,7 @@
       ></v-textarea>
       </v-col>
 
+      <h3 class="ml-4">필수 역량 : </h3>
       <v-col cols="12" md="11" class="mx-auto">
       <v-textarea
         outlined
@@ -37,6 +39,7 @@
       ></v-textarea>
       </v-col>
 
+      <h3 class="ml-4">우대 사항 : </h3>
       <v-col cols="12" md="11" class="mx-auto">
       <v-textarea
         outlined
@@ -60,11 +63,11 @@ export default {
 			selectPeople: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 			projectData: {
 				id: Date.now(),
-				part: null,
-				headcount: null,
-				task: null,
-				ability: null,
-				advantage: null, 
+				part: '',
+				headcount: '',
+				task: '',
+				ability: '',
+				advantage: '', 
 			},
 		}
 	},
@@ -77,12 +80,15 @@ export default {
 				task: this.projectData.task,
 				ability: this.projectData.ability,
 				advantage: this.projectData.advantage, 
-			}
-			this.$emit('add-project', setData)
+      }
+      
+      if (this.applyData.task !== '' && this.applyData.ability !== '' && this.applyData.advantage !== ''){
+          this.$emit('add-project', setData)
 
-			for(var item in this.projectData){
-				this.projectData[item] = null
-			}
+          for(var item in this.projectData){
+            this.projectData[item] = null
+          }
+        }
 		}
 	}
 }
