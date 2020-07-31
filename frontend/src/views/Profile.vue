@@ -188,7 +188,7 @@ export default {
     ...mapActions(['profile'])
   },
   computed : {
-    // ...mapGetters(['isLoggedIn'])
+    // ...mapGetter s(['isLoggedIn'])
     ...mapState(['profileData', 'email']),
     ...mapGetters(['isLoggedIn',])
   },
