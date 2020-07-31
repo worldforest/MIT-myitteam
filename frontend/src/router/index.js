@@ -8,6 +8,7 @@ import GongmoDetail from '@/views/GongmoDetail'
 import TeamRegister from '@/views/TeamRegister.vue'
 import ProjectRegister from '@/views/ProjectRegister.vue'
 import FeedDetail from '@/views/FeedDetail.vue'
+import FeedCreate from '@/views/FeedCreate.vue'
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,11 @@ Vue.use(VueRouter)
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/feedcreate',
+    name: "FeedCreate",
+    component: FeedCreate
   },
   // {
   //   component: Login,

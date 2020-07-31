@@ -20,6 +20,7 @@
           <span>{{ profileData.nickname }}</span>
 
             <v-btn
+              v-if="profileData.feeds[0].email !== email"
               class="ml-3"
               color="primary"
               @click="follow()"
@@ -61,6 +62,7 @@
             <v-btn
               class="ml-3"
               color="primary"
+              v-if="profileData.feeds[0].email !== email"
               @click="follow()"
             >
               팔로우
@@ -121,6 +123,9 @@
     <div class="text-center">
       피드
     </div>
+    <router-link to="/feedcreate">
+      피드등록
+    </router-link>
 
     <v-row>
       <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">

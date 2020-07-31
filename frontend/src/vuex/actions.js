@@ -1,24 +1,30 @@
 import axios from 'axios'
 import router from '@/router'
 import cookies from 'vue-cookies'
+import 'url-search-params-polyfill'
 
 const SERVER_URL = 'http://localhost:9999/mit'
 
-
 export default {
-    postToken({commit}, info) {
-        axios.post(`${SERVER_URL}/api/user/login/`, info.data)
-        .then(response => {
-            commit('SET_TOKEN', response.data.token)
-            commit('GET_EMAIL', response.data.email)
-            router.go({ name: "Home"})
-        })
-        .catch(error => console.log(error.response.data))
+    postToken({ commit }, info) {
+
+        var params = new URLSearchParams();
+        params.append('email', info.data.email);
+        params.append('pwd', info.data.pwd);
+        axios.post(`${SERVER_URL}/api/user/login/`, params)
+            .then(response => {
+                commit('SET_TOKEN', response.data.token)
+                commit('GET_EMAIL', response.data.email)
+                router.go({ name: "Home" })
+            })
+            .catch(error => console.log(error.response.data))
     },
+
     login({dispatch}, loginData) {
         const info = {
             data: loginData
         }
+        
         dispatch('postToken', info)
     },
     logout() {
@@ -48,6 +54,7 @@ export default {
         dispatch('postSignup', signupInfo)
 		},
     checkNickname(context, signupData) {
+        console.log()
         if (!context.state.isLoggedIn) {
             const nick = {
                 data: signupData.nickname

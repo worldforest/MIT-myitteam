@@ -42,8 +42,8 @@ export default {
   data () {
     return {
       loginData: {
-        email: null,
-        pwd: null,
+        email: "",
+        pwd: '',
       },
       show2: false,
       password: 'Password',
