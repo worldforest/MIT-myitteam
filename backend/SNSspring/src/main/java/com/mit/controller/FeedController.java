@@ -79,19 +79,21 @@ public class FeedController {
 	public ResponseEntity<String> createFeed(@RequestParam("email") String email,
 			@RequestParam(value = "category", required = false) String category,
 			@RequestParam("description") String description,
-			@RequestParam(value = "tags", required = false) String tags, @RequestParam("file") MultipartFile file) {
+			@RequestParam(value = "tags", required = false) String tags,
+			@RequestParam(value = "file", required = false) MultipartFile file) {
 		// 시간과 originalFilename으로 매핑 시켜서 src 주소를 만들어 낸다.
 		// feed-> image 는 대표이미지 feedimage에는 추가 이미지들을 삽입한다.
 		// feed tag들을 삽입한다 ,로 구분
 		Feed feed = new Feed();
+		System.out.println(email);
 		feed.setEmail(email);
-		feed.setTag(tags);
-		feed.setCategory(category);
+//		feed.setTag(tags);
+//		feed.setCategory(category);
 		feed.setDescription(description);
 		Date date = new Date();
 		StringBuilder sb = new StringBuilder();
 
-		if (file.isEmpty()) {
+		if (file == null || file.isEmpty()) {
 			// file image 가 없을 경우
 			sb.append("none.png");
 		} else {
@@ -102,7 +104,7 @@ public class FeedController {
 
 		if (feedService.insert(feed)) {
 			// 파일 업로드 끝
-			if (!file.isEmpty()) {
+			if (file != null && !file.isEmpty()) {
 				File dest = new File("C://images/feed/" + sb.toString());
 				try {
 					file.transferTo(dest);
@@ -118,15 +120,15 @@ public class FeedController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 		}
 
-		if (tags != null) {
-			// feed tag 등록
-			StringTokenizer st = new StringTokenizer(tags, ",");
-			// no 정보 가져오기 등록 email의 최신 no를 가져온다.
-			String no = feedService.Latestfeed(email);
-			while (st.hasMoreTokens()) {
-				String tag = st.nextToken();
-				feedtagService.insert(no, tag);
-			}
+		// feed tag 등록
+		StringTokenizer st = null;
+		if (tags != null)
+			st = new StringTokenizer(tags, ",");
+		// no 정보 가져오기 등록 email의 최신 no를 가져온다.
+		String no = feedService.Latestfeed(email);
+		while (st != null && st.hasMoreTokens()) {
+			String tag = st.nextToken();
+			feedtagService.insert(no, tag);
 		}
 
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
