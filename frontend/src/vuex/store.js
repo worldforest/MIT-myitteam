@@ -5,7 +5,7 @@ import actions from './actions'
 import mutations from './mutations'
 import cookies from 'vue-cookies'
 
-
+// s
 Vue.use(Vuex)
 
 const state = {
