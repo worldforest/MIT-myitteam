@@ -12,7 +12,9 @@ const state = {
     authToken: cookies.get('auth-token'),
     isLoggedIn : false,
     email : cookies.get('auth-email'),
-    profileData: []
+    profileData: [],
+    clubs: [],
+    detailFeed: [],
 }
 
 export default new Vuex.Store({

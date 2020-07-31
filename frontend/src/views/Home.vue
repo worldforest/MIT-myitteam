@@ -1,7 +1,5 @@
 <template>
   <div>
-    <br> Window width: {{ windowWidth }} <br/>
-    {{ txt }}
     <!-- 웹 환경: 400px보다 화면이 더 넓을 때 -->
     <div>
       <!-- Search Bar -->
@@ -32,18 +30,26 @@
                         :img-src="club.imagesrc"
                         img-alt="Img"
                         img-top
-                        :title="club.title"
                         class="mx-2"
                          >
                   <b-card-text>
-                    {{ club.dday }}
+                    <div v-if="club.title.length >= 15" >
+                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
+                        {{ club.title.slice(0,15)}}...
+                      </router-link>
+                    </div>
+                    <div v-else>
+                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
+                        {{ club.title }}
+                      </router-link>
+                    </div>
                   </b-card-text>
                   <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
-                  <template v-slot:footer>
+                  <!-- <template v-slot:footer>
                     <router-link :to="{name: 'GongmoDetail', params:{club:club}}">
                       자세히 보기
                     </router-link>
-                  </template>
+                  </template> -->
                 </b-card>
               </b-card-group>
 
@@ -66,18 +72,25 @@
                         :img-src="club.imagesrc"
                         img-alt="Img"
                         img-top
-                        :title="club.title"
                         class="mx-2" >
                   <b-card-text>
-
-                    {{ club.dday }}
+                    <div v-if="club.title.length >= 15" >
+                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
+                        {{ club.title.slice(0,15)}}...
+                      </router-link>
+                    </div>
+                    <div v-else>
+                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
+                        {{ club.title }}
+                      </router-link>
+                    </div>
                   </b-card-text>
                   <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
-                  <template v-slot:footer>
+                  <!-- <template v-slot:footer>
                     <router-link :to="{name: 'GongmoDetail', params:{club:club}}">
                       자세히 보기
                     </router-link>
-                  </template>
+                  </template> -->
                 </b-card>
               </b-card-group>
 
@@ -100,17 +113,25 @@
                         :img-src="club.imagesrc"
                         img-alt="Img"
                         img-top
-                        :title="club.title"
                         class="mx-2" >
                   <b-card-text>
-                    {{ club.dday }}
+                    <div v-if="club.title.length >= 15" >
+                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
+                        {{ club.title.slice(0,15)}}...
+                      </router-link>
+                    </div>
+                    <div v-else>
+                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
+                        {{ club.title }}
+                      </router-link>
+                    </div>
                   </b-card-text>
                   <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
-                  <template v-slot:footer>
+                  <!-- <template v-slot:footer>
                     <router-link :to="{name: 'GongmoDetail', params:{club:club}}">
                       자세히 보기
                     </router-link>
-                  </template>
+                  </template> -->
                 </b-card>
               </b-card-group>
 
@@ -281,6 +302,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+
 
 export default {
   name: 'Home',
@@ -304,62 +327,6 @@ export default {
       currentPageIndex:0,
       currentPageIndex_pjt:0,
       // 추후에 우리가 데이터를 받아올 곳
-      clubs: [
-        {
-          title: "공모전1",
-          category: 1,
-          reward: "100만원",
-          host: "싸피",
-          dday: "D-3",
-          imagesrc: require("@/assets/공모1.png"),
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac."
-        },
-        {
-          title: "공모전2",
-          category: 1,
-          reward: "100만원",
-          host: "싸피",
-          dday: "D-166",
-          imagesrc: require("@/assets/공모2.png"),
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac."
-        },
-        {
-          title: "공모전3",
-          category: 1,
-          reward: "100만원",
-          host: "싸피",
-          dday: "D-123",
-          imagesrc: require("@/assets/공모3.png"),
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac."
-        },
-        {
-          title: "공모전4",
-          category: 1,
-          reward: "100만원",
-          host: "싸피",
-          dday: "D-45",
-          imagesrc: require("@/assets/공모4.png"),
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac."
-        },
-        {
-          title: "공모전5",
-          category: 1,
-          reward: "100만원",
-          host: "싸피",
-          dday: "D-21",
-          imagesrc: require("@/assets/user.png"),
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac."
-        },
-        {
-          title: "공모전1",
-          category: 1,
-          reward: "100만원",
-          host: "싸피",
-          dday: "D-3",
-          imagesrc: require("@/assets/공모1.png"),
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac."
-        },
-      ],
       clubs2: [
         {
           name: "프로젝트1",
@@ -421,13 +388,15 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+    this.getContestData() 
   },
 
   beforeDestroy() { 
     window.removeEventListener('resize', this.onResize); 
   },
 
-  methods: {  
+  methods: {
+    ...mapActions(['getContestData']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -531,6 +500,7 @@ export default {
   },
 
   computed: {
+    ...mapState(['clubs']),
     formattedClubs() {
           return this.clubs.reduce((c, n, i) => {
             // 여기서도 페이지네이션에 들어갈 숫자를 지정해주어야 한다.
@@ -605,6 +575,12 @@ export default {
 
   .bg {
     background-color:#c0c0c0;
+  }
+
+  .non-dec {
+    text-decoration: none;
+    color: black !important;
+    font-weight: bold;
   }
 
   
