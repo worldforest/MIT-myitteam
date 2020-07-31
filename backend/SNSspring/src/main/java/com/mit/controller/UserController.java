@@ -52,36 +52,20 @@ public class UserController {
 		user = userService.login(user);
 		if (user != null) {
 			// 로그인 성공시
-			userlogin.setData(SUCCESS);
 			userlogin.setEmail(email);
 			userlogin.setNickname(user.getNickname());
 			userlogin.setToken(token.getToken(email));
 			return new ResponseEntity<Userlogin>(userlogin, HttpStatus.OK);
 
-		} else {
-			user = new User();
-			System.out.println("test >>");
-			int result = userService.emailCheck(email);
-			System.out.println("test <<");
-			// 로그인 실패시
-			// 아이디만 있는경우
-			if (result != 0) {
-				userlogin.setData(PWDFAIL);
-			}
-			// 아이디가 없는 경우
-			else {
-				userlogin.setData(NOTUSER);
-
-			}
-			return new ResponseEntity<Userlogin>(userlogin, HttpStatus.OK);
 		}
-
+		return new ResponseEntity<Userlogin>(userlogin, HttpStatus.EXPECTATION_FAILED);
 	}
 
 	@ApiOperation(value = "회원 가입 ", notes = "성공시 200, 실패시 에러를 반환합니다.")
 	@PostMapping("join")
 	public ResponseEntity<String> Join(@RequestBody User user) {
 		// join되면
+		user.setSrc("none.png");
 		if (userService.join(user)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}

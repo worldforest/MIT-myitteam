@@ -65,6 +65,7 @@ public class TeamController {
 		team.setNo(no);
 		team.setLeaderemail(email);
 		team.setDescription(description);
+		team.setLocal(local);
 		// title은 sql 문에서 찾아온다.
 		team.setTitle(contentsService.selectOne(no).getTitle());
 		// DB에 team 등록

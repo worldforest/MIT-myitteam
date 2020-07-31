@@ -77,9 +77,9 @@ public class FeedController {
 	@ApiOperation(value = "피드 등록 ", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
 	@PostMapping("create")
 	public ResponseEntity<String> createFeed(@RequestParam("email") String email,
-			@RequestParam("category") String category,
-			@RequestParam("description") String description, @RequestParam("tags") String tags,
-			@RequestParam("file") MultipartFile file) {
+			@RequestParam(value = "category", required = false) String category,
+			@RequestParam("description") String description,
+			@RequestParam(value = "tags", required = false) String tags, @RequestParam("file") MultipartFile file) {
 		// 시간과 originalFilename으로 매핑 시켜서 src 주소를 만들어 낸다.
 		// feed-> image 는 대표이미지 feedimage에는 추가 이미지들을 삽입한다.
 		// feed tag들을 삽입한다 ,로 구분
@@ -118,13 +118,15 @@ public class FeedController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 		}
 
-		// feed tag 등록
-		StringTokenizer st = new StringTokenizer(tags, ",");
-		// no 정보 가져오기 등록 email의 최신 no를 가져온다.
-		String no = feedService.Latestfeed(email);
-		while (st.hasMoreTokens()) {
-			String tag = st.nextToken();
-			feedtagService.insert(no, tag);
+		if (tags != null) {
+			// feed tag 등록
+			StringTokenizer st = new StringTokenizer(tags, ",");
+			// no 정보 가져오기 등록 email의 최신 no를 가져온다.
+			String no = feedService.Latestfeed(email);
+			while (st.hasMoreTokens()) {
+				String tag = st.nextToken();
+				feedtagService.insert(no, tag);
+			}
 		}
 
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -153,9 +155,9 @@ public class FeedController {
 		User user = userService.selectPrivate(email);
 		privateFeedDto.setNickname(user.getNickname());
 		privateFeedDto.setDescription(user.getDescription());
-		privateFeedDto.setSrc("http://localhost:9999/mit/api/user/image/"+user.getSrc());
+		privateFeedDto.setSrc("http://localhost:9999/mit/api/user/image/" + user.getSrc());
 		List<Feed> feeds = feedService.selectEmail(email);
-		for (int i=0;i<feeds.size();i++) {
+		for (int i = 0; i < feeds.size(); i++) {
 			feeds.get(i).setSrc("http://localhost:9999/mit/api/feed/image/" + feeds.get(i).getSrc());
 		}
 		privateFeedDto.setFeeds(feeds);
