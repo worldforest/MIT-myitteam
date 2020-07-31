@@ -2,22 +2,23 @@ import axios from 'axios'
 import router from '@/router'
 import cookies from 'vue-cookies'
 import 'url-search-params-polyfill'
+// import { apply } from 'core-js/fn/reflect'
 
 const SERVER_URL = 'http://localhost:9999/mit'
 
 export default {
     postToken({ commit }, info) {
 
-        var params = new URLSearchParams();
-        params.append('email', info.data.email);
-        params.append('pwd', info.data.pwd);
-        axios.post(`${SERVER_URL}/api/user/login/`, params)
-            .then(response => {
-                commit('SET_TOKEN', response.data.token)
-                commit('GET_EMAIL', response.data.email)
-                router.go({ name: "Home" })
-            })
-            .catch(error => console.log(error.response.data))
+			var params = new URLSearchParams();
+			params.append('email', info.data.email);
+			params.append('pwd', info.data.pwd);
+			axios.post(`${SERVER_URL}/api/user/login/`, params)
+					.then(response => {
+							commit('SET_TOKEN', response.data.token)
+							commit('GET_EMAIL', response.data.email)
+							router.go({ name: "Home" })
+					})
+					.catch(error => console.log(error.response.data))
     },
 
     login({dispatch}, loginData) {
@@ -79,18 +80,37 @@ export default {
         })
     },
     postEmailToken(context) {
-        axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
-        .then(res => {
-            context.commit('POST_EMAIL', res)
-        })
+			axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
+			.then(res => {
+					context.commit('POST_EMAIL', res)
+			})
     },
     getContestData({commit}) {
-        axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
-          .then(res => {
-              commit('contestData', res.data)
-          })
-    }
+			axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
+				.then(res => {
+						commit('contestData', res.data)
+				})
+		},
+		teamregister(context, applyData){
+			console.log(context.state.email)
+			console.log(applyData.no)
+			const params = new URLSearchParams();
+			params.append('no', applyData.no);
+			params.append('email', context.state.email);
+			params.append('local', applyData.local);
+			params.append('description', applyData.description);
+			console.log(applyData.dataList)
+			params.append('datalist', applyData.dataList);
+			console.log(params)
+			axios.post(`${SERVER_URL}/api/team/contestteam`, params)
+				.then(() => {
+						// commit('SET_TOKEN', response.data.token)
+						// commit('GET_EMAIL', response.data.email)
+						// router.go({ name: "Home" })
+						alert('성공적으로 등록하였습니다.')
+				})
+				.catch(error => console.log(error.response.data))
+		}
 
 }
 
-// s

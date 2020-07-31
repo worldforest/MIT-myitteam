@@ -82,8 +82,6 @@
           ability: this.applyData.ability,
           advantage: this.applyData.advantage, 
         }
-
-        console.log(setData)
         
         if (this.applyData.task !== '' && this.applyData.ability !== '' && this.applyData.advantage !== ''){
           this.$emit('add-apply', setData)

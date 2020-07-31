@@ -1,83 +1,87 @@
 <template>
-  <v-card color="#FAFAFA">
-    <v-container>
-      <div>
-        <v-card id="card-apply" class="mx-auto py-5 px-3 my-8" outlined max-width="800">
-          <h1 class="text-center mb-5 h1-apply">공모전 팀원을 구해보세요 :)</h1>
-          
-          <div>
-            <h3 class="ml-4">지역 : </h3>
-              <v-col class="d-flex mx-auto" cols="12" md="11">
-                <v-select
-                  :items="selectRegion"
-                  label="지역 선택"
-                  outlined
-                  v-model="applyData.region"
-                ></v-select>
-              </v-col>
-          </div>
-
-          <div>
-            <h3 class="ml-4">팀 소개 : </h3>
-            <v-col class="mx-auto" cols="12" md="11">
-              <v-text-field
-                label="팀 소개"
-                outlined
-                v-model="applyData.description"
-              ></v-text-field>
-            </v-col>
-          </div>
-
-          <TeamInput @add-apply="addApply"/>
-
-          <div>
-            <li class="itemLi" v-for="item in this.applyData.dataList" :key="item.id">
-              <v-col class="mx-auto" cols="12" md="11">
-                <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
-                  <h3 class="mb-3">{{ item.part }}</h3>
-                  <hr class="mb-3">
-
-                  <v-list-item>
-                    <v-list-item-content>
-                      <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  
-                  <v-list-item>
-                    <v-list-item-content>
-                      <h4 class="mb-2">담당 업무</h4>
-                      <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-
-                  <v-list-item>
-                    <v-list-item-content>
-                      <h4 class="mb-2">필수 역량</h4>
-                      <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-
-                  <v-list-item>
-                    <v-list-item-content>
-                      <h4 class="mb-2">우대 사항</h4>
-                      <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-card>
-              </v-col>
-            </li>
-          </div>
-
-          <v-col class="text-center mx-auto">
-            <div class="my-2">
-              <v-btn depressed large class="white--text" color="#5C6BC0" @click="apply">등록하기</v-btn>
+  <div class="cont15">
+    {{ applyData.no }}
+    
+    <v-card color="#FAFAFA">
+      <v-container>
+        <div>
+          <v-card id="card-apply" class="mx-auto py-5 px-3 my-8" outlined max-width="800">
+            <h1 class="text-center mb-5 h1-apply">공모전 팀원을 구해보세요 :)</h1>
+            
+            <div>
+              <h3 class="ml-4">지역 : </h3>
+                <v-col class="d-flex mx-auto" cols="12" md="11">
+                  <v-select
+                    :items="selectRegion"
+                    label="지역 선택"
+                    outlined
+                    v-model="applyData.local"
+                  ></v-select>
+                </v-col>
             </div>
-          </v-col>
-        </v-card>
-      </div>
-    </v-container>
 
-  </v-card>
+            <div>
+              <h3 class="ml-4">팀 소개 : </h3>
+              <v-col class="mx-auto" cols="12" md="11">
+                <v-text-field
+                  label="팀 소개"
+                  outlined
+                  v-model="applyData.description"
+                ></v-text-field>
+              </v-col>
+            </div>
+
+            <TeamInput @add-apply="addApply"/>
+
+            <div>
+              <li class="itemLi" v-for="item in this.applyData.dataList" :key="item.id">
+                <v-col class="mx-auto" cols="12" md="11">
+                  <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
+                    <h3 class="mb-3">{{ item.part }}</h3>
+                    <hr class="mb-3">
+
+                    <v-list-item>
+                      <v-list-item-content>
+                        <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    
+                    <v-list-item>
+                      <v-list-item-content>
+                        <h4 class="mb-2">담당 업무</h4>
+                        <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <v-list-item-content>
+                        <h4 class="mb-2">필수 역량</h4>
+                        <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item>
+                      <v-list-item-content>
+                        <h4 class="mb-2">우대 사항</h4>
+                        <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-card>
+                </v-col>
+              </li>
+            </div>
+
+            <v-col class="text-center mx-auto">
+              <div class="my-2">
+                <v-btn depressed large class="white--text" color="#5C6BC0" @click="teamregister(applyData)">등록하기</v-btn>
+              </div>
+            </v-col>
+          </v-card>
+        </div>
+      </v-container>
+
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -85,7 +89,8 @@ import TeamInput from '@/components/TeamInput'
 // import PartDetail from '@/components/PartDetail'
 // import Team from '@/components/Team'
 
-import axios from 'axios'
+import { mapState, mapActions } from 'vuex'
+// import axios from 'axios'
 
 export default {
   name: 'TeamRegister',
@@ -93,43 +98,57 @@ export default {
     TeamInput,
     // PartDetail,
   },
+  props: {
+    no: String,
+  },
   data() {
     return{        
       selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
       applyData: {
-        // no => 공모전 넘버, email => 팀장 정보, 등록하는 사람 정보 
-        no : '1',
-        leaderemail : 'dlekdls0213@naver.com',
-        region: '',
+        // no => 공모전 넘버, email => 팀장 정보, 등록하는 사람 정보
+        email : '',
+        local : '',
         description: '',
-        dataList: [],
+        no: this.no,
+        dataList: [{},],
       },
       show: false,
     }
   },
+
   methods: {
+    ...mapActions(['teamregister']),
     addApply(Data){
       this.applyData.dataList = [...this.applyData.dataList, Data]
     },
-    apply(){
-      console.log(this.applyData)
-      this.$emit('teamData', this.applyData)
-      console.log(this.applyData.no)
-      
-      axios.post('http://localhost:9999/mit/api/team/contestteam', {
-        description: this.applyData.description,
-        email: this.applyData.leaderemail,
-        local: this.applyData.region,
-        no: this.applyData.no,
-        dataList: this.applyData.dataList,
-      }).then(() => {
-        this.$router.push('/');
-      })
-      .catch(() => {
-        alert('망햇어,,,,');
-      })
-    },
+  },
+  mounted () {
+      this.applyData.email = this.email
+  },
+  computed : {
+    ...mapState(['email']),
+
   }
+
+    // apply(){
+    //   console.log(this.applyData)
+    //   this.$emit('teamData', this.applyData)
+    //   console.log(this.applyData.no)
+      
+    //   axios.post('http://localhost:9999/mit/api/team/contestteam', {
+    //     description: this.applyData.description,
+    //     email: this.applyData.email,
+    //     local: this.applyData.local,
+    //     no: this.applyData.no,
+    //     dataList: this.applyData.dataList,
+    //   }).then(() => {
+    //     this.$router.push('/');
+    //   })
+    //   .catch(() => {
+    //     alert('망햇어,,,,');
+    //   })
+    // },
+
 }
 </script>
 
@@ -142,5 +161,9 @@ export default {
   }
   .itemLi{
     list-style: none;
+  }
+
+  .cont15 {
+    margin: 0 15%;
   }
 </style>
