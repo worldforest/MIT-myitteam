@@ -25,7 +25,7 @@ public class FollowController {
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
-	@ApiOperation(value = "팔로우르르 신청합니다.", notes = "팔로우 신청시, 로그인한 계정 email=email/팔로우한 계정 email=following")
+	@ApiOperation(value = "팔로우를 신청합니다.", notes = "팔로우 신청시, 로그인한 계정 email=email/팔로우한 계정 email=following")
 	@PostMapping("follow")
 	public ResponseEntity<String> follow(@RequestParam("email") String email,
 			@RequestParam("following") String following) {
@@ -34,14 +34,18 @@ public class FollowController {
 		follow.setEmail(email);
 		follow.setFollowing(following);
 		if (followService.follow(follow)) {
+			follow.setEmail(email);
+			follow.setFollowing(following);
+			System.out.println(email);
+			System.out.println(following);
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 
 	}
 
-	@ApiOperation(value = "팔로우르르 취소합니다.", notes = "팔로우 취소시, email과 following이 일치하는 data 삭제")
-	@PostMapping("follow")
+	@ApiOperation(value = "팔로우를 취소합니다.", notes = "팔로우 취소시, email과 following이 일치하는 data 삭제")
+	@PostMapping("unfollow")
 	public ResponseEntity<String> unfollow(@RequestParam("email") String email,
 			@RequestParam("following") String following) {
 
@@ -49,6 +53,8 @@ public class FollowController {
 		follow.setEmail(email);
 		follow.setFollowing(following);
 		if (followService.unfollow(follow)) {
+			follow.setEmail(email);
+			follow.setFollowing(following);
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
