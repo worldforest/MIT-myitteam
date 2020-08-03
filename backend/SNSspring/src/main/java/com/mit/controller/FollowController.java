@@ -41,7 +41,7 @@ public class FollowController {
 	}
 
 	@ApiOperation(value = "팔로우르르 취소합니다.", notes = "팔로우 취소시, email과 following이 일치하는 data 삭제")
-	@PostMapping("follow")
+	@PostMapping("unfollow")
 	public ResponseEntity<String> unfollow(@RequestParam("email") String email,
 			@RequestParam("following") String following) {
 
