@@ -34,7 +34,7 @@
             <TeamInput @add-apply="addApply"/>
 
             <div>
-              <li class="itemLi" v-for="item in this.applyData.dataList" :key="item.id">
+              <li class="itemLi" v-for="item in this.applyData.datalist" :key="item.id">
                 <v-col class="mx-auto" cols="12" md="11">
                   <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
                     <h3 class="mb-3">{{ item.part }}</h3>
@@ -110,7 +110,7 @@ export default {
         local : '',
         description: '',
         no: this.no,
-        dataList: [{},],
+        datalist: [],
       },
       show: false,
     }
@@ -119,7 +119,7 @@ export default {
   methods: {
     ...mapActions(['teamregister']),
     addApply(Data){
-      this.applyData.dataList = [...this.applyData.dataList, Data]
+      this.applyData.datalist = [...this.applyData.datalist, Data]
     },
   },
   mounted () {
