@@ -1,5 +1,7 @@
 package com.mit.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +24,24 @@ public class FollowServiceImpl implements FollowService {
 	}
 
 	@Override
-	public int followingCnt(String follower) {
-		// TODO Auto-generated method stub
-		return followRepo.followingCnt(follower);
+	public List<Follow> followingList(String email) {
+		return followRepo.followingList(email);
 	}
 
 	@Override
-	public int followerCnt(String following) {
-		return followRepo.followerCnt(following);
+	public List<Follow> followerList(String email) {
+		return followRepo.followerList(email);
 	}
+
+	@Override
+	public int followingCnt(String email) {
+		return followRepo.followingCnt(email);
+	}
+
+	@Override
+	public int followerCnt(String email) {
+		return followRepo.followerCnt(email);
+	}
+
 
 }
