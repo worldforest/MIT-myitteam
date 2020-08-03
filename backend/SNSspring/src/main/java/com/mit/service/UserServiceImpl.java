@@ -1,6 +1,7 @@
 package com.mit.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.mit.dto.User;
@@ -12,6 +13,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepo userRepo;
 
+	@Autowired
+	private JavaMailSender maisender;
+
 	@Override
 	public boolean join(User user) {
 		return userRepo.join(user);
@@ -21,7 +25,7 @@ public class UserServiceImpl implements UserService {
 	public User login(User user) {
 		return userRepo.login(user);
 	}
-	
+
 	@Override
 	public String findPwd(String email) {
 		String result = userRepo.findPwd(email);
@@ -56,6 +60,11 @@ public class UserServiceImpl implements UserService {
 	public User selectPrivate(String email) {
 		// TODO Auto-generated method stub
 		return userRepo.selectPrivate(email);
+	}
+
+	@Override
+	public boolean update(String email, String pwd) {
+		return userRepo.update(email, pwd);
 	}
 
 }

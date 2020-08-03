@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,15 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mit.algorithm.Pwd;
 import com.mit.algorithm.Token;
 import com.mit.dto.User;
 import com.mit.returnDto.Userlogin;
@@ -36,6 +42,9 @@ public class UserController {
 	private static final String PWDFAIL = "pwdfail";
 	private static final String NOTUSER = "not user";
 	private static final String FAIL = "fail";
+
+	@Autowired
+	private JavaMailSender mailSender;
 
 	private static Token token = new Token();
 	// Service
@@ -142,5 +151,40 @@ public class UserController {
 //		}
 //		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 //	}
+	@ApiOperation(value = "등록된 이메일로 인증번호 보내기", notes = "get 방식으로 email를 보내면 email로 6자리의 인증키를 보냅니다. \n 이  때 Spring session에 저장합니다.")
+	@GetMapping("pwd")
+	public ResponseEntity<String> sendEmail(HttpServletRequest request, @RequestParam("email") String email) {
+		Pwd pwd = new Pwd();
+		String certification = pwd.getRnadomcode();
+		// session에 임시 인증번호를 저장
+		HttpSession session = request.getSession();
+		session.setAttribute(email, certification);
+		if (pwd.sedEmail(email, certification,mailSender))
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
 
+	@ApiOperation(value = "인증번호 확인", notes = "Post 방식으로 받은 email과 code의 유효성을 검증한다. 성공하면 token을 반환한다. 실패하면 415 에러를 발생시킨다.")
+	@PostMapping("pwd")
+	public ResponseEntity<String> Authentication(HttpServletRequest request, @RequestParam("email") String email,
+			@RequestParam("code") String certification) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute(email).equals(certification)) {
+			Token token = new Token();
+			return new ResponseEntity<String>(token.getToken(email), HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
+
+	@ApiOperation(value = "인증 완료 후 비밀번호변경", notes = "Post 방식으로 받은 email과 code의 유효성을 검증한다. 성공하면 SUCCESS 실패하면 415 에러를 발생시킨다.")
+	@PutMapping("pwd")
+	public ResponseEntity<String> changePwd(@RequestParam("token") String tokenstr, @RequestParam("pwd") String pwd) {
+		Token token = new Token();
+		if (token.cmpToekn(tokenstr)) {
+			String email = token.getEmail(tokenstr);
+			if (userService.update(email, pwd))
+				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
 }
