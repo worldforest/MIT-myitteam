@@ -27,7 +27,7 @@
         </span>
       </div>
       <v-app color="#FAFAFA" class="container">
-        <router-view/>
+        <router-view />
       </v-app>
     </v-card>
   </div>
@@ -40,8 +40,25 @@ export default {
   name: 'App',
   components: {
   },
+  data() {
+    return {
+      windowWidth: window.innerWidth,
+      txt: '',
+    }
+  },
+  watch: {
+    windowWidth(newWidth, oldWidth) {
+      this.txt = `it changed to ${newWidth} from ${oldWidth}`;
+    }
+  },
+  beforeDestroy() { 
+    window.removeEventListener('resize', this.onResize); 
+  },
   methods: {
     ...mapActions(['logout', 'profile', 'postEmailToken']),
+    onResize() {
+      this.windowWidth = window.innerWidth
+    },
   },
   computed: {
     ...mapState(['email']),
@@ -51,9 +68,10 @@ export default {
     if (this.$cookies.isKey('auth-token')) {
       this.postEmailToken()
       } 
-    }
-    
-  
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
+  }
 };
 </script>
 
@@ -74,6 +92,9 @@ export default {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 20px;
+  }
+  .spacer{
+    width: 10px
   }
 
 </style>

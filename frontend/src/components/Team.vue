@@ -1,7 +1,10 @@
 <template>
   <div class="container">
+    {{ club }}
     <div class="ma-2">
-      <v-btn color="#5C6BC0" @click="gotoTeam"><img src="@/assets/edit.png" alt="" style="width:20px"><span class="ml-2 white--text">팀원을 모집해요!</span></v-btn>
+      <!-- <v-btn color="#5C6BC0" @click="gotoTeam"><img src="@/assets/edit.png" alt="" style="width:20px"><span class="ml-2 white--text">팀원을 모집해요!</span></v-btn> -->
+      <router-link :to="{name: 'TeamRegister', params:{no:club.no}}"> 팀원 모집 </router-link>
+      
     </div>
     <v-row>
       <v-col cols="6" class="px-6" v-for="i in community" :key="i">
@@ -32,7 +35,10 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
-  name: 'Intro',
+  name: 'Team',
+  props: {
+    club: Object,
+  },
   components: {
   },
   methods: {
