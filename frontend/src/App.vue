@@ -1,5 +1,8 @@
 <template>
   <div>
+    {{ windowWidth }}
+    <!-- 웹 환경이 700px보다 클 때 -->
+    <div v-if="windowWidth >= 700">
     <v-card class="overflow-hidden">
       <div class="v-toolbar__content" style="height: 90px;">
         <a href="/">
@@ -31,6 +34,8 @@
       </v-app>
     </v-card>
   </div>
+  </div>
+
 </template>
 
 <script>
@@ -38,6 +43,11 @@ import { mapGetters, mapActions, mapState } from 'vuex'
 
 export default {
   name: 'App',
+  data(){
+    return{
+      windowWidth: window.innerWidth,
+    }
+  },
   components: {
   },
   methods: {

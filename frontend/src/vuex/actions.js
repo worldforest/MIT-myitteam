@@ -93,7 +93,7 @@ export default {
 		},
 		teamregister(context, applyData){
 			console.log(context.state.email)
-			console.log(applyData.no)
+            console.log(applyData.no)
 			const params = new URLSearchParams();
 			params.append('no', applyData.no);
 			params.append('email', context.state.email);
@@ -106,7 +106,8 @@ export default {
 				.then(() => {
 						// commit('SET_TOKEN', response.data.token)
 						// commit('GET_EMAIL', response.data.email)
-						// router.go({ name: "Home" })
+                        // router.go({ name: "Home" })
+                        
 						alert('성공적으로 등록하였습니다.')
 				})
 				.catch(error => console.log(error.response.data))
