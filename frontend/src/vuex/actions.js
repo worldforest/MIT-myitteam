@@ -21,11 +21,11 @@ export default {
 					.catch(error => console.log(error.response.data))
     },
 
-    login({dispatch}, loginData) {
+    login({ dispatch }, loginData) {
         const info = {
             data: loginData
         }
-        
+
         dispatch('postToken', info)
     },
     logout() {
@@ -33,27 +33,27 @@ export default {
         cookies.remove('auth-email')
         router.go({ name: "Home" })
     },
-    postSignup({dispatch}, signupInfo) {
+    postSignup({ dispatch }, signupInfo) {
         axios.post("http://localhost:9999/mit/api/user/join", signupInfo.data)
-        .then(() => {
-            const loginInfo = {
-                data: {
-                    email: signupInfo.data.email,
-                    pwd: signupInfo.data.pwd
+            .then(() => {
+                const loginInfo = {
+                    data: {
+                        email: signupInfo.data.email,
+                        pwd: signupInfo.data.pwd
+                    }
                 }
-            }
-            dispatch("postToken", loginInfo)
-        })
-				.catch(() => {
-					alert("사용중인 아이디가 존재합니다.");
-				})
+                dispatch("postToken", loginInfo)
+            })
+            .catch(() => {
+                alert("사용중인 아이디가 존재합니다.");
+            })
     },
-    signup({dispatch}, signupData) {
+    signup({ dispatch }, signupData) {
         const signupInfo = {
             data: signupData
         }
         dispatch('postSignup', signupInfo)
-		},
+    },
     checkNickname(context, signupData) {
         console.log()
         if (!context.state.isLoggedIn) {
@@ -61,25 +61,26 @@ export default {
                 data: signupData.nickname
             }
             axios.get(`http://localhost:9999/mit/api/user/checkNickname/${nick.data}`)
-            .then(() => {
-                alert('사용가능한 별명입니다')
-            })
-            .catch(() => {
-                alert('사용중인 별명입니다.')
-                signupData.nickname= ''
-            })
+                .then(() => {
+                    alert('사용가능한 별명입니다')
+                })
+                .catch(() => {
+                    alert('사용중인 별명입니다.')
+                    signupData.nickname = ''
+                })
         }
     },
     profile(context) {
         axios.get(`${SERVER_URL}/api/feed/${context.state.email}`)
-        .then(response => {
-            context.commit('INPUTDATA', response.data)
-        })
-        .catch(error=> {
-            console.log(error)
-        })
+            .then(response => {
+                context.commit('INPUTDATA', response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     },
     postEmailToken(context) {
+<<<<<<< HEAD
 			axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
 			.then(res => {
 					context.commit('POST_EMAIL', res)
@@ -113,5 +114,37 @@ export default {
 				.catch(error => console.log(error.response.data))
 		}
 
+=======
+        axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
+            .then(res => {
+                context.commit('POST_EMAIL', res)
+            })
+    },
+    getContestData({ commit }) {
+        axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
+            .then(res => {
+                commit('contestData', res.data)
+            })
+    }
+    , feedCreate(context, feedData) {
+        console.log(feedData)
+        console.log(context.state.email)
+        var params = new URLSearchParams();
+        params.append('category', feedData.category);
+        params.append('description', feedData.description);
+        params.append('email', context.state.email);
+        params.append('file', feedData.file);
+        params.append('tags', feedData.tags);
+        console.log(params)
+        axios.post(`${SERVER_URL}/api/feed/create/`, params)
+            .then(response => {
+                console.log(response)
+                router.go({ name: "Profile" })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+>>>>>>> bfac8eb7f2b1a34c7a7481a1c858d4de615603df
 }
 
