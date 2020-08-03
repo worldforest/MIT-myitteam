@@ -6,7 +6,7 @@ public interface UserRepo {
 	public User login(User user);
 
 	public boolean join(User user);
-	
+
 	public String findPwd(String email);
 
 	public int emailCheck(String email);
@@ -18,5 +18,7 @@ public interface UserRepo {
 	public String selectNickname(String email);
 
 	public User selectPrivate(String email);
+
+	public boolean update(String email, String pwd);
 
 }
