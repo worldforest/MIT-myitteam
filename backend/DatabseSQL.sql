@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `address` VARCHAR(45) NULL,
   `src` VARCHAR(45) NULL,
   PRIMARY KEY (`email`),
-  UNIQUE INDEX `nickname_UNIQUE` (`nickname` ASC) VISIBLE);
+  UNIQUE INDEX `nickname_UNIQUE` (`nickname` ASC));
 
 
 -- -----------------------------------------------------
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`feed` (
   `src` VARCHAR(512) NULL COMMENT 'feed represent file path\n',
   `category` VARCHAR(45) NULL,
   PRIMARY KEY (`no`, `email`),
-  INDEX `fk_feed_user_idx` (`email` ASC) VISIBLE,
+  INDEX `fk_feed_user_idx` (`email` ASC),
   CONSTRAINT `fk_feed_user`
     FOREIGN KEY (`email`)
     REFERENCES `mydb`.`user` (`email`)
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`reply` (
   `writedate` DATETIME NULL DEFAULT now(),
   `nickname` VARCHAR(45) NULL,
   `reply` VARCHAR(45) NULL,
-  INDEX `no_idx` (`no` ASC) VISIBLE,
+  INDEX `no_idx` (`no` ASC),
   CONSTRAINT `fk_reply_feed`
     FOREIGN KEY (`no`)
     REFERENCES `mydb`.`feed` (`no`)
@@ -139,9 +139,9 @@ ENGINE = InnoDB;
 -- Table `mydb`.`follow`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`follow` (
-  `nickname` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
   `following` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`nickname`, `following`))
+  PRIMARY KEY (`email`, `following`))
 ENGINE = InnoDB;
 
 
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`contents` (
   `url` VARCHAR(1024) NULL COMMENT '공모전 사이트',
   `views` INT NULL DEFAULT 0 COMMENT '조회수',
   PRIMARY KEY (`no`, `email`),
-  INDEX `nickname_idx` (`email` ASC) VISIBLE,
+  INDEX `nickname_idx` (`email` ASC),
   CONSTRAINT `fk_contents_user`
     FOREIGN KEY (`email`)
     REFERENCES `mydb`.`user` (`email`)
@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`team` (
   `title` VARCHAR(45) NULL,
   `local` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL COMMENT '팀 설명',
-  INDEX `fk_team_user_idx` (`leaderemail` ASC) VISIBLE,
+  INDEX `fk_team_user_idx` (`leaderemail` ASC),
   PRIMARY KEY (`no`, `leaderemail`),
   CONSTRAINT `fk_team_contents`
     FOREIGN KEY (`no`)
@@ -232,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`teaminfo` (
   `ability` VARCHAR(2000) NULL COMMENT '필수역량',
   `advantage` VARCHAR(2000) NULL COMMENT '우대사항',
   `headcount` INT NULL COMMENT '필요한 인원 수',
-  INDEX `fk_teaminfo_team1_idx` (`no` ASC, `leaderemail` ASC) VISIBLE,
+  INDEX `fk_teaminfo_team1_idx` (`no` ASC, `leaderemail` ASC),
   CONSTRAINT `fk_teaminfo_team1`
     FOREIGN KEY (`no` , `leaderemail`)
     REFERENCES `mydb`.`team` (`no` , `leaderemail`)
