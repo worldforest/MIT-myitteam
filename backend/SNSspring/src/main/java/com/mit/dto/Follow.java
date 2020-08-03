@@ -4,6 +4,7 @@ public class Follow {
 
 	private String email;// 로그인한 사람
 	private String following;// emial인 사람이 follow하는 사람
+	
 	public String getEmail() {
 		return email;
 	}
