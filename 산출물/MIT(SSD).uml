@@ -1,0 +1,119 @@
+@startuml
+title 로그인
+autonumber
+actor User
+User->Front:로그인 화면
+Front->SpringServer:email/PW 입력
+database DB
+SpringServer->DB:회원정보 확인
+DB-->Front:로그인 완료
+Front->Front:메인 화면 이동
+@enduml
+
+@startuml
+title 회원가입
+autonumber
+actor User
+User->Front:회원가입 화면
+Front->SpringServer:회원가입 정보
+database DB
+SpringServer->DB:email, nicknmae 중복검사
+DB-->Front:회원가입 성공
+Front->Front:메인 화면 이동
+@enduml
+
+@startuml
+title 계정 설정
+autonumber
+actor User
+User->Front:프로필 화면
+Front->Front:계정 설정화면
+Front->SpringServer:회원정보 수정
+database DB
+SpringServer->DB:수정된 데이터
+DB-->Front:수정된 정보 반영
+Front->User:프로필 수정
+@enduml
+
+@startuml
+title 프로필 페이지
+autonumber
+actor User
+User->Front:로그인 후
+Front->SpringServer:로그인 정보
+database DB
+SpringServer->DB:유저 정보 확인
+DB-->Front:프로필 보여주기(유저정보, 피드)
+@enduml
+
+@startuml
+title 메인페이지
+autonumber
+actor User
+User->Front:로그인 후
+== Contest ==
+Front->SpringServer:공모전 선택
+database DB
+SpringServer->DB:공모전 정보 검색
+DB-->Front:선택한 공모전
+== Project ==
+Front->SpringServer:프로젝트 선택
+SpringServer->DB:프로젝트 정보 검색
+DB->Front:선택한 프로젝트
+@enduml
+
+@startuml
+title 공모전 페이지-팀 지원하기
+autonumber
+actor User
+User->Front:공모전 페이지
+Front->Front:공모전 선택
+User->Front:팀원 모집 선택
+Front->SpringServer:해당 공모전 팀 정보
+SpringServer->DB:전체 팀 정보 확인 
+DB->Front:팀 전체 목록
+== 팀 지원하기 ==
+Front->SpringServer:팀 선택
+SpringServer->DB:팀 상세정보 검색
+DB->Front:팀 상세정보
+Front->SpringServer:팀 지원하기
+SpringServer->DB:apply
+DB->Front:지원요청 성공
+== 팀 등록하기 ==
+Front->SpringServer:팀 등록하기
+SpringServer->DB:팀 정보 저장
+DB->Front:팀 전체 목록 조회
+@enduml
+
+@startuml
+title 프로젝트 페이지-지원
+ProjectPage->SpringServer:전체 프로젝트 조회
+SpringServer->DB:프로젝트 정보 확인
+DB->ProjectPage:전체 프로젝트 조회
+ProjectPage->SpringServer:프로젝트 지원하기
+SpringServer->DB:지원 정보
+DB->ProjectPage:지원 성공/실패 전달
+DB->TeamApplyPage:팀 지원 관리페이지
+@enduml
+
+@startuml
+title 프로젝트 페이지-등록
+ProjectPage->SpringServer:전체 프로젝트 조회
+SpringServer->DB:프로젝트 정보 확인
+DB->ProjectPage:전체 프로젝트 조회
+ProjectPage->SpringServer:프로젝트 등록하기
+SpringServer->DB:프로젝트 정보 전달
+DB->ProjectPage:프로젝트 등록 
+@enduml
+
+@startuml
+title 팀원 관리 페이지
+TeamPage->Scheduling:일정 관리
+Scheduling->SpringServer:일정 등록
+SpringServer->DB:팀원별 일정 저장
+DB->SpringServer:회의 가능 날짜찾기
+SpringServer->Scheduling:팀 회의날짜 보여주기
+Scheduling->SpringServer:회의장소 추천
+SpringServer->DB:최적 장소찾기
+DB->Scheduling:팀원 위치기반 장소 추천
+@enduml
