@@ -79,6 +79,15 @@ export default {
 				console.log(error)
 			})
 	},
+	userprofile(context, useremail) {
+        axios.get(`${SERVER_URL}/api/feed/${useremail}`)
+          .then(res => {
+              context.commit('USERINPUT', res.data)
+          })
+          .catch(err => {
+              console.log(err)
+          })
+    },
 	postEmailToken(context) {
 		axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
 			.then(res => {
@@ -136,6 +145,31 @@ export default {
 			.catch(error => {
 				console.log(error)
 			})
-	}
+	},
+	follow(context) {
+        // console.log(context.state.email)
+        // console.log(context.state.userprofiledata.feeds[0].email)
+        var params = new URLSearchParams();
+        params.append('email', context.state.email);
+        params.append('following', context.state.userprofiledata.feeds[0].email)
+        // params.append('pwd', info.data.pwd);
+        axios.post(`${SERVER_URL}/api/follow/follow`, params)
+            .then(() => {
+                console.log('팔로우 완료')
+            })
+            .catch(error => console.log(error.response.data))
+	},
+	myFollowerList(context, res) {
+        var params = new URLSearchParams();
+        var data = []
+        params.append('email', res);
+        axios.post(`${SERVER_URL}/api/follow/followerList`, params)
+          .then((response) => {
+            for(var i=0; i<(response.data).length; i++) {
+                data.push(response.data[i].email)
+            }
+          context.commit('INPUTFOLLOWER', data)
+          })
+    },
 }
 

@@ -9,6 +9,7 @@ import TeamRegister from '@/views/TeamRegister.vue'
 import ProjectRegister from '@/views/ProjectRegister.vue'
 import FeedDetail from '@/views/FeedDetail.vue'
 import FeedCreate from '@/views/FeedCreate.vue'
+import UserProfile from '@/views/UserProfile.vue'
 
 Vue.use(VueRouter)
 
@@ -81,7 +82,13 @@ Vue.use(VueRouter)
     path: '/feed_detail',
     name: "FeedDetail",
     component: FeedDetail,
-  }
+  },
+  { 
+    path: '/userprofile',
+    name: "UserProfile",
+    component: UserProfile,
+    props: true,
+  },
   //////////지훈////////////
 ]
 

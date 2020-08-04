@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- 웹 환경: 400px보다 화면이 더 넓을 때 -->
     <div>
       <!-- Search Bar -->
       <v-row class="d-flex justify-center"> 
@@ -16,8 +15,7 @@
       </v-row>
     </div>
     
-    <div>
-      <!-- 공모전1 -->
+    <div class="mt-6">
       <h1>공모전</h1>
       <!-- 화면이 클 때 -->
       <div v-if="windowWidth >= 1064">
@@ -33,23 +31,20 @@
                         class="mx-2"
                          >
                   <b-card-text>
+                    <!-- 길이가 15자 이상이면 이후에 ...이 찍혀나오게 하기 -->
                     <div v-if="club.title.length >= 15" >
+                      <!-- 공모디테일에 club을 담아서 보내주기 -->
                       <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
                         {{ club.title.slice(0,15)}}...
                       </router-link>
                     </div>
+                    <!-- 15자 미만이면 그대로 나오게 하기 -->
                     <div v-else>
                       <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
                         {{ club.title }}
                       </router-link>
                     </div>
                   </b-card-text>
-                  <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
-                  <!-- <template v-slot:footer>
-                    <router-link :to="{name: 'GongmoDetail', params:{club:club}}">
-                      자세히 보기
-                    </router-link>
-                  </template> -->
                 </b-card>
               </b-card-group>
 
@@ -146,6 +141,7 @@
     </div>
     <div>
       <h1>프로젝트</h1>
+      <!-- 화면이 1064이상일 때 -->
       <div v-if="windowWidth >= 1064">
         <v-row>
           <!-- 캐로셀 -->
@@ -168,7 +164,6 @@
                 </b-card>
               </b-card-group>
 
-              <!-- 인기 공모전 10개로 제한할 예정이니까 페이지네이션 동그라미로 했음 -->
               <div class="card-pagination">
                   <div class="page-index" v-for="i in nbPages_pjt" :key="i"  @click="goto_pjt(i)" :class={active:currentPage_pjt(i)}></div>
               </div>
@@ -176,25 +171,6 @@
           </v-col>
         </v-row>
         <hr class="mt-2">
-        <div class="my-2 text-center">
-          게시글
-        </div>
-        <v-row>
-          <v-col cols="4"  class="px-6" v-for="i in community" :key="i">
-            <div class="bg">
-              <div class="d-flex">
-                <div>
-                  <p>{{ i.title }}</p>
-                  <p>{{ i.host }}</p>                  
-                  <p>{{ i.dday }}</p>                  
-                </div>
-                <div class="ml-auto">
-                  <img :src="i.imgUrl" alt="" style="width:100px; height:150px;">
-                </div>
-              </div>
-            </div>        
-          </v-col>
-        </v-row>
       </div>
       <div v-else-if="850 > windowWidth">
         <v-row >
@@ -227,25 +203,6 @@
           </v-col>
         </v-row>
         <hr class="mt-2">
-        <div class="my-2 text-center">
-          게시글
-        </div>
-        <v-row>
-          <v-col cols="12" class="px-6" v-for="i in community" :key="i">
-            <div class="bg">
-              <div class="d-flex">
-                <div>
-                  <p>{{ i.title }}</p>
-                  <p>{{ i.host }}</p>                  
-                  <p>{{ i.dday }}</p>                  
-                </div>
-                <div class="ml-auto">
-                  <img :src="i.imgUrl" alt="" style="width:100px; height:150px;">
-                </div>
-              </div>
-            </div>        
-          </v-col>
-        </v-row>
       </div>
       <div v-else>
         <v-row >
@@ -271,38 +228,42 @@
 
               <!-- 인기 공모전 10개로 제한할 예정이니까 페이지네이션 동그라미로 했음 -->
               <div class="card-pagination">
-                  <div class="page-index" v-for="i in nbPages" :key="i"  @click="goto_pjt(i)" :class={active:currentPage_pjt(i)}></div>
+                  <div class="page-index" v-for="i in nbPages_pjt" :key="i"  @click="goto_pjt(i)" :class={active:currentPage_pjt(i)}></div>
               </div>
             </div>
           </v-col>
         </v-row>
         <hr class="mt-2">
-        <div class="my-2 text-center">
+      </div>
+      <div class="my-2 text-center">
           게시글
         </div>
         <v-row>
-          <v-col cols="6" class="px-6" v-for="i in community" :key="i">
-            <div class="bg">
-              <div class="d-flex">
-                <div>
-                  <p>{{ i.title }}</p>
-                  <p>{{ i.host }}</p>                  
-                  <p>{{ i.dday }}</p>                  
-                </div>
-                <div class="ml-auto">
-                  <img :src="i.imgUrl" alt="" style="width:100px; height:150px;">
-                </div>
-              </div>
-            </div>        
+          <v-col cols="4" v-for="i in community" :key="i" >
+            <div class="mx-2 detail_hover">
+              <img :src="i.src"
+                alt=""
+                style="width:100%; height: 350px"
+                :i="i"
+                @click='feedDetail(i)'
+                v-if="windowWidth >= 767"
+              >
+              <img :src="i.src"
+                alt=""
+                style="width:100%; height: 120px;"
+                :i="i"
+                @click='feedDetail(i)'
+                v-else
+              >
+            </div>       
           </v-col>
         </v-row>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 
 
 export default {
@@ -361,17 +322,27 @@ export default {
       ],
       community: [
         {
-          title: '게시글1',
-          host: '과학기술정보통신부',
-          dday: "D-7",
-          imgUrl: require('@/assets/공모1.png')
+          no: 1,
+          email: 'admin@naver.com',
+          nickname: 'admin',
+          description: '아이 씨벌~ 좀 잘해보자!',
+          writedate: '2020-08-03',
+          views: 1231,
+          tag: '싸피',
+          src: 'http://imgnews.naver.net/image/609/2020/07/16/202007161617080310_1_20200716162225347.jpg',
+          category: 1,
         },
         {
-          title: '게시글2',
-          host: '과학기술정보통신부',
-          dday: "D-88",
-          imgUrl: require('@/assets/user.png')
-        }
+          no: 2,
+          email: 'admin@naver.com',
+          nickname: 'admin',
+          description: '주식!!!! ',
+          writedate: '2020-08-01',
+          views: 5547,
+          tag: '호구',
+          src: 'https://t1.daumcdn.net/cfile/blog/99B6DC475CE7A1DF12',
+          category: 1,
+        },
       ]
       
     }
@@ -388,7 +359,8 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
-    this.getContestData() 
+    this.getContestData()
+     
   },
 
   beforeDestroy() { 
@@ -396,6 +368,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['feedDetail']),
     ...mapActions(['getContestData']),
     onResize() {
       this.windowWidth = window.innerWidth
@@ -539,7 +512,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .card-pagination{
   display:flex;
   align-items: center;
@@ -581,6 +554,10 @@ export default {
     text-decoration: none;
     color: black !important;
     font-weight: bold;
+  }
+
+  .detail_hover:hover {
+    opacity: 0.5;
   }
 
   

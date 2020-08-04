@@ -23,6 +23,12 @@ export default {
     },
     contestData(state, res) {
         state.clubs = res
-    }
+    },
+    USERINPUT(state, res) {
+        state.userprofiledata = res
+    },
+    INPUTFOLLOWER(state, res) {
+        state.followerList = res
+    },
 
 }

@@ -1,9 +1,11 @@
 <template>
   <div  class="cont10">
+    {{ email }}
+    {{ followerList }}
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
-          <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
+          <img  v-if="userprofiledata.src" :src="userprofiledata.src" class="box" style="width:150px; height:150px;">
         </div>
         <div class="filebox ml-4"> 
           <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
@@ -17,14 +19,31 @@
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <span>{{ profileData.nickname }}</span>
+          <span>{{ userprofiledata.nickname }}</span>
+            
+            <!-- <v-btn
+              v-if="(userprofiledata.nickname !== profileData.nickname) && (!email in myFollowerList)"
+              class="ml-3"
+              color="primary"
+              @click="follow()"
+            >
+              팔로우
+            </v-btn> -->
+            <v-btn
+              v-if="followerList.includes('jh8039@naver.com')"
+              class="ml-3"
+              color="primary"
+              @click="follow()"
+            >
+              팔로우 취소
+            </v-btn>
         </div>
         <div class="d-flex my-5 ml-5">
-          <span>팔로우| {{ profileData.followingCnt }}명</span>
-          <span class="mx-auto">팔로워| {{ profileData.followerCnt }}명</span>
+          <span>팔로우| {{ userprofiledata.followingCnt }}명</span>
+          <span class="mx-auto">팔로워| {{ userprofiledata.followerCnt }}명</span>
         </div>
         <div class="d-flex ml-5">
-          {{ profileData.description }}
+          {{ userprofiledata.description }}
           <br>
           
         </div>
@@ -34,7 +53,7 @@
     <v-row v-else-if="windowWidth >= 788">
       <v-col col="2" sm="2" class="fg1 mr-6">
         <div class="pf-box">
-          <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
+          <img  v-if="userprofiledata.src" :src="userprofiledata.src" class="box" style="width:150px; height:150px;">
         </div>
         <div class="filebox ml-4"> 
           <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
@@ -48,14 +67,23 @@
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <span>{{ profileData.nickname }}</span>
+          <span>{{ userprofiledata.nickname }}</span>
+
+            <v-btn
+              v-if="userprofiledata.nickname !== profileData.nickname"
+              class="ml-3"
+              color="primary"
+              @click="follow()"
+            >
+              팔로우
+            </v-btn>
         </div>
         <div class="d-flex my-5 ml-5">
-          <span>팔로우| {{ profileData.followingCnt }}명</span>
-          <span class="mx-auto">팔로워| {{ profileData.followerCnt }}명</span>
+          <span>팔로우| {{ userprofiledata.followingCnt }}명</span>
+          <span class="mx-auto">팔로워| {{ userprofiledata.followerCnt }}명</span>
         </div>
         <div class="d-flex ml-5">
-          {{ profileData.description }}
+          {{ userprofiledata.description }}
           <br>
           
         </div>
@@ -65,7 +93,7 @@
     <v-row v-else>
       <v-col col="2" sm="2" class="fg1 mr-6">
         <div class="pf-box">
-          <img  v-if="profileData.src" :src="profileData.src" class="box2" style="width:77px; height:77px;">
+          <img  v-if="userprofiledata.src" :src="userprofiledata.src" class="box2" style="width:77px; height:77px;">
         </div>
         <div class="filebox ml-4"> 
           <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px"></label>
@@ -79,18 +107,27 @@
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <p class="ml-5">{{ profileData.nickname }}</p>
+          <p class="ml-5">{{ userprofiledata.nickname }}</p>
+
+            <v-btn
+              v-if="userprofiledata.nickname !== profileData.nickname"
+              class="ml-3"
+              color="primary"
+              @click="follow()"
+            >
+              팔로우
+            </v-btn>
         </div>
       </v-col>
     </v-row>
-    <span v-if="windowWidth < 788">{{ profileData.description }}</span>
+    <span v-if="windowWidth < 788">{{ userprofiledata.description }}</span>
     <hr>
     <v-row v-if="windowWidth < 788">
       <v-col cols="6">
-        팔로우| {{ profileData.followingCnt }}명
+        팔로우| {{ userprofiledata.followingCnt }}명
       </v-col>
       <v-col cols="6">
-        팔로워| {{ profileData.followerCnt }}명
+        팔로워| {{ userprofiledata.followerCnt }}명
       </v-col>
     </v-row>    
     <hr>
@@ -101,7 +138,7 @@
       피드등록
     </router-link>
     <v-row>
-      <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">
+      <v-col cols="4" v-for="feed in userprofiledata.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
           <img src="https://t1.daumcdn.net/cfile/tistory/9976523D5AD95B6627" 
           alt="" 
@@ -114,7 +151,6 @@
 
 
   </div>
-
 </template>
 
 <script>
@@ -124,6 +160,9 @@ export default {
   name: 'Profile',
   components: {
 
+  },
+  props: {
+    user: String
   },
   data() {
     return {
@@ -149,22 +188,27 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
-
     ...mapMutations(['feedDetail']),
-    ...mapActions(['profile'])
+    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList'])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
-    ...mapState(['profileData', 'email']),
+    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList']),
     ...mapGetters(['isLoggedIn',])
   },
-  mounted() {
-    this.profile()
+  mounted() {    
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
-  }
+    this.myFollowerList(this.user)
+  },
 
+  created () {
+    // 이 페이지의 유저 정보를 확인
+    this.userprofile(this.user)
+    // 로그인한 유저의 정보를 확인
+    this.profile()
+    }
 }
 </script>
 
