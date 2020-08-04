@@ -6,12 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -32,8 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mit.algorithm.Token;
 import com.mit.dto.Feed;
 import com.mit.dto.User;
-import com.mit.repo.FollowRepo;
-import com.mit.repo.UserRepo;
 import com.mit.returnDto.PrivateFeed;
 import com.mit.service.FeedService;
 import com.mit.service.FeedimageService;
@@ -81,14 +75,28 @@ public class FeedController {
 			@RequestParam("description") String description,
 			@RequestParam(value = "tags", required = false) String tags,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
+
 		// 시간과 originalFilename으로 매핑 시켜서 src 주소를 만들어 낸다.
 		// feed-> image 는 대표이미지 feedimage에는 추가 이미지들을 삽입한다.
 		// feed tag들을 삽입한다 ,로 구분
-		Feed feed = new Feed();
 		System.out.println(email);
+		if (file == null || file.isEmpty()) {
+			System.out.println("비어있다.");
+		} else {
+			System.out.println(file.getOriginalFilename());
+			System.out.println("비어 있지 않다");
+		}
+		Feed feed = new Feed();
 		feed.setEmail(email);
-//		feed.setTag(tags);
-//		feed.setCategory(category);
+		if (tags != null)
+			feed.setTag(tags);
+		else
+			feed.setTag("");
+
+		if (category != null)
+			feed.setCategory(category);
+		else
+			feed.setCategory("");
 		feed.setDescription(description);
 		Date date = new Date();
 		StringBuilder sb = new StringBuilder();
@@ -120,6 +128,7 @@ public class FeedController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 		}
 
+		
 		// feed tag 등록
 		StringTokenizer st = null;
 		if (tags != null)
@@ -151,6 +160,7 @@ public class FeedController {
 	public ResponseEntity<PrivateFeed> userPage(@PathVariable("email") String email) {
 
 		PrivateFeed privateFeedDto = new PrivateFeed();
+		System.out.println(followService.followerCnt(email));
 		privateFeedDto.setFollowerCnt(followService.followerCnt(email));
 		privateFeedDto.setFollowingCnt(followService.followingCnt(email));
 
@@ -166,6 +176,5 @@ public class FeedController {
 		privateFeedDto.setNickname(userService.selectNickname(email));
 		return new ResponseEntity<PrivateFeed>(privateFeedDto, HttpStatus.OK);
 	}
-	
 
 }

@@ -28,12 +28,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="followingCnt" parameterType="string"
 		resultType="int">
-		select count(following) from
+		select count(*) from
 		follow where email=#{email}
 	</select>
 
 	<select id="followerCnt" parameterType="string" resultType="int">
-		select count(email) from
+		select count(*) from
 		follow where following=#{email}
 	</select>
 

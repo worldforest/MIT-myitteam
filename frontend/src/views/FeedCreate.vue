@@ -19,77 +19,49 @@
           ></v-text-field>
         </v-col>
       </v-row>
-      <v-row>
+
+      <!-- <v-file-input
+        label="Image input"
+        filled
+        prepend-icon="mdi-camera"
+        accept = "image/*"
+        v-model="feedData.file"
+      ></v-file-input> -->
+
+      <!-- <v-row>
         <v-col cols="12">
           <v-text-field
-            v-model="feedData.email"
-            label="Email"
-            outlined
-          ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12">
-          <v-text-field
+            accept = "image/*"
             v-model="feedData.file"
             label="File"
             outlined
             @change="fileSelect"
             type='file'
-            ref="feedData.file"
+            ref="photoimage"
           ></v-text-field>
         </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12">
-          <v-text-field
-            v-model="feedData.nickname"
-            label="Nickname"
-            outlined
-          ></v-text-field>
-        </v-col>
-      </v-row>
+      </v-row> -->
+
+      <form @change="fileSelect" enctype="multipart/form-data">
+        <input type="file" name="photo" ref="photoimage" accept="image/*">
+      </form>
+      
       <v-row>
         <v-col cols="12">
           <v-text-field
             v-model="feedData.tags"
-            label="Nickname"
+            label="Tags"
             outlined
           ></v-text-field>
         </v-col>
       </v-row>
-        <!-- <v-row>
-          <v-col md="11" class="mx-auto" >
-            <div class="text-center">
-              <v-dialog
-                v-model="dialog"
-                width="500" 
-              >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field 
-                v-bind="attrs"
-                v-on="on"
-                v-model="feedData.tags" label="해쉬태그" outlined id="address"></v-text-field>
-              </template> -->
-              <!-- <v-card class="py-5">
-                <v-text-field label="Legal first name*"></v-text-field>
-                <v-divider></v-divider>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-                  <v-btn color="blue darken-1" text @click="getTag()">Save</v-btn>
-                </v-card-actions>
-              </v-card> -->
-              <!-- </v-dialog>
-            </div>
-          </v-col>
-        </v-row> -->
       <v-btn width="100%" large color="#6200EA" @click="feedCreate(feedData)">피드등록</v-btn>
     </v-container>
   </v-form>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: "FeedCreate",
   data() {
@@ -97,10 +69,10 @@ export default {
       feedData: {
         category: "",
         description: "",
-        email: "",
+        email : "",
         file: "",
-        nickname: "",
         tags: "",
+        imageUrl : "",
       },
       dialog: false
     }
@@ -108,13 +80,22 @@ export default {
   methods:{
     ...mapActions(['feedCreate']),
     fileSelect() {
-      this.feedData.file = this.$refs.feedData.file.files[0]
+      // const reader = new FileReader()
+      // reader.readAsDataURL(this.feedData.file)
+      // reader.onload = () => {
+      //   this.imageUrl = reader.result
+      // }
+      // console.log(this.$refs.feedData.file.files[0])
+      this.feedData.file = this.$refs.photoimage.files[0]
     },
-    getTag(data) {
-      this.feedData.tags = data
-      console.log(data)
-    }
+  },
+  computed: {
+    ...mapState(['email'])
+  },
+  mounted () {
+    this.feedData.email = this.$store.state.email
   }
+  
 }
 </script>
 <style>

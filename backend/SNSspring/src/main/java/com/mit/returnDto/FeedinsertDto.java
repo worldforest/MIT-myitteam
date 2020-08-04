@@ -1,5 +1,7 @@
 package com.mit.returnDto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class FeedinsertDto {
 	String email;
 	String description;
@@ -43,7 +45,5 @@ public class FeedinsertDto {
 		return "FeedinsertDto [email=" + email + ", description=" + description + ", tags=" + tags + ", category="
 				+ category + "]";
 	}
-	
-	
 
 }
