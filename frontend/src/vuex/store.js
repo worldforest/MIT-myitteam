@@ -17,6 +17,7 @@ const state = {
     detailFeed: [],
     userprofiledata: [],
     followerList: [],
+    getTeams: [],
 }
 
 export default new Vuex.Store({

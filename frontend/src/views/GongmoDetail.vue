@@ -32,7 +32,7 @@
         <Intro :club="club" />
       </div>
       <div v-else-if="isTeam">
-        <Team />
+        <Team :club="club" />
       </div>
     </div>
     <div v-else>
@@ -67,7 +67,7 @@
         <Intro :club="club" />
       </div>
       <div v-else-if="isTeam">
-        <Team />
+        <Team :club="club" />
       </div>
     </div>
   </div>

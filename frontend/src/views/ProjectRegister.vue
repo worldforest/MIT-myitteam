@@ -1,10 +1,12 @@
 <template>
 	<v-card color="#FAFAFA">
     <v-container>
+			{{ windowWidth }}
       <div>
 				<v-card id="card-apply" class="mx-auto py-5 px-3 my-8" outlined max-width="800">
-					<h1 class="text-center mb-5 h1-apply">프로젝트 팀원을 구해보세요 :)</h1>
-					
+					<h1 v-if="windowWidth >= 730" class="text-center mb-8 h1-apply">프로젝트 팀원을 구해보세요 :)</h1>
+					<h2 v-if="windowWidth < 730 && windowWidth >= 400" class="text-center mb-8 h1-apply">프로젝트 팀원을 구해보세요 :)</h2>
+					<h3 v-if="windowWidth < 400" class="text-center mb-8 h1-apply">프로젝트 팀원을 구해보세요 :)</h3>
 					<div>
 						<h3 class="ml-4">프로젝트 주제 : </h3>
 						<v-col class="mx-auto" cols="12" md="11">
@@ -80,9 +82,63 @@
 							</v-col>
 						</v-row>
 
+						<!-- 모바일
+						<v-row>
+							<v-col v-if="windowWidth < 400" class="d-flex">
+								<template>
+									<v-menu offset-y>
+										<template v-slot:activator="{ on, attrs }">
+											<v-btn
+												text
+												v-bind="attrs"
+												v-on="on"
+												height="80px"
+												width="300px"
+											>
+												<v-text-field label="시작"
+													outlined
+													v-model="projectData.startdate"></v-text-field>
+											</v-btn>
+										</template>
+									
+										<v-flex>
+											<v-date-picker v-model="projectData.startdate" color="green lighten-1"></v-date-picker>
+										</v-flex>
+									</v-menu>
+								</template>
+							</v-col>
+
+							<v-col v-if="windowWidth < 400" class="d-flex" >
+								<template>
+									<div class="text-center">
+										<v-menu offset-y>
+											<template v-slot:activator="{ on, attrs }">
+												<v-btn
+													text
+													v-bind="attrs"
+													v-on="on"
+													height="80px"
+													width="300px"
+												>
+													<v-text-field label="종료"
+															outlined
+															cols="6"
+															v-model="projectData.enddate"></v-text-field>
+												</v-btn>
+											</template>
+											
+												<v-flex>
+													<v-date-picker v-model="projectData.enddate" color="blue lighten-1"></v-date-picker>
+												</v-flex>
+										</v-menu>
+									</div>
+								</template>
+							</v-col>
+						</v-row> -->
+
 						<div>
 							<h3 class="ml-4">지역 : </h3>
-								<v-col class="d-flex mx-auto" cols="12" md="11">
+								<v-col class="d-flex mx-auto">
 									<v-select
 										:items="selectRegion"
 										label="지역 선택"
@@ -135,12 +191,10 @@
 
 					<v-col class="text-center mx-auto">
 						<div class="my-2">
-							<v-btn depressed large class="white--text" color="#5C6BC0" @click="apply">등록하기</v-btn>
+							<v-btn depressed large class="white--text" color="#5C6BC0" @click="projectregister(projectData)">등록하기</v-btn>
 						</div>
 					</v-col>
 				</v-card>
-				<!-- {{ this.pojectSetData }} -->
-				<ProjectPartDetail v-if="show" :pojectSetData="pojectSetData"/>
       </div>
     </v-container>
 	</v-card>
@@ -149,51 +203,59 @@
 
 <script>
 import ProjectInput from '@/components/ProjectInput'
-import ProjectPartDetail from '@/components/ProjectPartDetail'
+// import ProjectPartDetail from '@/components/ProjectPartDetail'
+
+import { mapActions, mapState } from 'vuex'
 
 export default {
 	name: "ProjectRegister",
 	components: {
 		ProjectInput,
-		ProjectPartDetail,
+		// ProjectPartDetail,
 	},
 	data() {
 		return{
 			selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
 			projectData: {
+				email : "",
 				title: "",
-				project_introduce: "",
-				startdate: "",
-				enddate: "",
-				region: "",
+				description: "",
+				start: "",
+				end: "",
+				local: "",
 				introduce: "",
 				dataList: [],
 			},
-			show: false,	
+			show: false,
+			windowWidth: window.innerWidth,
 		}
 	},
+	watch: {
+    windowWidth(newWidth, oldWidth) {
+      this.txt = `it changed to ${newWidth} from ${oldWidth}`;
+    }
+  },
+  beforeDestroy() { 
+    window.removeEventListener('resize', this.onResize); 
+  },
 	methods: {
+		...mapActions(['projectregister']),
 		addProject(Data){
 			this.projectData.dataList = [...this.projectData.dataList, Data]
 		},
-		apply(){
-			this.pojectSetData.title = this.projectData.title,
-			this.pojectSetData.project_introduce = this.projectData.project_introduce,
-			this.pojectSetData.startdate = this.projectData.startdate,
-			this.pojectSetData.enddata = this.projectData.enddate, 
-			this.pojectSetData.region = this.projectData.region,
-			this.pojectSetData.introduce = this.projectData.introduce,
-			this.pojectSetData.dataList = this.projectData.dataList
-			this.show = true
-
-			this.$emit('submit-project-data', this.pojectSetData)
-			console.log(this.pojectSetData)
-
-			for(var item in this.projectData){
-        this.projectData[item] = ''
-      }
-		}
-	}
+		onResize() {
+      this.windowWidth = window.innerWidth
+    },
+	}, 
+	mounted () {
+			this.projectData.email = this.email, 
+      this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
+	},
+	computed : {
+    ...mapState(['email']),
+  }, 
 }
 </script>
 
@@ -207,4 +269,10 @@ export default {
   .itemLi{
     list-style: none;
   }
+	.projectDate {
+		widows: 50px;
+	}
+	.center{
+		margin: 0 5%;
+	}
 </style>

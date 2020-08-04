@@ -30,5 +30,8 @@ export default {
     INPUTFOLLOWER(state, res) {
         state.followerList = res
     },
-
+    getTeam(state, res) {
+        console.log("mutations")
+        state.getTeams = res 
+    },
 }
