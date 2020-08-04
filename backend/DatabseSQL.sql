@@ -2,21 +2,17 @@
 -- Fri Jul 31 19:14:26 2020
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
-
 -- -----------------------------------------------------
 -- Table `mydb`.`user`
 -- -----------------------------------------------------
@@ -34,8 +30,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `src` VARCHAR(45) NULL,
   PRIMARY KEY (`email`),
   UNIQUE INDEX `nickname_UNIQUE` (`nickname` ASC));
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`feed`
 -- -----------------------------------------------------
@@ -57,8 +51,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`feed` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`feedtag`
 -- -----------------------------------------------------
@@ -71,8 +63,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`feedtag` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`feedimage`
 -- -----------------------------------------------------
@@ -85,8 +75,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`feedimage` (
      ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`reply`
 -- -----------------------------------------------------
@@ -103,8 +91,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`reply` (
      ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`likefeed`
 -- -----------------------------------------------------
@@ -118,8 +104,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`likefeed` (
      ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`scrap`
 -- -----------------------------------------------------
@@ -133,8 +117,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`scrap` (
      ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`follow`
 -- -----------------------------------------------------
@@ -143,8 +125,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`follow` (
   `following` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`email`, `following`))
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`contest`
 -- -----------------------------------------------------
@@ -152,8 +132,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`contest` (
   `de` INT NOT NULL,
   PRIMARY KEY (`de`))
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`contents`
 -- -----------------------------------------------------
@@ -180,8 +158,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`contents` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 COMMENT = 'project와 contest 관리';
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`contentstag`
 -- -----------------------------------------------------
@@ -194,8 +170,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`contentstag` (
      ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`team`
 -- -----------------------------------------------------
@@ -219,8 +193,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`team` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 COMMENT = 'team 등록';
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`teaminfo`
 -- -----------------------------------------------------
@@ -239,8 +211,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`teaminfo` (
      ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`member`
 -- -----------------------------------------------------
@@ -256,8 +226,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`member` (
      ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`applymember`
 -- -----------------------------------------------------
@@ -273,16 +241,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`applymember` (
      ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
-
 USE `mydb`;
-
 DELIMITER $$
 USE `mydb`$$
 $$
-
-
 DELIMITER ;
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
