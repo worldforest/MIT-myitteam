@@ -129,9 +129,9 @@ export default {
     ...mapGetters(['isLoggedIn', 'isEmail'])
   },
   mounted() {
-    // if (this.$cookies.isKey('auth-token')) {
-    //   this.postEmailToken()
-    //   } 
+    if (this.$cookies.isKey('auth-token')) {
+      this.postEmailToken()
+      } 
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })

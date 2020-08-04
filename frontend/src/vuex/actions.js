@@ -88,12 +88,12 @@ export default {
               console.log(err)
           })
     },
-	// postEmailToken(context) {
-	// 	axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
-	// 		.then(res => {
-	// 			context.commit('POST_EMAIL', res)
-	// 		})
-	// },
+	postEmailToken(context) {
+		axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
+			.then(res => {
+				context.commit('POST_EMAIL', res)
+			})
+	},
 	getContestData({ commit }) {
 		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
 			.then(res => {
