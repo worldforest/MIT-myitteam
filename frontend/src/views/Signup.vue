@@ -1,10 +1,11 @@
 <template>
   <v-card color="#FAFAFA">
+    {{ windowWidth }}
     <v-container>
       <div>
         <v-card id="card-signup" class="mx-auto py-5 px-2 my-8" max-width="800">
-        <h2 xs="6" class="text-center mb-5 h1-signup">회원가입해서 팀원을 만나보세요 :)</h2>
-
+        <h2 v-if="windowWidth >= 400" xs="6" class="text-center mb-8 h1-signup">회원가입해서 팀원을 만나보세요 :)</h2>
+        <h3 v-if="windowWidth < 400" xs="6" class="text-center mb-8 h1-signup">회원가입해서 팀원을 만나보세요 :)</h3>
         <div>
           <h3 class="ml-4">아이디 : </h3>
           <v-col xs="6" md="11" class="mx-auto">
@@ -37,11 +38,11 @@
         <h3 class="ml-4">닉네임 : </h3>
         <div xs="6" md="11" class="mx-auto">
           <v-row class="mx-auto">
-            <v-col xs="5" md="8">
+            <v-col xs="5" md="8" class="mx-auto">
             <v-text-field :rules="[rules.required]" v-model="signupData.nickname" label="닉네임" outlined id="nickname"></v-text-field>
             </v-col>
-            <v-col xs="1" md="2" >
-            <v-btn depressed class="white--text" color="#5C6BC0" @click="checkNickname">중복 검사</v-btn>
+            <v-col xs="1" md="2" class="mx-auto">
+              <v-btn class="white--text" large color="#5C6BC0" @click="checkNickname">중복 검사</v-btn>
             </v-col>
           </v-row>
         </div>
@@ -100,7 +101,7 @@
 
         <v-col class="text-center mx-auto">
           <div class="my-2">
-            <v-btn depressed large class="white--text" color="#5C6BC0" @click="signup(signupData)">가입하기</v-btn>
+            <v-btn depressed x-large class="white--text" color="#5C6BC0" @click="signup(signupData)">가입하기</v-btn>
           </div>
         </v-col>
         </v-card>
@@ -130,6 +131,7 @@ export default {
       },
       dialog: false,
       selectGender: ['남', '여'],
+      windowWidth: window.innerWidth,
       rules: {
         required: value => !!value || '필수 값 입니다.',
         min: v => v.length >= 4 || '비밀번호는 최소 8자리 이상 적어주세요.' ,
@@ -153,7 +155,23 @@ export default {
       this.signupData.address = data.address;
       this.dialog = false;
     },
-  }
+    onResize() {
+      this.windowWidth = window.innerWidth
+    },
+  }, 
+  watch: {
+    windowWidth(newWidth, oldWidth) {
+      this.txt = `it changed to ${newWidth} from ${oldWidth}`;
+    }
+  },
+  beforeDestroy() { 
+    window.removeEventListener('resize', this.onResize); 
+  },
+  mounted () {
+      this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
+  },
 }
 </script>
 

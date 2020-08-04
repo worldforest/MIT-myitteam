@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    {{ club }}
+    <!-- {{ club }} -->
+    <!-- {{ getTeams }} -->
     <div class="ma-2">
       <!-- <v-btn color="#5C6BC0" @click="gotoTeam"><img src="@/assets/edit.png" alt="" style="width:20px"><span class="ml-2 white--text">팀원을 모집해요!</span></v-btn> -->
       <router-link :to="{name: 'TeamRegister', params:{no:club.no}}"> 팀원 모집 </router-link>
@@ -21,7 +22,7 @@
           </div>
           <!-- {{ teamData }} -->
           <div class="mx-auto my-2" max-width="800">
-            <v-btn depressed class="mr-2 white--text" color="#5C6BC0" @click="buttonClick">프론트엔드</v-btn>
+            <v-btn depressed class="mr-2 white--text" color="#5C6BC0" @click="getTeamData" >프론트엔드</v-btn>
             <v-btn depressed class="mr-2 white--text" color="#5C6BC0" @click="buttonClick">백엔드</v-btn>
             <v-btn depressed class="mr-2 white--text" color="#5C6BC0" @click="buttonClick">인공지능</v-btn>
             <v-btn depressed class="mr-2 white--text" color="#5C6BC0" @click="buttonClick">빅데이터</v-btn>
@@ -33,7 +34,8 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+// import { mapActions } from 'vuex'
+
 export default {
   name: 'Team',
   props: {
@@ -42,7 +44,7 @@ export default {
   components: {
   },
   methods: {
-    ...mapActions(['team']),
+    // ...mapActions(['getTeamData']),
     gotoTeam() {
       this.$router.push('/teamregister')
     },
@@ -78,6 +80,9 @@ export default {
         }
       ]
     }
+  },
+  computed : {
+    // ...mapState(['getTeams']),
   }, 
 }
 </script>

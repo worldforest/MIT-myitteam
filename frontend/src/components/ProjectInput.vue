@@ -82,13 +82,13 @@ export default {
 				advantage: this.projectData.advantage, 
       }
       
-      if (this.applyData.task !== '' && this.applyData.ability !== '' && this.applyData.advantage !== ''){
-          this.$emit('add-project', setData)
+      if (this.projectData.task !== '' && this.projectData.ability !== '' && this.projectData.advantage !== ''){
+        this.$emit('add-project', setData)
 
-          for(var item in this.projectData){
-            this.projectData[item] = null
-          }
+        for(var item in this.projectData){
+          this.projectData[item] = ''
         }
+      }
 		}
 	}
 }
