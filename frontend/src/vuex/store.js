@@ -5,7 +5,7 @@ import actions from './actions'
 import mutations from './mutations'
 import cookies from 'vue-cookies'
 
-// s
+
 Vue.use(Vuex)
 
 const state = {
@@ -15,6 +15,8 @@ const state = {
     profileData: [],
     clubs: [],
     detailFeed: [],
+    userprofiledata: [],
+    followerList: [],
 }
 
 export default new Vuex.Store({
