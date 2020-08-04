@@ -166,5 +166,6 @@ public class FeedController {
 		privateFeedDto.setNickname(userService.selectNickname(email));
 		return new ResponseEntity<PrivateFeed>(privateFeedDto, HttpStatus.OK);
 	}
+	
 
 }

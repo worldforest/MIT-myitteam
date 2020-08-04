@@ -20,7 +20,7 @@
           <span>{{ profileData.nickname }}</span>
 
             <v-btn
-              v-if="profileData.feeds[0].email !== email"
+              v-if="profileData.feeds.email !== email"
               class="ml-3"
               color="primary"
               @click="follow()"
@@ -62,7 +62,7 @@
             <v-btn
               class="ml-3"
               color="primary"
-              v-if="profileData.feeds[0].email !== email"
+              v-if="profileData.feeds.email !== email"
               @click="follow()"
             >
               팔로우

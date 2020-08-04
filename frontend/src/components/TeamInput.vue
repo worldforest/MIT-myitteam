@@ -65,7 +65,7 @@
         selectPeople: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         applyData: {
           part: '',
-          headCount: '',
+          headcount: '',
           task: '',
           ability: '',
           advantage: '', 
@@ -82,8 +82,6 @@
           ability: this.applyData.ability,
           advantage: this.applyData.advantage, 
         }
-
-        console.log(setData)
         
         if (this.applyData.task !== '' && this.applyData.ability !== '' && this.applyData.advantage !== ''){
           this.$emit('add-apply', setData)

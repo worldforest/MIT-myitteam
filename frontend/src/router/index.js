@@ -61,7 +61,8 @@ Vue.use(VueRouter)
   {
     path: '/teamregister',
     name: "TeamRegister",
-    component: TeamRegister
+    component: TeamRegister,
+    props: true,
   },
   {
     path: '/projectregister',

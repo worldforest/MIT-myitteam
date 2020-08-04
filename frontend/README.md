@@ -1,24 +1,28 @@
-# frontend
 
-## Project setup
-```
-yarn install
-```
+# MIT : My IT Team에 오신걸 환영 합니다.
+### frontend 실행전 설치해야할 목록입니다.
 
-### Compiles and hot-reloads for development
+
+#### 회원가입 시 주소 검색
 ```
-yarn serve
+npm install --save vue-daum-postcode
 ```
 
-### Compiles and minifies for production
+#### 로그인시 cookie
 ```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
+npm install --save vue-cookies vuex
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+#### 서버와 통신
+```
+npm install --save axios
+```
+
+#### bootstrap 사용
+```
+npm install vue bootstrap-vue bootstrap
+```
+
+
+
+- 기타 문의사항은 댓글로 남겨주세요.
