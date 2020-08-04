@@ -19,33 +19,15 @@
           ></v-text-field>
         </v-col>
       </v-row>
-
-      <!-- <v-file-input
+      
+      <v-file-input
         label="Image input"
         filled
         prepend-icon="mdi-camera"
         accept = "image/*"
         v-model="feedData.file"
-      ></v-file-input> -->
+      ></v-file-input>
 
-      <!-- <v-row>
-        <v-col cols="12">
-          <v-text-field
-            accept = "image/*"
-            v-model="feedData.file"
-            label="File"
-            outlined
-            @change="fileSelect"
-            type='file'
-            ref="photoimage"
-          ></v-text-field>
-        </v-col>
-      </v-row> -->
-
-      <form @change="fileSelect" enctype="multipart/form-data">
-        <input type="file" name="photo" ref="photoimage" accept="image/*">
-      </form>
-      
       <v-row>
         <v-col cols="12">
           <v-text-field
@@ -72,22 +54,12 @@ export default {
         email : "",
         file: "",
         tags: "",
-        imageUrl : "",
       },
       dialog: false
     }
   },
   methods:{
     ...mapActions(['feedCreate']),
-    fileSelect() {
-      // const reader = new FileReader()
-      // reader.readAsDataURL(this.feedData.file)
-      // reader.onload = () => {
-      //   this.imageUrl = reader.result
-      // }
-      // console.log(this.$refs.feedData.file.files[0])
-      this.feedData.file = this.$refs.photoimage.files[0]
-    },
   },
   computed: {
     ...mapState(['email'])
