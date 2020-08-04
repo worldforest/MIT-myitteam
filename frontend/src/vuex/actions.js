@@ -9,7 +9,7 @@ const SERVER_URL = 'http://localhost:9999/mit'
 export default {
 	postToken({ commit }, info) {
 
-		var params = new URLSearchParams();
+		const params = new URLSearchParams();
 		params.append('email', info.data.email);
 		params.append('pwd', info.data.pwd);
 		axios.post(`${SERVER_URL}/api/user/login/`, params)
@@ -88,12 +88,12 @@ export default {
               console.log(err)
           })
     },
-	postEmailToken(context) {
-		axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
-			.then(res => {
-				context.commit('POST_EMAIL', res)
-			})
-	},
+	// postEmailToken(context) {
+	// 	axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
+	// 		.then(res => {
+	// 			context.commit('POST_EMAIL', res)
+	// 		})
+	// },
 	getContestData({ commit }) {
 		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
 			.then(res => {
@@ -122,29 +122,19 @@ export default {
 			.catch(error => console.log(error.response.data))
 	},
 	feedCreate(context, feedData) {
-
-		const FormData = require('form-data');
-		const form = new FormData();
-		form.append('category', feedData.category);
-		form.append('description', feedData.description);
-		form.append('email', context.state.email);
-		form.append('description', feedData.description);
-		form.append('tags', feedData.tags);
-		form.append('file', feedData.file);
-		axios.post(`${SERVER_URL}/api/feed/create/`
-			, form,
-			{
-				headers: {
-					'Content-Type': 'multipart/form-data'
-				}
-			})
-			.then(response => {
-				console.log(response)
-				// router.go({ name: "Profile" })
-			})
-			.catch(error => {
-				console.log(error)
-			})
+        const formdata = new FormData();
+        formdata.append('category', feedData.category)
+        formdata.append('description', feedData.description)
+        formdata.append('email', feedData.email) 
+        formdata.append('file', feedData.file)
+        formdata.append('tags', feedData.tags)
+        axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
+        .then(() => {
+            router.push({ name: "Profile"})
+        })
+        .catch(error => {
+            console.log(error)
+        })
 	},
 	follow(context) {
         // console.log(context.state.email)
