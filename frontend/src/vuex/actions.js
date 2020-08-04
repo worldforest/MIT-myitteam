@@ -100,23 +100,19 @@ export default {
 				commit('contestData', res.data)
 			})
 	},
-	teamregister(context, applyData) {
-		console.log(context.state.email)
-		console.log(applyData.no)
-		const params = new URLSearchParams();
-		params.append('no', applyData.no);
-		params.append('email', context.state.email);
-		params.append('local', applyData.local);
-		params.append('description', applyData.description);
-		console.log(applyData.dataList)
-		params.append('datalist', JSON.stringify(applyData.datalist));
-		console.log(params)
+	teamregister(context, applyData){
+		// console.log(context.state.email)
+		// console.log(applyData.no)
+		// const params = new URLSearchParams();
+		// params.append('no', applyData.no);
+		// params.append('email', context.state.email);
+		// params.append('local', applyData.local);
+		// params.append('description', applyData.description);
+		// console.log(applyData.dataList)
+		// params.append('datalist', JSON.stringify(applyData.datalist));
+		// console.log(params)
 		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
 			.then(() => {
-				// commit('SET_TOKEN', response.data.token)
-				// commit('GET_EMAIL', response.data.email)
-				// router.go({ name: "Home" })
-
 				alert('성공적으로 등록하였습니다.')
 			})
 			.catch(error => console.log(error.response.data))

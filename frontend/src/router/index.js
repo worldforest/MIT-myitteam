@@ -10,6 +10,7 @@ import ProjectRegister from '@/views/ProjectRegister.vue'
 import FeedDetail from '@/views/FeedDetail.vue'
 import FeedCreate from '@/views/FeedCreate.vue'
 import UserProfile from '@/views/UserProfile.vue'
+import ProjectList from '@/views/ProjectList.vue'
 
 Vue.use(VueRouter)
 
@@ -69,6 +70,11 @@ Vue.use(VueRouter)
     path: '/projectregister',
     name: 'ProjectRegister',
     component: ProjectRegister
+  },
+  {
+    path: '/projectlist',
+    name: 'ProjectList',
+    component: ProjectList
   },
   //////////다인////////////
   //////////지훈////////////
