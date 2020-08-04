@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mit.repo.UserRepo">
+	<select id="login" parameterType="user" resultType="user">
+		select
+		email,
+		pwd, name, nickname, joindate, age, gender, major, address
+		<!-- city, gu, dong, details -->
+		from
+		user
+		where email = #{email} and pwd =#{pwd}
+	</select>
+
+	<insert id="join" parameterType="user">
+		insert into user(email, pwd, name, nickname, joindate, age, gender,
+		major, address,src) values
+		(#{email}, #{pwd}, #{name}, #{nickname}, now(),
+		#{age}, #{gender},
+		#{major},#{address},#{src})
+		<!-- #{city}, #{gu}, #{dong}, #{details}) -->
+	</insert>
+
+	<select id="findPwd" parameterType="user" resultType="string">
+		select pwd from user
+		where
+		email=#{email}
+	</select>
+
+	<select id="emailCheck" parameterType="String"  resultType="int">
+		select count(*) from user
+		where email = #{email}
+	</select>
+
+	<select id="nicknameCheck" resultType="int">
+		select count(*) from user
+		where nickname = #{nickname}
+	</select>
+
+	<select id="selectDescription" parameterType="string"
+		resultType="string">
+		select description from user
+		where email = #{email}
+	</select>
+	<select id="selectNickname" parameterType="string"
+		resultType="string">
+		select nickname from user
+		where email = #{email}
+	</select>
+
+	<select id="selectPrivate" parameterType="string"
+		resultType="user">
+		select
+		email,nickname, description, src
+		from
+		user
+		where email = #{email}
+	</select>
+	
+	<update id="update" parameterType="string">
+		update user set pwd = #{pwd} where email = #{email}
+	</update>
+
+</mapper>
