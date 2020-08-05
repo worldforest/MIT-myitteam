@@ -31,8 +31,18 @@ export default {
     INPUTFOLLOWER(state, res) {
         state.followerList = res
     },
+    INPUTFOLLOW(state, res) {
+        state.followList = res
+    },
     getTeam(state, res) {
         console.log("mutations")
         state.getTeams = res 
     },
+    followflag(state) {
+        state.followflag = false
+
+        if (state.followerList.includes(state.email)) {
+            state.followflag = true
+        }
+    }
 }

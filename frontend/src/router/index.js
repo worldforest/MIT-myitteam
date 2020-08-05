@@ -41,7 +41,15 @@ Vue.use(VueRouter)
   {
     path: '/signup',
     name: 'Signup',
-    component: Signup
+    component: Signup,
+    beforeEnter(to, from, next) {
+      if (Vue.$cookies.isKey('auth-token')) {
+        next('/')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/profile',

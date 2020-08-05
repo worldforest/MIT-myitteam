@@ -16,7 +16,7 @@ export default {
 				commit('SET_TOKEN', response.data.token)
 				// commit('GET_EMAIL', response.data.email)
 				cookies.set('auth-email', response.data.email)
-				router.push({ name: "Home" })
+				router.go({ name: "Home" })
 			})
 			.catch(error => console.log(error.response.data))
 	},
@@ -72,7 +72,6 @@ export default {
 	},
 	profile(context) {
 		const email = cookies.get('auth-email')
-		console.log(context.state.email)
 		axios.get(`${SERVER_URL}/api/feed/${email}`)
 			.then(response => {
 				context.commit('INPUTDATA', response.data)
@@ -125,16 +124,20 @@ export default {
             console.log(error)
         })
 	},
+
 	follow(context) {
         var params = new URLSearchParams();
         params.append('email', context.state.email);
         params.append('following', context.state.userprofiledata.feeds[0].email)
         axios.post(`${SERVER_URL}/api/follow/follow`, params)
-            .then((response) => {
-                console.log(response)
+            .then(() => {
+				context.commit('conffollowflag')
+				context.dispatch('follwerCnt', context.state.userprofiledata.feeds[0].email)
+				context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
             })
             .catch(error => console.log(error.response.data))
 	},
+
 	myFollowerList(context, res) {
         var params = new URLSearchParams();
         var data = []
@@ -147,15 +150,37 @@ export default {
           context.commit('INPUTFOLLOWER', data)
           })
 	},
+
+	myFollowList(context, res) {
+		var params = new URLSearchParams();
+		// var data = []
+		params.append('email', res);
+		axios.post(`${SERVER_URL}/api/follow/followingList`, params)
+			.then((response) => {
+				console.log(response)
+			})	
+	},
+
 	unfollow(context, res) {
 		var params = new URLSearchParams();
 		params.append('email', context.state.email)
 		params.append('following', res)
 		axios.post(`${SERVER_URL}/api/follow/unfollow`, params)
-		.then((response) => {
-			console.log(response.data)
+		.then(() => {
+			context.commit('conffollowflag')
+			context.dispatch('myFollowerList', res)
+			context.dispatch('follwerCnt', context.state.email)
 		})
 		.catch(error => console.log(error.response.data))
+	},
+
+	follwerCnt(context, res) {
+		var params = new URLSearchParams();
+		params.append('email', res)
+		axios.post(`${SERVER_URL}/api/follow/followerCnt`, params)
+			.then((response) => {
+				context.state.followCnt = response.data
+		})
 	}
 }
 
