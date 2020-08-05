@@ -93,12 +93,8 @@ export default {
 	postEmailToken(context) {
 		axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
 			.then(res => {
-<<<<<<< HEAD
-				context.commit('POST_EMAIL', res)
-=======
 				cookies.set('auth-email', res.data)
 				// context.commit('POST_EMAIL', res)
->>>>>>> 840dbb651dbdf3fa7caa51b62a2f9685f42bafed
 			})
 	},
 	getContestData({ commit }) {
@@ -134,8 +130,8 @@ export default {
         params.append('email', context.state.email);
         params.append('following', context.state.userprofiledata.feeds[0].email)
         axios.post(`${SERVER_URL}/api/follow/follow`, params)
-            .then(() => {
-                console.log('팔로우 완료')
+            .then((response) => {
+                console.log(response)
             })
             .catch(error => console.log(error.response.data))
 	},
