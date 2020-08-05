@@ -114,6 +114,7 @@ export default {
 			.catch(error => console.log(error.response.data))
 	},
 	projectregister(context, projectData){
+		/// 아직 완료 아님  ///
 		console.log(context)
 		console.log(projectData)
 		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
