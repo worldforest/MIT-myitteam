@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{no},#{leaderemail},#{part},#{task},#{ability},#{advantage},#{headcount})
 	</insert>
 
-	<select id="select" parameterType="String" resultType="team">
+	<select id="select" parameterType="String" resultType="teaminfo">
 		select no, leaderemail, part, task, ability, advantage, headcount
 		from teaminfo
 		where no=#{no} and leaderemail=#{leaderemail}

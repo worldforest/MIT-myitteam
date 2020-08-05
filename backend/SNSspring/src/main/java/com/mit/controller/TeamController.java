@@ -1,5 +1,6 @@
 package com.mit.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -122,26 +123,55 @@ public class TeamController {
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
-	// 공모전 번호로 팀 전체 목록 조회
-	@ApiOperation(value = "공모전 번호로 전체 팀 목록을 조회", notes = "팀 전체목록 list로 반환")
-	@PostMapping("contestteamlist")
-	public ResponseEntity<List<Team>> contestTeamList(@RequestParam("no") String no) {
-		List<Team> team = teamService.select(no);
-		if (team != null) {
-			return new ResponseEntity<List<Team>>(team, HttpStatus.OK);
-		}
-		return new ResponseEntity<List<Team>>(team, HttpStatus.EXPECTATION_FAILED);
-	}
+//	// 공모전 번호로 팀 전체 목록 조회
+//	@ApiOperation(value = "공모전 번호로 전체 팀 목록을 조회", notes = "팀 전체목록 list로 반환")
+//	@PostMapping("contestteamlist")
+//	public ResponseEntity<List<Team>> contestTeamList(@RequestParam("no") String no) {
+//		List<Team> team = teamService.select(no);
+//		if (team != null) {
+//			return new ResponseEntity<List<Team>>(team, HttpStatus.OK);
+//		}
+//		return new ResponseEntity<List<Team>>(team, HttpStatus.EXPECTATION_FAILED);
+//	}
+//
+//	@ApiOperation(value = "공모전 번호, 팀장 이메일로 팀의 상세정보 조회", notes = "팀 상세정보 반환")
+//	@PostMapping("contestteamdetail")
+//	public ResponseEntity<List<Teaminfo>> contestTeamDetail(@RequestParam("no") String no,
+//			@RequestParam("emal") String leaderemail) {
+//		List<Teaminfo> teamInfo = teaminfoService.select(no, leaderemail);
+//		if (teamInfo != null) {
+//			return new ResponseEntity<List<Teaminfo>>(teamInfo, HttpStatus.OK);
+//		}
+//		return new ResponseEntity<List<Teaminfo>>(teamInfo, HttpStatus.EXPECTATION_FAILED);
+//	}
 
-	@ApiOperation(value = "공모전 번호, 팀장 이메일로 팀의 상세정보 조회", notes = "팀 상세정보 반환")
-	@PostMapping("contestteamdetail")
-	public ResponseEntity<List<Teaminfo>> contestTeamDetail(@RequestParam("no") String no,
+	@ApiOperation(value = "팀과 상세정보 조회", notes = "팀 상세정보 반환")
+	@PostMapping("teamlist")
+	public ResponseEntity<List<RegTeam>> teamList(@RequestParam("no") String no,
 			@RequestParam("emal") String leaderemail) {
-		List<Teaminfo> teamInfo = teaminfoService.select(no, leaderemail);
-		if (teamInfo != null) {
-			return new ResponseEntity<List<Teaminfo>>(teamInfo, HttpStatus.OK);
+		List<RegTeam> regTeamList = new ArrayList<RegTeam>();
+		List<Team> teamlist=teamService.select(no);
+		//Team team = teamService.select(no);
+		// Teaminfo teaminfo = teaminfoService.select(no, leaderemail);
+//		list<팀> = 팀 정보 + list<팀 상세>
+//		전체 팀 조회
+		for(Team team : teamlist) {
+			RegTeam regTeam = new RegTeam();
+			regTeam.setNo(no);
+			regTeam.setTitle(team.getTitle());
+			regTeam.setLocal(team.getLocal());
+			regTeam.setDescription(team.getDescription());
+			regTeam.setEmail(team.getLeaderemail());
+
+			// datalist를 추가해야지 team no, leaderemail로 검색한 teaminfo list
+			
+			Teaminfo teaminfo = teaminfoService.select(no, leaderemail);
+			List<Teaminfo> infolist = new ArrayList<Teaminfo>();
+			
+			regTeamList.add(regTeam);
 		}
-		return new ResponseEntity<List<Teaminfo>>(teamInfo, HttpStatus.EXPECTATION_FAILED);
+
+		return new ResponseEntity<List<RegTeam>>(regTeamList, HttpStatus.EXPECTATION_FAILED);
 	}
 
 }

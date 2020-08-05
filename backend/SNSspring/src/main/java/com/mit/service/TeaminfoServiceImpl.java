@@ -1,7 +1,5 @@
 package com.mit.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +17,7 @@ public class TeaminfoServiceImpl implements TeaminfoService {
 	}
 
 	@Override
-	public List<Teaminfo> select(String no, String leaderemail) {
+	public Teaminfo select(String no, String leaderemail) {
 		return teaminfoRepo.select(no, leaderemail);
 	}
 
