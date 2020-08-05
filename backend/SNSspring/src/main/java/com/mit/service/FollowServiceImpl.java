@@ -24,12 +24,12 @@ public class FollowServiceImpl implements FollowService {
 	}
 
 	@Override
-	public List<Follow> followingList(String email) {
+	public List<String> followingList(String email) {
 		return followRepo.followingList(email);
 	}
 
 	@Override
-	public List<Follow> followerList(String email) {
+	public List<String> followerList(String email) {
 		return followRepo.followerList(email);
 	}
 

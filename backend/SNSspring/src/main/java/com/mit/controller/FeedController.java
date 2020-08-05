@@ -184,9 +184,7 @@ public class FeedController {
 	}
 
 	@ApiOperation(value = "feed 조회", notes = "email,tag 가 없을땐 모든 feed들을 시간순으로 조회합니다.\n"
-			+ "email 값만 있을 땐 email이 팔로윙하는 feed만 반환합니다.\n"
-			+ "tag만 있으면 tag 가 달린 feed들을 찾아서 조회합니다.\n"
-			+ "")
+			+ "email 값만 있을 땐 email이 팔로윙하는 feed만 반환합니다.\n" + "tag만 있으면 tag 가 달린 feed들을 찾아서 조회합니다.\n" + "")
 	@PostMapping("search")
 	public ResponseEntity<List<Feed>> feedsearch(@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "tag", required = false) String tag) {
@@ -200,10 +198,10 @@ public class FeedController {
 		// email 정보가 주어지면 email 이 팔로우한 사람들의 feed를 반환한다.
 		else if (email != null) {
 			System.out.println("test");
-			List<Follow> follos = followService.followingList(email);
+			List<String> follows = followService.followingList(email);
 			feeds = new ArrayList<Feed>();
-			for (Follow follow : follos) {
-				feeds.addAll(feedService.selectEmail(follow.getFollowing()));
+			for (String follow : follows) {
+				feeds.addAll(feedService.selectEmail(follow));
 			}
 			// Sort 한다 기준은 최신순으로 솔팅한다.
 			Collections.sort(feeds);

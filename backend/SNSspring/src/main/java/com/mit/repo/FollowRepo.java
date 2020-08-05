@@ -9,9 +9,9 @@ public interface FollowRepo {
 
 	public boolean unfollow(Follow follow);
 	
-	public List<Follow> followerList(String email);
+	public List<String> followerList(String email);
 	
-	public List<Follow> followingList(String email);
+	public List<String> followingList(String email);
 
 	public int followingCnt(String email);
 
