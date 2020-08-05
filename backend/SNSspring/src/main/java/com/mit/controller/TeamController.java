@@ -96,16 +96,8 @@ public class TeamController {
 			+ "필요 정보 \n"
 			+ "no, email(생성자),description")
 	@PostMapping("contestteam")
-<<<<<<< HEAD
-	public ResponseEntity<String> contestTeamCreate(@RequestParam("no") String no, @RequestParam("local") String local,
-			@RequestParam("description") String description, @RequestParam("email") String leaderemail,
-			@RequestBody List<RegTeamInfo> datalist) {
-		
-		System.out.println("나 왔어 !!");
-=======
 	public ResponseEntity<String> contestTeamCreate(@RequestBody RegTeam regTeam) {
 
->>>>>>> 1aa6ba9a10eaad46a1714c40982d2c5082ac177b
 		Team team = new Team();
 
 		team.setNo(regTeam.getNo());
