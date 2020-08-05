@@ -102,27 +102,44 @@ export default {
 				commit('contestData', res.data)
 			})
 	},
+
+	//////////다인///////////////
 	teamregister(context, applyData){
+		console.log(context)
+		console.log(applyData)
 		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
 			.then(() => {
 				alert('성공적으로 등록하였습니다.')
 			})
 			.catch(error => console.log(error.response.data))
 	},
+	projectregister(context, projectData){
+		/// 아직 완료 아님  ///
+		console.log(context)
+		console.log(projectData)
+		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
+		.then(() => {
+			alert('성공적으로 등록하였습니다.')
+		})
+		.catch(err => console.log(err.response.data))
+
+	},
+	//////////다인///////////////
+
 	feedCreate(context, feedData) {
-        const formdata = new FormData();
-        formdata.append('category', feedData.category)
-        formdata.append('description', feedData.description)
-        formdata.append('email', feedData.email) 
-        formdata.append('file', feedData.file)
-        formdata.append('tags', feedData.tags)
-        axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
-        .then(() => {
-            router.push({ name: "Profile"})
-        })
-        .catch(error => {
-            console.log(error)
-        })
+		const formdata = new FormData();
+		formdata.append('category', feedData.category)
+		formdata.append('description', feedData.description)
+		formdata.append('email', feedData.email) 
+		formdata.append('file', feedData.file)
+		formdata.append('tags', feedData.tags)
+		axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
+		.then(() => {
+				router.push({ name: "Profile"})
+		})
+		.catch(error => {
+				console.log(error)
+		})
 	},
 
 	follow(context) {

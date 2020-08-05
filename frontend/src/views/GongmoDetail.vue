@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div class="cont" v-if="windowWidth >= 700">
+    <div class="cont" v-if="windowWidth >= 900">
       <div class="d-flex ma-2">
         <div>
           <img :src="club.imagesrc" alt="제목부분 포스터" class="title-img">
