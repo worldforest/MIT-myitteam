@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mit.repo.TeamRepo">
+	<!-- 현재 로그인된 이메일을 가져온다 -->
+	<!-- teaminfo는 lsit형태 -->
+	<!-- title(공모전은 contents에서 no title검색), local, dexcription은 string으로 param -->
+	<insert id="insert" parameterType="team">
+		insert into
+		team(no,leaderemail, title, local, description)
+		values(#{no},#{leaderemail},#{title},#{local},#{description});
+	</insert>
+
+</mapper>
