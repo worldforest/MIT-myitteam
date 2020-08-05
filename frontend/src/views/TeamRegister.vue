@@ -1,8 +1,10 @@
 <template>
   <div>
+    <!-- {{ email }} -->
     {{ applyData.no }}
+
     <br>
-    {{ windowWidth }}
+    <!-- {{ windowWidth }} -->
     <div v-if="windowWidth >= 730">
       <v-card id="card-apply" class="py-5 px-3 my-8 mx-auto" outlined max-width="900px">
         <h1 class="text-center mb-5 h1-apply">공모전 팀원을 구해보세요 :)</h1>
@@ -252,8 +254,8 @@ export default {
       selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
       applyData: {
         // no => 공모전 넘버, email => 팀장 정보, 등록하는 사람 정보
-        email : '',
         local : '',
+        email: '',
         description: '',
         no: this.no,
         datalist: [],
@@ -281,7 +283,7 @@ export default {
     },
   },
   mounted () {
-      this.applyData.email = this.email, 
+      this.applyData.email = this.$store.state.email, 
       this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })

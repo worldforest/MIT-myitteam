@@ -103,26 +103,29 @@ export default {
 				commit('contestData', res.data)
 			})
 	},
+
+	//////////다인///////////////
 	teamregister(context, applyData){
-<<<<<<< HEAD
-		// const FormData = require('form-data');
-		const formdata = new FormData();
-		var params = new URLSearchParams();
-		params.append('email', applyData.email)
-		params.append('local', applyData.local)
-		params.append('description', applyData.description) 
-		params.append('no', applyData.no)
-		formdata.append('datalist', JSON.stringify(applyData.datalist))
-		axios.post(`${SERVER_URL}/api/team/contestteam`, { data: {formdata}, query: {params } } )
-=======
+		console.log(context)
+		console.log(applyData)
 		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
->>>>>>> 1aa6ba9a10eaad46a1714c40982d2c5082ac177b
 			.then(() => {
 				alert('성공적으로 등록하였습니다.')
-	
 			})
 			.catch(error => console.log(error.response.data))
 	},
+	projectregister(context, projectData){
+		console.log(context)
+		console.log(projectData)
+		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
+		.then(() => {
+			alert('성공적으로 등록하였습니다.')
+		})
+		.catch(err => console.log(err.response.data))
+
+	},
+	//////////다인///////////////
+
 	feedCreate(context, feedData) {
 		const formdata = new FormData();
 		formdata.append('category', feedData.category)
