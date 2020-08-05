@@ -136,14 +136,14 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
   },
-  created () { 
-    // if (document.location.pathname === '/') { 
-    //   this.isChecked = true; 
-    // }
-    // else {
-    //     this.isChecked = false;
-    // }
-  }
+  // created () { 
+  //   if (document.location.pathname === '/') { 
+  //     this.isChecked = true; 
+  //   }
+  //   else {
+  //       this.isChecked = false;
+  //   }
+  // }
 };
 </script>
 

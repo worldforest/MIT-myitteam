@@ -8,15 +8,15 @@ const SERVER_URL = 'http://localhost:9999/mit'
 
 export default {
 	postToken({ commit }, info) {
-
 		const params = new URLSearchParams();
 		params.append('email', info.data.email);
 		params.append('pwd', info.data.pwd);
 		axios.post(`${SERVER_URL}/api/user/login/`, params)
 			.then(response => {
 				commit('SET_TOKEN', response.data.token)
-				commit('GET_EMAIL', response.data.email)
-				router.go({ name: "Home" })
+				// commit('GET_EMAIL', response.data.email)
+				cookies.set('auth-email', response.data.email)
+				router.push({ name: "Home" })
 			})
 			.catch(error => console.log(error.response.data))
 	},
@@ -71,7 +71,9 @@ export default {
 		}
 	},
 	profile(context) {
-		axios.get(`${SERVER_URL}/api/feed/${context.state.email}`)
+		const email = cookies.get('auth-email')
+		console.log(context.state.email)
+		axios.get(`${SERVER_URL}/api/feed/${email}`)
 			.then(response => {
 				context.commit('INPUTDATA', response.data)
 			})
@@ -91,7 +93,12 @@ export default {
 	postEmailToken(context) {
 		axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
 			.then(res => {
+<<<<<<< HEAD
 				context.commit('POST_EMAIL', res)
+=======
+				cookies.set('auth-email', res.data)
+				// context.commit('POST_EMAIL', res)
+>>>>>>> 840dbb651dbdf3fa7caa51b62a2f9685f42bafed
 			})
 	},
 	getContestData({ commit }) {
@@ -101,16 +108,6 @@ export default {
 			})
 	},
 	teamregister(context, applyData){
-		// console.log(context.state.email)
-		// console.log(applyData.no)
-		// const params = new URLSearchParams();
-		// params.append('no', applyData.no);
-		// params.append('email', context.state.email);
-		// params.append('local', applyData.local);
-		// params.append('description', applyData.description);
-		// console.log(applyData.dataList)
-		// params.append('datalist', JSON.stringify(applyData.datalist));
-		// console.log(params)
 		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
 			.then(() => {
 				alert('성공적으로 등록하였습니다.')
@@ -133,12 +130,9 @@ export default {
         })
 	},
 	follow(context) {
-        // console.log(context.state.email)
-        // console.log(context.state.userprofiledata.feeds[0].email)
         var params = new URLSearchParams();
         params.append('email', context.state.email);
         params.append('following', context.state.userprofiledata.feeds[0].email)
-        // params.append('pwd', info.data.pwd);
         axios.post(`${SERVER_URL}/api/follow/follow`, params)
             .then(() => {
                 console.log('팔로우 완료')
