@@ -343,6 +343,17 @@ export default {
           src: 'https://t1.daumcdn.net/cfile/blog/99B6DC475CE7A1DF12',
           category: 1,
         },
+        {
+          no: 3,
+          email: 'test@naver.com',
+          nickname: 'test',
+          description: '헬로우~!!!! ',
+          writedate: '2020-08-01',
+          views: 5547,
+          tag: '호구',
+          src: 'https://i.pinimg.com/originals/a3/aa/24/a3aa24b7d7530f8fbb5cda16529e1df5.jpg',
+          category: 1,
+        },
       ]
       
     }
