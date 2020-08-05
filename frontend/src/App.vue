@@ -129,21 +129,21 @@ export default {
     ...mapGetters(['isLoggedIn', 'isEmail'])
   },
   mounted() {
-    // if (this.$cookies.isKey('auth-token')) {
-    //   this.postEmailToken()
-    //   } 
+    if (this.$cookies.isKey('auth-token')) {
+      this.postEmailToken()
+      } 
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
   },
-  created () { 
-    // if (document.location.pathname === '/') { 
-    //   this.isChecked = true; 
-    // }
-    // else {
-    //     this.isChecked = false;
-    // }
-  }
+  // created () { 
+  //   if (document.location.pathname === '/') { 
+  //     this.isChecked = true; 
+  //   }
+  //   else {
+  //       this.isChecked = false;
+  //   }
+  // }
 };
 </script>
 

@@ -8,15 +8,15 @@ const SERVER_URL = 'http://localhost:9999/mit'
 
 export default {
 	postToken({ commit }, info) {
-
 		const params = new URLSearchParams();
 		params.append('email', info.data.email);
 		params.append('pwd', info.data.pwd);
 		axios.post(`${SERVER_URL}/api/user/login/`, params)
 			.then(response => {
 				commit('SET_TOKEN', response.data.token)
-				commit('GET_EMAIL', response.data.email)
-				router.go({ name: "Home" })
+				// commit('GET_EMAIL', response.data.email)
+				cookies.set('auth-email', response.data.email)
+				router.push({ name: "Home" })
 			})
 			.catch(error => console.log(error.response.data))
 	},
@@ -71,7 +71,9 @@ export default {
 		}
 	},
 	profile(context) {
-		axios.get(`${SERVER_URL}/api/feed/${context.state.email}`)
+		const email = cookies.get('auth-email')
+		console.log(context.state.email)
+		axios.get(`${SERVER_URL}/api/feed/${email}`)
 			.then(response => {
 				context.commit('INPUTDATA', response.data)
 			})
@@ -88,12 +90,13 @@ export default {
               console.log(err)
           })
     },
-	// postEmailToken(context) {
-	// 	axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
-	// 		.then(res => {
-	// 			context.commit('POST_EMAIL', res)
-	// 		})
-	// },
+	postEmailToken(context) {
+		axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
+			.then(res => {
+				cookies.set('auth-email', res.data)
+				// context.commit('POST_EMAIL', res)
+			})
+	},
 	getContestData({ commit }) {
 		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
 			.then(res => {
@@ -101,6 +104,7 @@ export default {
 			})
 	},
 	teamregister(context, applyData){
+<<<<<<< HEAD
 		// const FormData = require('form-data');
 		const formdata = new FormData();
 		var params = new URLSearchParams();
@@ -110,6 +114,9 @@ export default {
 		params.append('no', applyData.no)
 		formdata.append('datalist', JSON.stringify(applyData.datalist))
 		axios.post(`${SERVER_URL}/api/team/contestteam`, { data: {formdata}, query: {params } } )
+=======
+		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
+>>>>>>> 1aa6ba9a10eaad46a1714c40982d2c5082ac177b
 			.then(() => {
 				alert('성공적으로 등록하였습니다.')
 	
@@ -132,15 +139,12 @@ export default {
 		})
 	},
 	follow(context) {
-        // console.log(context.state.email)
-        // console.log(context.state.userprofiledata.feeds[0].email)
         var params = new URLSearchParams();
         params.append('email', context.state.email);
         params.append('following', context.state.userprofiledata.feeds[0].email)
-        // params.append('pwd', info.data.pwd);
         axios.post(`${SERVER_URL}/api/follow/follow`, params)
-            .then(() => {
-                console.log('팔로우 완료')
+            .then((response) => {
+                console.log(response)
             })
             .catch(error => console.log(error.response.data))
 	},
@@ -155,6 +159,16 @@ export default {
             }
           context.commit('INPUTFOLLOWER', data)
           })
-    },
+	},
+	unfollow(context, res) {
+		var params = new URLSearchParams();
+		params.append('email', context.state.email)
+		params.append('following', res)
+		axios.post(`${SERVER_URL}/api/follow/unfollow`, params)
+		.then((response) => {
+			console.log(response.data)
+		})
+		.catch(error => console.log(error.response.data))
+	}
 }
 
