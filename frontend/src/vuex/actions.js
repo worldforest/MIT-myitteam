@@ -130,8 +130,8 @@ export default {
         params.append('email', context.state.email);
         params.append('following', context.state.userprofiledata.feeds[0].email)
         axios.post(`${SERVER_URL}/api/follow/follow`, params)
-            .then(() => {
-                console.log('팔로우 완료')
+            .then((response) => {
+                console.log(response)
             })
             .catch(error => console.log(error.response.data))
 	},
@@ -146,6 +146,16 @@ export default {
             }
           context.commit('INPUTFOLLOWER', data)
           })
-    },
+	},
+	unfollow(context, res) {
+		var params = new URLSearchParams();
+		params.append('email', context.state.email)
+		params.append('following', res)
+		axios.post(`${SERVER_URL}/api/follow/unfollow`, params)
+		.then((response) => {
+			console.log(response.data)
+		})
+		.catch(error => console.log(error.response.data))
+	}
 }
 
