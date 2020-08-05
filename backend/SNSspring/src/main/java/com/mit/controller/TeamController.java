@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mit.dto.Contents;
 import com.mit.dto.Team;
 import com.mit.dto.Teaminfo;
+import com.mit.returnDto.RegTeam;
 import com.mit.returnDto.RegTeamInfo;
 import com.mit.service.ContentsService;
 import com.mit.service.TeamService;
@@ -41,31 +42,29 @@ public class TeamController {
 	@Autowired
 	private ContentsService contentsService;
 
-	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.")
+	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n" + "필요 데이터\n"
+			+ "description,email(프로젝트팀 생성자),title,start,end,info")
 	@PostMapping("projectteam")
-	public ResponseEntity<String> projectTeamCreate(@RequestParam("title") String title,
-			@RequestParam("email") String email, @RequestParam("description") String description,
-			@RequestParam("local") String local, @RequestParam("start") String start, @RequestParam("end") String end,
-			@RequestBody List<RegTeamInfo> datalist) {
+	public ResponseEntity<String> projectTeamCreate(@RequestBody RegTeam regTeam) {
 		// projectteam은 contens에 등록한후 contents에서 번호를 얻어와서 등록한다.
 		Contents contents = new Contents();
 		contents.setCategory(1);
-		contents.setDescription(description);
-		contents.setEmail(email);
-		contents.setTitle(title);
+		contents.setDescription(regTeam.getDescription());
+		contents.setEmail(regTeam.getEmail());
+		contents.setTitle(regTeam.getTitle());
 		// start와 end는 포맷을 맞추어서 넣어주자.
-		contents.setStart(start);
-		contents.setEnd(end);
+		contents.setStart(regTeam.getStart());
+		contents.setEnd(regTeam.getEnd());
 		if (!contentsService.insert(contents))
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 
 		Team team = new Team();
-		String no = contentsService.LatestContents(email);
+		String no = contentsService.LatestContents(regTeam.getEmail());
 
 		team.setNo(no);
-		team.setLeaderemail(email);
-		team.setDescription(description);
-		team.setLocal(local);
+		team.setLeaderemail(regTeam.getEmail());
+		team.setDescription(regTeam.getDescription());
+		team.setLocal(regTeam.getLocal());
 		// title은 sql 문에서 찾아온다.
 		team.setTitle(contentsService.selectOne(no).getTitle());
 		// DB에 team 등록
@@ -74,11 +73,11 @@ public class TeamController {
 
 		// 방금 등록한 contents 번호 얻어오기
 		System.out.println(no + "제발");
-		for (RegTeamInfo regTeamInfo : datalist) {
+		for (RegTeamInfo regTeamInfo : regTeam.getDatalist()) {
 			System.out.println("gogo");
 			Teaminfo teaminfo = new Teaminfo();
 			teaminfo.setNo(no);
-			teaminfo.setLeaderemail(email);
+			teaminfo.setLeaderemail(regTeam.getEmail());
 			teaminfo.setAbility(regTeamInfo.getAblity());
 			teaminfo.setPart(regTeamInfo.getPart());
 			teaminfo.setTask(regTeamInfo.getTask());
@@ -92,27 +91,25 @@ public class TeamController {
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "공모전 팀을 생성합니다. ", notes = "성공시 SUCESS를 반환합니다")
+	@ApiOperation(value = "공모전 팀을 생성합니다. ", notes = "성공시 SUCESS를 반환합니다\n" + "필요 정보 \n" + "no, email(생성자),description")
 	@PostMapping("contestteam")
-	public ResponseEntity<String> contestTeamCreate(@RequestParam("no") String no, @RequestParam("local") String local,
-			@RequestParam("description") String description, @RequestParam("email") String leaderemail,
-			@RequestBody List<RegTeamInfo> datalist) {
+	public ResponseEntity<String> contestTeamCreate(@RequestBody RegTeam regTeam) {
 
 		Team team = new Team();
 
-		team.setNo(no);
-		team.setLeaderemail(leaderemail);
-		team.setDescription(description);
+		team.setNo(regTeam.getNo());
+		team.setLeaderemail(regTeam.getEmail());
+		team.setDescription(regTeam.getDescription());
 		// title은 sql 문에서 찾아온다.
-		team.setTitle(contentsService.selectOne(no).getTitle());
+		team.setTitle(contentsService.selectOne(regTeam.getNo()).getTitle());
 		// DB에 team 등록
 		if (!teamService.insert(team))
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 
-		for (RegTeamInfo regTeamInfo : datalist) {
+		for (RegTeamInfo regTeamInfo : regTeam.getDatalist()) {
 			Teaminfo teaminfo = new Teaminfo();
-			teaminfo.setNo(no);
-			teaminfo.setLeaderemail(leaderemail);
+			teaminfo.setNo(regTeam.getNo());
+			teaminfo.setLeaderemail(regTeam.getEmail());
 			teaminfo.setAbility(regTeamInfo.getAblity());
 			teaminfo.setPart(regTeamInfo.getPart());
 			teaminfo.setTask(regTeamInfo.getTask());
