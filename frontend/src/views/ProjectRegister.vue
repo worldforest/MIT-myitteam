@@ -43,12 +43,12 @@
 												>
 													<v-text-field label="프로젝트 시작"
 															outlined
-															v-model="projectData.startdate"></v-text-field>
+															v-model="projectData.start"></v-text-field>
 												</v-btn>
 											</template>
 										
 											<v-flex>
-												<v-date-picker v-model="projectData.startdate" color="green lighten-1"></v-date-picker>
+												<v-date-picker v-model="projectData.start" color="green lighten-1"></v-date-picker>
 											</v-flex>
 										</v-menu>
 									</div>
@@ -69,12 +69,12 @@
 													<v-text-field label="프로젝트 종료"
 															outlined
 															class="d-flex mx-auto" cols="5"
-															v-model="projectData.enddate"></v-text-field>
+															v-model="projectData.end"></v-text-field>
 												</v-btn>
 											</template>
 											
 												<v-flex>
-													<v-date-picker v-model="projectData.enddate" color="blue lighten-1"></v-date-picker>
+													<v-date-picker v-model="projectData.end" color="blue lighten-1"></v-date-picker>
 												</v-flex>
 										</v-menu>
 									</div>
@@ -217,13 +217,12 @@ export default {
 		return{
 			selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
 			projectData: {
-				email : "",
 				title: "",
+				email: "",
 				description: "",
 				start: "",
 				end: "",
 				local: "",
-				introduce: "",
 				dataList: [],
 			},
 			show: false,
@@ -248,7 +247,7 @@ export default {
     },
 	}, 
 	mounted () {
-			this.projectData.email = this.email, 
+			this.projectData.email = this.$store.state.email, 
       this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
