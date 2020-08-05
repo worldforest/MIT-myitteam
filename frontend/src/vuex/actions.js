@@ -101,36 +101,35 @@ export default {
 			})
 	},
 	teamregister(context, applyData){
-		// console.log(context.state.email)
-		// console.log(applyData.no)
-		// const params = new URLSearchParams();
-		// params.append('no', applyData.no);
-		// params.append('email', context.state.email);
-		// params.append('local', applyData.local);
-		// params.append('description', applyData.description);
-		// console.log(applyData.dataList)
-		// params.append('datalist', JSON.stringify(applyData.datalist));
-		// console.log(params)
-		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
+		// const FormData = require('form-data');
+		const formdata = new FormData();
+		var params = new URLSearchParams();
+		params.append('email', applyData.email)
+		params.append('local', applyData.local)
+		params.append('description', applyData.description) 
+		params.append('no', applyData.no)
+		formdata.append('datalist', JSON.stringify(applyData.datalist))
+		axios.post(`${SERVER_URL}/api/team/contestteam`, { data: {formdata}, query: {params } } )
 			.then(() => {
 				alert('성공적으로 등록하였습니다.')
+	
 			})
 			.catch(error => console.log(error.response.data))
 	},
 	feedCreate(context, feedData) {
-        const formdata = new FormData();
-        formdata.append('category', feedData.category)
-        formdata.append('description', feedData.description)
-        formdata.append('email', feedData.email) 
-        formdata.append('file', feedData.file)
-        formdata.append('tags', feedData.tags)
-        axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
-        .then(() => {
-            router.push({ name: "Profile"})
-        })
-        .catch(error => {
-            console.log(error)
-        })
+		const formdata = new FormData();
+		formdata.append('category', feedData.category)
+		formdata.append('description', feedData.description)
+		formdata.append('email', feedData.email) 
+		formdata.append('file', feedData.file)
+		formdata.append('tags', feedData.tags)
+		axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
+		.then(() => {
+				router.push({ name: "Profile"})
+		})
+		.catch(error => {
+				console.log(error)
+		})
 	},
 	follow(context) {
         // console.log(context.state.email)
