@@ -123,28 +123,6 @@ public class TeamController {
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
-	// 공모전 번호로 팀 전체 목록 조회
-//	@ApiOperation(value = "공모전 번호로 전체 팀 목록을 조회", notes = "팀 전체목록 list로 반환")
-//	@PostMapping("contestteamlist")
-//	public ResponseEntity<List<Team>> contestTeamList(@RequestParam("no") String no) {
-//		List<Team> team = teamService.select(no);
-//		if (team != null) {
-//			return new ResponseEntity<List<Team>>(team, HttpStatus.OK);
-//		}
-//		return new ResponseEntity<List<Team>>(team, HttpStatus.EXPECTATION_FAILED);
-//	}
-//
-//	@ApiOperation(value = "공모전 번호, 팀장 이메일로 팀의 상세정보 조회", notes = "팀 상세정보 반환")
-//	@PostMapping("contestteamdetail")
-//	public ResponseEntity<List<Teaminfo>> contestTeamDetail(@RequestParam("no") String no,
-//			@RequestParam("emal") String leaderemail) {
-//		List<Teaminfo> teamInfo = teaminfoService.select(no, leaderemail);
-//		if (teamInfo != null) {
-//			return new ResponseEntity<List<Teaminfo>>(teamInfo, HttpStatus.OK);
-//		}
-//		return new ResponseEntity<List<Teaminfo>>(teamInfo, HttpStatus.EXPECTATION_FAILED);
-//	}
-
 	@ApiOperation(value = "공모전, 프로젝트 번호로 해당 contents에 등록된 전체 팀 목록을 조회", notes = "팀 전체목록 list로 반환(프로젝트는 팀이 하나)")
 	@PostMapping("contentsteamlist")
 	public ResponseEntity<List<RegTeam>> contestTeamList(@RequestParam("no") String no) {
