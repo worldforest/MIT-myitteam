@@ -1,8 +1,10 @@
 <template>
   <div  class="cont10">
+    {{user}}
     {{ email }}
-    {{ (followerList.includes(email)) }}
+    <!-- {{ (followerList.includes(email)) }} -->
     {{ followerList }}
+    <!-- {{ userprofiledata }} -->
 
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
@@ -23,8 +25,9 @@
         <div class="ml-5">
           <span>{{ userprofiledata.nickname }}</span>
             <!-- 현재 사용중인 유저 닉네임과 프로필 유저 닉네임이 같지 않고, 팔로우리스트안에 이메일이 없을 경우 -->
+          <span v-if="userprofiledata.feeds[0].email !== email">
             <v-btn
-              v-if="((userprofiledata.nickname !== profileData.nickname) && !(followerList.includes(email)))"
+              v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
               @click="follow()"
@@ -40,10 +43,11 @@
             >
               팔로우 취소
             </v-btn>
+          </span>
         </div>
         <div class="d-flex my-5 ml-5">
           <span>팔로우| {{ userprofiledata.followingCnt }}명</span>
-          <span class="mx-auto">팔로워| {{ userprofiledata.followerCnt }}명</span>
+          <span class="mx-auto">팔로워| {{ followerList.length }}명</span>
         </div>
         <div class="d-flex ml-5">
           {{ userprofiledata.description }}
@@ -71,15 +75,25 @@
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
           <span>{{ userprofiledata.nickname }}</span>
-
+          <span v-if="userprofiledata.feeds[0].email !== email">
             <v-btn
-              v-if="userprofiledata.nickname !== profileData.nickname"
+              v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
               @click="follow()"
             >
               팔로우
             </v-btn>
+
+            <v-btn
+              v-else
+              class="ml-3"
+              color="primary"
+              @click="unfollow(userprofiledata.feeds[0].email)"
+            >
+              팔로우 취소
+            </v-btn>
+          </span>
         </div>
         <div class="d-flex my-5 ml-5">
           <span>팔로우| {{ userprofiledata.followingCnt }}명</span>
@@ -111,15 +125,25 @@
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
           <p class="ml-5">{{ userprofiledata.nickname }}</p>
-
+          <span v-if="userprofiledata.feeds[0].email !== email">
             <v-btn
-              v-if="userprofiledata.nickname !== profileData.nickname"
+              v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
               @click="follow()"
             >
               팔로우
             </v-btn>
+
+            <v-btn
+              v-else
+              class="ml-3"
+              color="primary"
+              @click="unfollow(userprofiledata.feeds[0].email)"
+            >
+              팔로우 취소
+            </v-btn>
+          </span>
         </div>
       </v-col>
     </v-row>
@@ -191,12 +215,12 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
-    ...mapMutations(['feedDetail']),
-    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow'])
+    ...mapMutations(['feedDetail', 'GET_EMAIL']),
+    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'follwerCnt'])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
-    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList']),
+    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt']),
     ...mapGetters(['isLoggedIn',])
   },
   mounted() {    
@@ -204,6 +228,7 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
     this.myFollowerList(this.user)
+    this.follwerCnt(this.user)
   },
 
   created () {

@@ -1,6 +1,6 @@
 package com.mit.dto;
 
-public class Feed {
+public class Feed implements Comparable<Feed>{
 	String no;
 	String email;
 	String nickname;
@@ -87,6 +87,11 @@ public class Feed {
 	public String toString() {
 		return "Feed [no=" + no + ", email=" + email + ", nickname=" + nickname + ", description=" + description
 				+ ", writedate=" + writedate + ", views=" + views + ", tag=" + tag + "]";
+	}
+
+	@Override
+	public int compareTo(Feed o) {
+		return o.writedate.compareTo(this.writedate);
 	}
 
 }

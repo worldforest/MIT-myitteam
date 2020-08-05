@@ -1,5 +1,7 @@
 package com.mit.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,11 @@ public class FeedtagServiceImpl implements FeedtagService{
 	@Override
 	public boolean insert(String no, String tag) {
 		return feedtagRepo.insert(no, tag);
+	}
+
+	@Override
+	public List<String> selectno(String tag) {
+		return feedtagRepo.selectno(tag);
 	}
 
 }

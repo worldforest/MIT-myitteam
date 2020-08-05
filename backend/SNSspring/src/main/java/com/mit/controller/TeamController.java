@@ -31,6 +31,10 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/api/team")
 public class TeamController {
 
+	private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
+	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
+
 	@Autowired
 	private TeamService teamService;
 	@Autowired
@@ -38,12 +42,7 @@ public class TeamController {
 	@Autowired
 	private ContentsService contentsService;
 
-	private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
-	private static final String SUCCESS = "success";
-	private static final String FAIL = "fail";
-
-	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n"
-			+ "필요 데이터\n"
+	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n" + "필요 데이터\n"
 			+ "description,email(프로젝트팀 생성자),title,start,end,info")
 	@PostMapping("projectteam")
 	public ResponseEntity<String> projectTeamCreate(@RequestBody RegTeam regTeam) {
@@ -92,9 +91,7 @@ public class TeamController {
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "공모전 팀을 생성합니다. ", notes = "성공시 SUCESS를 반환합니다\n"
-			+ "필요 정보 \n"
-			+ "no, email(생성자),description")
+	@ApiOperation(value = "공모전 팀을 생성합니다. ", notes = "성공시 SUCESS를 반환합니다\n" + "필요 정보 \n" + "no, email(생성자),description")
 	@PostMapping("contestteam")
 	public ResponseEntity<String> contestTeamCreate(@RequestBody RegTeam regTeam) {
 
@@ -123,6 +120,28 @@ public class TeamController {
 				return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 		}
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+
+	// 공모전 번호로 팀 전체 목록 조회
+	@ApiOperation(value = "공모전 번호로 전체 팀 목록을 조회", notes = "팀 전체목록 list로 반환")
+	@PostMapping("contestteamlist")
+	public ResponseEntity<List<Team>> contestTeamList(@RequestParam("no") String no) {
+		List<Team> team = teamService.select(no);
+		if (team != null) {
+			return new ResponseEntity<List<Team>>(team, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Team>>(team, HttpStatus.EXPECTATION_FAILED);
+	}
+
+	@ApiOperation(value = "공모전 번호, 팀장 이메일로 팀의 상세정보 조회", notes = "팀 상세정보 반환")
+	@PostMapping("contestteamdetail")
+	public ResponseEntity<List<Teaminfo>> contestTeamDetail(@RequestParam("no") String no,
+			@RequestParam("emal") String leaderemail) {
+		List<Teaminfo> teamInfo = teaminfoService.select(no, leaderemail);
+		if (teamInfo != null) {
+			return new ResponseEntity<List<Teaminfo>>(teamInfo, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Teaminfo>>(teamInfo, HttpStatus.EXPECTATION_FAILED);
 	}
 
 }
