@@ -1,7 +1,9 @@
 <template>
   <div  class="cont10">
     {{ email }}
+    {{ (followerList.includes(email)) }}
     {{ followerList }}
+
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
@@ -20,20 +22,21 @@
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
           <span>{{ userprofiledata.nickname }}</span>
-            
-            <!-- <v-btn
-              v-if="(userprofiledata.nickname !== profileData.nickname) && (!email in myFollowerList)"
+            <!-- 현재 사용중인 유저 닉네임과 프로필 유저 닉네임이 같지 않고, 팔로우리스트안에 이메일이 없을 경우 -->
+            <v-btn
+              v-if="((userprofiledata.nickname !== profileData.nickname) && !(followerList.includes(email)))"
               class="ml-3"
               color="primary"
               @click="follow()"
             >
               팔로우
-            </v-btn> -->
+            </v-btn>
+
             <v-btn
-              v-if="followerList.includes('jh8039@naver.com')"
+              v-else
               class="ml-3"
               color="primary"
-              @click="follow()"
+              @click="unfollow(userprofiledata.feeds[0].email)"
             >
               팔로우 취소
             </v-btn>
@@ -189,7 +192,7 @@ export default {
       this.windowWidth = window.innerWidth
     },
     ...mapMutations(['feedDetail']),
-    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList'])
+    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow'])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])

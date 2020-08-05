@@ -156,6 +156,16 @@ export default {
             }
           context.commit('INPUTFOLLOWER', data)
           })
-    },
+	},
+	unfollow(context, res) {
+		var params = new URLSearchParams();
+		params.append('email', context.state.email)
+		params.append('following', res)
+		axios.post(`${SERVER_URL}/api/follow/unfollow`, params)
+		.then((response) => {
+			console.log(response.data)
+		})
+		.catch(error => console.log(error.response.data))
+	}
 }
 
