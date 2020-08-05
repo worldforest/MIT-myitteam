@@ -1,39 +1,122 @@
 <template>
-  <div class="container">
-    {{ club }}
-    <div class="ma-2">
-      <!-- <v-btn color="#5C6BC0" @click="gotoTeam"><img src="@/assets/edit.png" alt="" style="width:20px"><span class="ml-2 white--text">팀원을 모집해요!</span></v-btn> -->
-      <router-link :to="{name: 'TeamRegister', params:{no:club.no}}"> 팀원 모집 </router-link>
-      
+  <div>
+    {{ windowWidth }}
+    <div class="container" v-if="windowWidth >= 900">
+      <div class="ma-2">
+        <router-link :to="{name: 'TeamRegister', params:{no:club.no}}"> 팀원 모집 </router-link>
+      </div>
+
+      <!-- 웹 페이지 클 때-->
+      <v-row v-if="windowWidth >= 1270">
+        <v-col cols="6" class="px-6" v-for="i in community" :key="i">
+          <div class="teamCard py-5 px-5">
+            <div class="d-flex">
+              <div>
+                <h2 class="mb-2">{{ i.title }}</h2>
+                <hr class="mb-2">
+                <h4 class="mb-3">{{ i.host }}</h4>                  
+                <h5> 모집 기간 : {{ i.dday }}</h5>                  
+              </div>
+            </div>
+          </div>        
+        </v-col>
+      </v-row>
+
+      <!-- 900이상 1270미만 -->
+      <v-row v-if="windowWidth < 1270 && windowWidth >= 900 ">
+        <v-col cols="6" class="px-6" v-for="i in community" :key="i">
+          <div class="teamCard2 py-5 px-5">
+            <div class="d-flex">
+              <div>
+                <h2 class="mb-2">{{ i.title }}</h2>
+                <hr class="mb-2">
+                <h4 class="mb-3">{{ i.host }}</h4>                  
+                <h5> 모집 기간 : {{ i.dday }}</h5>                  
+              </div>
+            </div>
+          </div>        
+        </v-col>
+      </v-row>
     </div>
-    <v-row>
-      <v-col cols="6" class="px-6" v-for="i in community" :key="i">
-        <div class="teamCard py-5 px-5">
-          <div class="d-flex">
-            <div>
-              <h2 class="mb-4">{{ i.title }}</h2>
-              <h3 class="mb-3">팀 설명 : {{ i.host }}</h3>                  
-              <h4> 모집 기간 : {{ i.dday }}</h4>                  
+
+
+
+    <div v-if="windowWidth < 900">
+      <div class="ma-2">
+          <router-link :to="{name: 'TeamRegister', params:{no:club.no}}"> 팀원 모집 </router-link>
+        </div>
+
+      <!-- 700이상 900미만 -->
+      <v-row v-if="windowWidth < 900 && windowWidth >= 700 ">
+        <v-col cols="6" class="px-6" v-for="i in community" :key="i">
+          <div class="teamCard3 py-5 px-5">
+            <div class="d-flex">
+              <div>
+                <h2 class="mb-2">{{ i.title }}</h2>
+                <hr class="mb-2">
+                <h4 class="mb-4">{{ i.host }}</h4>                  
+                <h5> 모집 기간 : {{ i.dday }}</h5>                  
+              </div>
             </div>
-            <div class="ml-auto">
-              <img :src="i.imgUrl" alt="" style="width:100px; height:150px;">
+          </div>        
+        </v-col>
+      </v-row>
+
+      <!-- 550이상 700미만 -->
+      <v-row v-if="windowWidth < 700 && windowWidth >= 550 ">
+        <v-col cols="6" class="px-6" v-for="i in community" :key="i">
+          <div class="teamCard4 py-5 px-5">
+            <div class="d-flex">
+              <div>
+                <h3 class="mb-2">{{ i.title }}</h3>
+                <hr class="mb-2">
+                <h5 class="mb-4">{{ i.host }}</h5>                  
+                <h6> 모집 기간 : {{ i.dday }}</h6>                  
+              </div>
             </div>
-          </div>
-          <!-- {{ teamData }} -->
-          <div class="mx-auto my-2" max-width="800">
-            <v-btn depressed class="mr-2 white--text" color="#5C6BC0" @click="buttonClick">프론트엔드</v-btn>
-            <v-btn depressed class="mr-2 white--text" color="#5C6BC0" @click="buttonClick">백엔드</v-btn>
-            <v-btn depressed class="mr-2 white--text" color="#5C6BC0" @click="buttonClick">인공지능</v-btn>
-            <v-btn depressed class="mr-2 white--text" color="#5C6BC0" @click="buttonClick">빅데이터</v-btn>
-            <v-btn depressed class="mr-2 white--text" color="#5C6BC0" @click="buttonClick">블록체인</v-btn>
-          </div>
-        </div>        
-      </v-col>
-    </v-row>
+          </div>        
+        </v-col>
+      </v-row>
+
+      <!-- 400이상 550미만 -->
+      <v-row v-if="windowWidth < 550 && windowWidth >= 400 ">
+        <v-col cols="6" class="px-6" v-for="i in community" :key="i">
+          <div class="teamCard5 py-5 px-5">
+            <div class="d-flex">
+              <div>
+                <h4 class="mb-2">{{ i.title }}</h4>
+                <hr class="mb-2">
+                <h5 class="mb-4">{{ i.host }}</h5>                  
+                <h6> 모집 기간 : {{ i.dday }}</h6>                  
+              </div>
+            </div>
+          </div>        
+        </v-col>
+      </v-row>
+
+      <!-- 400미만 -->
+      <div v-if="windowWidth < 400">
+        <v-col cols="6" class="px-6" v-for="i in community" :key="i">
+          <div class="teamCard6 py-5 px-5">
+            <div class="d-flex">
+              <div>
+                <h3 class="mb-1">{{ i.title }}</h3>
+                <hr class="mb-1">
+                <h4 class="mb-3">{{ i.host }}</h4>                  
+                <h5> 모집 기간 : {{ i.dday }}</h5>                  
+              </div>
+            </div>
+          </div>        
+        </v-col>
+      </div>
+    </div>
+
+
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+// import { mapActions } from 'vuex'
+
 export default {
   name: 'Team',
   props: {
@@ -42,7 +125,7 @@ export default {
   components: {
   },
   methods: {
-    ...mapActions(['team']),
+    // ...mapActions(['getTeamData']),
     gotoTeam() {
       this.$router.push('/teamregister')
     },
@@ -56,33 +139,74 @@ export default {
     teamData(Data){
       console.log(Data)
       this.applyData = Data
-    }
+    },
+    onResize() {
+      this.windowWidth = window.innerWidth
+    },
   },
   data() {
     return {
       applyData: '',
       buttonvalue: '',
-			dialog: false,
+      dialog: false,
+      windowWidth: window.innerWidth,
       community: [
         {
           title: '대전 팀 구합니다 :)',
           host: '열정만 있으면 누구나 환영입니다! 함께 공부해보아요 ~~~ ',
           dday: "2020-12-25 까지",
-          imgUrl: require('@/assets/공모1.png')
+
         },
         {
           title: '서울 팀 구합니다 :)',
           host: '좋은 분위기 속에서 공모전 하실 분 !! 어서오세요 ~~ ',
           dday: "2020-09-21 까지",
-          imgUrl: require('@/assets/user.png')
+
         }
       ]
     }
-  }, 
+  },
+  watch: {
+    windowWidth(newWidth, oldWidth) {
+      this.txt = `it changed to ${newWidth} from ${oldWidth}`;
+    }
+  },
+  beforeDestroy() { 
+    window.removeEventListener('resize', this.onResize); 
+  },
+  computed : {
+    // ...mapState(['getTeams']),
+  },
+  mounted () {
+      this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
+	},
 }
 </script>
 <style>
   .teamCard {
     border: 2px solid rgb(92, 107, 192);
+    width: 330px;
+  }
+  .teamCard2 {
+    border: 2px solid rgb(92, 107, 192);
+    width: 250px;
+  }
+  .teamCard3 {
+    border: 2px solid rgb(92, 107, 192);
+    width: 330px;
+  }
+  .teamCard4 {
+    border: 2px solid rgb(92, 107, 192);
+    width: 260px;
+  }
+  .teamCard5 {
+    border: 2px solid rgb(92, 107, 192);
+    width: 230px;
+  }
+  .teamCard6 {
+    border: 2px solid rgb(92, 107, 192);
+    width: 280px;
   }
 </style>

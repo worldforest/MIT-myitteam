@@ -62,7 +62,6 @@ export default {
 			selectArea: ['프론트엔드', '백엔드', '인공지능', '빅데이터', '블록체인'],
 			selectPeople: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 			projectData: {
-				id: Date.now(),
 				part: '',
 				headcount: '',
 				task: '',
@@ -74,7 +73,6 @@ export default {
 	methods: {
 		setProjectData() {
 			const setData = {
-				id : this.projectData.id,
 				part: this.projectData.part,
 				headcount: this.projectData.headcount,
 				task: this.projectData.task,
@@ -82,13 +80,13 @@ export default {
 				advantage: this.projectData.advantage, 
       }
       
-      if (this.applyData.task !== '' && this.applyData.ability !== '' && this.applyData.advantage !== ''){
-          this.$emit('add-project', setData)
+      if (this.projectData.task !== '' && this.projectData.ability !== '' && this.projectData.advantage !== ''){
+        this.$emit('add-project', setData)
 
-          for(var item in this.projectData){
-            this.projectData[item] = null
-          }
+        for(var item in this.projectData){
+          this.projectData[item] = ''
         }
+      }
 		}
 	}
 }
