@@ -97,7 +97,8 @@ public class TeamController {
 	public ResponseEntity<String> contestTeamCreate(@RequestParam("no") String no, @RequestParam("local") String local,
 			@RequestParam("description") String description, @RequestParam("email") String leaderemail,
 			@RequestBody List<RegTeamInfo> datalist) {
-
+		
+		System.out.println("나 왔어 !!");
 		Team team = new Team();
 
 		team.setNo(no);
