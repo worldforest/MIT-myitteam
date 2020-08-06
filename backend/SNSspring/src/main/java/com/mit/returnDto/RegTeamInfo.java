@@ -24,11 +24,11 @@ public class RegTeamInfo {
 	public void setPart(String part) {
 		this.part = part;
 	}
-	public String getAblity() {
+	public String getAbility() {
 		return ability;
 	}
-	public void setAblity(String ablity) {
-		this.ability = ablity;
+	public void setAbility(String ability) {
+		this.ability = ability;
 	}
 	public String getAdvantage() {
 		return advantage;
@@ -36,11 +36,7 @@ public class RegTeamInfo {
 	public void setAdvantage(String advantage) {
 		this.advantage = advantage;
 	}
-	@Override
-	public String toString() {
-		return "RegTeamInfo [headCount=" + headCount + ", task=" + task + ", part=" + part + ", ablity=" + ability
-				+ ", advantage=" + advantage + "]";
-	}
+	
 	
 	
 }
