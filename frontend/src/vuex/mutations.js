@@ -44,5 +44,8 @@ export default {
         if (state.followerList.includes(state.email)) {
             state.followflag = true
         }
+    },
+    setCommunity(state, res) {
+        state.community = res
     }
 }

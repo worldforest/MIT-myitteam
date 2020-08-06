@@ -1,15 +1,17 @@
 <template>
   <div>
+    {{ community[3].src }}
+    <img :src="community[3].src">
     <div>
       <!-- Search Bar -->
       <v-row class="d-flex justify-center"> 
         <v-col sm="4" >
           <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
+            v-model="searchData.search"
             label="Search"
             single-line="true"
-            hide-details              
+            hide-details
+            @keypress.enter="searchFeed(searchData.search)"           
           ></v-text-field>
         </v-col>
       </v-row>
@@ -239,17 +241,17 @@
           게시글
         </div>
         <v-row>
-          <v-col cols="4" v-for="i in community" :key="i" >
+          <v-col cols="4" v-for="i in community" :key="i.no" >
             <div class="mx-2 detail_hover">
               <img :src="i.src"
-                alt=""
+                alt="안뜨는거야?"
                 style="width:100%; height: 350px"
                 :i="i"
                 @click='feedDetail(i)'
                 v-if="windowWidth >= 767"
               >
               <img :src="i.src"
-                alt=""
+                alt="안뜨는거라고!"
                 style="width:100%; height: 120px;"
                 :i="i"
                 @click='feedDetail(i)'
@@ -287,6 +289,9 @@ export default {
       RowPerpage_sm_pjt:2,
       currentPageIndex:0,
       currentPageIndex_pjt:0,
+      searchData: {
+        search:'',
+      },
       // 추후에 우리가 데이터를 받아올 곳
       clubs2: [
         {
@@ -319,43 +324,7 @@ export default {
           dday: "D-3",
           imgUrl: require("@/assets/프로젝트6.png")
         },
-      ],
-      community: [
-        {
-          no: 1,
-          email: 'admin@naver.com',
-          nickname: 'admin',
-          description: '아이 씨벌~ 좀 잘해보자!',
-          writedate: '2020-08-03',
-          views: 1231,
-          tag: '싸피',
-          src: 'http://imgnews.naver.net/image/609/2020/07/16/202007161617080310_1_20200716162225347.jpg',
-          category: 1,
-        },
-        {
-          no: 2,
-          email: 'admin@naver.com',
-          nickname: 'admin',
-          description: '주식!!!! ',
-          writedate: '2020-08-01',
-          views: 5547,
-          tag: '호구',
-          src: 'https://t1.daumcdn.net/cfile/blog/99B6DC475CE7A1DF12',
-          category: 1,
-        },
-        {
-          no: 3,
-          email: 'test@naver.com',
-          nickname: 'test',
-          description: '헬로우~!!!! ',
-          writedate: '2020-08-01',
-          views: 5547,
-          tag: '호구',
-          src: 'https://i.pinimg.com/originals/a3/aa/24/a3aa24b7d7530f8fbb5cda16529e1df5.jpg',
-          category: 1,
-        },
-      ]
-      
+      ],      
     }
   },
 
@@ -371,7 +340,7 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
     this.getContestData()
-     
+    this.searchFeed()
   },
 
   beforeDestroy() { 
@@ -380,7 +349,7 @@ export default {
 
   methods: {
     ...mapMutations(['feedDetail']),
-    ...mapActions(['getContestData']),
+    ...mapActions(['getContestData', 'searchFeed']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -484,7 +453,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['clubs']),
+    ...mapState(['clubs', 'community']),
     formattedClubs() {
           return this.clubs.reduce((c, n, i) => {
             // 여기서도 페이지네이션에 들어갈 숫자를 지정해주어야 한다.

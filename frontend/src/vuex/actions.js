@@ -168,16 +168,6 @@ export default {
           })
 	},
 
-	myFollowList(context, res) {
-		var params = new URLSearchParams();
-		// var data = []
-		params.append('email', res);
-		axios.post(`${SERVER_URL}/api/follow/followingList`, params)
-			.then((response) => {
-				console.log(response)
-			})	
-	},
-
 	unfollow(context, res) {
 		var params = new URLSearchParams();
 		params.append('email', context.state.email)
@@ -198,6 +188,15 @@ export default {
 			.then((response) => {
 				context.state.followCnt = response.data
 		})
+	},
+
+	searchFeed(context) {
+		// var params = new URLSearchParams();
+		// params.append('tag', res)
+		axios.post(`${SERVER_URL}/api/feed/search`)
+			.then((response) => {
+				context.commit('setCommunity', response.data)
+			})
 	}
 }
 

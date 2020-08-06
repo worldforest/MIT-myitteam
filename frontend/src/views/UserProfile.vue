@@ -97,7 +97,7 @@
         </div>
         <div class="d-flex my-5 ml-5">
           <span>팔로우| {{ userprofiledata.followingCnt }}명</span>
-          <span class="mx-auto">팔로워| {{ userprofiledata.followerCnt }}명</span>
+          <span class="mx-auto">팔로워| {{ followerList.length }}명</span>
         </div>
         <div class="d-flex ml-5">
           {{ userprofiledata.description }}
@@ -154,7 +154,7 @@
         팔로우| {{ userprofiledata.followingCnt }}명
       </v-col>
       <v-col cols="6">
-        팔로워| {{ userprofiledata.followerCnt }}명
+        팔로워| {{ followerList.length }}명
       </v-col>
     </v-row>    
     <hr>
