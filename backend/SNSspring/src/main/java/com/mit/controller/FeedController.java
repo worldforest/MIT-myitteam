@@ -153,7 +153,7 @@ public class FeedController {
 	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<byte[]> userSearch(@PathVariable("imagename") String imagename) throws IOException {
 		System.out.println("test");
-		InputStream imageStream = new FileInputStream("C://images/feed/" + imagename);
+		InputStream imageStream = new FileInputStream("/home/ubuntu/images/feed/" + imagename);
 		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
 		imageStream.close();
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
@@ -172,10 +172,10 @@ public class FeedController {
 		User user = userService.selectPrivate(email);
 		privateFeedDto.setNickname(user.getNickname());
 		privateFeedDto.setDescription(user.getDescription());
-		privateFeedDto.setSrc("http://localhost:9999/mit/api/user/image/" + user.getSrc());
+		privateFeedDto.setSrc("http://i3b306.p.ssafy.io:9999/mit/api/user/image/" + user.getSrc());
 		List<Feed> feeds = feedService.selectEmail(email);
 		for (int i = 0; i < feeds.size(); i++) {
-			feeds.get(i).setSrc("http://localhost:9999/mit/api/feed/image/" + feeds.get(i).getSrc());
+			feeds.get(i).setSrc("http://i3b306.p.ssafy.io:9999/mit/api/feed/image/" + feeds.get(i).getSrc());
 		}
 		privateFeedDto.setFeeds(feeds);
 		privateFeedDto.setNickname(userService.selectNickname(email));
