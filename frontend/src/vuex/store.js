@@ -29,6 +29,7 @@ const state = {
     club2: [],
     myTeamInfo: [],
     teamreg: [],
+    allContest: [],
 }
 
 export default new Vuex.Store({

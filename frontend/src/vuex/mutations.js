@@ -69,5 +69,8 @@ export default {
     goTeam(state, res) {
         state.teamreg = res
         router.push({name:'ProjectRegister'})
+    },
+    getAllContest(state, res) {
+        state.allContest = res
     }
 }

@@ -50,7 +50,7 @@
     <div v-else>
       <div class="mt-6">
         <h1>공모전</h1>
-        <carousel :per-page="2" :navigate-to="someLocalProperty" :mouse-drag="false" >
+        <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club in clubs" :key="club.no">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor">
               <b-card-text @click="gongmoDetail(club)">
@@ -110,7 +110,7 @@
         <hr class="mt-2">
       </div>
      
-      <!-- /////////////////////////////    화면이 작을 때     //////////////////////////////////////// -->
+      <!-- /////////////////////////////    화면이 중간일 때     //////////////////////////////////////// -->
 
       <div v-else>
         <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >

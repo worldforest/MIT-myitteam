@@ -83,6 +83,22 @@ export default {
 				// context.commit('POST_EMAIL', res)
 			})
 	},
+
+	feedCreate(context, feedData) {
+		const formdata = new FormData();
+		formdata.append('category', feedData.category)
+		formdata.append('description', feedData.description)
+		formdata.append('email', feedData.email) 
+		formdata.append('file', feedData.file)
+		formdata.append('tags', feedData.tags)
+		axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
+		.then(() => {
+				router.push({ name: "Profile"})
+		})
+		.catch(error => {
+				console.log(error)
+		})
+	},
 	
 
 	//////////다인///////////////
@@ -161,24 +177,11 @@ export default {
           })
 	},
 	
-	feedCreate(context, feedData) {
-		const formdata = new FormData();
-		formdata.append('category', feedData.category)
-		formdata.append('description', feedData.description)
-		formdata.append('email', feedData.email) 
-		formdata.append('file', feedData.file)
-		formdata.append('tags', feedData.tags)
-		axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
-		.then(() => {
-				router.push({ name: "Profile"})
-		})
-		.catch(error => {
-				console.log(error)
-		})
-	},
+	
 
 	follow(context) {
 		var params = new URLSearchParams();
+		if (context.state.email !== null) {
 		params.append('email', context.state.email);
 		params.append('following', context.state.userprofiledata.feeds[0].email)
 		axios.post(`${SERVER_URL}/api/follow/follow`, params)
@@ -188,6 +191,10 @@ export default {
 		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
 				})
 				.catch(error => console.log(error.response.data))
+		}
+		else {
+			alert('회원만 팔로우를 할 수 있습니다.')
+		}
 	},
 
 	myFollowerList(context, res) {
@@ -250,6 +257,32 @@ export default {
 		axios.post(`${SERVER_URL}/api/feed/search`, params)
 			.then((response) => {
 				context.commit('setCommunity', response.data)
+			})
+	},
+
+	subEmail(context, res) {
+		console.log(res)
+		var params = new URLSearchParams();
+		params.append('email', res)
+		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
+			.then((response) => {
+				console.log(response)
+			})
+			.catch(error => {
+				console.log(error.response.data)
+			});
+	},
+
+	getAllContest(context) {
+		var data = []
+		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
+			.then((res) => {
+				for(var i=0; i<(res.data).length; i++) {
+					if (res.data[i].category === 0) {
+						data.push(res.data[i])
+					}
+				}
+				context.commit('getAllContest', data)
 			})
 	},
 

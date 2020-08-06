@@ -18,7 +18,7 @@
       </div>
       <hr>
       <img :src="club2.imagesrc" alt="본문내용 포스터" style="width:100%" class="mt-4">
-      <p>{{ club2.description }}</p>
+      <p style="white-space:pre-line;">{{ club2.description }}</p>
       <div class="d-flex">
         <v-btn color="primary" class="ml-auto"  @click="goTeam(club2)">팀 등록</v-btn>
       </div>
@@ -40,7 +40,7 @@
       </div>       
       <hr>
       <img :src="club2.imagesrc" alt="본문내용 포스터" style="width:100%" class="mt-4">
-      <p>{{ club2.description }}</p>
+      <p style="white-space:pre-line;">{{ club2.description }}</p>
       <div class="d-flex">
         <v-btn color="primary" class="ml-auto" @click="goTeam(club2)">팀 등록</v-btn>
       </div>
