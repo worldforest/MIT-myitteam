@@ -74,12 +74,12 @@ public class TeamController {
 
 		// 방금 등록한 contents 번호 얻어오기
 		System.out.println(no + "제발");
-		for (RegTeamInfo regTeamInfo : regTeam.getDatalist()) {
+		for (RegTeamInfo regTeamInfo : regTeam.getDataList()) {
 			System.out.println("gogo");
 			Teaminfo teaminfo = new Teaminfo();
 			teaminfo.setNo(no);
 			teaminfo.setLeaderemail(regTeam.getEmail());
-			teaminfo.setAbility(regTeamInfo.getAblity());
+			teaminfo.setAbility(regTeamInfo.getAbility());
 			teaminfo.setPart(regTeamInfo.getPart());
 			teaminfo.setTask(regTeamInfo.getTask());
 			teaminfo.setAdvantage(regTeamInfo.getAdvantage());
@@ -107,11 +107,11 @@ public class TeamController {
 		if (!teamService.insert(team))
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 
-		for (RegTeamInfo regTeamInfo : regTeam.getDatalist()) {
+		for (RegTeamInfo regTeamInfo : regTeam.getDataList()) {
 			Teaminfo teaminfo = new Teaminfo();
 			teaminfo.setNo(regTeam.getNo());
 			teaminfo.setLeaderemail(regTeam.getEmail());
-			teaminfo.setAbility(regTeamInfo.getAblity());
+			teaminfo.setAbility(regTeamInfo.getAbility());
 			teaminfo.setPart(regTeamInfo.getPart());
 			teaminfo.setTask(regTeamInfo.getTask());
 			teaminfo.setAdvantage(regTeamInfo.getAdvantage());
@@ -145,13 +145,13 @@ public class TeamController {
 			for (Teaminfo teaminfo : teaminfoList) {
 				regTeamInfo.setPart(teaminfo.getPart());
 				regTeamInfo.setTask(teaminfo.getTask());
-				regTeamInfo.setAblity(teaminfo.getAbility());
+				regTeamInfo.setAbility(teaminfo.getAbility());
 				regTeamInfo.setAdvantage(teaminfo.getAdvantage());
 				regTeamInfo.setHeadCount(teaminfo.getHeadcount());
 				regTeamInfoList.add(regTeamInfo);
 			}
 
-			regTeam.setDatalist(regTeamInfoList);
+			regTeam.setDataList(regTeamInfoList);
 			regTeamList.add(regTeam);
 		}
 
