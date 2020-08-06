@@ -2,7 +2,7 @@
   <div>
     <!-- {{ email }} -->
     {{ applyData.no }}
-
+    
     <br>
     <!-- {{ windowWidth }} -->
     <div v-if="windowWidth >= 730">
