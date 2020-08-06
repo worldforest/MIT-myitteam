@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg4">
     
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767">
@@ -92,7 +92,9 @@
       </div>
     </div>
     <v-app color="#FAFAFA" class="container">
-      <router-view />
+      <div>
+        <router-view />
+      </div>
     </v-app>
   </div>
 </template>
@@ -201,6 +203,10 @@ export default {
     display: flex;
     border-radius: 0.5rem;
     justify-content: space-between;
+  }
+
+  .bg4 {
+    background-color: #fafafa;
   }
 
 </style>

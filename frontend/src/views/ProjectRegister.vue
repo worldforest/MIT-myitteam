@@ -1,6 +1,7 @@
 <template>
 	<v-card color="#FAFAFA">
     <v-container>
+			{{ teamreg }}
 			{{ windowWidth }}
       <div>
 				<v-card id="card-apply" class="mx-auto py-5 px-3 my-8" outlined max-width="800">
@@ -243,7 +244,7 @@ export default {
     })
 	},
 	computed : {
-    ...mapState(['email']),
+    ...mapState(['email', 'teamreg']),
   }, 
 }
 </script>
