@@ -16,7 +16,7 @@
             :items="selectPeople"
             label="인원"
             outlined
-            v-model="applyData.headcount"
+            v-model="applyData.headCount"
           ></v-select>
         </v-col>
       </v-row>
@@ -65,7 +65,7 @@
         selectPeople: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         applyData: {
           part: '',
-          headcount: '',
+          headCount: '',
           task: '',
           ability: '',
           advantage: '', 
@@ -77,7 +77,7 @@
       setApplyData() {
         const setData = {
           part: this.applyData.part,
-          headcount: this.applyData.headcount,
+          headCount: this.applyData.headCount,
           task: this.applyData.task,
           ability: this.applyData.ability,
           advantage: this.applyData.advantage, 
