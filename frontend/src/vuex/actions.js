@@ -76,25 +76,6 @@ export default {
 				})
 		}
 	},
-	profile(context) {
-		const email = cookies.get('auth-email')
-		axios.get(`${SERVER_URL}/api/feed/${email}`)
-			.then(response => {
-				context.commit('INPUTDATA', response.data)
-			})
-			.catch(error => {
-				console.log(error)
-			})
-	},
-	userprofile(context, useremail) {
-        axios.get(`${SERVER_URL}/api/feed/${useremail}`)
-          .then(res => {
-              context.commit('USERINPUT', res.data)
-          })
-          .catch(err => {
-              console.log(err)
-          })
-    },
 	postEmailToken(context) {
 		axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
 			.then(res => {
@@ -102,12 +83,7 @@ export default {
 				// context.commit('POST_EMAIL', res)
 			})
 	},
-	getContestData({ commit }) {
-		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
-			.then(res => {
-				commit('contestData', res.data)
-			})
-	},
+	
 
 	//////////다인///////////////
 	teamregister(context, applyData){
@@ -145,6 +121,46 @@ export default {
 	},
 	//////////다인///////////////
 
+	/////////지훈////////////////
+	getContestData(context) {
+		var contest = []
+		var project = []
+		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
+			.then(res => {
+				for(var i=0; i<(res.data).length; i++) {
+					if (res.data[i].category === 0) {
+						contest.push(res.data[i])
+					}
+					else {
+						project.push(res.data[i])
+					}
+				}
+			context.commit('contestData', contest)
+			context.commit('projectData', project)
+			})
+	},
+
+	profile(context) {
+		const email = cookies.get('auth-email')
+		axios.get(`${SERVER_URL}/api/feed/${email}`)
+			.then(response => {
+				context.commit('INPUTDATA', response.data)
+			})
+			.catch(error => {
+				console.log(error)
+			})
+	},
+
+	userprofile(context, useremail) {
+        axios.get(`${SERVER_URL}/api/feed/${useremail}`)
+          .then(res => {
+              context.commit('USERINPUT', res.data)
+          })
+          .catch(err => {
+              console.log(err)
+          })
+	},
+	
 	feedCreate(context, feedData) {
 		const formdata = new FormData();
 		formdata.append('category', feedData.category)
@@ -184,7 +200,19 @@ export default {
 						data.push(response.data[i])
 			}
 			context.commit('INPUTFOLLOWER', data)
-			// console.log(data)
+			})
+	},
+
+	myFollowList(context, res) {
+		var params = new URLSearchParams();
+		var data = []
+		params.append('email', res)
+		axios.post(`${SERVER_URL}/api/follow/followingList`, params)
+			.then((response) => {
+				for (var i=0; i<(response.data).length; i++) {
+					data.push(response.data[i])
+				}
+			context.commit('INPUTFOLLOW', data)
 			})
 	},
 
@@ -200,6 +228,7 @@ export default {
 		})
 		.catch(error => console.log(error.response.data))
 	},
+
 	follwerCnt(context, res) {
 		var params = new URLSearchParams();
 		params.append('email', res)
@@ -209,13 +238,22 @@ export default {
 		})
 	},
 	searchFeed(context) {
-		// var params = new URLSearchParams();
-		// params.append('tag', res)
 		axios.post(`${SERVER_URL}/api/feed/search`)
 			.then((response) => {
 				context.commit('setCommunity', response.data)
 			})
 	},
+
+	searchFollowFeed(context, res) {
+		var params = new URLSearchParams();
+		params.append('email', res)
+		axios.post(`${SERVER_URL}/api/feed/search`, params)
+			.then((response) => {
+				context.commit('setCommunity', response.data)
+			})
+	},
+
+	/////////지훈////////////////
 	getTeamInfo(context) {
 		const params = new URLSearchParams();
 		params.append('email', context.state.email)

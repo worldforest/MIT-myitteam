@@ -1,263 +1,165 @@
 <template>
   <div>
-    <div>
-      <!-- Search Bar -->
-      <v-row class="d-flex justify-center"> 
-        <v-col sm="4" >
-          <v-text-field
-            v-model="searchData.search"
-            label="Search"
-            single-line="true"
-            hide-details
-            @keypress.enter="searchFeed(searchData.search)"           
-          ></v-text-field>
-        </v-col>
-      </v-row>
-    </div>
-    
-    <div class="mt-6">
-      <h1>공모전</h1>
-      <!-- 화면이 클 때 -->
-      <div v-if="windowWidth >= 1064">
-        <v-row>
-          <!-- 캐로셀 -->
-          <v-col cols="12">
-            <div class="animated fadeIn">
-              <b-card-group  deck class="d-flex justify-center">
-                <b-card v-for="(club,index) in currentPageClubs" :key="index"
-                        :img-src="club.imagesrc"
-                        img-alt="Img"
-                        img-top
-                        class="mx-2"
-                         >
-                  <b-card-text>
-                    <!-- 길이가 15자 이상이면 이후에 ...이 찍혀나오게 하기 -->
-                    <div v-if="club.title.length >= 15" >
-                      <!-- 공모디테일에 club을 담아서 보내주기 -->
-                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
-                        {{ club.title.slice(0,15)}}...
-                      </router-link>
-                    </div>
-                    <!-- 15자 미만이면 그대로 나오게 하기 -->
-                    <div v-else>
-                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
-                        {{ club.title }}
-                      </router-link>
-                    </div>
-                  </b-card-text>
-                </b-card>
-              </b-card-group>
 
-              <!-- 인기 공모전 10개로 제한할 예정이니까 페이지네이션 동그라미로 했음 -->
-              <div class="card-pagination">
-                  <div class="page-index" v-for="i in nbPages" :key="i"  @click="goto(i)" :class={active:currentPage(i)}></div>
-              </div>
-            </div>
-          </v-col>
-        </v-row>
-      </div>
-      <!-- 화면이 작을 때 -->
-      <div v-else-if="850 > windowWidth">
-        <v-row>
-          <!-- 캐로셀 -->
-          <v-col cols="12">
-            <div class="animated fadeIn">
-              <b-card-group  deck class="d-flex justify-space-around card-sm">
-                <b-card v-for="(club,index) in currentPageClubs3" :key="index"
-                        :img-src="club.imagesrc"
-                        img-alt="Img"
-                        img-top
-                        class="mx-2" >
-                  <b-card-text>
-                    <div v-if="club.title.length >= 15" >
-                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
-                        {{ club.title.slice(0,15)}}...
-                      </router-link>
-                    </div>
-                    <div v-else>
-                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
-                        {{ club.title }}
-                      </router-link>
-                    </div>
-                  </b-card-text>
-                  <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
-                  <!-- <template v-slot:footer>
-                    <router-link :to="{name: 'GongmoDetail', params:{club:club}}">
-                      자세히 보기
-                    </router-link>
-                  </template> -->
-                </b-card>
-              </b-card-group>
+    <!-- /////////////////////////////    화면이 가장 클 때    //////////////////////////////////////// -->
 
-              <!-- 인기 공모전 10개로 제한할 예정이니까 페이지네이션 동그라미로 했음 -->
-              <div class="card-pagination">
-                  <div class="page-index" v-for="i in nbPages" :key="i"  @click="goto(i)" :class={active:currentPage(i)}></div>
-              </div>
-            </div>
-          </v-col>
-        </v-row>
-      </div>
-      <!-- 화면이 중간일 때 -->
-      <div v-else>
-        <v-row>
-          <!-- 캐로셀 -->
-          <v-col cols="12">
-            <div class="animated fadeIn">
-              <b-card-group  deck class="d-flex justify-center">
-                <b-card v-for="(club,index) in currentPageClubs2" :key="index"
-                        :img-src="club.imagesrc"
-                        img-alt="Img"
-                        img-top
-                        class="mx-2" >
-                  <b-card-text>
-                    <div v-if="club.title.length >= 15" >
-                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
-                        {{ club.title.slice(0,15)}}...
-                      </router-link>
-                    </div>
-                    <div v-else>
-                      <router-link :to="{name: 'GongmoDetail', params:{club:club}}" class="non-dec">
-                        {{ club.title }}
-                      </router-link>
-                    </div>
-                  </b-card-text>
-                  <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
-                  <!-- <template v-slot:footer>
-                    <router-link :to="{name: 'GongmoDetail', params:{club:club}}">
-                      자세히 보기
-                    </router-link>
-                  </template> -->
-                </b-card>
-              </b-card-group>
-
-              <!-- 인기 공모전 10개로 제한할 예정이니까 페이지네이션 동그라미로 했음 -->
-              <div class="card-pagination">
-                  <div class="page-index" v-for="i in nbPages" :key="i"  @click="goto(i)" :class={active:currentPage(i)}></div>
-              </div>
-            </div>
-          </v-col>
-        </v-row>
+    <div v-if="windowWidth >= 1064">
+      <div class="mt-6">
+        <h1>공모전</h1>
+        <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
+          <slide v-for="club in clubs" :key="club.no">
+            <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor">
+              <b-card-text @click="gongmoDetail(club)">
+                <div v-if="club.title.length >= 15" >
+                    {{ club.title.slice(0,15)}}...
+                </div>
+                <div v-else>
+                    {{ club.title }}
+                </div>
+              </b-card-text>
+            </b-card>
+          </slide>
+        </carousel>
       </div>
     </div>
+
+    <!-- /////////////////////////////    화면이 작을 때     //////////////////////////////////////// -->
+
+    <div v-else-if="400 > windowWidth">
+      <div class="mt-6">
+        <h1>공모전</h1>
+        <carousel :per-page="1.5" :navigate-to="someLocalProperty" :mouse-drag="false" >
+          <slide v-for="club in clubs" :key="club.no">
+            <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor">
+              <b-card-text @click="gongmoDetail(club)">
+                <div v-if="club.title.length >= 15" >
+                    {{ club.title.slice(0,15)}}...
+                </div>
+                <div v-else>
+                    {{ club.title }}
+                </div>
+              </b-card-text>
+            </b-card>
+          </slide>
+        </carousel>
+      </div>
+    </div>
+
+    <!-- /////////////////////////////    화면이 중간일 때     //////////////////////////////////////// -->
+
+    <div v-else>
+      <div class="mt-6">
+        <h1>공모전</h1>
+        <carousel :per-page="2" :navigate-to="someLocalProperty" :mouse-drag="false" >
+          <slide v-for="club in clubs" :key="club.no">
+            <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor">
+              <b-card-text @click="gongmoDetail(club)">
+                <div v-if="club.title.length >= 15" >
+                    {{ club.title.slice(0,15)}}...
+                </div>
+                <div v-else>
+                    {{ club.title }}
+                </div>
+              </b-card-text>
+            </b-card>
+          </slide>
+        </carousel>
+      </div>
+    </div>
+
+    <!-- /////////////////////////////    프로젝트 시작     //////////////////////////////////////// -->
+    <!-- /////////////////////////////    화면이 클 때     //////////////////////////////////////// -->
+
     <div>
       <h1>프로젝트</h1>
-      <!-- 화면이 1064이상일 때 -->
-      <div v-if="windowWidth >= 1064">
-        <v-row>
-          <!-- 캐로셀 -->
-          <v-col cols="12">
-            <div class="animated fadeIn">
-              <b-card-group  deck class="d-flex justify-center">
-                <b-card v-for="(club,index) in currentPageClubs_pjt" :key="index"
-                        :img-src="club.imgUrl"
-                        img-alt="Img"
-                        img-top
-                        :title="club.title"
-                        class="mx-2" >
-                  <b-card-text>
-                    {{ club.dday }}
-                  </b-card-text>
-                  <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
-                  <template v-slot:footer>
-                    <b-btn variant="primary" block>Add</b-btn>
-                  </template>
-                </b-card>
-              </b-card-group>
-
-              <div class="card-pagination">
-                  <div class="page-index" v-for="i in nbPages_pjt" :key="i"  @click="goto_pjt(i)" :class={active:currentPage_pjt(i)}></div>
-              </div>
-            </div>
-          </v-col>
-        </v-row>
+      <div v-if="windowWidth >= 1064">      
+        <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
+          <slide v-for="club2 in clubs2" :key="club2.no">
+            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor">
+              <b-card-text>
+                <div v-if="club2.title.length >= 15" >
+                    {{ club2.title.slice(0,15)}}...
+                </div>
+                <div v-else>
+                    {{ club2.title }}
+                </div>
+              </b-card-text>
+            </b-card>
+          </slide>
+        </carousel>
         <hr class="mt-2">
       </div>
-      <div v-else-if="850 > windowWidth">
-        <v-row >
-          <!-- 캐로셀 -->
-          <v-col cols="12" class="bg">
-            <div class="animated fadeIn">
-              <b-card-group  deck class="d-flex justify-space-around card-sm">
-                <b-card v-for="(club,index) in currentPageClubs3_pjt" :key="index"
-                        :img-src="club.imgUrl"
-                        img-alt="Img"
-                        img-top
-                        :title="club.title"
-                        class="mx-2" >
-                  <b-card-text>
 
-                    {{ club.dday }}
-                  </b-card-text>
-                  <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
-                  <template v-slot:footer>
-                    <b-btn variant="primary" block>Add</b-btn>
-                  </template>
-                </b-card>
-              </b-card-group>
+      <!-- /////////////////////////////    화면이 작을 때     //////////////////////////////////////// -->
 
-              <!-- 인기 공모전 10개로 제한할 예정이니까 페이지네이션 동그라미로 했음 -->
-              <div class="card-pagination">
-                  <div class="page-index" v-for="i in nbPages_pjt" :key="i"  @click="goto_pjt(i)" :class={active:currentPage_pjt(i)}></div>
-              </div>
-            </div>
-          </v-col>
-        </v-row>
+      <div v-else-if="400 > windowWidth">
+        <carousel :per-page="1.5" :navigate-to="someLocalProperty" :mouse-drag="false" >
+          <slide v-for="club2 in clubs2" :key="club2.no">
+            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor">
+              <b-card-text>
+                <div v-if="club2.title.length >= 15" >
+                    {{ club2.title.slice(0,15)}}...
+                </div>
+                <div v-else>
+                    {{ club2.title }}
+                </div>
+              </b-card-text>
+            </b-card>
+          </slide>
+        </carousel>
         <hr class="mt-2">
       </div>
+     
+      <!-- /////////////////////////////    화면이 작을 때     //////////////////////////////////////// -->
+
       <div v-else>
-        <v-row >
-          <!-- 캐로셀 -->
-          <v-col cols="12">
-            <div class="animated fadeIn">
-              <b-card-group  deck class="d-flex justify-center">
-                <b-card v-for="(club,index) in currentPageClubs2_pjt" :key="index"
-                        :img-src="club.imgUrl"
-                        img-alt="Img"
-                        img-top
-                        :title="club.title"
-                        class="mx-2" >
-                  <b-card-text>
-                    {{ club.dday }}
-                  </b-card-text>
-                  <!-- 여기에 지원하기 추가할 예정 혹은 공모전 상세보기 -->
-                  <template v-slot:footer>
-                    <b-btn variant="primary" block>Add</b-btn>
-                  </template>
-                </b-card>
-              </b-card-group>
-
-              <!-- 인기 공모전 10개로 제한할 예정이니까 페이지네이션 동그라미로 했음 -->
-              <div class="card-pagination">
-                  <div class="page-index" v-for="i in nbPages_pjt" :key="i"  @click="goto_pjt(i)" :class={active:currentPage_pjt(i)}></div>
-              </div>
-            </div>
-          </v-col>
-        </v-row>
+        <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
+          <slide v-for="club2 in clubs2" :key="club2.no">
+            <b-card :title="club2.title" :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor">
+              <b-card-text>
+                <div v-if="club2.title.length >= 15" >
+                    {{ club2.title.slice(0,15)}}...
+                </div>
+                <div v-else>
+                    {{ club2.title }}
+                </div>
+              </b-card-text>
+            </b-card>
+          </slide>
+        </carousel>
         <hr class="mt-2">
       </div>
-      <div class="my-2 text-center">
-          게시글
+
+      <!-- //////////////////////// 게시글 조회 ////////////////////// -->
+
+      <div class="text-box">
+        <div class="center">
+          <button @click="searchFeed()">전체 게시글</button>
         </div>
-        <v-row>
-          <v-col cols="4" v-for="i in community" :key="i.no" >
-            <div class="mx-2 detail_hover">
-              <img :src="i.src"
-                alt="안뜨는거야?"
-                style="width:100%; height: 350px"
-                :i="i"
-                @click='feedDetail(i)'
-                v-if="windowWidth >= 767"
-              >
-              <img :src="i.src"
-                alt="안뜨는거라고!"
-                style="width:100%; height: 120px;"
-                :i="i"
-                @click='feedDetail(i)'
-                v-else
-              >
-            </div>       
-          </v-col>
-        </v-row>
+        <div class="right">
+          <button @click="searchFollowFeed(email)">팔로우 게시물</button>
+        </div>
+      </div>
+      <v-row>
+        <v-col cols="4" v-for="i in community" :key="i.no" >
+          <div class="mx-2 detail_hover">
+            <img :src="i.src"
+              alt="안뜨는거야?"
+              style="width:100%; height: 350px"
+              :i="i"
+              @click='feedDetail(i)'
+              v-if="windowWidth >= 767"
+            >
+            <img :src="i.src"
+              alt="안뜨는거라고!"
+              style="width:100%; height: 120px;"
+              :i="i"
+              @click='feedDetail(i)'
+              v-else
+            >
+          </div>       
+        </v-col>
+      </v-row>
     </div>
     {{ currentPageClubs }}
   </div>
@@ -265,65 +167,21 @@
 
 <script>
 import { mapActions, mapState, mapMutations } from 'vuex'
-
+import { Carousel, Slide } from 'vue-carousel'
 
 export default {
   name: 'Home',
   components: {
-
+    Carousel,
+    Slide
   },
   data() {
     return {
       windowWidth: window.innerWidth,
       txt: '',
-      paginatedClubs:[],
-      paginatedClubs_pjt:[],
-      nbPages:0,
-      nbPages_pjt:0,
-      // 페이지네이션 한칸에 들어갈 공모전 숫자를 지정해줄 수 있음.
-      nbRowPerPage:4,
-      RowPerpage_md:3,
-      RowPerpage_md_pjt:3,
-      RowPerpage_sm:2,
-      RowPerpage_sm_pjt:2,
-      currentPageIndex:0,
-      currentPageIndex_pjt:0,
       searchData: {
         search:'',
       },
-      // 추후에 우리가 데이터를 받아올 곳
-      clubs2: [
-        {
-          name: "프로젝트1",
-          dday: "D-3",
-          imgUrl: require("@/assets/프로젝트1.png")
-        },
-        {
-          name: "프로젝트2",
-          dday: "D-166",
-          imgUrl: require("@/assets/프로젝트2.png")
-        },
-        {
-          name: "프로젝트3",
-          dday: "D-123",
-          imgUrl: require("@/assets/프로젝트3.png")
-        },
-        {
-          name: "프로젝트4",
-          dday: "D-45",
-          imgUrl: require("@/assets/프로젝트4.png")
-        },
-        {
-          name: "프로젝트5",
-          dday: "D-21",
-          imgUrl: require("@/assets/프로젝트5.png")
-        },
-        {
-          name: "프로젝트6",
-          dday: "D-3",
-          imgUrl: require("@/assets/프로젝트6.png")
-        },
-      ],      
     }
   },
 
@@ -339,6 +197,7 @@ export default {
     })
     this.getContestData()
     this.searchFeed()
+    this.myFollowList(this.email)
   },
 
   beforeDestroy() { 
@@ -346,163 +205,21 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['feedDetail']),
-    ...mapActions(['getContestData', 'searchFeed']),
+    ...mapMutations(['feedDetail', 'gongmoDetail']),
+    ...mapActions(['getContestData', 'searchFeed', 'myFollowList', 'searchFollowFeed']),
     onResize() {
       this.windowWidth = window.innerWidth
-    },
-    currentPage(i){
-        return i-1===this.currentPageIndex;
-    },
-
-    currentPage_pjt(i) {
-      return i-1 === this.currentPageIndex_pjt;
-    },
-    
-    createPages() {
-
-    let lengthAll = Object.keys(this.clubs).length;
-
-    this.nbPages = 0;
-      for (let i = 0; i < lengthAll; i = i + this.nbRowPerPage) {
-      this.paginatedClubs[this.nbPages] = this.clubs.slice(
-        i,
-        i + this.nbRowPerPage
-      );
-      this.nbPages++;
-      }
-    },
-
-    createPages_pjt() {
-
-    let lengthAll = Object.keys(this.clubs2).length;
-
-    this.nbPages_pjt = 0;
-      for (let i = 0; i < lengthAll; i = i + this.nbRowPerPage) {
-      this.paginatedClubs_pjt[this.nbPages_pjt] = this.clubs2.slice(
-        i,
-        i + this.nbRowPerPage
-      );
-      this.nbPages_pjt++;
-      }
-    },
-
-    createPages2() {
-
-    let lengthAll = Object.keys(this.clubs).length;
-    this.nbPages = 0;
-      for (let i = 0; i < lengthAll; i = i + this.RowPerpage_md) {
-      this.paginatedClubs[this.nbPages] = this.clubs.slice(
-        i,
-        i + this.RowPerpage_md
-      );
-      this.nbPages++;
-      }
-    },
-
-    createPages2_pjt() {
-
-    let lengthAll = Object.keys(this.clubs2).length;
-
-    this.nbPages_pjt = 0;
-      for (let i = 0; i < lengthAll; i = i + this.RowPerpage_md_pjt) {
-      this.paginatedClubs_pjt[this.nbPages_pjt] = this.clubs2.slice(
-        i,
-        i + this.RowPerpage_md_pjt
-      );
-      this.nbPages_pjt++;
-      }
-    },
-
-    createPages3() {
-
-    let lengthAll = Object.keys(this.clubs).length;
-    this.nbPages = 0;
-      for (let i = 0; i < lengthAll; i = i + this.RowPerpage_sm) {
-      this.paginatedClubs[this.nbPages] = this.clubs.slice(
-        i,
-        i + this.RowPerpage_sm
-      );
-      this.nbPages++;
-      }
-    },
-
-    createPages3_pjt() {
-
-    let lengthAll = Object.keys(this.clubs2).length;
-
-    this.nbPages_pjt = 0;
-      for (let i = 0; i < lengthAll; i = i + this.RowPerpage_sm_pjt) {
-      this.paginatedClubs_pjt[this.nbPages_pjt] = this.clubs2.slice(
-        i,
-        i + this.RowPerpage_sm_pjt
-      );
-      this.nbPages_pjt++;
-      }
-    },
-
-    goto(i){
-
-      this.currentPageIndex=i-1;
-    },
-    goto_pjt(i) {
-      this.currentPageIndex_pjt = i-1;
     },
   },
 
   computed: {
-    ...mapState(['clubs', 'community']),
-    formattedClubs() {
-          return this.clubs.reduce((c, n, i) => {
-            // 여기서도 페이지네이션에 들어갈 숫자를 지정해주어야 한다.
-              if (i % 4 === 0) c.push([]);
-              c[c.length - 1].push(n);
-              return c;
-          }, []);
-      },
-    currentPageClubs(){
-      this.createPages();
-      return this.paginatedClubs[this.currentPageIndex];
-    },
-    currentPageClubs_pjt(){
-      this.createPages_pjt();
-      return this.paginatedClubs_pjt[this.currentPageIndex_pjt];
-    },
-    currentPageClubs2(){
-      this.createPages2();
-      return this.paginatedClubs[this.currentPageIndex];
-    },
-    currentPageClubs2_pjt(){
-      this.createPages2_pjt();
-      return this.paginatedClubs_pjt[this.currentPageIndex_pjt];
-    },
-    currentPageClubs3(){
-      this.createPages3();
-      return this.paginatedClubs[this.currentPageIndex];
-    },
-    currentPageClubs3_pjt(){
-      this.createPages3_pjt();
-      return this.paginatedClubs_pjt[this.currentPageIndex_pjt];
-    },
-  },
+    ...mapState(['clubs', 'clubs2', 'community', 'email', 'followList']),
+  }
+
 }
 </script>
 
 <style scoped>
-  .card-pagination{
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  padding:20px;
-  }
-
-  .page-index{
-    margin-left:10px;
-    width:15px;
-    height:15px;
-    border-radius:15px;
-    background:#007bff
-  }
 
   .active{
     width:20px;
@@ -536,5 +253,28 @@ export default {
     opacity: 0.5;
   }
 
-  
+  .text-box {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .center {
+    display: inline-block;
+    margin: 0 auto;
+  }
+
+  .right {
+    float: right;
+  }
+
+  .cursor {
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .row{
+  margin-top:100px;
+}
+
 </style>
