@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- {{ club.no }} -->
-    <!-- {{ getTeamList }} -->
-    <!-- {{ windowWidth }} -->
+    {{ getTeamList }}
+    {{ windowWidth }}
     <div class="container" v-if="windowWidth >= 900">
       <div class="ma-2">
         <v-row>
@@ -15,6 +15,7 @@
       <div>
         <v-row v-if="windowWidth >= 1270">
           <v-col cols="6" v-for="i in getTeamList" :key="i">
+            {{ i }}
             <div class="teamCard py-5 px-5">
               <div class="d-flex">
                 <div>
@@ -50,30 +51,17 @@
                           <v-card-text class="ml-2">
                             <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                           </v-card-text>
-
                           <v-row justify="center">
-                            <v-btn
-                              class="mb-3 local"
-                              color="primary"
-                              dark
-                              @click.stop="dialog2 = true"
-                            >
+                            <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true">
                               지원하기
                             </v-btn>
 
-                            <v-dialog
-                              v-model="dialog2"
-                              max-width="450"
-                            >
+                            <v-dialog v-model="dialog2" max-width="450">
                               <v-card>
                                 <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
                                 <v-card-actions>
                                   <v-spacer></v-spacer>
-                                  <v-btn
-                                    color="green darken-1"
-                                    text
-                                    @click="dialog2 = false"
-                                  >
+                                  <v-btn color="green darken-1" text @click="dialog2 = false">
                                     닫기
                                   </v-btn>
                                 </v-card-actions>
@@ -86,12 +74,7 @@
 
                         <v-card-actions>
                           <v-spacer></v-spacer>
-                          <v-btn
-                            class="local"
-                            color="primary"
-                            text
-                            @click="dialog = false"
-                          >
+                          <v-btn class="local" color="primary" text @click="dialog = false">
                             닫기
                           </v-btn>
                         </v-card-actions>
@@ -113,14 +96,12 @@
               <div>
                 <span class="localDiv">{{ i.local }}</span>
                 <h4 class="my-3">{{ i.description }}</h4>                  
-                <!-- <h5> 모집 기간 : {{ i.dday }}</h5>-->
               </div>
             </div>
           </div>        
         </v-col>
       </v-row>
     </div>
-
 
 
     <div v-if="windowWidth < 900">
@@ -135,7 +116,6 @@
               <div>
                 <span class="localDiv">{{ i.local }}</span>
                 <h4 class="my-3">{{ i.description }}</h4>                  
-                <!-- <h5> 모집 기간 : {{ i.dday }}</h5>-->
               </div>
             </div>
           </div>        
@@ -150,7 +130,6 @@
               <div>
                 <span class="localDiv">{{ i.local }}</span>
                 <h5 class="my-3">{{ i.description }}</h5>                  
-                <!-- <h6> 모집 기간 : {{ i.dday }}</h6>-->
               </div>
             </div>
           </div>        
@@ -165,7 +144,6 @@
               <div>
                 <span class="localDiv">{{ i.local }}</span>
                 <h5 class="my-3">{{ i.description }}</h5>                  
-                <!-- <h6> 모집 기간 : {{ i.dday }}</h6>-->
               </div>
             </div>
           </div>        
@@ -216,9 +194,6 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
-    goTeamDetail(){
-      this.$router.push('/')
-    },
   },
   data() {
     return {
@@ -238,7 +213,6 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   computed : {
-
   },
   mounted () {
       this.$nextTick(() => {
