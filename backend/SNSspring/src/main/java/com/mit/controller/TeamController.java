@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mit.dto.Applymember;
 import com.mit.dto.Contents;
 import com.mit.dto.Member;
 import com.mit.dto.Team;
@@ -228,4 +229,19 @@ public class TeamController {
 		return new ResponseEntity<List<TeamDto>>(teams, HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "팀 지원하기", notes = "팀 정보(번호, 리더메일)과 나의 이메일과 지원파트를 applymember에 저장")
+	@PostMapping("applyTeam")
+	public ResponseEntity<List<TeamDto>> applyTeam(@RequestParam("no") String no,
+			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
+			@RequestParam("email") String email) {
+		
+		Applymember applymember = new Applymember();
+		applymember.setNo(no);
+		applymember.setLeaderemail(leaderemail);
+		applymember.setPart(part);
+		applymember.setTeamemail(email);
+		applymemberService.insert(applymember);
+		
+		return null;
+	}
 }
