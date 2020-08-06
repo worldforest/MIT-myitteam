@@ -1,5 +1,6 @@
 <template>
-  <div >
+  <div>
+    
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767">
       <v-card class="overflow-hidden">
@@ -9,7 +10,7 @@
           </router-link>
           <div class="not-home">
             <router-link class="mr-3" to="#">공모전</router-link>
-            <router-link class="mr-3" to="#">프로젝트</router-link>
+            <router-link class="mr-3" to="/projectlist">프로젝트</router-link>
           </div>
           <div class="spacer"></div>
           <!--로그인 안 된 상태-->
