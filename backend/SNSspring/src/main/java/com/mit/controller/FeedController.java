@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mit.algorithm.Path;
 import com.mit.algorithm.Token;
 import com.mit.dto.Feed;
 import com.mit.dto.Follow;
@@ -54,7 +55,7 @@ public class FeedController {
 	private static final Logger logger = LoggerFactory.getLogger(FeedController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
-
+	private static Path path = new Path();
 	private static Token token = new Token();
 
 	@Autowired
@@ -120,14 +121,14 @@ public class FeedController {
 		if (feedService.insert(feed)) {
 			// 파일 업로드 끝
 			if (file != null && !file.isEmpty()) {
-				File dest = new File("C://images/feed/" + sb.toString());
+				File dest = new File(path.getIm()+"images/feed/" + sb.toString());
 				try {
 					file.transferTo(dest);
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
-				}
+				} 	
 				// db에 파일 위치랑 번호 등록
 			}
 		} else {
@@ -153,7 +154,7 @@ public class FeedController {
 	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<byte[]> userSearch(@PathVariable("imagename") String imagename) throws IOException {
 		System.out.println("test");
-		InputStream imageStream = new FileInputStream("C://images/feed/" + imagename);
+		InputStream imageStream = new FileInputStream(path.getIm()+"images/feed/" + imagename);
 		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
 		imageStream.close();
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
@@ -172,10 +173,10 @@ public class FeedController {
 		User user = userService.selectPrivate(email);
 		privateFeedDto.setNickname(user.getNickname());
 		privateFeedDto.setDescription(user.getDescription());
-		privateFeedDto.setSrc("http://localhost:9999/mit/api/user/image/" + user.getSrc());
+		privateFeedDto.setSrc(path.getPath()+"/mit/api/user/image/" + user.getSrc());
 		List<Feed> feeds = feedService.selectEmail(email);
 		for (int i = 0; i < feeds.size(); i++) {
-			feeds.get(i).setSrc("http://localhost:9999/mit/api/feed/image/" + feeds.get(i).getSrc());
+			feeds.get(i).setSrc(path.getPath()+"/mit/api/feed/image/" + feeds.get(i).getSrc());
 		}
 		privateFeedDto.setFeeds(feeds);
 		privateFeedDto.setNickname(userService.selectNickname(email));
@@ -243,7 +244,7 @@ public class FeedController {
 		}
 
 		for (int i = 0; i < feeds.size(); i++) {
-			feeds.get(i).setSrc("http://localhost:9999/mit/api/feed/image/" + feeds.get(i).getSrc());
+			feeds.get(i).setSrc(path.getPath()+"/mit/api/feed/image/" + feeds.get(i).getSrc());
 		}
 
 		return new ResponseEntity<List<Feed>>(feeds, HttpStatus.OK);
