@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mit.algorithm.Path;
 import com.mit.algorithm.Pwd;
 import com.mit.algorithm.Token;
 import com.mit.dto.User;
@@ -42,7 +43,7 @@ public class UserController {
 	private static final String PWDFAIL = "pwdfail";
 	private static final String NOTUSER = "not user";
 	private static final String FAIL = "fail";
-
+	private static Path path = new Path();
 	@Autowired
 	private JavaMailSender mailSender;
 
