@@ -5,7 +5,8 @@
     {{ windowWidth }}
     <div class="container" v-if="windowWidth >= 900">
       <div class="ma-2">
-        <router-link :to="{name: 'TeamRegister', params:{no:club.no}}"> 팀원 모집 </router-link>
+        <router-link class="TeamButton" style="color:white" :to="{name: 'TeamRegister', params:{no:club.no}}">
+          <v-cion x-small color="#FFFFFF">mdi-pencil-box-multiple</v-cion> 팀원 모집하러 가기 </router-link>
       </div>
 
       <!-- 웹 페이지 클 때-->
@@ -14,10 +15,11 @@
           <div class="teamCard py-5 px-5">
             <div class="d-flex">
               <div>
+                <div class="localDiv"><h5>대전광역시</h5></div>
                 <h2 class="mb-2">{{ i.description }}</h2>
                 <hr class="mb-2">
-               
-                <!-- <h5> 모집 기간 : {{ i.dday }}</h5>                   -->
+                <h3 class="mb-3">{{ i.description }}</h3>
+                <!-- <h5> 모집 기간 : {{ i.dday }}</h5> -->
               </div>
             </div>
           </div>        
@@ -32,8 +34,8 @@
               <div>
                 <h2 class="mb-2">{{ i.title }}</h2>
                 <hr class="mb-2">
-                <h4 class="mb-3">{{ i.host }}</h4>                  
-                <h5> 모집 기간 : {{ i.dday }}</h5>                  
+                <h4 class="mb-3">{{ i.description }}</h4>                  
+                <!-- <h5> 모집 기간 : {{ i.dday }}</h5>                   -->
               </div>
             </div>
           </div>        
@@ -45,7 +47,7 @@
 
     <div v-if="windowWidth < 900">
       <div class="ma-2">
-        <router-link :to="{name: 'TeamRegister', params:{no:club.no}}"> 팀원 모집 </router-link>
+        <router-link :to="{name: 'TeamRegister', params:{no:club.no}}"> 팀원 모집하러 가기 </router-link>
       </div>
       <!-- 700이상 900미만 -->
       <v-row v-if="windowWidth < 900 && windowWidth >= 700 ">
@@ -55,8 +57,8 @@
               <div>
                 <h2 class="mb-2">{{ i.title }}</h2>
                 <hr class="mb-2">
-                <h4 class="mb-4">{{ i.host }}</h4>                  
-                <h5> 모집 기간 : {{ i.dday }}</h5>                  
+                <h4 class="mb-4">{{ i.description }}</h4>                  
+                <!-- <h5> 모집 기간 : {{ i.dday }}</h5>                   -->
               </div>
             </div>
           </div>        
@@ -71,8 +73,8 @@
               <div>
                 <h3 class="mb-2">{{ i.title }}</h3>
                 <hr class="mb-2">
-                <h5 class="mb-4">{{ i.host }}</h5>                  
-                <h6> 모집 기간 : {{ i.dday }}</h6>                  
+                <h5 class="mb-4">{{ i.description }}</h5>                  
+                <!-- <h6> 모집 기간 : {{ i.dday }}</h6>                   -->
               </div>
             </div>
           </div>        
@@ -87,8 +89,8 @@
               <div>
                 <h4 class="mb-2">{{ i.title }}</h4>
                 <hr class="mb-2">
-                <h5 class="mb-4">{{ i.host }}</h5>                  
-                <h6> 모집 기간 : {{ i.dday }}</h6>                  
+                <h5 class="mb-4">{{ i.description }}</h5>                  
+                <!-- <h6> 모집 기간 : {{ i.dday }}</h6>                   -->
               </div>
             </div>
           </div>        
@@ -103,8 +105,8 @@
               <div>
                 <h3 class="mb-1">{{ i.title }}</h3>
                 <hr class="mb-1">
-                <h4 class="mb-3">{{ i.host }}</h4>                  
-                <h5> 모집 기간 : {{ i.dday }}</h5>                  
+                <h4 class="mb-3">{{ i.description }}</h4>                  
+                <!-- <h5> 모집 기간 : {{ i.dday }}</h5>                   -->
               </div>
             </div>
           </div>        
@@ -205,5 +207,19 @@ export default {
   .teamCard6 {
     border: 2px solid rgb(92, 107, 192);
     width: 280px;
+  }
+  .localDiv {
+    background-color: rgb(92, 107, 192);
+    color: white;
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+  }
+  .TeamButton {
+    text-decoration: none;
+    background-color: rgb(92, 107, 192);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: bold;
   }
 </style>

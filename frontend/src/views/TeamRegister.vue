@@ -21,6 +21,17 @@
         </div>
 
         <div>
+          <h3 class="ml-4">제목 : </h3>
+          <v-col class="mx-auto" cols="12" md="11">
+            <v-text-field
+              label="제목"
+              outlined
+              v-model="applyData.title"
+            ></v-text-field>
+          </v-col>
+        </div>
+
+        <div>
           <h3 class="ml-4">팀 소개 : </h3>
           <v-col class="mx-auto" cols="12" md="11">
             <v-text-field
@@ -96,6 +107,17 @@
       </div>
 
       <div>
+        <h3 class="ml-4">제목 : </h3>
+        <v-col class="mx-auto" cols="12" md="11">
+          <v-text-field
+            label="제목"
+            outlined
+            v-model="applyData.title"
+          ></v-text-field>
+        </v-col>
+      </div>
+
+      <div>
         <h3 class="ml-4">팀 소개 : </h3>
         <v-col class="mx-auto" cols="12" md="11">
           <v-text-field
@@ -168,6 +190,17 @@
               v-model="applyData.local"
             ></v-select>
           </v-col>
+      </div>
+      
+      <div>
+        <h3 class="ml-4">제목 : </h3>
+        <v-col class="mx-auto" cols="12" md="11">
+          <v-text-field
+            label="제목"
+            outlined
+            v-model="applyData.title"
+          ></v-text-field>
+        </v-col>
       </div>
 
       <div>
@@ -257,6 +290,7 @@ export default {
         local : '',
         email: '',
         description: '',
+        title: '',
         no: this.no,
         dataList: [],
       },

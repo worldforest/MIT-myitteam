@@ -19,8 +19,7 @@
         </v-col>
         <v-col cols="4">
           <div class="text-center">
-            {{ club.no }}
-            <span @click="onClick_Team(); getTeamData(club.no)" class="cursor">팀원모집</span>  
+            <span @click="onClick_Team(); getTeamData(club.no);" class="cursor">팀원모집</span>  
           </div>        
         </v-col>
         <v-col cols="4">
@@ -55,7 +54,7 @@
         </v-col>
         <v-col cols="4">
           <div class="text-center">
-            <span @click="onClick_Team; getTeamData(club.no)" class="cursor">팀원모집</span>  
+            <span @click="onClick_Team(); getTeamData(club.no);" class="cursor">팀원모집</span>  
           </div>        
         </v-col>
         <v-col cols="4">
