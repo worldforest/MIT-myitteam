@@ -13,20 +13,14 @@
         </div>
       </div>
       <v-row class="mx-2">
-        <v-col cols="4">
+        <v-col cols="6">
           <div class="text-center">
             <span @click="onClick_intro" class="cursor">소개</span>  
           </div>        
         </v-col>
-        <v-col cols="4">
+        <v-col cols="6">
           <div class="text-center">
-            {{ club.no }}
-            <span @click="onClick_Team(); getTeamData(club.no)" class="cursor">팀원모집</span>  
-          </div>        
-        </v-col>
-        <v-col cols="4">
-          <div class="text-center">
-            <span>뭐 넣을까?</span>  
+            <span @click="onClick_Team(); getTeamData(club.no);" class="cursor">팀원모집</span>  
           </div>        
         </v-col>
       </v-row>
@@ -56,7 +50,7 @@
         </v-col>
         <v-col cols="4">
           <div class="text-center">
-            <span @click="onClick_Team; getTeamData(club.no)" class="cursor">팀원모집</span>  
+            <span @click="onClick_Team(); getTeamData(club.no);" class="cursor">팀원모집</span>  
           </div>        
         </v-col>
         <v-col cols="4">
@@ -152,9 +146,13 @@ export default {
 
   .cursor {
     cursor: pointer;
+    color: rgb(92, 107, 192);
+    font-weight: bold;
   }
 
   .cont {
     margin: 0 20%;
   }
+
+
 </style>

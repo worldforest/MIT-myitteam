@@ -7,11 +7,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from applymember where no = #{no} and leaderemail = #{leaderemail}
 	</select>
 	
-	<insert id="insert">
+	<insert id="insert" parameterType="applymember">
 		insert into applymember(no,leaderemail,teamemail,part) values(#{no},#{leaderemail},#{teamemail},#{part})
 	</insert>
 	
-	<delete id="delete">
+	<delete id="delete" parameterType="String">
 		delete from applymember where no = #{no} and leaderemail = #{leaderemail} and teamemail = #{teamemail}
 	</delete>
 </mapper>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mit.algorithm.Path;
 import com.mit.dto.Contents;
 import com.mit.service.ContentsService;
 
@@ -29,6 +30,7 @@ public class ContentsController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
+	private static Path path = new Path();
 
 	@Autowired
 	private ContentsService contentsService;

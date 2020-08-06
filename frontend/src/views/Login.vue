@@ -87,6 +87,7 @@ export default {
       console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
     },
     ///소셜 로그인///
+    
   },
   mounted() {
     this.$nextTick(() => {
