@@ -237,7 +237,6 @@ export default {
 				context.state.followCnt = response.data
 		})
 	},
-
 	searchFeed(context) {
 		axios.post(`${SERVER_URL}/api/feed/search`)
 			.then((response) => {
@@ -255,5 +254,13 @@ export default {
 	},
 
 	/////////지훈////////////////
+	getTeamInfo(context) {
+		const params = new URLSearchParams();
+		params.append('email', context.state.email)
+		axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
+		.then(response => {
+			context.commit('myTeamInfo', response.data)
+		})
+	}
 }
 

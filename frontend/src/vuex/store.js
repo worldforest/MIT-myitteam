@@ -15,6 +15,7 @@ const state = {
     profileData: [],
     clubs: [],
     clubs2: [],
+    clubinfo: {},
     detailFeed: [],
     userprofiledata: [],
     followerList: [],
@@ -25,6 +26,7 @@ const state = {
     community: [],
     getTeamList: [],
     club: [],
+    myTeamInfo: [],
 }
 
 export default new Vuex.Store({

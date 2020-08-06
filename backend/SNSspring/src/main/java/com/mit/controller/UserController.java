@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mit.algorithm.Path;
 import com.mit.algorithm.Pwd;
 import com.mit.algorithm.Token;
 import com.mit.dto.User;
@@ -42,7 +43,7 @@ public class UserController {
 	private static final String PWDFAIL = "pwdfail";
 	private static final String NOTUSER = "not user";
 	private static final String FAIL = "fail";
-
+	private static Path path = new Path();
 	@Autowired
 	private JavaMailSender mailSender;
 
@@ -130,27 +131,6 @@ public class UserController {
 		return result;
 	}
 
-	// 비밀번호 변경
-	// 테스트
-//	@ApiOperation(value = "비밀번호변경",notes="비밀번호 변경 성공시 success 실패시 에러를 반환합니다.")
-//	@PutMapping("updatepwd")
-//	public ResponseEntity<String> update(@RequestBody Map<String, String> map) {
-//		Token token = new Token();
-//		if (token.cmpToekn(map.get("tokenstr"))) {
-//			return new ResponseEntity<String>(token.getEmail(map.get("tokenstr")), HttpStatus.OK);
-//		}
-//
-//		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
-//	}
-
-//	@ApiOperation(value = "email, pwd 정보를 주면 비밀번호를 변경한다.")
-//	@PutMapping
-//	public ResponseEntity<String> updateMember(@RequestBody User user) {
-//		if (userService.updateMember(user)) {
-//			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-//		}
-//		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
-//	}
 	@ApiOperation(value = "등록된 이메일로 인증번호 보내기", notes = "get 방식으로 email를 보내면 email로 6자리의 인증키를 보냅니다. \n 이  때 Spring session에 저장합니다.")
 	@GetMapping("pwd")
 	public ResponseEntity<String> sendEmail(HttpServletRequest request, @RequestParam("email") String email) {

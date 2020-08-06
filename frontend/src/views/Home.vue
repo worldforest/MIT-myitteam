@@ -161,6 +161,7 @@
         </v-col>
       </v-row>
     </div>
+    {{ currentPageClubs }}
   </div>
 </template>
 
@@ -190,7 +191,6 @@ export default {
      this.txt = `it changed to ${newWidth} from ${oldWidth}`;
     }
   },
-
   mounted() {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);

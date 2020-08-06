@@ -1,5 +1,6 @@
 <template>
-  <div >
+  <div>
+    
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767">
       <v-card class="overflow-hidden">
@@ -9,7 +10,7 @@
           </router-link>
           <div class="not-home">
             <router-link class="mr-3" to="#">공모전</router-link>
-            <router-link class="mr-3" to="#">프로젝트</router-link>
+            <router-link class="mr-3" to="/projectlist">프로젝트</router-link>
           </div>
           <div class="spacer"></div>
           <!--로그인 안 된 상태-->
@@ -36,7 +37,7 @@
                     <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
                   </v-list-item>
                   <v-list-item>                    
-                    <v-list-item-title class="not-home"><a href="#">나의 팀 관리</a></v-list-item-title>
+                    <v-list-item-title class="not-home"><router-link to="/myteam">나의 팀 관리</router-link></v-list-item-title>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/" @click.native="logout">LOGOUT</router-link></v-list-item-title>
