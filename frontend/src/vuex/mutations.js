@@ -19,11 +19,18 @@ export default {
 			state.detailFeed = feed
 			router.push({ name: "FeedDetail" })
     },
+    gongmoDetail(state, res) {
+        state.club = res
+        router.push({ name: "GongmoDetail"})
+    },
     INPUTDATA (state, res) {
         state.profileData = res
     },
     contestData(state, res) {
         state.clubs = res
+    },
+    projectData(state, res) {
+        state.clubs2 = res
     },
     USERINPUT(state, res) {
 			state.userprofiledata = res
@@ -32,7 +39,7 @@ export default {
 			state.followerList = res
     },
     INPUTFOLLOW(state, res) {
-			state.followList = res
+            state.followList = res
     },
     getTeam(state, res) {
 			console.log("mutations")

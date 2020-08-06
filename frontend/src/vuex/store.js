@@ -14,6 +14,7 @@ const state = {
     email : cookies.get('auth-email'),
     profileData: [],
     clubs: [],
+    clubs2: [],
     detailFeed: [],
     userprofiledata: [],
     followerList: [],
@@ -23,6 +24,7 @@ const state = {
     followCnt: '',
     community: [],
     getTeamList: [],
+    club: [],
 }
 
 export default new Vuex.Store({
