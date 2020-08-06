@@ -154,6 +154,7 @@ public class FeedController {
 	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<byte[]> userSearch(@PathVariable("imagename") String imagename) throws IOException {
 		System.out.println("test");
+
 		InputStream imageStream = new FileInputStream(path.getIm()+"images/feed/" + imagename);
 		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
 		imageStream.close();
@@ -173,6 +174,7 @@ public class FeedController {
 		User user = userService.selectPrivate(email);
 		privateFeedDto.setNickname(user.getNickname());
 		privateFeedDto.setDescription(user.getDescription());
+
 		privateFeedDto.setSrc(path.getPath()+"/mit/api/user/image/" + user.getSrc());
 		List<Feed> feeds = feedService.selectEmail(email);
 		for (int i = 0; i < feeds.size(); i++) {
