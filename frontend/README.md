@@ -2,8 +2,14 @@
 # MIT : My IT Team에 오신걸 환영 합니다.
 ### frontend 실행전 설치해야할 목록입니다.
 
+#### npm 설치
+
+```
+npm install
+```
 
 #### 회원가입 시 주소 검색
+
 ```
 npm install --save vue-daum-postcode
 ```

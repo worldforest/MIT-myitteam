@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- {{ club.no }} -->
+    {{ getTeamList }}
     {{ windowWidth }}
     <div class="container" v-if="windowWidth >= 900">
       <div class="ma-2">
@@ -8,14 +10,13 @@
 
       <!-- 웹 페이지 클 때-->
       <v-row v-if="windowWidth >= 1270">
-        <v-col cols="6" class="px-6" v-for="i in community" :key="i">
+        <v-col cols="6" class="px-6" v-for="i in getTeamList" :key="i">
           <div class="teamCard py-5 px-5">
             <div class="d-flex">
               <div>
-                <h2 class="mb-2">{{ i.title }}</h2>
-                <hr class="mb-2">
-                <h4 class="mb-3">{{ i.host }}</h4>                  
-                <h5> 모집 기간 : {{ i.dday }}</h5>                  
+                <h2 class="mb-2">{{ i.description }}</h2>
+                <hr class="mb-2">               
+                <!-- <h5> 모집 기간 : {{ i.dday }}</h5>                   -->
               </div>
             </div>
           </div>        
@@ -43,9 +44,8 @@
 
     <div v-if="windowWidth < 900">
       <div class="ma-2">
-          <router-link :to="{name: 'TeamRegister', params:{no:club.no}}"> 팀원 모집 </router-link>
-        </div>
-
+        <router-link :to="{name: 'TeamRegister', params:{no:club.no}}"> 팀원 모집 </router-link>
+      </div>
       <!-- 700이상 900미만 -->
       <v-row v-if="windowWidth < 900 && windowWidth >= 700 ">
         <v-col cols="6" class="px-6" v-for="i in community" :key="i">
@@ -116,16 +116,15 @@
 </template>
 <script>
 // import { mapActions } from 'vuex'
-
 export default {
   name: 'Team',
   props: {
     club: Object,
+    getTeamList: Object,
   },
   components: {
   },
   methods: {
-    // ...mapActions(['getTeamData']),
     gotoTeam() {
       this.$router.push('/teamregister')
     },
@@ -136,10 +135,7 @@ export default {
 		submitProfile(){
 			alert('팀장에게 참여의사를 전달하였습니다.');
     },
-    teamData(Data){
-      console.log(Data)
-      this.applyData = Data
-    },
+
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -175,7 +171,7 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   computed : {
-    // ...mapState(['getTeams']),
+
   },
   mounted () {
       this.$nextTick(() => {

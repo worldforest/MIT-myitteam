@@ -34,7 +34,7 @@
         <TeamInput @add-apply="addApply"/>
 
         <div>
-          <li class="itemLi" v-for="item in this.applyData.datalist" :key="item.id">
+          <li class="itemLi" v-for="item in this.applyData.dataList" :key="item.id">
             <v-col class="mx-auto" cols="12" md="11">
               <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
                 <h3 class="mb-3">{{ item.part }}</h3>
@@ -42,7 +42,7 @@
 
                 <v-list-item>
                   <v-list-item-content>
-                    <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
+                    <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headCount }}</h4></v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
                 
@@ -184,7 +184,7 @@
       <TeamInput @add-apply="addApply"/>
 
       <div>
-        <li class="itemLi" v-for="item in this.applyData.datalist" :key="item.id">
+        <li class="itemLi" v-for="item in this.applyData.dataList" :key="item.id">
           <v-col class="mx-auto" cols="12" md="11">
             <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
               <h3 class="mb-3">{{ item.part }}</h3>
@@ -258,7 +258,7 @@ export default {
         email: '',
         description: '',
         no: this.no,
-        datalist: [],
+        dataList: [],
       },
       show: false,
       windowWidth: window.innerWidth,
@@ -276,7 +276,7 @@ export default {
   methods: {
     ...mapActions(['teamregister']),
     addApply(Data){
-      this.applyData.datalist = [...this.applyData.datalist, Data]
+      this.applyData.dataList = [...this.applyData.dataList, Data]
     },
     onResize() {
       this.windowWidth = window.innerWidth
@@ -290,26 +290,7 @@ export default {
   },
   computed : {
     ...mapState(['email']),
-  }, 
-
-    // apply(){
-    //   console.log(this.applyData)
-    //   this.$emit('teamData', this.applyData)
-    //   console.log(this.applyData.no)
-      
-    //   axios.post('http://localhost:9999/mit/api/team/contestteam', {
-    //     description: this.applyData.description,
-    //     email: this.applyData.email,
-    //     local: this.applyData.local,
-    //     no: this.applyData.no,
-    //     dataList: this.applyData.dataList,
-    //   }).then(() => {
-    //     this.$router.push('/');
-    //   })
-    //   .catch(() => {
-    //     alert('망햇어,,,,');
-    //   })
-    // },
+  },
 
 }
 </script>
