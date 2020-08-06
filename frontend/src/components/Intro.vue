@@ -10,7 +10,7 @@
     <div class="mt-10 text-center" >      
       <img :src="club.imagesrc" alt="" style='width:100%'>
     </div>
-    <div class="mt-10">{{ club.description }}</div>
+    <div class="mt-10" style="white-space:pre-line;">{{ club.description }}</div>
     
   </div>
 </template>
