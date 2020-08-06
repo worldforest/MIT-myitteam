@@ -127,8 +127,22 @@ export default {
 		.then(() => {
 			alert('성공적으로 등록하였습니다.')
 		})
-		.catch(err => console.log(err.response.data))
-
+		.catch(err => {
+			console.log(err.response.data)
+		})
+	},
+	getTeamData(context, no){
+		console.log(context)
+		console.log(no)
+		const params = new URLSearchParams();
+		params.append('no', no);
+		axios.post(`${SERVER_URL}/api/team/contentsteamlist`, params)
+		.then(res => {
+			console.log(res)			
+		})
+		.catch(err => {
+			console.log(err.response.data)
+		})
 	},
 	//////////다인///////////////
 
@@ -196,7 +210,6 @@ export default {
 		})
 		.catch(error => console.log(error.response.data))
 	},
-
 	follwerCnt(context, res) {
 		var params = new URLSearchParams();
 		params.append('email', res)
@@ -204,6 +217,6 @@ export default {
 			.then((response) => {
 				context.state.followCnt = response.data
 		})
-	}
+	},
 }
 

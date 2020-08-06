@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- {{ club.no }} -->
     {{ windowWidth }}
     <div class="container" v-if="windowWidth >= 900">
       <div class="ma-2">
@@ -43,9 +44,8 @@
 
     <div v-if="windowWidth < 900">
       <div class="ma-2">
-          <router-link :to="{name: 'TeamRegister', params:{no:club.no}}"> 팀원 모집 </router-link>
-        </div>
-
+        <router-link :to="{name: 'TeamRegister', params:{no:club.no}}"> 팀원 모집 </router-link>
+      </div>
       <!-- 700이상 900미만 -->
       <v-row v-if="windowWidth < 900 && windowWidth >= 700 ">
         <v-col cols="6" class="px-6" v-for="i in community" :key="i">
@@ -116,7 +116,6 @@
 </template>
 <script>
 // import { mapActions } from 'vuex'
-
 export default {
   name: 'Team',
   props: {
@@ -125,7 +124,6 @@ export default {
   components: {
   },
   methods: {
-    // ...mapActions(['getTeamData']),
     gotoTeam() {
       this.$router.push('/teamregister')
     },
@@ -136,10 +134,7 @@ export default {
 		submitProfile(){
 			alert('팀장에게 참여의사를 전달하였습니다.');
     },
-    teamData(Data){
-      console.log(Data)
-      this.applyData = Data
-    },
+
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -175,7 +170,7 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   computed : {
-    // ...mapState(['getTeams']),
+
   },
   mounted () {
       this.$nextTick(() => {

@@ -223,7 +223,7 @@ export default {
 				start: "",
 				end: "",
 				local: "",
-				dataList: [],
+				datalist: [],
 			},
 			show: false,
 			windowWidth: window.innerWidth,
@@ -240,7 +240,7 @@ export default {
 	methods: {
 		...mapActions(['projectregister']),
 		addProject(Data){
-			this.projectData.dataList = [...this.projectData.dataList, Data]
+			this.projectData.datalist = [...this.projectData.datalist, Data]
 		},
 		onResize() {
       this.windowWidth = window.innerWidth
