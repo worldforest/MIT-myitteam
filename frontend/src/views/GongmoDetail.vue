@@ -1,5 +1,6 @@
 <template>
   <div >
+    {{ clubinfo }}
     <div class="cont" v-if="windowWidth >= 900">
       <div class="d-flex ma-2">
         <div>
@@ -97,8 +98,11 @@ export default {
     this.txt = `it changed to ${newWidth} from ${oldWidth}`;
     }
   },
-
+  created () {
+    this.$store.state.clubinfo = this.club
+  },
   mounted() {
+    this.info = this.$store.state.club
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
