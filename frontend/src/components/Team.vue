@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- {{ club.no }} -->
+    {{ getTeamList }}
     {{ windowWidth }}
     <div class="container" v-if="windowWidth >= 900">
       <div class="ma-2">
@@ -9,14 +10,13 @@
 
       <!-- 웹 페이지 클 때-->
       <v-row v-if="windowWidth >= 1270">
-        <v-col cols="6" class="px-6" v-for="i in community" :key="i">
+        <v-col cols="6" class="px-6" v-for="i in getTeamList" :key="i">
           <div class="teamCard py-5 px-5">
             <div class="d-flex">
               <div>
-                <h2 class="mb-2">{{ i.title }}</h2>
-                <hr class="mb-2">
-                <h4 class="mb-3">{{ i.host }}</h4>                  
-                <h5> 모집 기간 : {{ i.dday }}</h5>                  
+                <h2 class="mb-2">{{ i.description }}</h2>
+                <hr class="mb-2">               
+                <!-- <h5> 모집 기간 : {{ i.dday }}</h5>                   -->
               </div>
             </div>
           </div>        
@@ -120,6 +120,7 @@ export default {
   name: 'Team',
   props: {
     club: Object,
+    getTeamList: Object,
   },
   components: {
   },

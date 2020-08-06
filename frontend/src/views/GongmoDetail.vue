@@ -34,7 +34,7 @@
         <Intro :club="club" />
       </div>
       <div v-else-if="isTeam">
-        <Team :club="club" />
+        <Team :club="club" :getTeamList="getTeamList"/>
       </div>
     </div>
     <div v-else>
@@ -69,7 +69,7 @@
         <Intro :club="club" />
       </div>
       <div v-else-if="isTeam">
-        <Team :club="club" />
+        <Team :club="club" :getTeamList="getTeamList"/>
       </div>
     </div>
   </div>
@@ -78,7 +78,7 @@
 <script>
 import Intro from '@/components/Intro.vue'
 import Team from '@/components/Team.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: "GongmoDetail",
@@ -129,6 +129,9 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
+  },
+  computed: { 
+    ...mapState(['getTeamList'])
   }
 }
 </script>

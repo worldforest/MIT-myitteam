@@ -138,7 +138,8 @@ export default {
 		params.append('no', no);
 		axios.post(`${SERVER_URL}/api/team/contentsteamlist`, params)
 		.then(res => {
-			console.log(res)			
+			console.log(res)
+			context.commit('GETTEAMDATA', res.data)
 		})
 		.catch(err => {
 			console.log(err.response.data)
@@ -163,29 +164,29 @@ export default {
 	},
 
 	follow(context) {
-        var params = new URLSearchParams();
-        params.append('email', context.state.email);
-        params.append('following', context.state.userprofiledata.feeds[0].email)
-        axios.post(`${SERVER_URL}/api/follow/follow`, params)
-            .then(() => {
-				context.commit('conffollowflag')
-				context.dispatch('follwerCnt', context.state.userprofiledata.feeds[0].email)
-				context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
-            })
-            .catch(error => console.log(error.response.data))
+		var params = new URLSearchParams();
+		params.append('email', context.state.email);
+		params.append('following', context.state.userprofiledata.feeds[0].email)
+		axios.post(`${SERVER_URL}/api/follow/follow`, params)
+				.then(() => {
+		context.commit('conffollowflag')
+		context.dispatch('follwerCnt', context.state.userprofiledata.feeds[0].email)
+		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
+				})
+				.catch(error => console.log(error.response.data))
 	},
 
 	myFollowerList(context, res) {
-        var params = new URLSearchParams();
-        var data = []
-        params.append('email', res);
-        axios.post(`${SERVER_URL}/api/follow/followerList`, params)
-          .then((response) => {
-            for(var i=0; i<(response.data).length; i++) {
-                data.push(response.data[i].email)
-            }
-          context.commit('INPUTFOLLOWER', data)
-          })
+		var params = new URLSearchParams();
+		var data = []
+		params.append('email', res);
+		axios.post(`${SERVER_URL}/api/follow/followerList`, params)
+			.then((response) => {
+				for(var i=0; i<(response.data).length; i++) {
+						data.push(response.data[i].email)
+				}
+			context.commit('INPUTFOLLOWER', data)
+			})
 	},
 
 	myFollowList(context, res) {

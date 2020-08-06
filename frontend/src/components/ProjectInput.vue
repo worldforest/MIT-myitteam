@@ -16,7 +16,7 @@
             :items="selectPeople"
             label="인원"
             outlined
-            v-model="projectData.headcount"
+            v-model="projectData.headCount"
           ></v-select>
         </v-col>
       </v-row>
@@ -63,7 +63,7 @@ export default {
 			selectPeople: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 			projectData: {
 				part: '',
-				headcount: '',
+				headCount: '',
 				task: '',
 				ability: '',
 				advantage: '', 
@@ -74,7 +74,7 @@ export default {
 		setProjectData() {
 			const setData = {
 				part: this.projectData.part,
-				headcount: this.projectData.headcount,
+				headCount: this.projectData.headCount,
 				task: this.projectData.task,
 				ability: this.projectData.ability,
 				advantage: this.projectData.advantage, 
