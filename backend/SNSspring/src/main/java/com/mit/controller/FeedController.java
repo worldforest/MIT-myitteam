@@ -129,7 +129,6 @@ public class FeedController {
 					e.printStackTrace();
 				}
 				// db에 파일 위치랑 번호 등록
-
 			}
 		} else {
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
@@ -241,6 +240,10 @@ public class FeedController {
 
 			// no가 늦은 순으로 하는 게 최신순입니다.
 			Collections.reverse(feeds);
+		}
+
+		for (int i = 0; i < feeds.size(); i++) {
+			feeds.get(i).setSrc("http://localhost:9999/mit/api/feed/image/" + feeds.get(i).getSrc());
 		}
 
 		return new ResponseEntity<List<Feed>>(feeds, HttpStatus.OK);
