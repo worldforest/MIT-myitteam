@@ -29,4 +29,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepo.insert(member);
 	}
 
+	@Override
+	public List<Member> selectEmail(String email) {
+		return memberRepo.selectEmail(email);
+	}
+
 }
