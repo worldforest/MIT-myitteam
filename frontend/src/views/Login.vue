@@ -30,58 +30,74 @@
             ></v-text-field>
           </v-col>
         </v-row>
-            <v-btn width="100%" class="white--text" large color="#5C6BC0" @click="login(loginData)">Login</v-btn>
+        <v-btn
+          width="100%"
+          class="white--text"
+          large
+          color="#5C6BC0"
+          @click="login(loginData)"
+        >Login</v-btn>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
       </v-container>
     </v-form>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
-  name: 'Loginfo',
-  data () {
+  name: "Loginfo",
+  data() {
     return {
       loginData: {
         email: "",
-        pwd: '',
+        pwd: "",
       },
       windowWidth: window.innerWidth,
       show2: false,
-      password: 'Password',
+      password: "Password",
       rules: {
-        required: value => !!value || 'Required.',
-        min: v => v.length >= 4 || 'Min 4 characters' ,
-        emailMatch: () => ('The email and password you entered don\'t match'),
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 4 || "Min 4 characters",
+        emailMatch: () => "The email and password you entered don't match",
       },
       emailRules: [
-        v => !!v || "E-mail is required",
-        v =>
-          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || "E-mail must be valid"
+        (v) => !!v || "E-mail is required",
+        (v) =>
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+          "E-mail must be valid",
       ],
-    }
+    };
   },
-  beforeDestroy() { 
-    window.removeEventListener('resize', this.onResize); 
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize);
   },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions(["login"]),
     onResize() {
-      this.windowWidth = window.innerWidth
+      this.windowWidth = window.innerWidth;
     },
+    ///소셜 로그인///
+    onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log("Name: " + profile.getName());
+      console.log("Image URL: " + profile.getImageUrl());
+      console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+    },
+    ///소셜 로그인///
   },
   mounted() {
     this.$nextTick(() => {
-      window.addEventListener('resize', this.onResize);
-    })
+      window.addEventListener("resize", this.onResize);
+    });
   },
-}
-
+};
 </script>
 
 <style scoped>
-  .cont15 {
-    margin: 0 15%;
-  }
+.cont15 {
+  margin: 0 15%;
+}
 </style>

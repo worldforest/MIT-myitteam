@@ -31,6 +31,12 @@ export default {
 	logout() {
 		cookies.remove('auth-token')
 		cookies.remove('auth-email')
+
+		// var auth2 = gapi.auth2.getAuthInstance();
+		// auth2.signOut().then(function () {
+		//   console.log("User signed out.");
+		// });
+
 		router.go({ name: "Home" })
 	},
 	postSignup({ dispatch }, signupInfo) {
@@ -72,7 +78,6 @@ export default {
 	},
 	profile(context) {
 		const email = cookies.get('auth-email')
-		console.log(context.state.email)
 		axios.get(`${SERVER_URL}/api/feed/${email}`)
 			.then(response => {
 				context.commit('INPUTDATA', response.data)
@@ -103,38 +108,59 @@ export default {
 				commit('contestData', res.data)
 			})
 	},
+
+	//////////다인///////////////
 	teamregister(context, applyData){
+		console.log(context)
+		console.log(applyData)
 		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
 			.then(() => {
 				alert('성공적으로 등록하였습니다.')
 			})
 			.catch(error => console.log(error.response.data))
 	},
-	feedCreate(context, feedData) {
-        const formdata = new FormData();
-        formdata.append('category', feedData.category)
-        formdata.append('description', feedData.description)
-        formdata.append('email', feedData.email) 
-        formdata.append('file', feedData.file)
-        formdata.append('tags', feedData.tags)
-        axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
-        .then(() => {
-            router.push({ name: "Profile"})
-        })
-        .catch(error => {
-            console.log(error)
-        })
+	projectregister(context, projectData){
+		/// 아직 완료 아님  ///
+		console.log(context)
+		console.log(projectData)
+		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
+		.then(() => {
+			alert('성공적으로 등록하였습니다.')
+		})
+		.catch(err => console.log(err.response.data))
+
 	},
+	//////////다인///////////////
+
+	feedCreate(context, feedData) {
+		const formdata = new FormData();
+		formdata.append('category', feedData.category)
+		formdata.append('description', feedData.description)
+		formdata.append('email', feedData.email) 
+		formdata.append('file', feedData.file)
+		formdata.append('tags', feedData.tags)
+		axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
+		.then(() => {
+				router.push({ name: "Profile"})
+		})
+		.catch(error => {
+				console.log(error)
+		})
+	},
+
 	follow(context) {
         const params = new URLSearchParams();
         params.append('email', context.state.email);
         params.append('following', context.state.userprofiledata.feeds[0].email)
         axios.post(`${SERVER_URL}/api/follow/follow`, params)
-            .then((response) => {
-                console.log(response)
+            .then(() => {
+				context.commit('conffollowflag')
+				context.dispatch('follwerCnt', context.state.userprofiledata.feeds[0].email)
+				context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
             })
             .catch(error => console.log(error.response.data))
 	},
+
 	myFollowerList(context, res) {
         var params = new URLSearchParams();
         var data = []
@@ -147,15 +173,37 @@ export default {
           context.commit('INPUTFOLLOWER', data)
           })
 	},
+
+	myFollowList(context, res) {
+		var params = new URLSearchParams();
+		// var data = []
+		params.append('email', res);
+		axios.post(`${SERVER_URL}/api/follow/followingList`, params)
+			.then((response) => {
+				console.log(response)
+			})	
+	},
+
 	unfollow(context, res) {
 		var params = new URLSearchParams();
 		params.append('email', context.state.email)
 		params.append('following', res)
 		axios.post(`${SERVER_URL}/api/follow/unfollow`, params)
-		.then((response) => {
-			console.log(response.data)
+		.then(() => {
+			context.commit('conffollowflag')
+			context.dispatch('myFollowerList', res)
+			context.dispatch('follwerCnt', context.state.email)
 		})
 		.catch(error => console.log(error.response.data))
+	},
+
+	follwerCnt(context, res) {
+		var params = new URLSearchParams();
+		params.append('email', res)
+		axios.post(`${SERVER_URL}/api/follow/followerCnt`, params)
+			.then((response) => {
+				context.state.followCnt = response.data
+		})
 	}
 }
 

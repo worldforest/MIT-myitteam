@@ -40,8 +40,7 @@ export default {
     checkDate (date) {
       this.day = date
       console.log(this.day)
-      this.day.time = []
-      console.log(typeof(this.day.time))
+      this.day.time
       // if (!isClicked && ) {
 
       // }

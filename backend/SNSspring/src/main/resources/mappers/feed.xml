@@ -12,11 +12,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{description},#{tag},#{src});
 	</insert>
 
-	<select id="Latestfeed" parameterType="String" resultType="String">
-		select no from feed where email = #{email} order by no desc limit 1;
+	<select id="selectAll" resultType="feed">
+		select * from feed
 	</select>
-	
-	<select id="selectEmail" parameterType="String" resultType="feed">
+
+	<select id="Latestfeed" parameterType="String"
+		resultType="String">
+		select no from feed where email = #{email} order by no desc
+		limit 1;
+	</select>
+
+	<select id="selectEmail" parameterType="String"
+		resultType="feed">
 		select * from feed where email = #{email}
+	</select>
+
+	<select id="selectno" parameterType="String" resultType="feed">
+		select *
+		from feed where no = #{no}
+	</select>
+
+	<select id="slectnoemail" parameterType="String"
+		resultType="feed">
+		select * from feed where no = #{no} and email = #{email}
 	</select>
 </mapper>

@@ -1,5 +1,7 @@
 package com.mit.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,9 @@ public class TeamServiceImpl implements TeamService {
 		return teamRepo.insert(team);
 	}
 
+	@Override
+	public List<Team> select(String no) {
+		return teamRepo.select(no);
+	}
 
 }

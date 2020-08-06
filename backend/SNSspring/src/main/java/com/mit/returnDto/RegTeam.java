@@ -10,7 +10,7 @@ public class RegTeam {
 	String email;
 	String start;
 	String end;
-	List<RegTeamInfo>datalist;
+	List<RegTeamInfo>dataList;
 	public String getNo() {
 		return no;
 	}
@@ -53,11 +53,11 @@ public class RegTeam {
 	public void setEnd(String end) {
 		this.end = end;
 	}
-	public List<RegTeamInfo> getDatalist() {
-		return datalist;
+	public List<RegTeamInfo> getDataList() {
+		return dataList;
 	}
-	public void setDatalist(List<RegTeamInfo> datalist) {
-		this.datalist = datalist;
+	public void setDataList(List<RegTeamInfo> dataList) {
+		this.dataList = dataList;
 	}
 	
 }

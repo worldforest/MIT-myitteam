@@ -1,5 +1,6 @@
 package com.mit.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -31,6 +32,10 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/api/team")
 public class TeamController {
 
+	private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
+	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
+
 	@Autowired
 	private TeamService teamService;
 	@Autowired
@@ -38,12 +43,7 @@ public class TeamController {
 	@Autowired
 	private ContentsService contentsService;
 
-	private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
-	private static final String SUCCESS = "success";
-	private static final String FAIL = "fail";
-
-	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n"
-			+ "필요 데이터\n"
+	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n" + "필요 데이터\n"
 			+ "description,email(프로젝트팀 생성자),title,start,end,info")
 	@PostMapping("projectteam")
 	public ResponseEntity<String> projectTeamCreate(@RequestBody RegTeam regTeam) {
@@ -74,12 +74,12 @@ public class TeamController {
 
 		// 방금 등록한 contents 번호 얻어오기
 		System.out.println(no + "제발");
-		for (RegTeamInfo regTeamInfo : regTeam.getDatalist()) {
+		for (RegTeamInfo regTeamInfo : regTeam.getDataList()) {
 			System.out.println("gogo");
 			Teaminfo teaminfo = new Teaminfo();
 			teaminfo.setNo(no);
 			teaminfo.setLeaderemail(regTeam.getEmail());
-			teaminfo.setAbility(regTeamInfo.getAblity());
+			teaminfo.setAbility(regTeamInfo.getAbility());
 			teaminfo.setPart(regTeamInfo.getPart());
 			teaminfo.setTask(regTeamInfo.getTask());
 			teaminfo.setAdvantage(regTeamInfo.getAdvantage());
@@ -92,9 +92,7 @@ public class TeamController {
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "공모전 팀을 생성합니다. ", notes = "성공시 SUCESS를 반환합니다\n"
-			+ "필요 정보 \n"
-			+ "no, email(생성자),description")
+	@ApiOperation(value = "공모전 팀을 생성합니다. ", notes = "성공시 SUCESS를 반환합니다\n" + "필요 정보 \n" + "no, email(생성자),description")
 	@PostMapping("contestteam")
 	public ResponseEntity<String> contestTeamCreate(@RequestBody RegTeam regTeam) {
 
@@ -109,11 +107,11 @@ public class TeamController {
 		if (!teamService.insert(team))
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 
-		for (RegTeamInfo regTeamInfo : regTeam.getDatalist()) {
+		for (RegTeamInfo regTeamInfo : regTeam.getDataList()) {
 			Teaminfo teaminfo = new Teaminfo();
 			teaminfo.setNo(regTeam.getNo());
 			teaminfo.setLeaderemail(regTeam.getEmail());
-			teaminfo.setAbility(regTeamInfo.getAblity());
+			teaminfo.setAbility(regTeamInfo.getAbility());
 			teaminfo.setPart(regTeamInfo.getPart());
 			teaminfo.setTask(regTeamInfo.getTask());
 			teaminfo.setAdvantage(regTeamInfo.getAdvantage());
@@ -123,6 +121,41 @@ public class TeamController {
 				return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 		}
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "공모전, 프로젝트 번호로 해당 contents에 등록된 전체 팀 목록을 조회", notes = "팀 전체목록 list로 반환(프로젝트는 팀이 하나)")
+	@PostMapping("contentsteamlist")
+	public ResponseEntity<List<RegTeam>> contestTeamList(@RequestParam("no") String no) {
+
+		RegTeam regTeam = new RegTeam();
+		// 해당 공모전, 프로젝트에 해당하는 팀 정보 조회
+		// 공모전, 프로젝트 번호로 검색
+		List<Team> teamlist = teamService.select(no);// 전체 select
+		List<RegTeam> regTeamList = new ArrayList<RegTeam>();
+		for (Team team : teamlist) {
+			regTeam.setNo(team.getNo());
+			regTeam.setEmail(team.getLeaderemail());
+			regTeam.setTitle(team.getTitle());
+			regTeam.setLocal(team.getLocal());
+			regTeam.setDescription(team.getDescription());
+
+			RegTeamInfo regTeamInfo = new RegTeamInfo();
+			List<Teaminfo> teaminfoList = teaminfoService.select(regTeam.getNo(), regTeam.getEmail());
+			List<RegTeamInfo> regTeamInfoList = new ArrayList<RegTeamInfo>();
+			for (Teaminfo teaminfo : teaminfoList) {
+				regTeamInfo.setPart(teaminfo.getPart());
+				regTeamInfo.setTask(teaminfo.getTask());
+				regTeamInfo.setAbility(teaminfo.getAbility());
+				regTeamInfo.setAdvantage(teaminfo.getAdvantage());
+				regTeamInfo.setHeadCount(teaminfo.getHeadcount());
+				regTeamInfoList.add(regTeamInfo);
+			}
+
+			regTeam.setDataList(regTeamInfoList);
+			regTeamList.add(regTeam);
+		}
+
+		return new ResponseEntity<List<RegTeam>>(regTeamList, HttpStatus.OK);
 	}
 
 }
