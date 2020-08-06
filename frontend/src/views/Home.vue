@@ -1,7 +1,5 @@
 <template>
   <div>
-    {{ community[3].src }}
-    <img :src="community[3].src">
     <div>
       <!-- Search Bar -->
       <v-row class="d-flex justify-center"> 

@@ -1,6 +1,8 @@
 <template>
   <div  class="cont10">
+    <!-- 현재 이 프로필 페이지 주인의 이메일 -->
     {{user}}
+    <!-- 현재 로그인 되어 있는 계정의 이메일 -->
     {{ email }}
     <!-- {{ (followerList.includes(email)) }} -->
     {{ followerList }}
@@ -227,11 +229,11 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
-    this.myFollowerList(this.user)
     this.follwerCnt(this.user)
   },
 
   created () {
+    this.myFollowerList(this.user)
     // 이 페이지의 유저 정보를 확인
     this.userprofile(this.user)
     // 로그인한 유저의 정보를 확인
