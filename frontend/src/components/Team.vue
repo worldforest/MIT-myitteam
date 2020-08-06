@@ -15,7 +15,8 @@
             <div class="d-flex">
               <div>
                 <h2 class="mb-2">{{ i.description }}</h2>
-                <hr class="mb-2">               
+                <hr class="mb-2">
+               
                 <!-- <h5> 모집 기간 : {{ i.dday }}</h5>                   -->
               </div>
             </div>
@@ -79,7 +80,7 @@
       </v-row>
 
       <!-- 400이상 550미만 -->
-      <v-row v-if="windowWidth < 550 && windowWidth >= 400 ">
+      <v-row v-if="windowWidth < 550 && windowWidth >= 375 ">
         <v-col cols="6" class="px-6" v-for="i in community" :key="i">
           <div class="teamCard5 py-5 px-5">
             <div class="d-flex">
@@ -95,7 +96,7 @@
       </v-row>
 
       <!-- 400미만 -->
-      <div v-if="windowWidth < 400">
+      <div v-if="windowWidth < 375">
         <v-col cols="6" class="px-6" v-for="i in community" :key="i">
           <div class="teamCard6 py-5 px-5">
             <div class="d-flex">
