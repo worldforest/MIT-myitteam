@@ -126,33 +126,37 @@ public class TeamController {
 	@ApiOperation(value = "공모전, 프로젝트 번호로 해당 contents에 등록된 전체 팀 목록을 조회", notes = "팀 전체목록 list로 반환(프로젝트는 팀이 하나)")
 	@PostMapping("contentsteamlist")
 	public ResponseEntity<List<RegTeam>> contestTeamList(@RequestParam("no") String no) {
-
-		RegTeam regTeam = new RegTeam();
+		
 		// 해당 공모전, 프로젝트에 해당하는 팀 정보 조회
 		// 공모전, 프로젝트 번호로 검색
 		List<Team> teamlist = teamService.select(no);// 전체 select
+
 		List<RegTeam> regTeamList = new ArrayList<RegTeam>();
 		for (Team team : teamlist) {
+			RegTeam regTeam = new RegTeam();
 			regTeam.setNo(team.getNo());
 			regTeam.setEmail(team.getLeaderemail());
 			regTeam.setTitle(team.getTitle());
 			regTeam.setLocal(team.getLocal());
 			regTeam.setDescription(team.getDescription());
-
-			RegTeamInfo regTeamInfo = new RegTeamInfo();
+			
 			List<Teaminfo> teaminfoList = teaminfoService.select(regTeam.getNo(), regTeam.getEmail());
 			List<RegTeamInfo> regTeamInfoList = new ArrayList<RegTeamInfo>();
 			for (Teaminfo teaminfo : teaminfoList) {
+				RegTeamInfo regTeamInfo = new RegTeamInfo();
 				regTeamInfo.setPart(teaminfo.getPart());
 				regTeamInfo.setTask(teaminfo.getTask());
 				regTeamInfo.setAbility(teaminfo.getAbility());
 				regTeamInfo.setAdvantage(teaminfo.getAdvantage());
 				regTeamInfo.setHeadCount(teaminfo.getHeadcount());
+
 				regTeamInfoList.add(regTeamInfo);
 			}
-
 			regTeam.setDataList(regTeamInfoList);
 			regTeamList.add(regTeam);
+			for (int i = 0; i < regTeamList.size(); i++) {
+				System.out.println(regTeamList.get(i).getTitle());
+			}
 		}
 
 		return new ResponseEntity<List<RegTeam>>(regTeamList, HttpStatus.OK);
