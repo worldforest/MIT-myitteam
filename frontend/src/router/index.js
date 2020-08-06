@@ -82,6 +82,7 @@ Vue.use(VueRouter)
     name: "GongmoDetail",
     component: GongmoDetail,
     props: true,
+    mode: 'history',
   },
   {
     path: '/feed_detail',

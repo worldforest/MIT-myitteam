@@ -14,6 +14,7 @@ const state = {
     email : cookies.get('auth-email'),
     profileData: [],
     clubs: [],
+    clubinfo: {},
     detailFeed: [],
     userprofiledata: [],
     followerList: [],

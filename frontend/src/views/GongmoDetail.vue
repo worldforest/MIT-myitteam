@@ -1,5 +1,6 @@
 <template>
   <div >
+    {{ clubinfo }}
     <div class="cont" v-if="windowWidth >= 900">
       <div class="d-flex ma-2">
         <div>
@@ -74,6 +75,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import Intro from '@/components/Intro.vue'
 import Team from '@/components/Team.vue'
 
@@ -100,8 +103,14 @@ export default {
     this.txt = `it changed to ${newWidth} from ${oldWidth}`;
     }
   },
-
+  computed : {
+    ...mapState(['clubinfo'])
+  },
+  created () {
+    this.$store.state.clubinfo = this.club
+  },
   mounted() {
+    this.info = this.$store.state.club
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
