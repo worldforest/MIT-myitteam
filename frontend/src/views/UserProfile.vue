@@ -1,7 +1,7 @@
 <template>
   <div  class="cont10">
-    {{ email }}
-    {{ (followerList.includes(email)) }}
+    <p>{{ email }}</p>
+    <!-- {{ (followList.includes(email)) }} -->
     {{ followerList }}
 
     <v-row v-if="windowWidth >= 1270">
@@ -27,7 +27,7 @@
               v-if="((userprofiledata.nickname !== profileData.nickname) && !(followerList.includes(email)))"
               class="ml-3"
               color="primary"
-              @click="follow()"
+              @click="follow"
             >
               팔로우
             </v-btn>
@@ -162,7 +162,6 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'Profile',
   components: {
-
   },
   props: {
     user: String
@@ -170,6 +169,7 @@ export default {
   data() {
     return {
       windowWidth: window.innerWidth,
+      followList : []
     }
   },
   watch: {
@@ -198,8 +198,10 @@ export default {
     // ...mapGetter s(['isLoggedIn'])
     ...mapState(['userprofiledata', 'email', 'profileData', 'followerList']),
     ...mapGetters(['isLoggedIn',])
+     
   },
-  mounted() {    
+  mounted() {
+    this.followList = this.$store.state.followerList
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
@@ -211,7 +213,10 @@ export default {
     this.userprofile(this.user)
     // 로그인한 유저의 정보를 확인
     this.profile()
-    }
+    },
+  updated () {
+    this.followerList
+  }
 }
 </script>
 

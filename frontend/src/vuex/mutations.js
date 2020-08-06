@@ -9,11 +9,9 @@ export default {
     },
     // GET_EMAIL(state, res) {
     //     state.email = res.email
-    //     cookies.set('auth-email', res.data)
     // },
     // POST_EMAIL(state, res) {
     //     state.email = res.data
-    //     cookies.set('auth-email', res.data)
     // },
     feedDetail(state, feed) {
         state.detailFeed = feed

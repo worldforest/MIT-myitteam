@@ -11,6 +11,8 @@ import FeedDetail from '@/views/FeedDetail.vue'
 import FeedCreate from '@/views/FeedCreate.vue'
 import UserProfile from '@/views/UserProfile.vue'
 import ProjectList from '@/views/ProjectList.vue'
+import Myteam from '@/views/Myteam.vue'
+
 
 Vue.use(VueRouter)
 
@@ -41,7 +43,15 @@ Vue.use(VueRouter)
   {
     path: '/signup',
     name: 'Signup',
-    component: Signup
+    component: Signup,
+    beforeEnter(to, from, next) {
+      if (Vue.$cookies.isKey('auth-token')) {
+        next('/')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/profile',
@@ -85,6 +95,11 @@ Vue.use(VueRouter)
     props: true,
   },
   //////////지훈////////////
+  {
+    path: '/myteam',
+    name: "Myteam",
+    component: Myteam,
+  },
 ]
 
 const router = new VueRouter({

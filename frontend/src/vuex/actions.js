@@ -16,7 +16,7 @@ export default {
 				commit('SET_TOKEN', response.data.token)
 				// commit('GET_EMAIL', response.data.email)
 				cookies.set('auth-email', response.data.email)
-				router.push({ name: "Home" })
+				router.go({ name: "Home" })
 			})
 			.catch(error => console.log(error.response.data))
 	},
@@ -126,7 +126,7 @@ export default {
         })
 	},
 	follow(context) {
-        var params = new URLSearchParams();
+        const params = new URLSearchParams();
         params.append('email', context.state.email);
         params.append('following', context.state.userprofiledata.feeds[0].email)
         axios.post(`${SERVER_URL}/api/follow/follow`, params)
