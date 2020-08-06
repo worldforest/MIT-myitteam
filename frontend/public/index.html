@@ -13,6 +13,11 @@
     <meta name="google-signin-client_id" content="1022752702523-e6h759408u4q4o9ndpousdnc5n1ncjti.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
     <script>
+      function init(){
+        gapi.load('auth2', function(){
+          
+        })
+      },
       window.onLoadCallback=function(){
         gapi.auth2.init({
           client_id: '1022752702523-e6h759408u4q4o9ndpousdnc5n1ncjti.apps.googleusercontent.com'
