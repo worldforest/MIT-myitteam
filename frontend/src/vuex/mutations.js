@@ -51,5 +51,8 @@ export default {
     },
     GETTEAMDATA(state, res) {
       state.getTeamList = res
+    },
+    myTeamInfo(state, res) {
+        state.myTeamInfo = res
     }
 }

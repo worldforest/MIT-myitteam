@@ -208,7 +208,6 @@ export default {
 				context.state.followCnt = response.data
 		})
 	},
-
 	searchFeed(context) {
 		// var params = new URLSearchParams();
 		// params.append('tag', res)
@@ -216,6 +215,14 @@ export default {
 			.then((response) => {
 				context.commit('setCommunity', response.data)
 			})
+	},
+	getTeamInfo(context) {
+		const params = new URLSearchParams();
+		params.append('email', context.state.email)
+		axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
+		.then(response => {
+			context.commit('myTeamInfo', response.data)
+		})
 	}
 }
 

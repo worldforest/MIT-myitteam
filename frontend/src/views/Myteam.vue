@@ -1,39 +1,52 @@
 <template>
   <div>
-    {{ email }}
-    <ul>
-      <li v-for="member in members" :key="member">
-        {{ member }}
-      </li>
-    </ul>
-    <div class="pa-5">
-      <v-row>
-          <v-col cols="12" md="6" class="mb-4">
-              <v-sheet height="500">
-                  <v-calendar
-                    ref="calendar"
-                    color="primary"
-                    refs="day"
-                    @click:date="checkDate"
-                  ></v-calendar>
-              </v-sheet>
-          </v-col>
-      </v-row>
-    </div>
+    <v-card v-for="info in myTeamInfo" :key="info"  
+    class="mx-auto"
+    max-width="400"
+  >
+    <v-img
+      class="white--text align-end"
+      height="200px"
+      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+    >
+      <v-card-title>{{ info.title }}</v-card-title>
+    </v-img>
+
+    <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
+
+    <v-card-text class="text--primary">
+      <div>Whitehaven Beach</div>
+
+      <div>Whitsunday Island, Whitsunday Islands</div>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-btn
+        color="orange"
+        text
+      >
+        Share
+      </v-btn>
+
+      <v-btn
+        color="orange"
+        text
+      >
+        Explore
+      </v-btn>
+    </v-card-actions>
+  </v-card>
   </div>
 </template>
 
 <script>
-import { mapState, } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Myteam',
   data () {
     return {
-      members : ['김지훈', '이다인', '홍정민', '이세림'],
-      email:'',
-      day:'',
-      isClicked : false
+      // email:'',
     }
   },
   methods :{
@@ -41,16 +54,16 @@ export default {
       this.day = date
       console.log(this.day)
       this.day.time
-      // if (!isClicked && ) {
-
-      // }
       },
+    ...mapActions(['getTeamInfo'])
   },
   computed : {
-    ...mapState(['email'])
+    ...mapState(['myTeamInfo'])
   },
   mounted () {
-    this.email = this.$store.state.email
+    console.log(this.info)
+    // this.email = this.$store.state.email
+    this.getTeamInfo()
   }
 }
 </script>

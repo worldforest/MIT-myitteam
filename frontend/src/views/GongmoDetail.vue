@@ -77,8 +77,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 import Intro from '@/components/Intro.vue'
 import Team from '@/components/Team.vue'
 import { mapActions, mapState } from 'vuex'
@@ -105,9 +103,6 @@ export default {
     windowWidth(newWidth, oldWidth) {
     this.txt = `it changed to ${newWidth} from ${oldWidth}`;
     }
-  },
-  computed : {
-    ...mapState(['clubinfo'])
   },
   created () {
     this.$store.state.clubinfo = this.club

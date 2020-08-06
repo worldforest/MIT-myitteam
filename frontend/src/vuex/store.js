@@ -24,6 +24,7 @@ const state = {
     followCnt: '',
     community: [],
     getTeamList: [],
+    myTeamInfo: [],
 }
 
 export default new Vuex.Store({
