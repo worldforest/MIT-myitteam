@@ -28,7 +28,7 @@
 
       <!-- 900이상 1270미만 -->
       <v-row v-if="windowWidth < 1270 && windowWidth >= 900 ">
-        <v-col cols="6" class="px-6" v-for="i in community" :key="i">
+        <v-col cols="6" class="px-6" v-for="i in getTeamList" :key="i">
           <div class="teamCard2 py-5 px-5">
             <div class="d-flex">
               <div>

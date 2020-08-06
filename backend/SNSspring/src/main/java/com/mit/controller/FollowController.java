@@ -82,24 +82,24 @@ public class FollowController {
 
 	@ApiOperation(value = "내가 팔로우한 사람 수.", notes = "")
 	@PostMapping("followingCnt")
-	public ResponseEntity<String> followingCnt(@RequestParam("email") String email) {
+	public int followingCnt(@RequestParam("email") String email) {
 		int followingCnt = followService.followingCnt(email);
-		if (followingCnt != 0) {
-			System.out.println("내가 팔로우한(팔로잉) 사람 수: " + followingCnt);
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		if (followingCnt!=0) {
+			System.out.println("내가 팔로우한(팔로잉) 사람 수: "+followingCnt);
+			return followingCnt;
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+		return followingCnt;
 	}
 
 	@ApiOperation(value = "나를 팔로우한(팔로워) 사람 수.", notes = "")
 	@PostMapping("followerCnt")
-	public ResponseEntity<String> followerCnt(@RequestParam("email") String email) {
+	public int followerCnt(@RequestParam("email") String email) {
 		int followerCnt = followService.followerCnt(email);
-		if (followerCnt != 0) {
-			System.out.println("나를 팔로잉한 사람 수: " + followerCnt);
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		if (followerCnt!=0) {
+			System.out.println("나를 팔로잉한 사람 수: "+followerCnt);
+			return followerCnt;
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
-	}
-
+		return followerCnt;
+	} 
+	
 }
