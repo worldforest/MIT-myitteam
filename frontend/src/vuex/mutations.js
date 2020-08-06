@@ -4,8 +4,8 @@ import router from '@/router'
 // 
 export default {
     SET_TOKEN(state, token) {
-        state.authToken = token
-        cookies.set('auth-token', token)
+			state.authToken = token
+			cookies.set('auth-token', token)
     },
     // GET_EMAIL(state, res) {
     //     state.email = res.email
@@ -14,8 +14,8 @@ export default {
     //     state.email = res.data
     // },
     feedDetail(state, feed) {
-        state.detailFeed = feed
-        router.push({ name: "FeedDetail" })
+			state.detailFeed = feed
+			router.push({ name: "FeedDetail" })
     },
     INPUTDATA (state, res) {
         state.profileData = res
@@ -24,23 +24,32 @@ export default {
         state.clubs = res
     },
     USERINPUT(state, res) {
-        state.userprofiledata = res
+			state.userprofiledata = res
     },
     INPUTFOLLOWER(state, res) {
-        state.followerList = res
+			state.followerList = res
     },
     INPUTFOLLOW(state, res) {
-        state.followList = res
+			state.followList = res
     },
     getTeam(state, res) {
-        console.log("mutations")
-        state.getTeams = res 
+			console.log("mutations")
+			state.getTeams = res 
     },
     followflag(state) {
-        state.followflag = false
+			state.followflag = false
 
         if (state.followerList.includes(state.email)) {
             state.followflag = true
         }
+    },
+    setCommunity(state, res) {
+        state.community = res
+			if (state.followerList.includes(state.email)) {
+					state.followflag = true
+			}
+    },
+    GETTEAMDATA(state, res) {
+      state.getTeamList = res
     }
 }

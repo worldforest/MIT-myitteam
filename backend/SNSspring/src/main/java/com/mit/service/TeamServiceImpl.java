@@ -24,4 +24,9 @@ public class TeamServiceImpl implements TeamService {
 		return teamRepo.select(no);
 	}
 
+	@Override
+	public Team selectnoemail(String no, String leaderemail) {
+		return teamRepo.selectnoemail(no, leaderemail);
+	}
+
 }

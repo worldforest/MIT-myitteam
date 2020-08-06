@@ -7,6 +7,7 @@
           <img :src="club.imagesrc" alt="제목부분 포스터" class="title-img">
         </div>
         <div class="ml-3">
+          {{ club.no }}
           <h3>{{ club.title }}</h3>
           <h4>{{ club.host }}</h4>
         </div>
@@ -19,7 +20,8 @@
         </v-col>
         <v-col cols="4">
           <div class="text-center">
-            <span @click="onClick_Team" class="cursor">팀원모집</span>  
+            {{ club.no }}
+            <span @click="onClick_Team(); getTeamData(club.no)" class="cursor">팀원모집</span>  
           </div>        
         </v-col>
         <v-col cols="4">
@@ -33,7 +35,7 @@
         <Intro :club="club" />
       </div>
       <div v-else-if="isTeam">
-        <Team :club="club" />
+        <Team :club="club" :getTeamList="getTeamList"/>
       </div>
     </div>
     <div v-else>
@@ -54,7 +56,7 @@
         </v-col>
         <v-col cols="4">
           <div class="text-center">
-            <span @click="onClick_Team" class="cursor">팀원모집</span>  
+            <span @click="onClick_Team; getTeamData(club.no)" class="cursor">팀원모집</span>  
           </div>        
         </v-col>
         <v-col cols="4">
@@ -68,7 +70,7 @@
         <Intro :club="club" />
       </div>
       <div v-else-if="isTeam">
-        <Team :club="club" />
+        <Team :club="club" :getTeamList="getTeamList"/>
       </div>
     </div>
   </div>
@@ -79,6 +81,7 @@ import { mapState } from 'vuex'
 
 import Intro from '@/components/Intro.vue'
 import Team from '@/components/Team.vue'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: "GongmoDetail",
@@ -121,6 +124,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['getTeamData']),
     onClick_intro() {
       this.isIntro = true
       this.isTeam = false
@@ -134,6 +138,9 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
+  },
+  computed: { 
+    ...mapState(['getTeamList'])
   }
 }
 </script>

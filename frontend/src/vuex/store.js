@@ -22,6 +22,8 @@ const state = {
     getTeams: [],
     followflag: true,
     followCnt: '',
+    community: [],
+    getTeamList: [],
 }
 
 export default new Vuex.Store({
