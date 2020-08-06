@@ -111,7 +111,6 @@ export default {
 
 	//////////다인///////////////
 	teamregister(context, applyData){
-		console.log(context)
 		console.log(applyData)
 		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
 			.then(() => {
@@ -132,7 +131,6 @@ export default {
 		})
 	},
 	getTeamData(context, no){
-		console.log(context)
 		console.log(no)
 		const params = new URLSearchParams();
 		params.append('no', no);
@@ -183,20 +181,11 @@ export default {
 		axios.post(`${SERVER_URL}/api/follow/followerList`, params)
 			.then((response) => {
 				for(var i=0; i<(response.data).length; i++) {
-						data.push(response.data[i].email)
-				}
+						data.push(response.data[i])
+			}
 			context.commit('INPUTFOLLOWER', data)
+			// console.log(data)
 			})
-	},
-
-	myFollowList(context, res) {
-		var params = new URLSearchParams();
-		// var data = []
-		params.append('email', res);
-		axios.post(`${SERVER_URL}/api/follow/followingList`, params)
-			.then((response) => {
-				console.log(response)
-			})	
 	},
 
 	unfollow(context, res) {
@@ -219,5 +208,14 @@ export default {
 				context.state.followCnt = response.data
 		})
 	},
+
+	searchFeed(context) {
+		// var params = new URLSearchParams();
+		// params.append('tag', res)
+		axios.post(`${SERVER_URL}/api/feed/search`)
+			.then((response) => {
+				context.commit('setCommunity', response.data)
+			})
+	}
 }
 

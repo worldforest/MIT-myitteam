@@ -21,6 +21,7 @@ const state = {
     getTeams: [],
     followflag: true,
     followCnt: '',
+    community: [],
     getTeamList: [],
 }
 

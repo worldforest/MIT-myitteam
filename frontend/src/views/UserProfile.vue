@@ -1,6 +1,8 @@
 <template>
   <div  class="cont10">
+    <!-- 현재 이 프로필 페이지 주인의 이메일 -->
     {{user}}
+    <!-- 현재 로그인 되어 있는 계정의 이메일 -->
     {{ email }}
     <!-- {{ (followerList.includes(email)) }} -->
     {{ followerList }}
@@ -97,7 +99,7 @@
         </div>
         <div class="d-flex my-5 ml-5">
           <span>팔로우| {{ userprofiledata.followingCnt }}명</span>
-          <span class="mx-auto">팔로워| {{ userprofiledata.followerCnt }}명</span>
+          <span class="mx-auto">팔로워| {{ followerList.length }}명</span>
         </div>
         <div class="d-flex ml-5">
           {{ userprofiledata.description }}
@@ -154,7 +156,7 @@
         팔로우| {{ userprofiledata.followingCnt }}명
       </v-col>
       <v-col cols="6">
-        팔로워| {{ userprofiledata.followerCnt }}명
+        팔로워| {{ followerList.length }}명
       </v-col>
     </v-row>    
     <hr>
@@ -227,11 +229,11 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
-    this.myFollowerList(this.user)
     this.follwerCnt(this.user)
   },
 
   created () {
+    this.myFollowerList(this.user)
     // 이 페이지의 유저 정보를 확인
     this.userprofile(this.user)
     // 로그인한 유저의 정보를 확인
