@@ -12,6 +12,7 @@ import FeedCreate from '@/views/FeedCreate.vue'
 import UserProfile from '@/views/UserProfile.vue'
 import ProjectList from '@/views/ProjectList.vue'
 import Myteam from '@/views/Myteam.vue'
+import ProjectDetail from '@/views/ProjectDetail.vue'
 
 
 Vue.use(VueRouter)
@@ -92,6 +93,12 @@ Vue.use(VueRouter)
     path: '/userprofile',
     name: "UserProfile",
     component: UserProfile,
+    props: true,
+  },
+  {
+    path: '/projectdetail',
+    name: 'ProjectDetail',
+    component: ProjectDetail,
     props: true,
   },
   //////////지훈////////////

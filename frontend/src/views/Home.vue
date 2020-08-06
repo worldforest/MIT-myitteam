@@ -6,7 +6,7 @@
     <div v-if="windowWidth >= 1064">
       <div class="mt-6">
         <h1>공모전</h1>
-        <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
+        <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" style="width:100%">
           <slide v-for="club in clubs" :key="club.no">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor">
               <b-card-text @click="gongmoDetail(club)">
@@ -75,8 +75,8 @@
       <div v-if="windowWidth >= 1064">      
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
-            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor">
-              <b-card-text>
+            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2)">
+              <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
                     {{ club2.title.slice(0,15)}}...
                 </div>
@@ -95,8 +95,8 @@
       <div v-else-if="400 > windowWidth">
         <carousel :per-page="1.5" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
-            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor">
-              <b-card-text>
+            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2)">
+              <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
                     {{ club2.title.slice(0,15)}}...
                 </div>
@@ -115,8 +115,8 @@
       <div v-else>
         <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
-            <b-card :title="club2.title" :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor">
-              <b-card-text>
+            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2)">
+              <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
                     {{ club2.title.slice(0,15)}}...
                 </div>
@@ -140,26 +140,29 @@
           <button @click="searchFollowFeed(email)">팔로우 게시물</button>
         </div>
       </div>
-      <v-row>
-        <v-col cols="4" v-for="i in community" :key="i.no" >
-          <div class="mx-2 detail_hover">
-            <img :src="i.src"
-              alt="안뜨는거야?"
-              style="width:100%; height: 350px"
-              :i="i"
-              @click='feedDetail(i)'
-              v-if="windowWidth >= 767"
-            >
-            <img :src="i.src"
-              alt="안뜨는거라고!"
-              style="width:100%; height: 120px;"
-              :i="i"
-              @click='feedDetail(i)'
-              v-else
-            >
-          </div>       
-        </v-col>
-      </v-row>
+      <div>
+        <v-row class="cont10">
+          <v-col cols="4" v-for="i in community" :key="i.no">
+            <div class="mx-2 detail_hover">
+              {{ i.nickname }}
+              <img :src="i.src"
+                alt="안뜨는거야?"
+                style="width:100%; height: 350px"
+                :i="i"
+                @click='feedDetail(i)'
+                v-if="windowWidth >= 767"
+              >
+              <img :src="i.src"
+                alt="안뜨는거라고!"
+                style="width:100%; height: 150px;"
+                :i="i"
+                @click='feedDetail(i)'
+                v-else
+              >
+            </div>       
+          </v-col>
+        </v-row>
+      </div>
     </div>
     {{ currentPageClubs }}
   </div>
@@ -205,15 +208,15 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['feedDetail', 'gongmoDetail']),
-    ...mapActions(['getContestData', 'searchFeed', 'myFollowList', 'searchFollowFeed']),
+    ...mapMutations(['feedDetail', 'gongmoDetail', 'projectDetail']),
+    ...mapActions(['getContestData', 'searchFeed', 'myFollowList', 'searchFollowFeed', 'profile']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
   },
 
   computed: {
-    ...mapState(['clubs', 'clubs2', 'community', 'email', 'followList']),
+    ...mapState(['clubs', 'clubs2', 'community', 'email', 'followList', 'profileData']),
   }
 
 }
@@ -240,7 +243,7 @@ export default {
   }
 
   .bg {
-    background-color:#c0c0c0;
+    background-color: #e9e9e9;
   }
 
   .non-dec {
@@ -274,7 +277,11 @@ export default {
   }
 
   .row{
-  margin-top:100px;
-}
+    margin-top:100px;
+  }
+
+  .cont10 {
+    margin: 0 3%;
+  }
 
 </style>
