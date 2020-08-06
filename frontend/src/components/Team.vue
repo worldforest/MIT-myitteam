@@ -108,7 +108,7 @@
       <div class="ma-2">
         <v-row>
           <router-link class="TeamButton" style="color:white" :to="{name: 'TeamRegister', params:{no:club.no}}">
-          <v-icon small color="#FFFFFF" class="mr-2">mdi-pencil-box-multiple</v-icon> 팀원 모집하러 가기 </router-link>
+          <v-icon  color="#FFFFFF" class="mr-2">mdi-pencil-box-multiple</v-icon> 팀원 모집하러 가기 </router-link>
         </v-row>
       </div>
 
