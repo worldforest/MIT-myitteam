@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.mit.algorithm.Path;
 import com.mit.dto.Follow;
 import com.mit.service.FollowService;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +23,7 @@ public class FollowController {
 	private FollowService followService;
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
-
+	private static Path path = new Path();
 	@ApiOperation(value = "팔로우를 신청합니다.", notes = "팔로우 신청시, 로그인한 계정 email=email/팔로우한 계정 email=following")
 	@PostMapping("follow")
 	public ResponseEntity<String> follow(@RequestParam("email") String email,
