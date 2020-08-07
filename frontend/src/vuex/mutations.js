@@ -73,5 +73,11 @@ export default {
     goTeam() {
         // state.teamreg = res
         router.push({name:'ProjectRegister'})
-    }, 
+    },
+    getAllContest(state, res) {
+        state.allContest = res
+    },
+    chageIsFlag(state) {
+        state.isFlag = !state.isFlag
+    } 
 }
