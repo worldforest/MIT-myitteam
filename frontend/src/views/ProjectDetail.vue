@@ -8,7 +8,7 @@
           <img :src="club2.imagesrc" alt="제목부분 포스터" class="title-img">
         </div>
         <div class="ml-3">
-          <!-- {{ club2.no }} -->
+          {{ club2 }}
           <h3 class="mb-3">{{ club2.title }}</h3>
           <h4>팀장 : {{ club2.nickname }}</h4>
         </div>
