@@ -18,16 +18,11 @@
         <span class="cursor">소개</span>  
       </div>
       <hr>
-<<<<<<< HEAD
       <img :src="club2.imagesrc" alt="본문내용 포스터" style="width:100%" class="mt-4">
       <p style="white-space:pre-line;">{{ club2.description }}</p>
       <div class="d-flex">
         <v-btn color="primary" class="ml-auto"  @click="goTeam(club2)">팀 등록</v-btn>
       </div>
-=======
-      <img :src="club2.imagesrc" alt="본문내용 포스터" style="width:100%" class="my-4">
-      <h4>{{ club2.description }}</h4>
->>>>>>> e144ee8e45fd322c53bd5222483d6346632a267d
     </div>
 
     <!-- //////////////////////// 화면이 좁을 때 /////////////////////////////// -->
@@ -46,14 +41,10 @@
       </div>       
       <hr>
       <img :src="club2.imagesrc" alt="본문내용 포스터" style="width:100%" class="mt-4">
-<<<<<<< HEAD
       <p style="white-space:pre-line;">{{ club2.description }}</p>
       <div class="d-flex">
         <v-btn color="primary" class="ml-auto" @click="goTeam(club2)">팀 등록</v-btn>
       </div>
-=======
-      <p>{{ club2.description }}</p>
->>>>>>> e144ee8e45fd322c53bd5222483d6346632a267d
     </div>
   </div>
 </template>
