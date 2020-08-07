@@ -5,7 +5,7 @@ import 'url-search-params-polyfill'
 // import { apply } from 'core-js/fn/reflect'
 
 // const SERVER_URL = 'http://localhost:9999/mit'
-const SERVER_URL = 'http:/i3b306.p.ssafy.io:9999/mit'
+const SERVER_URL = 'http://i3b306.p.ssafy.io/mit'
 
 export default {
 	postToken({ commit }, info) {
@@ -41,7 +41,7 @@ export default {
 		router.go({ name: "Home" })
 	},
 	postSignup({ dispatch }, signupInfo) {
-		axios.post("http://localhost:9999/mit/api/user/join", signupInfo.data)
+		axios.post(`${SERVER_URL}/api/user/join`, signupInfo.data)
 			.then(() => {
 				const loginInfo = {
 					data: {
@@ -67,7 +67,7 @@ export default {
 			const nick = {
 				data: signupData.nickname
 			}
-			axios.get(`http://localhost:9999/mit/api/user/checkNickname/${nick.data}`)
+			axios.get(`${SERVER_URL}/api/user/checkNickname/${nick.data}`)
 				.then(() => {
 					alert('사용가능한 별명입니다')
 				})
@@ -241,6 +241,7 @@ export default {
 		})
 	},
 	searchFeed(context) {
+		console.log(`${SERVER_URL}`)
 		axios.post(`${SERVER_URL}/api/feed/search`)
 			.then((response) => {
 				context.commit('setCommunity', response.data)
