@@ -15,6 +15,7 @@ import io.fusionauth.jwt.hmac.HMACVerifier;
 
 public class Token {
 	static Signer signer = HMACSigner.newSHA256Signer("mit team");
+	static Signer ema = HMACSigner.newSHA256Signer("m");
 
 	public String getToken(User user) {
 		// Useremail로 토큰을 만든다.
@@ -43,6 +44,7 @@ public class Token {
 	// 복호화 하는 방법 : 내이름 넣음
 	// 토큰이 필요한 API 정보에 대해서 유효성을 체크해주면된다
 	static Verifier verifier = HMACVerifier.newVerifier("mit team");
+	static Verifier emafier = HMACVerifier.newVerifier("m");
 
 	// Token이 유효하면 True 유효하지 않으면 False를 반환한다.
 	// API를 받을때 유효한 토큰인지 함께 검사한다.
@@ -58,11 +60,35 @@ public class Token {
 		}
 		return true;
 	}
-	
+
 	public String getEmail(String token) {
 
 		JWT jwt = JWT.getDecoder().decode(token, verifier);
 		return jwt.issuer;
 
 	}
+
+	// email 인증키 확인
+	public boolean checkEmail(String code) {
+		try {
+			// Build an HMC verifier using the same secret that was used to sign the JWT
+			JWT jwt = JWT.getDecoder().decode(code, emafier);
+
+			assertEquals(jwt.subject, "f");
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
+	// email 인증키 배포
+	public String getEmailCode(String code) {
+		JWT jwt = new JWT().setIssuer(code).setIssuedAt(ZonedDateTime.now(ZoneOffset.UTC)).setSubject("f")
+				.setExpiration(ZonedDateTime.now(ZoneOffset.UTC).plusMinutes(3));
+		// Sign and encode the JWT to a JSON string representation
+		code = JWT.getEncoder().encode(jwt, ema);
+		System.out.println("code = "+code);
+		return code;
+	}
+
 }

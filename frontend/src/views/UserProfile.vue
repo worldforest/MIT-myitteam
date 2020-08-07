@@ -1,12 +1,5 @@
 <template>
   <div  class="cont10">
-    <!-- 현재 이 프로필 페이지 주인의 이메일 -->
-    <!-- {{user}} -->
-    <!-- 현재 로그인 되어 있는 계정의 이메일 -->
-    <!-- {{ email }} -->
-    <!-- {{ (followerList.includes(email)) }} -->
-    <!-- {{ followerList }} -->
-    <!-- {{ userprofiledata }} -->
 
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
