@@ -9,7 +9,7 @@
             <img id="logo" src="./images/1.jpg" alt="logo">
           </router-link>
           <div class="not-home">
-            <router-link class="mr-3" to="#">공모전</router-link>
+            <router-link class="mr-3" to="/AllContest">공모전</router-link>
             <router-link class="mr-3" to="/projectlist">프로젝트</router-link>
           </div>
           <div class="spacer"></div>

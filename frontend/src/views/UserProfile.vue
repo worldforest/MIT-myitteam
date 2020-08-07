@@ -1,5 +1,7 @@
 <template>
   <div  class="cont10">
+<<<<<<< HEAD
+=======
     <!-- 현재 이 프로필 페이지 주인의 이메일 -->
     <!-- {{user}} -->
     <!-- 현재 로그인 되어 있는 계정의 이메일 -->
@@ -7,6 +9,7 @@
     <!-- {{ (followerList.includes(email)) }} -->
     <!-- {{ followerList }} -->
     <!-- {{ userprofiledata }} -->
+>>>>>>> e144ee8e45fd322c53bd5222483d6346632a267d
 
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">

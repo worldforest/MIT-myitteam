@@ -13,6 +13,8 @@ import UserProfile from '@/views/UserProfile.vue'
 import ProjectList from '@/views/ProjectList.vue'
 import Myteam from '@/views/Myteam.vue'
 import ProjectDetail from '@/views/ProjectDetail.vue'
+import FindPwd from '@/views/FindPwd.vue'
+import AllContest from '@/views/AllContest.vue'
 
 
 Vue.use(VueRouter)
@@ -100,6 +102,16 @@ Vue.use(VueRouter)
     name: 'ProjectDetail',
     component: ProjectDetail,
     props: true,
+  },
+  {
+    path: '/findpwd',
+    name: 'FindPwd',
+    component: FindPwd,
+  },
+  {
+    path: '/allcontest',
+    name: 'AllContest',
+    component: AllContest,
   },
   //////////지훈////////////
   {

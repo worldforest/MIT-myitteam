@@ -38,6 +38,9 @@
           @click="login(loginData)"
         >Login</v-btn>
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div class="d-flex mt-3">
+          <v-btn class="ml-auto" color="primary" @click="gotofind()">비밀번호 찾기</v-btn>
+        </div>
       </v-container>
     </v-form>
   </div>
@@ -87,7 +90,10 @@ export default {
       console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
     },
     ///소셜 로그인///
-    
+    /// 비밀번호 찾기 페이지//
+    gotofind() {
+      this.$router.push('/findpwd')
+    }
   },
   mounted() {
     this.$nextTick(() => {
