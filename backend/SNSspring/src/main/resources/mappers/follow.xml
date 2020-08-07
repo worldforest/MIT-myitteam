@@ -5,27 +5,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.mit.repo.FollowRepo">
 
 	<insert id="follow" parameterType="follow">
-		insert into follow(email,following)
+		insert into
+		follow(email,following)
 		values(#{email}, #{following})
 	</insert>
-	
+
 	<delete id="unfollow" parameterType="follow">
 		delete from follow
-		where email=#{email} and following=#{following}
+		where
+		email=#{email} and following=#{following}
 	</delete>
 
 	<!-- 내(email)가 팔로우한(following) -->
 	<select id="followingList" parameterType="string"
-		resultType="follow">
+		resultType="string">
 		select following from
 		follow where email=#{email}
 	</select>
 
-	<select id="followerList" parameterType="string" resultType="follow">
+	<select id="followerList" parameterType="string"
+		resultType="string">
 		select email from
 		follow where following=#{email}
 	</select>
-	
+
 	<select id="followingCnt" parameterType="string"
 		resultType="int">
 		select count(*) from

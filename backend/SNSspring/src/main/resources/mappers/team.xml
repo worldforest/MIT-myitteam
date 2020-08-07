@@ -12,4 +12,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{no},#{leaderemail},#{title},#{local},#{description});
 	</insert>
 
+	<select id="select" parameterType="String" resultType="team">
+		select no, leaderemail, title, local, description
+		from team
+		where no = #{no}
+		order by no
+	</select>
+	
+	<select id="selectnoemail" parameterType="String" resultType="team">
+		select * from team where no = #{no} and leaderemail = #{leaderemail}
+	</select>
 </mapper>

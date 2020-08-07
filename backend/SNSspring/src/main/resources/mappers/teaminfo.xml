@@ -6,8 +6,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insert" parameterType="teaminfo">
 		insert into
-		teaminfo(no ,leaderemail, part, task ,ability, advantage, headcount )
+		teaminfo(no
+		,leaderemail, part, task ,ability, advantage, headcount )
 		values(#{no},#{leaderemail},#{part},#{task},#{ability},#{advantage},#{headcount})
 	</insert>
+
+	<select id="select" parameterType="String" resultType="teaminfo">
+		select no, leaderemail, part, task, ability, advantage, headcount
+		from teaminfo
+		where no=#{no} and leaderemail=#{leaderemail}
+	</select>
 
 </mapper>

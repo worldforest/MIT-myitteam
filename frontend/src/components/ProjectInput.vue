@@ -16,7 +16,7 @@
             :items="selectPeople"
             label="인원"
             outlined
-            v-model="projectData.headcount"
+            v-model="projectData.headCount"
           ></v-select>
         </v-col>
       </v-row>
@@ -62,9 +62,8 @@ export default {
 			selectArea: ['프론트엔드', '백엔드', '인공지능', '빅데이터', '블록체인'],
 			selectPeople: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 			projectData: {
-				id: Date.now(),
 				part: '',
-				headcount: '',
+				headCount: '',
 				task: '',
 				ability: '',
 				advantage: '', 
@@ -74,21 +73,20 @@ export default {
 	methods: {
 		setProjectData() {
 			const setData = {
-				id : this.projectData.id,
 				part: this.projectData.part,
-				headcount: this.projectData.headcount,
+				headCount: this.projectData.headCount,
 				task: this.projectData.task,
 				ability: this.projectData.ability,
 				advantage: this.projectData.advantage, 
       }
       
-      if (this.applyData.task !== '' && this.applyData.ability !== '' && this.applyData.advantage !== ''){
-          this.$emit('add-project', setData)
+      if (this.projectData.task !== '' && this.projectData.ability !== '' && this.projectData.advantage !== ''){
+        this.$emit('add-project', setData)
 
-          for(var item in this.projectData){
-            this.projectData[item] = null
-          }
+        for(var item in this.projectData){
+          this.projectData[item] = ''
         }
+      }
 		}
 	}
 }

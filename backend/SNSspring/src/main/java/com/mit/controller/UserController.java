@@ -25,10 +25,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mit.algorithm.Path;
 import com.mit.algorithm.Pwd;
 import com.mit.algorithm.Token;
+import com.mit.dto.Emailkey;
 import com.mit.dto.User;
 import com.mit.returnDto.Userlogin;
+import com.mit.service.EmailkeyService;
 import com.mit.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -42,7 +45,7 @@ public class UserController {
 	private static final String PWDFAIL = "pwdfail";
 	private static final String NOTUSER = "not user";
 	private static final String FAIL = "fail";
-
+	private static Path path = new Path();
 	@Autowired
 	private JavaMailSender mailSender;
 
@@ -50,6 +53,8 @@ public class UserController {
 	// Service
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private EmailkeyService emailkeyService;
 
 	@ApiOperation(value = "로그인 ", notes = "성공시 jwt 토큰을 반환합니다.")
 	@PostMapping("login")
@@ -130,46 +135,37 @@ public class UserController {
 		return result;
 	}
 
-	// 비밀번호 변경
-	// 테스트
-//	@ApiOperation(value = "비밀번호변경",notes="비밀번호 변경 성공시 success 실패시 에러를 반환합니다.")
-//	@PutMapping("updatepwd")
-//	public ResponseEntity<String> update(@RequestBody Map<String, String> map) {
-//		Token token = new Token();
-//		if (token.cmpToekn(map.get("tokenstr"))) {
-//			return new ResponseEntity<String>(token.getEmail(map.get("tokenstr")), HttpStatus.OK);
-//		}
-//
-//		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
-//	}
-
-//	@ApiOperation(value = "email, pwd 정보를 주면 비밀번호를 변경한다.")
-//	@PutMapping
-//	public ResponseEntity<String> updateMember(@RequestBody User user) {
-//		if (userService.updateMember(user)) {
-//			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-//		}
-//		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
-//	}
 	@ApiOperation(value = "등록된 이메일로 인증번호 보내기", notes = "get 방식으로 email를 보내면 email로 6자리의 인증키를 보냅니다. \n 이  때 Spring session에 저장합니다.")
 	@GetMapping("pwd")
-	public ResponseEntity<String> sendEmail(HttpServletRequest request, @RequestParam("email") String email) {
+	public ResponseEntity<String> sendEmail(@RequestParam("email") String email) {
 		Pwd pwd = new Pwd();
 		String certification = pwd.getRnadomcode();
-		// session에 임시 인증번호를 저장
-		HttpSession session = request.getSession();
-		session.setAttribute(email, certification);
-		if (pwd.sedEmail(email, certification,mailSender))
+		Emailkey emailkey = emailkeyService.select(email);
+
+		if (emailkey == null) {
+			emailkey = new Emailkey();
+			emailkey.setEmail(email);
+			emailkey.setEmailkey(certification);
+			emailkeyService.insert(emailkey);
+		} else {
+			emailkey.setEmailkey(certification);
+			emailkeyService.update(emailkey);
+		}
+
+		if (pwd.sedEmail(email, certification, mailSender))
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
 
 	@ApiOperation(value = "인증번호 확인", notes = "Post 방식으로 받은 email과 code의 유효성을 검증한다. 성공하면 token을 반환한다. 실패하면 415 에러를 발생시킨다.")
 	@PostMapping("pwd")
-	public ResponseEntity<String> Authentication(HttpServletRequest request, @RequestParam("email") String email,
+	public ResponseEntity<String> Authentication(@RequestParam("email") String email,
 			@RequestParam("code") String certification) {
-		HttpSession session = request.getSession();
-		if (session.getAttribute(email).equals(certification)) {
+
+		Emailkey emailkey = new Emailkey();
+		emailkey.setEmail(email);
+		emailkey.setEmailkey(certification);
+		if (emailkeyService.check(emailkey) != null) {
 			Token token = new Token();
 			return new ResponseEntity<String>(token.getToken(email), HttpStatus.OK);
 		}

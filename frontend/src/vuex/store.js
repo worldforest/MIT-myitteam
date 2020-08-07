@@ -14,9 +14,23 @@ const state = {
     email : cookies.get('auth-email'),
     profileData: [],
     clubs: [],
+    clubs2: [],
+    clubinfo: {},
     detailFeed: [],
     userprofiledata: [],
     followerList: [],
+    followList: [],
+    getTeams: [],
+    followflag: true,
+    followCnt: '',
+    community: [],
+    getTeamList: [],
+    club: [],
+    club2: [],
+    myTeamInfo: [],
+    teamreg: [],
+    allContest: [],
+    isFlag: true,
 }
 
 export default new Vuex.Store({

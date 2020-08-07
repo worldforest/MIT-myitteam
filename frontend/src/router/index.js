@@ -10,6 +10,12 @@ import ProjectRegister from '@/views/ProjectRegister.vue'
 import FeedDetail from '@/views/FeedDetail.vue'
 import FeedCreate from '@/views/FeedCreate.vue'
 import UserProfile from '@/views/UserProfile.vue'
+import ProjectList from '@/views/ProjectList.vue'
+import Myteam from '@/views/Myteam.vue'
+import ProjectDetail from '@/views/ProjectDetail.vue'
+import FindPwd from '@/views/FindPwd.vue'
+import AllContest from '@/views/AllContest.vue'
+
 
 Vue.use(VueRouter)
 
@@ -24,17 +30,6 @@ Vue.use(VueRouter)
     name: "FeedCreate",
     component: FeedCreate
   },
-  // {
-  //   component: Login,
-  //   beforeEnter(to, from, next) {
-  //     if (Vue.$cookies.isKey('token')) {
-  //       next('/')
-  //     }
-  //     else {
-  //       next()
-  //     }
-  //   }
-  // },
   {
     path: '/login',
     name: 'Login',
@@ -51,7 +46,15 @@ Vue.use(VueRouter)
   {
     path: '/signup',
     name: 'Signup',
-    component: Signup
+    component: Signup,
+    beforeEnter(to, from, next) {
+      if (Vue.$cookies.isKey('auth-token')) {
+        next('/')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/profile',
@@ -69,6 +72,11 @@ Vue.use(VueRouter)
     path: '/projectregister',
     name: 'ProjectRegister',
     component: ProjectRegister
+  },
+  {
+    path: '/projectlist',
+    name: 'ProjectList',
+    component: ProjectList
   },
   //////////다인////////////
   //////////지훈////////////
@@ -89,7 +97,28 @@ Vue.use(VueRouter)
     component: UserProfile,
     props: true,
   },
+  {
+    path: '/projectdetail',
+    name: 'ProjectDetail',
+    component: ProjectDetail,
+    props: true,
+  },
+  {
+    path: '/findpwd',
+    name: 'FindPwd',
+    component: FindPwd,
+  },
+  {
+    path: '/allcontest',
+    name: 'AllContest',
+    component: AllContest,
+  },
   //////////지훈////////////
+  {
+    path: '/myteam',
+    name: "Myteam",
+    component: Myteam,
+  },
 ]
 
 const router = new VueRouter({

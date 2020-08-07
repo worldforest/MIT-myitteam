@@ -5,17 +5,18 @@ import 'url-search-params-polyfill'
 // import { apply } from 'core-js/fn/reflect'
 
 const SERVER_URL = 'http://localhost:9999/mit'
+// const SERVER_URL = 'http:/i3b306.p.ssafy.io:9999/mit'
 
 export default {
 	postToken({ commit }, info) {
-
 		const params = new URLSearchParams();
 		params.append('email', info.data.email);
 		params.append('pwd', info.data.pwd);
 		axios.post(`${SERVER_URL}/api/user/login/`, params)
 			.then(response => {
 				commit('SET_TOKEN', response.data.token)
-				commit('GET_EMAIL', response.data.email)
+				// commit('GET_EMAIL', response.data.email)
+				cookies.set('auth-email', response.data.email)
 				router.go({ name: "Home" })
 			})
 			.catch(error => console.log(error.response.data))
@@ -31,6 +32,12 @@ export default {
 	logout() {
 		cookies.remove('auth-token')
 		cookies.remove('auth-email')
+
+		// var auth2 = gapi.auth2.getAuthInstance();
+		// auth2.signOut().then(function () {
+		//   console.log("User signed out.");
+		// });
+
 		router.go({ name: "Home" })
 	},
 	postSignup({ dispatch }, signupInfo) {
@@ -70,8 +77,91 @@ export default {
 				})
 		}
 	},
+	postEmailToken(context) {
+		axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
+			.then(res => {
+				cookies.set('auth-email', res.data)
+				// context.commit('POST_EMAIL', res)
+			})
+	},
+
+	feedCreate(context, feedData) {
+		const formdata = new FormData();
+		formdata.append('category', feedData.category)
+		formdata.append('description', feedData.description)
+		formdata.append('email', feedData.email) 
+		formdata.append('file', feedData.file)
+		formdata.append('tags', feedData.tags)
+		axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
+		.then(() => {
+				router.push({ name: "Profile"})
+		})
+		.catch(error => {
+				console.log(error)
+		})
+	},
+	
+
+	//////////다인///////////////
+	teamregister(context, applyData){
+		console.log(applyData)
+		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
+			.then(() => {
+				alert('성공적으로 등록하였습니다.')
+				router.push({ name: "GongmoDetail"})
+			})
+			.catch(error => console.log(error.response.data))
+	},
+	projectregister(context, projectData){
+		/// 아직 완료 아님  ///
+		console.log(context)
+		console.log(projectData)
+		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
+		.then(() => {
+			alert('성공적으로 등록하였습니다.')
+			router.push({ name: "ProjectList"})
+		})
+		.catch(err => {
+			console.log(err.response.data)
+		})
+	},
+	getTeamData(context, no){
+		console.log(no)
+		const params = new URLSearchParams();
+		params.append('no', no);
+		axios.post(`${SERVER_URL}/api/team/contentsteamlist`, params)
+		.then(res => {
+			console.log(res)
+			context.commit('GETTEAMDATA', res.data)
+		})
+		.catch(err => {
+			console.log(err.response.data)
+		})
+	},
+	//////////다인///////////////
+
+	/////////지훈////////////////
+	getContestData(context) {
+		var contest = []
+		var project = []
+		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
+			.then(res => {
+				for(var i=0; i<(res.data).length; i++) {
+					if (res.data[i].category === 0) {
+						contest.push(res.data[i])
+					}
+					else {
+						project.push(res.data[i])
+					}
+				}
+			context.commit('contestData', contest)
+			context.commit('projectData', project)
+			})
+	},
+
 	profile(context) {
-		axios.get(`${SERVER_URL}/api/feed/${context.state.email}`)
+		const email = cookies.get('auth-email')
+		axios.get(`${SERVER_URL}/api/feed/${email}`)
 			.then(response => {
 				context.commit('INPUTDATA', response.data)
 			})
@@ -79,6 +169,7 @@ export default {
 				console.log(error)
 			})
 	},
+
 	userprofile(context, useremail) {
         axios.get(`${SERVER_URL}/api/feed/${useremail}`)
           .then(res => {
@@ -87,79 +178,139 @@ export default {
           .catch(err => {
               console.log(err)
           })
-    },
-	// postEmailToken(context) {
-	// 	axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
-	// 		.then(res => {
-	// 			context.commit('POST_EMAIL', res)
-	// 		})
-	// },
-	getContestData({ commit }) {
-		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
-			.then(res => {
-				commit('contestData', res.data)
-			})
-	},
-	teamregister(context, applyData) {
-		console.log(context.state.email)
-		console.log(applyData.no)
-		const params = new URLSearchParams();
-		params.append('no', applyData.no);
-		params.append('email', context.state.email);
-		params.append('local', applyData.local);
-		params.append('description', applyData.description);
-		console.log(applyData.dataList)
-		params.append('datalist', JSON.stringify(applyData.datalist));
-		console.log(params)
-		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
-			.then(() => {
-				// commit('SET_TOKEN', response.data.token)
-				// commit('GET_EMAIL', response.data.email)
-				// router.go({ name: "Home" })
-
-				alert('성공적으로 등록하였습니다.')
-			})
-			.catch(error => console.log(error.response.data))
-	},
-	feedCreate(context, feedData) {
-        const formdata = new FormData();
-        formdata.append('category', feedData.category)
-        formdata.append('description', feedData.description)
-        formdata.append('email', feedData.email) 
-        formdata.append('file', feedData.file)
-        formdata.append('tags', feedData.tags)
-        axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
-        .then(() => {
-            router.push({ name: "Profile"})
-        })
-        .catch(error => {
-            console.log(error)
-        })
 	},
 	follow(context) {
-        // console.log(context.state.email)
-        // console.log(context.state.userprofiledata.feeds[0].email)
-        var params = new URLSearchParams();
-        params.append('email', context.state.email);
-        params.append('following', context.state.userprofiledata.feeds[0].email)
-        // params.append('pwd', info.data.pwd);
-        axios.post(`${SERVER_URL}/api/follow/follow`, params)
-            .then(() => {
-                console.log('팔로우 완료')
-            })
-            .catch(error => console.log(error.response.data))
+		var params = new URLSearchParams();
+		if (context.state.email !== null) {
+		params.append('email', context.state.email);
+		params.append('following', context.state.userprofiledata.feeds[0].email)
+		axios.post(`${SERVER_URL}/api/follow/follow`, params)
+				.then(() => {
+		context.commit('conffollowflag')
+		context.dispatch('follwerCnt', context.state.userprofiledata.feeds[0].email)
+		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
+				})
+				.catch(error => console.log(error.response.data))
+		}
+		else {
+			alert('회원만 팔로우를 할 수 있습니다.')
+		}
 	},
+
 	myFollowerList(context, res) {
-        var params = new URLSearchParams();
-        var data = []
-        params.append('email', res);
-        axios.post(`${SERVER_URL}/api/follow/followerList`, params)
-          .then((response) => {
-            for(var i=0; i<(response.data).length; i++) {
-                data.push(response.data[i].email)
-            }
-          context.commit('INPUTFOLLOWER', data)
-          })
-    },
+		var params = new URLSearchParams();
+		var data = []
+		params.append('email', res);
+		axios.post(`${SERVER_URL}/api/follow/followerList`, params)
+			.then((response) => {
+				for(var i=0; i<(response.data).length; i++) {
+						data.push(response.data[i])
+			}
+			context.commit('INPUTFOLLOWER', data)
+			})
+	},
+
+	myFollowList(context, res) {
+		var params = new URLSearchParams();
+		var data = []
+		params.append('email', res)
+		axios.post(`${SERVER_URL}/api/follow/followingList`, params)
+			.then((response) => {
+				for (var i=0; i<(response.data).length; i++) {
+					data.push(response.data[i])
+				}
+			context.commit('INPUTFOLLOW', data)
+			})
+	},
+
+	unfollow(context, res) {
+		var params = new URLSearchParams();
+		params.append('email', context.state.email)
+		params.append('following', res)
+		axios.post(`${SERVER_URL}/api/follow/unfollow`, params)
+		.then(() => {
+			context.commit('conffollowflag')
+			context.dispatch('myFollowerList', res)
+			context.dispatch('follwerCnt', context.state.email)
+		})
+		.catch(error => console.log(error.response.data))
+	},
+
+	follwerCnt(context, res) {
+		var params = new URLSearchParams();
+		params.append('email', res)
+		axios.post(`${SERVER_URL}/api/follow/followerCnt`, params)
+			.then((response) => {
+				context.state.followCnt = response.data
+		})
+	},
+	searchFeed(context) {
+		axios.post(`${SERVER_URL}/api/feed/search`)
+			.then((response) => {
+				context.commit('setCommunity', response.data)
+			})
+	},
+
+	searchFollowFeed(context, res) {
+		var params = new URLSearchParams();
+		params.append('email', res)
+		axios.post(`${SERVER_URL}/api/feed/search`, params)
+			.then((response) => {
+				context.commit('setCommunity', response.data)
+			})
+	},
+
+	subEmail(context, res) {
+		console.log(res)
+		var params = new URLSearchParams();
+		params.append('email', res)
+		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
+			.then((response) => {
+				context.commit('chageIsFlag')
+				console.log(response)
+			})
+			.catch(error => {
+				console.log(error.response.data)
+			});
+	},
+
+	pushCode(context, res) {
+		console.log(res)
+		console.log(res.email)
+		console.log(res.code)
+		// var params = new URLSearchParams();
+		// params.append('code', res.code)
+		// params.append('email', res.email)
+		axios.post(`${SERVER_URL}/api/user/pwd?code=${res.code}&email=${res.email}`)
+			.then((response) => {
+				console.log(response)
+			})
+			.catch(error => {
+				console.log(error.response.data)
+			});
+	},
+
+	getAllContest(context) {
+		var data = []
+		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
+			.then((res) => {
+				for(var i=0; i<(res.data).length; i++) {
+					if (res.data[i].category === 0) {
+						data.push(res.data[i])
+					}
+				}
+				context.commit('getAllContest', data)
+			})
+	},
+
+	/////////지훈////////////////
+	getTeamInfo(context) {
+		const params = new URLSearchParams();
+		params.append('email', context.state.email)
+		axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
+		.then(response => {
+			context.commit('myTeamInfo', response.data)
+		})
+	}
 }
 

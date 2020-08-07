@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mit.repo.EmailkeyRepo">
+
+	<select id="select" parameterType="String" resultType="emailkey">
+		select * from emailkey where email = #{email}
+	</select>
+	
+	<select id="check" parameterType="emailkey" resultType="emailkey">
+		select * from emailkey where email = #{email} and emailkey =#{emailkey}
+	</select>
+	
+	<update id="update" parameterType="emailkey">
+		update emailkey set emailkey = #{emailkey} where email = #{email}
+	</update>
+	
+	<insert id="insert" parameterType="emailkey">
+		insert into emailkey(email,emailkey) values(#{email},#{emailkey})
+	</insert>
+</mapper>
