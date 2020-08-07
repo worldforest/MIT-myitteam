@@ -75,6 +75,7 @@
       <div v-if="windowWidth >= 1064">      
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
+            <!-- {{ club2 }} -->
             <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >

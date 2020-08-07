@@ -17,11 +17,11 @@
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <span>{{ profileData.nickname }}</span>
+          <span> <h2> {{ profileData.nickname }} </h2></span>
         </div>
         <div class="d-flex my-5 ml-5">
-          <span>팔로우| {{ profileData.followingCnt }}명</span>
-          <span class="mx-auto">팔로워| {{ profileData.followerCnt }}명</span>
+          <span><h3>팔로우| {{ profileData.followingCnt }}명</h3></span>
+          <span class="mx-auto"><h3>팔로워| {{ profileData.followerCnt }}명</h3></span>
         </div>
         <div class="d-flex ml-5">
           {{ profileData.description }}
@@ -79,7 +79,7 @@
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <p class="ml-5">{{ profileData.nickname }}</p>
+          <h4 class="ml-5">{{ profileData.nickname }}</h4>
         </div>
       </v-col>
     </v-row>
@@ -87,20 +87,20 @@
     <hr>
     <v-row v-if="windowWidth < 788">
       <v-col cols="6">
-        팔로우| {{ profileData.followingCnt }}명
+        <h4>팔로우| {{ profileData.followingCnt }}명</h4>
       </v-col>
       <v-col cols="6">
-        팔로워| {{ profileData.followerCnt }}명
+        <h4>팔로워| {{ profileData.followerCnt }}명</h4>
       </v-col>
     </v-row>    
-    <hr>
+    <hr class="mb-2">
     <div class="text-center">
-      피드
+      <h3>피드</h3>
     </div>
-    <router-link to="/feedcreate">
+    <router-link class="feed white--text" to="/feedcreate">
       피드등록
     </router-link>
-    <v-row>
+    <v-row class="mt-4">
       <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
           <img src="https://t1.daumcdn.net/cfile/tistory/9976523D5AD95B6627" 
@@ -225,5 +225,13 @@ export default {
     height: 77px; 
     border-radius: 70%;
     overflow: hidden;
+  }
+
+  .feed {
+    background-color: rgb(92, 107, 192);
+    padding: 0.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 0.5rem;
   }
 </style>

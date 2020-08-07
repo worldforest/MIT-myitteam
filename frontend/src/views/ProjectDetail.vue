@@ -1,5 +1,6 @@
 <template>
   <div >
+    <!-- {{ club2 }} -->
     <!-- //////////////////////// 화면이 넓을 때 /////////////////////////////// -->
     <div class="cont" v-if="windowWidth >= 900">
       <div class="d-flex ma-2">
@@ -7,9 +8,9 @@
           <img :src="club2.imagesrc" alt="제목부분 포스터" class="title-img">
         </div>
         <div class="ml-3">
-          {{ club2.no }}
-          <h3>{{ club2.title }}</h3>
-          <h4>{{ club2.nickname }}</h4>
+          <!-- {{ club2.no }} -->
+          <h3 class="mb-3">{{ club2.title }}</h3>
+          <h4>팀장 : {{ club2.nickname }}</h4>
         </div>
       </div>
 
@@ -17,11 +18,8 @@
         <span class="cursor">소개</span>  
       </div>
       <hr>
-      <img :src="club2.imagesrc" alt="본문내용 포스터" style="width:100%" class="mt-4">
-      <p>{{ club2.description }}</p>
-      <div class="d-flex">
-        <v-btn color="primary" class="ml-auto"  @click="goTeam(club2)">팀 등록</v-btn>
-      </div>
+      <img :src="club2.imagesrc" alt="본문내용 포스터" style="width:100%" class="my-4">
+      <h4>{{ club2.description }}</h4>
     </div>
 
     <!-- //////////////////////// 화면이 좁을 때 /////////////////////////////// -->
@@ -41,9 +39,6 @@
       <hr>
       <img :src="club2.imagesrc" alt="본문내용 포스터" style="width:100%" class="mt-4">
       <p>{{ club2.description }}</p>
-      <div class="d-flex">
-        <v-btn color="primary" class="ml-auto" @click="goTeam(club2)">팀 등록</v-btn>
-      </div>
     </div>
   </div>
 </template>
@@ -53,9 +48,6 @@ import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: "ProjectDeetail",
-  props: {
-    club2: Object,
-  },
   data() {
     return {
       isIntro: true,

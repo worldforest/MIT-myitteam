@@ -4,7 +4,8 @@ import cookies from 'vue-cookies'
 import 'url-search-params-polyfill'
 // import { apply } from 'core-js/fn/reflect'
 
-const SERVER_URL = 'http://localhost:9999/mit'
+// const SERVER_URL = 'http://localhost:9999/mit'
+const SERVER_URL = 'http:/i3b306.p.ssafy.io:9999/mit'
 
 export default {
 	postToken({ commit }, info) {
@@ -91,6 +92,7 @@ export default {
 		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
 			.then(() => {
 				alert('성공적으로 등록하였습니다.')
+				router.push({ name: "GongmoDetail"})
 			})
 			.catch(error => console.log(error.response.data))
 	},
@@ -101,6 +103,7 @@ export default {
 		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
 		.then(() => {
 			alert('성공적으로 등록하였습니다.')
+			router.push({ name: "ProjectList"})
 		})
 		.catch(err => {
 			console.log(err.response.data)
@@ -170,10 +173,10 @@ export default {
 		formdata.append('tags', feedData.tags)
 		axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
 		.then(() => {
-				router.push({ name: "Profile"})
+			router.push({ name: "Profile"})
 		})
 		.catch(error => {
-				console.log(error)
+			console.log(error)
 		})
 	},
 
