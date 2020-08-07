@@ -72,5 +72,8 @@ export default {
     },
     getAllContest(state, res) {
         state.allContest = res
-    }
+    },
+    chageIsFlag(state) {
+        state.isFlag = !state.isFlag
+    } 
 }

@@ -266,6 +266,23 @@ export default {
 		params.append('email', res)
 		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
 			.then((response) => {
+				context.commit('chageIsFlag')
+				console.log(response)
+			})
+			.catch(error => {
+				console.log(error.response.data)
+			});
+	},
+
+	pushCode(context, res) {
+		console.log(res)
+		console.log(res.email)
+		console.log(res.code)
+		// var params = new URLSearchParams();
+		// params.append('code', res.code)
+		// params.append('email', res.email)
+		axios.post(`${SERVER_URL}/api/user/pwd?code=${res.code}&email=${res.email}`)
+			.then((response) => {
 				console.log(response)
 			})
 			.catch(error => {
