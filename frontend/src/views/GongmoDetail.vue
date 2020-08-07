@@ -7,9 +7,9 @@
           <img :src="club.imagesrc" alt="제목부분 포스터" class="title-img">
         </div>
         <div class="ml-3">
-          {{ club.no }}
-          <h3>{{ club.title }}</h3>
-          <h4>{{ club.host }}</h4>
+          <!-- {{ club.no }} -->
+          <h2 class="mb-3">{{ club.title }}</h2>
+          <h4>주 최 : {{ club.host }}</h4>  
         </div>
       </div>
       <v-row class="mx-2">
@@ -43,19 +43,14 @@
         </div>
       </div>
       <v-row class="mx-2">
-        <v-col cols="4">
+        <v-col cols="6">
           <div class="text-center">
             <span @click="onClick_intro" class="cursor">소개</span>  
           </div>        
         </v-col>
-        <v-col cols="4">
+        <v-col cols="6">
           <div class="text-center">
             <span @click="onClick_Team(); getTeamData(club.no);" class="cursor">팀원모집</span>  
-          </div>        
-        </v-col>
-        <v-col cols="4">
-          <div class="text-center">
-            <span>뭐 넣을까?</span>  
           </div>        
         </v-col>
       </v-row>

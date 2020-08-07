@@ -1,5 +1,15 @@
 <template>
   <div  class="cont10">
+<<<<<<< HEAD
+=======
+    <!-- 현재 이 프로필 페이지 주인의 이메일 -->
+    <!-- {{user}} -->
+    <!-- 현재 로그인 되어 있는 계정의 이메일 -->
+    <!-- {{ email }} -->
+    <!-- {{ (followerList.includes(email)) }} -->
+    <!-- {{ followerList }} -->
+    <!-- {{ userprofiledata }} -->
+>>>>>>> e144ee8e45fd322c53bd5222483d6346632a267d
 
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
@@ -18,7 +28,7 @@
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <span>{{ userprofiledata.nickname }}</span>
+          <span ><h3 class="my-3">{{ userprofiledata.nickname }}</h3></span>
             <!-- 현재 사용중인 유저 닉네임과 프로필 유저 닉네임이 같지 않고, 팔로우리스트안에 이메일이 없을 경우 -->
           <span v-if="userprofiledata.feeds[0].email !== email">
             <v-btn
@@ -41,8 +51,8 @@
           </span>
         </div>
         <div class="d-flex my-5 ml-5">
-          <span>팔로우| {{ userprofiledata.followingCnt }}명</span>
-          <span class="mx-auto">팔로워| {{ followerList.length }}명</span>
+          <span><h4>팔로우| {{ userprofiledata.followingCnt }}명</h4></span>
+          <span class="mx-auto"><h4>팔로워| {{ followerList.length }}명</h4></span>
         </div>
         <div class="d-flex ml-5">
           {{ userprofiledata.description }}
@@ -119,7 +129,7 @@
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <p class="ml-5">{{ userprofiledata.nickname }}</p>
+          <h3 class="ml-5 mb-3">{{ userprofiledata.nickname }}</h3>
           <span v-if="userprofiledata.feeds[0].email !== email">
             <v-btn
               v-if="!followerList.includes(email)"
@@ -146,20 +156,20 @@
     <hr>
     <v-row v-if="windowWidth < 788">
       <v-col cols="6">
-        팔로우| {{ userprofiledata.followingCnt }}명
+        <h4>팔로우| {{ userprofiledata.followingCnt }}명 </h4>
       </v-col>
       <v-col cols="6">
-        팔로워| {{ followerList.length }}명
+        <h4> 팔로워| {{ followerList.length }}명 </h4>
       </v-col>
     </v-row>    
-    <hr>
+    <hr class="mb-3">
     <div class="text-center">
-      피드
+      <h3>피드</h3>
     </div>
-    <router-link to="/feedcreate">
+    <router-link class="feed white--text"  to="/feedcreate">
       피드등록
     </router-link>
-    <v-row>
+    <v-row class="my-4">
       <v-col cols="4" v-for="feed in userprofiledata.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
           <img src="https://t1.daumcdn.net/cfile/tistory/9976523D5AD95B6627" 
@@ -297,5 +307,13 @@ export default {
     height: 77px; 
     border-radius: 70%;
     overflow: hidden;
+  }
+
+  .feed {
+    background-color: rgb(92, 107, 192);
+    padding: 0.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 0.5rem;
   }
 </style>

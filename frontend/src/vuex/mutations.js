@@ -18,6 +18,8 @@ export default {
         router.push({ name: "FeedDetail" })
     },
     gongmoDetail(state, res) {
+        console.log('공모')
+        console.log(res)
         state.club = res
         router.push({ name: "GongmoDetail"})
     },
@@ -64,10 +66,12 @@ export default {
     },
     projectDetail(state, res) {
         state.club2 = res
-        router.push({ name: "ProjectDetail"})
+        console.log('Here~~~~~~~~~~~')
+        console.log(res)
+        router.push({ name: "ProjectDetail" })
     },
-    goTeam(state, res) {
-        state.teamreg = res
+    goTeam() {
+        // state.teamreg = res
         router.push({name:'ProjectRegister'})
     },
     getAllContest(state, res) {
