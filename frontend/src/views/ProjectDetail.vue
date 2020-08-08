@@ -14,14 +14,24 @@
         </div>
       </div>
 
-      <div class="text-center">
-        <span class="cursor">소개</span>  
-      </div>
+      <v-row class="mx-2">
+        <v-col cols="6">
+          <div class="text-center">
+            <span @click="onClick_intro" class="cursor">소개</span>  
+          </div>        
+        </v-col>
+        <v-col cols="6">
+          <div class="text-center">
+            <span @click="onClick_Team(); getTeamData(club2.no);" class="cursor">팀원모집</span>  
+          </div>        
+        </v-col>
+      </v-row>
       <hr>
-      <img :src="club2.imagesrc" alt="본문내용 포스터" style="width:100%" class="mt-4">
-      <p style="white-space:pre-line;">{{ club2.description }}</p>
-      <div class="d-flex">
-        <v-btn color="primary" class="ml-auto"  @click="goTeam(club2)">팀 등록</v-btn>
+      <div v-if="isIntro">
+        <PjtIntro :club2="club2" />
+      </div>
+      <div v-else-if="isTeam">
+        <PjtTeam :club2="club2" :getTeamList="getTeamList"/>
       </div>
     </div>
 
@@ -42,18 +52,22 @@
       <hr>
       <img :src="club2.imagesrc" alt="본문내용 포스터" style="width:100%" class="mt-4">
       <p style="white-space:pre-line;">{{ club2.description }}</p>
-      <div class="d-flex">
-        <v-btn color="primary" class="ml-auto" @click="goTeam(club2)">팀 등록</v-btn>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import PjtIntro from '@/components/PjtIntro.vue'
+import PjtTeam from '@/components/PjtTeam.vue'
+
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: "ProjectDeetail",
+  components: {
+    PjtIntro,
+    PjtTeam
+  },
   data() {
     return {
       isIntro: true,
@@ -72,7 +86,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['goTeam']),
+    ...mapActions(['getTeamData']),
     onClick_intro() {
       this.isIntro = true
       this.isTeam = false
@@ -88,7 +102,7 @@ export default {
     },
   },
   computed: { 
-    ...mapState(['club2'])
+    ...mapState(['club2', 'getTeamList'])
   }
 }
 </script>
