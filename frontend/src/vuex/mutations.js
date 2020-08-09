@@ -79,5 +79,9 @@ export default {
     },
     chageIsFlag(state) {
         state.isFlag = !state.isFlag
-    } 
+    } ,
+    getPwdToken(state, res) {
+        state.pwdToken = res
+        router.push({name:'ChangePwd'})
+    },
 }
