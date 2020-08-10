@@ -54,9 +54,10 @@ export default {
     },
     setCommunity(state, res) {
         state.community = res
-			if (state.followerList.includes(state.email)) {
-					state.followflag = true
-			}
+        state.tagData = res
+			// if (state.followerList.includes(state.email)) {
+			// 		state.followflag = true
+			// }
     },
     GETTEAMDATA(state, res) {
       state.getTeamList = res
@@ -90,5 +91,10 @@ export default {
     updateProfile(state, res) {
         state.updateProfile = res
         router.push({name: "UpdateProfile"})
+    },
+    setTag(state, data) {
+        state.tagData = data.res
+        state.keyword = data.keyword
+        router.push({name: "searchTag"})
     }
 }
