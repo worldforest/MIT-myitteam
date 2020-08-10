@@ -12,4 +12,5 @@ public interface UserService {
 	public String selectNickname(String email);
 	public User selectPrivate(String email);
 	public boolean update(String email, String pwd);
+	public boolean update(User user);
 }

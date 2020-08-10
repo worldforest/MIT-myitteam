@@ -1,59 +1,52 @@
 <template>
-  <div >
-    <!-- {{ club2 }} -->
-    <!-- //////////////////////// 화면이 넓을 때 /////////////////////////////// -->
-    <div class="cont" v-if="windowWidth >= 900">
+  <div>
+    <!-- {{ windowWidth }} -->
+    <div class="cont" v-if="windowWidth >= 800">
       <div class="d-flex ma-2">
-        <div>
-          <img :src="club2.imagesrc" alt="제목부분 포스터" class="title-img">
-        </div>
         <div class="ml-3">
-          <!-- {{ club2.no }} -->
-          <h3 class="mb-3">{{ club2.title }}</h3>
-          <h4>팀장 : {{ club2.nickname }}</h4>
+          <!-- {{ club2 }} -->
+          <!-- {{ getTeamList }} -->
+          <h1 class="mb-3">{{ club2.title }}</h1>
+          <h3>팀장 : {{ club2.nickname }}</h3>
+          <h3 class="mt-3 mb-4 local"> <li v-for="i in getTeamList" :key="i">{{ i.local }}</li></h3>
         </div>
-      </div>
-
-      <div class="text-center">
-        <span class="cursor">소개</span>  
       </div>
       <hr>
-      <img :src="club2.imagesrc" alt="본문내용 포스터" style="width:100%" class="mt-4">
-      <p style="white-space:pre-line;">{{ club2.description }}</p>
-      <div class="d-flex">
-        <v-btn color="primary" class="ml-auto"  @click="goTeam(club2)">팀 등록</v-btn>
+      <div>
+        <PjtIntro :club2="club2" :getTeamList="getTeamList"/>
       </div>
     </div>
 
-    <!-- //////////////////////// 화면이 좁을 때 /////////////////////////////// -->
-    <div v-else>
+    <div class="mx-7" v-if="windowWidth < 800">
       <div class="d-flex ma-2">
-        <div>
-          <img :src="club2.imagesrc" alt="제목부분 포스터" class="title-img">
-        </div>
         <div class="ml-3">
-          <h3>{{ club2.title }}</h3>
-          <h4>{{ club2.nickname }}</h4>
+          <!-- {{ club2 }} -->
+          <!-- {{ getTeamList }} -->
+          <h1 class="mb-3">{{ club2.title }}</h1>
+          <h3>팀장 : {{ club2.nickname }}</h3>
+          <h3 class="mt-3 mb-4 local"> <li v-for="i in getTeamList" :key="i">{{ i.local }}</li></h3>
         </div>
       </div>
-      <div class="text-center">
-        <span class="cursor">소개</span>  
-      </div>       
       <hr>
-      <img :src="club2.imagesrc" alt="본문내용 포스터" style="width:100%" class="mt-4">
-      <p style="white-space:pre-line;">{{ club2.description }}</p>
-      <div class="d-flex">
-        <v-btn color="primary" class="ml-auto" @click="goTeam(club2)">팀 등록</v-btn>
+      <div>
+        <PjtIntro :club2="club2" :getTeamList="getTeamList"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import PjtIntro from '@/components/PjtIntro.vue'
+// import PjtTeam from '@/components/PjtTeam.vue'
+
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: "ProjectDeetail",
+  components: {
+    PjtIntro,
+    // PjtTeam
+  },
   data() {
     return {
       isIntro: true,
@@ -72,7 +65,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['goTeam']),
+    ...mapActions(['getTeamData']),
     onClick_intro() {
       this.isIntro = true
       this.isTeam = false
@@ -88,7 +81,11 @@ export default {
     },
   },
   computed: { 
+<<<<<<< HEAD
     ...mapState(['club2', 'email'])
+=======
+    ...mapState(['club2', 'getTeamList'])
+>>>>>>> 2a108421a45a493521e88ced655c9eff557b6500
   }
 }
 </script>
@@ -102,14 +99,17 @@ export default {
   .bg {
     background-color:#c0c0c0;
   }
-
   .cursor {
     cursor: pointer;
     color: rgb(92, 107, 192);
     font-weight: bold;
   }
-
   .cont {
     margin: 0 20%;
+  }
+  .local {
+    color: rgb(92, 107, 192);
+    font-weight: bold;
+    
   }
 </style>

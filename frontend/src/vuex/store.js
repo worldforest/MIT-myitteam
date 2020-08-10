@@ -31,6 +31,7 @@ const state = {
     teamreg: [],
     allContest: [],
     isFlag: true,
+    applyLeader: [],
     pwdToken: '',
     updateProfile: [],
 }
