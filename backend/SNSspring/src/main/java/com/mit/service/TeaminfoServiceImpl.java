@@ -23,4 +23,14 @@ public class TeaminfoServiceImpl implements TeaminfoService {
 		return teaminfoRepo.select(no, leaderemail);
 	}
 
+	@Override
+	public boolean update(Teaminfo teaminfo) {
+		return teaminfoRepo.update(teaminfo);
+	}
+
+	@Override
+	public boolean delete(Teaminfo teaminfo) {
+		return teaminfoRepo.delete(teaminfo);
+	}
+
 }

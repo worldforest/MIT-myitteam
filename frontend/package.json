@@ -13,6 +13,7 @@
     "bootstrap": "^4.5.1",
     "bootstrap-vue": "^2.16.0",
     "core-js": "^3.6.5",
+    "firebase": "^7.17.2",
     "url-search-params-polyfill": "^8.1.0",
     "vue": "^2.6.11",
     "vue-carousel": "^0.18.0",

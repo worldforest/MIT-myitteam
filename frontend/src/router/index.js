@@ -15,6 +15,8 @@ import Myteam from '@/views/Myteam.vue'
 import ProjectDetail from '@/views/ProjectDetail.vue'
 import FindPwd from '@/views/FindPwd.vue'
 import AllContest from '@/views/AllContest.vue'
+import Chat from '@/views/Chat.vue'
+import ChangePwd from '@/views/ChangePwd.vue'
 
 
 Vue.use(VueRouter)
@@ -113,12 +115,22 @@ Vue.use(VueRouter)
     name: 'AllContest',
     component: AllContest,
   },
+  {
+    path: '/changepwd',
+    name: 'ChangePwd',
+    component: ChangePwd,
+  },
   //////////지훈////////////
   {
     path: '/myteam',
     name: "Myteam",
     component: Myteam,
   },
+  {
+    path: '/chat',
+    name: "Chat",
+    component: Chat,
+  }
 ]
 
 const router = new VueRouter({

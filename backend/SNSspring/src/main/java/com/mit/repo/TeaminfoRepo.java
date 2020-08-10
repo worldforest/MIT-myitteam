@@ -11,4 +11,8 @@ public interface TeaminfoRepo {
 	public boolean insert(Teaminfo teaminfo);
 
 	public List<Teaminfo> select(String no, String leaderemail);
+
+	public boolean update(Teaminfo teaminfo);
+
+	public boolean delete(Teaminfo teaminfo);
 }
