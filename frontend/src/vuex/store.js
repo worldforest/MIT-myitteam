@@ -5,7 +5,6 @@ import actions from './actions'
 import mutations from './mutations'
 import cookies from 'vue-cookies'
 
-
 Vue.use(Vuex)
 
 const state = {
@@ -24,12 +23,13 @@ const state = {
     followCnt: '',
     community: [],
     getTeamList: [],
-    myTeamInfo: [],
+    myTeamInfo: null,
+    saveInfo: JSON.parse(sessionStorage.getItem('teaminfo')),
 }
 
 export default new Vuex.Store({
     state,
     mutations,
     getters,
-    actions
+    actions,
 })

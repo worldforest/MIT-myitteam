@@ -216,12 +216,13 @@ export default {
 				context.commit('setCommunity', response.data)
 			})
 	},
-	getTeamInfo(context) {
+	async getTeamInfo(context) {
 		const params = new URLSearchParams();
 		params.append('email', context.state.email)
-		axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
+		await axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
 		.then(response => {
-			context.commit('myTeamInfo', response.data)
+			// context.commit('myTeamInfo', response.data)
+			context.state.myTeamInfo = response.data	
 		})
 	}
 }

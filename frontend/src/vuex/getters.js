@@ -10,7 +10,7 @@ export default {
         }
     },
     isEmail(state) {
-            return state.email 
+        return state.email 
     }
 }
 

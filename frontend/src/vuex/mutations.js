@@ -54,5 +54,6 @@ export default {
     },
     myTeamInfo(state, res) {
         state.myTeamInfo = res
+
     }
 }
