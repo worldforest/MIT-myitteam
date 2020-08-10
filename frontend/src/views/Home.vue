@@ -79,10 +79,10 @@
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
-                    <h2>{{ club2.title.slice(0,8)}}...</h2>
+                    <h3 class="mt-3 title">{{ club2.title.slice(0,8)}}...</h3>
                 </div>
                 <div v-else>
-                  <h2>{{ club2.title }}</h2>
+                  <h3 class="mt-3 title">{{ club2.title }}</h3>
                 </div>
                 <hr class="hrr">
                 <p class="date"> {{ club2.start }} ~ {{ club2.end }} </p>
@@ -101,10 +101,10 @@
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
-                    <h4>{{ club2.title.slice(0,8)}}...</h4>
+                    <h4 class="title mt-3">{{ club2.title.slice(0,8)}}...</h4>
                 </div>
                 <div v-else>
-                  <h4>{{ club2.title }}</h4>
+                  <h4 class="title mt-3">{{ club2.title }}</h4>
                 </div>
                 <hr class="hrr">
                 <p class="date"> {{ club2.start }} ~ {{ club2.end }} </p>
@@ -123,10 +123,10 @@
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
-                    <h3>{{ club2.title.slice(0,8)}}...</h3>
+                    <h3 class="title mt-3">{{ club2.title.slice(0,8)}}...</h3>
                 </div>
                 <div v-else>
-                  <h3>{{ club2.title }}</h3>
+                  <h3 class="title mt-3">{{ club2.title }}</h3>
                 </div>
                 <hr class="hrr">
                 <p class="date"> {{ club2.start }} ~ {{ club2.end }} </p>
@@ -292,8 +292,10 @@ export default {
   }
 
   .homeCard{
-    height: 150px;
+    height: 200px;
     text-align: center;
+    margin: auto ;
+    border-top: thick solid rgb(92, 107, 192);
   }
 
   .date{
@@ -302,7 +304,12 @@ export default {
 
   .hrr{
     width: 200px;
-    margin: 1rem auto;
+    margin: 1.5rem auto;
+  }
+
+  .title{
+    color: rgb(92, 107, 192);
+    font-weight: bold;
   }
 
 </style>

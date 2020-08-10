@@ -11,15 +11,16 @@
       <li v-for="i in clubs2" :key="i" class="mx-auto">
         {{ pjt }}
         <v-col v-for="n in 1" :key="n" cols="sm"> 
-          <v-card
+          <div
             class="mx-auto projectCard"
             max-width="500">
+            <div class="cardBar"> </div>
             <v-card-title>
-              <h4 v-if="i.title.length >= 15">{{ i.title.slice(0,8)}}...</h4>
-              <h4 v-else>{{ i.title }}</h4>
+              <h4 class="mx-auto mt-3" v-if="i.title.length >= 15">{{ i.title.slice(0,8)}}...</h4>
+              <h4 class="mx-auto mt-3" v-else>{{ i.title }}</h4>
             </v-card-title>
-
-            <v-card-text class="text--primary">{{ i.start }} ~ {{ i.end }}
+            <hr class="hrr">
+            <v-card-text class="text--primary mb-3">{{ i.start }} ~ {{ i.end }}
                <v-card-actions>
                   <v-btn
                     color="orange"
@@ -31,7 +32,7 @@
                   </v-btn>
                 </v-card-actions>
             </v-card-text>
-          </v-card>
+          </div>
         </v-col>
       </li>
     </v-row>
@@ -86,10 +87,11 @@ export default {
 
 <style>
   .projectCard{
-    border: 3px solid rgb(92, 107, 192);
-    width: 350px;
-    height: 150px;
+    border: 2px solid rgb(92, 107, 192);
+    width: 330px;
+    height: 200px;
     text-align: center;
+    border-top: thick solid rgb(92, 107, 192);
   }
   .title{
     color: rgb(92, 107, 192);
@@ -97,6 +99,11 @@ export default {
   }
   .hrr{
     width: 200px;
+    margin: 0 auto;
+  }
+  h4 {
+    color: rgb(92, 107, 192);
+    font-weight: bold;
   }
 
 </style>

@@ -61,11 +61,12 @@ export default {
 		}
 		dispatch('postSignup', signupInfo)
 	},
-	checkNickname(context, signupData) {
-		console.log()
+	checkNickname(context, nickname) {
+		console.log(context)
+		console.log(nickname)
 		if (!context.state.isLoggedIn) {
 			const nick = {
-				data: signupData.nickname
+				data: nickname
 			}
 			axios.get(`${SERVER_URL}/api/user/checkNickname/${nick.data}`)
 				.then(() => {
@@ -73,7 +74,7 @@ export default {
 				})
 				.catch(() => {
 					alert('사용중인 별명입니다.')
-					signupData.nickname = ''
+					nickname = ''
 				})
 		}
 	},
@@ -154,6 +155,53 @@ export default {
 		.catch(err => {
 			console.log(err.response.data)
 		})
+	},
+	deleteTeam(context, deleteData){
+		console.log(context)
+		console.log(deleteData)
+
+		const params = new URLSearchParams();
+		params.append('no', deleteData.no);
+		params.append('leaderemail', deleteData.leaderemail);	
+		axios.post(`${SERVER_URL}/api/team/deleteTeam`, params)
+		.then(() => {
+			alert('팀이 삭제되었습니다.')
+		})
+		.catch( err => {
+			console.log(err.response.data)
+		})
+	},
+	updateCard(context, updateData){
+		console.log(context)
+		console.log(updateData)
+		const params = new URLSearchParams();
+		params.append('no', updateData.no);
+		params.append('leaderemail', updateData.leaderemail);
+		params.append('part', updateData.part);
+		params.append('headcount', updateData.headcount);
+		params.append('ability', updateData.ability);
+		params.append('task', updateData.task);
+		params.append('advantage', updateData.advantage);
+		axios.post(`${SERVER_URL}/api/team/updateTeaminfo`, params)
+		.then(() => {
+			console.log('수정하자')
+		})
+		.catch( err => {
+			console.log(err.response.data)
+		})
+	},
+	deleteCard(context, deleteData){
+		console.log(context)
+		console.log(deleteData)
+		const params = new URLSearchParams();
+		params.append('no', deleteData.no);
+		params.append('leaderemail', deleteData.leaderemail);
+		params.append('part', deleteData.part);
+		axios.post(`${SERVER_URL}/api/team/deleteTeaminfo`, params)
+		.then(() => {
+			alert('성공적으로 삭제되었습니다.')
+		})
+		.catch( err => console.log(err.response.data))
 	},
 	//////////다인///////////////
 

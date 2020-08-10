@@ -9,8 +9,8 @@
             <img id="logo" src="./images/1.jpg" alt="logo">
           </router-link>
           <div class="not-home">
-            <router-link class="mr-3" to="/AllContest">공모전</router-link>
-            <router-link class="mr-3" to="/projectlist">프로젝트</router-link>
+            <router-link class="ml-3 mr-4" to="/AllContest">공모전</router-link>
+            <router-link class="mr-5" to="/projectlist">프로젝트</router-link>
           </div>
           <div class="spacer"></div>
           <!--로그인 안 된 상태-->
