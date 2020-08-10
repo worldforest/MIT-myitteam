@@ -161,7 +161,7 @@ public class FeedController {
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "sns 계정 개인 페이지 조회", notes = " get 타입으로 email을 통회 개인페이지를 조회합니다.\n"
+	@ApiOperation(value = "sns 계정 개인 페이지 조회", notes = " get 타입으로 email을 통 개인페이지를 조회합니다.\n"
 			+ "Json 형태로 nickname , followerCnt , follwingCnt , description, feeds(개인피드들 정보 feed 번호, feedimagesrc 정보)Jsons 형태로 반환")
 	@GetMapping(value = "{email}")
 	public ResponseEntity<PrivateFeed> userPage(@PathVariable("email") String email) {
@@ -174,6 +174,7 @@ public class FeedController {
 		User user = userService.selectPrivate(email);
 		privateFeedDto.setNickname(user.getNickname());
 		privateFeedDto.setDescription(user.getDescription());
+		privateFeedDto.setAddress(user.getAddress());
 
 		privateFeedDto.setSrc(path.getPath()+"/mit/api/user/image/" + user.getSrc());
 		List<Feed> feeds = feedService.selectEmail(email);

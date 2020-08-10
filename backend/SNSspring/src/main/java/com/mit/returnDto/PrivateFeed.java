@@ -10,6 +10,15 @@ public class PrivateFeed {
 	int followerCnt;
 	int followingCnt;
 	String description;
+	String address;
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	List<Feed> feeds;
 
 	public String getSrc() {

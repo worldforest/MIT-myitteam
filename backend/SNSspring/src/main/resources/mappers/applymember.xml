@@ -3,15 +3,21 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mit.repo.ApplymemberRepo">
-	<select id="select" parameterType="String" resultType="applymember">
-		select * from applymember where no = #{no} and leaderemail = #{leaderemail}
+	<select id="select" parameterType="String"
+		resultType="applymember">
+		select * from applymember where no = #{no} and leaderemail
+		= #{leaderemail}
 	</select>
-	
+
 	<insert id="insert" parameterType="applymember">
-		insert into applymember(no,leaderemail,teamemail,part) values(#{no},#{leaderemail},#{teamemail},#{part})
+		insert into
+		applymember(no,leaderemail,teamemail,part)
+		values(#{no},#{leaderemail},#{teamemail},#{part})
 	</insert>
-	
+
 	<delete id="delete" parameterType="String">
-		delete from applymember where no = #{no} and leaderemail = #{leaderemail} and teamemail = #{teamemail}
+		delete from applymember where
+		no = #{no} and leaderemail = #{leaderemail} and teamemail =
+		#{teamemail}
 	</delete>
 </mapper>
