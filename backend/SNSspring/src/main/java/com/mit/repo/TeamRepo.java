@@ -13,4 +13,8 @@ public interface TeamRepo {
 	public List<Team> select(String no);
 
 	public Team selectnoemail(String no, String leaderemail);
+
+	public boolean update(Team team);
+
+	public boolean delete(Team team);
 }
