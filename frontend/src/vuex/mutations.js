@@ -87,4 +87,8 @@ export default {
         state.pwdToken = res
         router.push({name:'ChangePwd'})
     },
+    updateProfile(state, res) {
+        state.updateProfile = res
+        router.push({name: "UpdateProfile"})
+    }
 }

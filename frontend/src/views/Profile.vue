@@ -5,14 +5,14 @@
         <div>
           <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
         </div>
-        <div class="filebox ml-4"> 
+        <!-- <div class="filebox ml-4"> 
           <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
           <input 
             type="file" 
             id="ex_file"
             accept="image/*"
             @change="onChange">
-        </div>
+        </div> -->
       </v-col>
       
       <v-col col="10" sm="10" class="fg2">
@@ -27,6 +27,11 @@
           <span> <h3>{{ profileData.description }} 개발자</h3> </span>
           <br>
           
+        </div>
+        <div class="d-flex">
+          <div class="ml-auto TeamButton cursor" style="color:white" @click="updateProfile(profileData)">
+            <img src="@/assets/edit.png" alt="" style="width:10px" class="mr-2" >프로필 수정
+          </div>
         </div>
       </v-col>
     </v-row>
@@ -149,7 +154,7 @@ export default {
       this.windowWidth = window.innerWidth
     },
 
-    ...mapMutations(['feedDetail']),
+    ...mapMutations(['feedDetail', 'updateProfile']),
     ...mapActions(['profile'])
   },
   computed : {

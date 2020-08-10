@@ -17,6 +17,7 @@ import FindPwd from '@/views/FindPwd.vue'
 import AllContest from '@/views/AllContest.vue'
 import Chat from '@/views/Chat.vue'
 import ChangePwd from '@/views/ChangePwd.vue'
+import UpdateProfile from '@/views/UpdateProfile.vue'
 
 
 Vue.use(VueRouter)
@@ -119,6 +120,11 @@ Vue.use(VueRouter)
     path: '/changepwd',
     name: 'ChangePwd',
     component: ChangePwd,
+  },
+  {
+    path: '/updateprofile',
+    name: 'UpdateProfile',
+    component: UpdateProfile,
   },
   //////////지훈////////////
   {

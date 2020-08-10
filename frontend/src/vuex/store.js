@@ -32,6 +32,7 @@ const state = {
     allContest: [],
     isFlag: true,
     pwdToken: '',
+    updateProfile: [],
 }
 
 export default new Vuex.Store({
