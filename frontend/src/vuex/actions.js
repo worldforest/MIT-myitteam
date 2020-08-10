@@ -113,7 +113,6 @@ export default {
 			.catch(error => console.log(error.response.data))
 	},
 	projectregister(context, projectData){
-		/// 아직 완료 아님  ///
 		console.log(context)
 		console.log(projectData)
 		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
@@ -133,6 +132,24 @@ export default {
 		.then(res => {
 			console.log(res)
 			context.commit('GETTEAMDATA', res.data)
+		})
+		.catch(err => {
+			console.log(err.response.data)
+		})
+	},
+	apply(context, sendData){
+		console.log(context)
+		console.log('Action')
+		console.log(sendData)
+
+		const params = new URLSearchParams();
+		params.append('no', sendData.no);
+		params.append('leaderemail', sendData.leaderemail);
+		params.append('email', sendData.email);
+		params.append('part', sendData.part);
+		axios.post(`${SERVER_URL}/api/team/applyTeam`, params)
+		.then(()=> {
+			console.log('팀장에게 보내기 완료 !! ')
 		})
 		.catch(err => {
 			console.log(err.response.data)
