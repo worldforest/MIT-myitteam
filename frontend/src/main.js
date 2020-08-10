@@ -5,13 +5,14 @@ import store from './vuex/store'
 import VueCookies from 'vue-cookies'
 import vuetify from './plugins/vuetify'
 import BootstrapVue from 'bootstrap-vue'
-
 import VueDaumPostcode from "vue-daum-postcode"
+import VueCarousel from 'vue-carousel'
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
 Vue.use(VueDaumPostcode)
 Vue.use(VueCookies)
+Vue.use(VueCarousel)
 Vue.config.productionTip = false
 
 new Vue({

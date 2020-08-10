@@ -1,8 +1,5 @@
 <template>
   <div  class="cont10">
-    {{ email }}
-    {{ (followerList.includes(email)) }}
-    {{ followerList }}
 
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
@@ -21,13 +18,14 @@
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <span>{{ userprofiledata.nickname }}</span>
+          <span ><h3 class="my-3">{{ userprofiledata.nickname }}</h3></span>
             <!-- 현재 사용중인 유저 닉네임과 프로필 유저 닉네임이 같지 않고, 팔로우리스트안에 이메일이 없을 경우 -->
+          <span v-if="userprofiledata.feeds[0].email !== email">
             <v-btn
-              v-if="((userprofiledata.nickname !== profileData.nickname) && !(followerList.includes(email)))"
+              v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
-              @click="follow()"
+              @click="follow"
             >
               팔로우
             </v-btn>
@@ -40,10 +38,11 @@
             >
               팔로우 취소
             </v-btn>
+          </span>
         </div>
         <div class="d-flex my-5 ml-5">
-          <span>팔로우| {{ userprofiledata.followingCnt }}명</span>
-          <span class="mx-auto">팔로워| {{ userprofiledata.followerCnt }}명</span>
+          <span><h4>팔로우| {{ userprofiledata.followingCnt }}명</h4></span>
+          <span class="mx-auto"><h4>팔로워| {{ followerList.length }}명</h4></span>
         </div>
         <div class="d-flex ml-5">
           {{ userprofiledata.description }}
@@ -71,19 +70,29 @@
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
           <span>{{ userprofiledata.nickname }}</span>
-
+          <span v-if="userprofiledata.feeds[0].email !== email">
             <v-btn
-              v-if="userprofiledata.nickname !== profileData.nickname"
+              v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
               @click="follow()"
             >
               팔로우
             </v-btn>
+
+            <v-btn
+              v-else
+              class="ml-3"
+              color="primary"
+              @click="unfollow(userprofiledata.feeds[0].email)"
+            >
+              팔로우 취소
+            </v-btn>
+          </span>
         </div>
         <div class="d-flex my-5 ml-5">
           <span>팔로우| {{ userprofiledata.followingCnt }}명</span>
-          <span class="mx-auto">팔로워| {{ userprofiledata.followerCnt }}명</span>
+          <span class="mx-auto">팔로워| {{ followerList.length }}명</span>
         </div>
         <div class="d-flex ml-5">
           {{ userprofiledata.description }}
@@ -110,16 +119,26 @@
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <p class="ml-5">{{ userprofiledata.nickname }}</p>
-
+          <h3 class="ml-5 mb-3">{{ userprofiledata.nickname }}</h3>
+          <span v-if="userprofiledata.feeds[0].email !== email">
             <v-btn
-              v-if="userprofiledata.nickname !== profileData.nickname"
+              v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
               @click="follow()"
             >
               팔로우
             </v-btn>
+
+            <v-btn
+              v-else
+              class="ml-3"
+              color="primary"
+              @click="unfollow(userprofiledata.feeds[0].email)"
+            >
+              팔로우 취소
+            </v-btn>
+          </span>
         </div>
       </v-col>
     </v-row>
@@ -127,20 +146,20 @@
     <hr>
     <v-row v-if="windowWidth < 788">
       <v-col cols="6">
-        팔로우| {{ userprofiledata.followingCnt }}명
+        <h4>팔로우| {{ userprofiledata.followingCnt }}명 </h4>
       </v-col>
       <v-col cols="6">
-        팔로워| {{ userprofiledata.followerCnt }}명
+        <h4> 팔로워| {{ followerList.length }}명 </h4>
       </v-col>
     </v-row>    
-    <hr>
+    <hr class="mb-3">
     <div class="text-center">
-      피드
+      <h3>피드</h3>
     </div>
-    <router-link to="/feedcreate">
+    <router-link class="feed white--text"  to="/feedcreate">
       피드등록
     </router-link>
-    <v-row>
+    <v-row class="my-4">
       <v-col cols="4" v-for="feed in userprofiledata.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
           <img src="https://t1.daumcdn.net/cfile/tistory/9976523D5AD95B6627" 
@@ -162,7 +181,6 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'Profile',
   components: {
-
   },
   props: {
     user: String
@@ -170,6 +188,7 @@ export default {
   data() {
     return {
       windowWidth: window.innerWidth,
+      followList : []
     }
   },
   watch: {
@@ -191,27 +210,33 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
-    ...mapMutations(['feedDetail']),
-    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow'])
+    ...mapMutations(['feedDetail', 'GET_EMAIL']),
+    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'follwerCnt'])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
-    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList']),
+    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt']),
     ...mapGetters(['isLoggedIn',])
+     
   },
-  mounted() {    
+  mounted() {
+    this.followList = this.$store.state.followerList
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
-    this.myFollowerList(this.user)
+    this.follwerCnt(this.user)
   },
 
   created () {
+    this.myFollowerList(this.user)
     // 이 페이지의 유저 정보를 확인
     this.userprofile(this.user)
     // 로그인한 유저의 정보를 확인
     this.profile()
-    }
+    },
+  updated () {
+    this.followerList
+  }
 }
 </script>
 
@@ -272,5 +297,13 @@ export default {
     height: 77px; 
     border-radius: 70%;
     overflow: hidden;
+  }
+
+  .feed {
+    background-color: rgb(92, 107, 192);
+    padding: 0.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 0.5rem;
   }
 </style>

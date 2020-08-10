@@ -12,4 +12,6 @@ public interface TeamRepo {
 	public boolean insert(Team team);
 
 	public List<Team> select(String no);
+
+	public Team selectnoemail(String no, String leaderemail);
 }

@@ -15,12 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mit.dto.Applymember;
 import com.mit.dto.Contents;
+import com.mit.dto.Member;
 import com.mit.dto.Team;
 import com.mit.dto.Teaminfo;
 import com.mit.returnDto.RegTeam;
 import com.mit.returnDto.RegTeamInfo;
+import com.mit.returnDto.TeamDto;
+import com.mit.service.ApplymemberService;
 import com.mit.service.ContentsService;
+import com.mit.service.MemberService;
 import com.mit.service.TeamService;
 import com.mit.service.TeaminfoService;
 
@@ -42,6 +47,10 @@ public class TeamController {
 	private TeaminfoService teaminfoService;
 	@Autowired
 	private ContentsService contentsService;
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private ApplymemberService applymemberService;
 
 	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n" + "필요 데이터\n"
 			+ "description,email(프로젝트팀 생성자),title,start,end,info")
@@ -74,12 +83,12 @@ public class TeamController {
 
 		// 방금 등록한 contents 번호 얻어오기
 		System.out.println(no + "제발");
-		for (RegTeamInfo regTeamInfo : regTeam.getDatalist()) {
+		for (RegTeamInfo regTeamInfo : regTeam.getDataList()) {
 			System.out.println("gogo");
 			Teaminfo teaminfo = new Teaminfo();
 			teaminfo.setNo(no);
 			teaminfo.setLeaderemail(regTeam.getEmail());
-			teaminfo.setAbility(regTeamInfo.getAblity());
+			teaminfo.setAbility(regTeamInfo.getAbility());
 			teaminfo.setPart(regTeamInfo.getPart());
 			teaminfo.setTask(regTeamInfo.getTask());
 			teaminfo.setAdvantage(regTeamInfo.getAdvantage());
@@ -89,6 +98,16 @@ public class TeamController {
 			if (!teaminfoService.insert(teaminfo))
 				return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 		}
+
+		Member member = new Member();
+		member.setPart("팀장");
+		member.setLeaderemail(regTeam.getEmail());
+		member.setMemberemail(regTeam.getEmail());
+		member.setNo(no);
+
+		if (!memberService.insert(member))
+			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
@@ -101,17 +120,18 @@ public class TeamController {
 		team.setNo(regTeam.getNo());
 		team.setLeaderemail(regTeam.getEmail());
 		team.setDescription(regTeam.getDescription());
+		team.setLocal(regTeam.getLocal());
 		// title은 sql 문에서 찾아온다.
 		team.setTitle(contentsService.selectOne(regTeam.getNo()).getTitle());
 		// DB에 team 등록
 		if (!teamService.insert(team))
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 
-		for (RegTeamInfo regTeamInfo : regTeam.getDatalist()) {
+		for (RegTeamInfo regTeamInfo : regTeam.getDataList()) {
 			Teaminfo teaminfo = new Teaminfo();
 			teaminfo.setNo(regTeam.getNo());
 			teaminfo.setLeaderemail(regTeam.getEmail());
-			teaminfo.setAbility(regTeamInfo.getAblity());
+			teaminfo.setAbility(regTeamInfo.getAbility());
 			teaminfo.setPart(regTeamInfo.getPart());
 			teaminfo.setTask(regTeamInfo.getTask());
 			teaminfo.setAdvantage(regTeamInfo.getAdvantage());
@@ -120,58 +140,108 @@ public class TeamController {
 			if (!teaminfoService.insert(teaminfo))
 				return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 		}
+
+		Member member = new Member();
+		member.setPart("팀장");
+		member.setLeaderemail(regTeam.getEmail());
+		member.setMemberemail(regTeam.getEmail());
+		member.setNo(regTeam.getNo());
+
+		if (!memberService.insert(member))
+			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
-//	// 공모전 번호로 팀 전체 목록 조회
-//	@ApiOperation(value = "공모전 번호로 전체 팀 목록을 조회", notes = "팀 전체목록 list로 반환")
-//	@PostMapping("contestteamlist")
-//	public ResponseEntity<List<Team>> contestTeamList(@RequestParam("no") String no) {
-//		List<Team> team = teamService.select(no);
-//		if (team != null) {
-//			return new ResponseEntity<List<Team>>(team, HttpStatus.OK);
-//		}
-//		return new ResponseEntity<List<Team>>(team, HttpStatus.EXPECTATION_FAILED);
-//	}
-//
-//	@ApiOperation(value = "공모전 번호, 팀장 이메일로 팀의 상세정보 조회", notes = "팀 상세정보 반환")
-//	@PostMapping("contestteamdetail")
-//	public ResponseEntity<List<Teaminfo>> contestTeamDetail(@RequestParam("no") String no,
-//			@RequestParam("emal") String leaderemail) {
-//		List<Teaminfo> teamInfo = teaminfoService.select(no, leaderemail);
-//		if (teamInfo != null) {
-//			return new ResponseEntity<List<Teaminfo>>(teamInfo, HttpStatus.OK);
-//		}
-//		return new ResponseEntity<List<Teaminfo>>(teamInfo, HttpStatus.EXPECTATION_FAILED);
-//	}
+	@ApiOperation(value = "공모전, 프로젝트 번호로 해당 contents에 등록된 전체 팀 목록을 조회", notes = "팀 전체목록 list로 반환(프로젝트는 팀이 하나)")
+	@PostMapping("contentsteamlist")
+	public ResponseEntity<List<RegTeam>> contestTeamList(@RequestParam("no") String no) {
 
-	@ApiOperation(value = "팀과 상세정보 조회", notes = "팀 상세정보 반환")
-	@PostMapping("teamlist")
-	public ResponseEntity<List<RegTeam>> teamList(@RequestParam("no") String no,
-			@RequestParam("emal") String leaderemail) {
+		// 해당 공모전, 프로젝트에 해당하는 팀 정보 조회
+		// 공모전, 프로젝트 번호로 검색
+		List<Team> teamlist = teamService.select(no);// 전체 select
+
 		List<RegTeam> regTeamList = new ArrayList<RegTeam>();
-		List<Team> teamlist=teamService.select(no);
-		//Team team = teamService.select(no);
-		// Teaminfo teaminfo = teaminfoService.select(no, leaderemail);
-//		list<팀> = 팀 정보 + list<팀 상세>
-//		전체 팀 조회
-		for(Team team : teamlist) {
+		for (Team team : teamlist) {
 			RegTeam regTeam = new RegTeam();
-			regTeam.setNo(no);
+			regTeam.setNo(team.getNo());
+			regTeam.setEmail(team.getLeaderemail());
 			regTeam.setTitle(team.getTitle());
 			regTeam.setLocal(team.getLocal());
 			regTeam.setDescription(team.getDescription());
-			regTeam.setEmail(team.getLeaderemail());
 
-			// datalist를 추가해야지 team no, leaderemail로 검색한 teaminfo list
-			
-			Teaminfo teaminfo = teaminfoService.select(no, leaderemail);
-			List<Teaminfo> infolist = new ArrayList<Teaminfo>();
-			
+			List<Teaminfo> teaminfoList = teaminfoService.select(regTeam.getNo(), regTeam.getEmail());
+			List<RegTeamInfo> regTeamInfoList = new ArrayList<RegTeamInfo>();
+			for (Teaminfo teaminfo : teaminfoList) {
+				RegTeamInfo regTeamInfo = new RegTeamInfo();
+				regTeamInfo.setPart(teaminfo.getPart());
+				regTeamInfo.setTask(teaminfo.getTask());
+				regTeamInfo.setAbility(teaminfo.getAbility());
+				regTeamInfo.setAdvantage(teaminfo.getAdvantage());
+				regTeamInfo.setHeadCount(teaminfo.getHeadcount());
+
+				regTeamInfoList.add(regTeamInfo);
+			}
+			regTeam.setDataList(regTeamInfoList);
 			regTeamList.add(regTeam);
+			for (int i = 0; i < regTeamList.size(); i++) {
+				regTeamList.get(i).getTitle();
+			}
 		}
 
-		return new ResponseEntity<List<RegTeam>>(regTeamList, HttpStatus.EXPECTATION_FAILED);
+		return new ResponseEntity<List<RegTeam>>(regTeamList, HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "나의 팀관리 정보", notes = "나의 이메일을 이용해서 현재 내가 멤버로 속한 모든 팀에대한 List 반환")
+	@PostMapping("myteamlist")
+	public ResponseEntity<List<TeamDto>> myteamlist(@RequestParam("email") String email) {
+		List<TeamDto> teams = new ArrayList<TeamDto>();
+
+		// email이 속한 모든 멤버를 가져온다 여기서 no 와 leaderemail를 서치한다 이것을 기준으로 필요한 데이터를 만든다.
+		List<Member> members = memberService.selectEmail(email);
+
+		for (Member member : members) {
+			String no = member.getNo();
+			String leaderemail = member.getLeaderemail();
+			Team team = teamService.selectnoemail(no, leaderemail);
+			Contents contents = contentsService.selectOne(no);
+
+			TeamDto teamDto = new TeamDto();
+			teamDto.setCategory(contents.getCategory() + "");
+			teamDto.setDescription(team.getDescription());
+			teamDto.setEnd(contents.getEnd());
+			teamDto.setStart(contents.getStart());
+			teamDto.setHost(contents.getHost());
+			teamDto.setImagesrc(contents.getImagesrc());
+			teamDto.setLeaderemail(team.getLeaderemail());
+			teamDto.setLocal(team.getLocal());
+			teamDto.setNo(contents.getNo());
+			teamDto.setRegemail(contents.getEmail());
+			teamDto.setReward(contents.getReward());
+			teamDto.setTitle(team.getTitle());
+
+			teamDto.setMembers(memberService.select(no, leaderemail));
+			teamDto.setApplymembers(applymemberService.select(no, leaderemail));
+
+			teams.add(teamDto);
+		}
+
+		return new ResponseEntity<List<TeamDto>>(teams, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "팀 지원하기", notes = "팀 정보(번호, 리더메일)과 나의 이메일과 지원파트를 applymember에 저장")
+	@PostMapping("applyTeam")
+	public ResponseEntity<List<TeamDto>> applyTeam(@RequestParam("no") String no,
+			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
+			@RequestParam("email") String email) {
+		
+		Applymember applymember = new Applymember();
+		applymember.setNo(no);
+		applymember.setLeaderemail(leaderemail);
+		applymember.setPart(part);
+		applymember.setTeamemail(email);
+		applymemberService.insert(applymember);
+		
+		return null;
+	}
 }

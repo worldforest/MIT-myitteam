@@ -10,4 +10,6 @@ public interface TeamService {
 //	전체 조회(no, email, no와 email)
 
 	public List<Team> select(String no);
+	
+	public Team selectnoemail(String no, String leaderemail);
 }

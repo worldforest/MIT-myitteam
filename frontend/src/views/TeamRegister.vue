@@ -1,8 +1,10 @@
 <template>
   <div>
+    <!-- {{ email }} -->
     {{ applyData.no }}
+    
     <br>
-    {{ windowWidth }}
+    <!-- {{ windowWidth }} -->
     <div v-if="windowWidth >= 730">
       <v-card id="card-apply" class="py-5 px-3 my-8 mx-auto" outlined max-width="900px">
         <h1 class="text-center mb-5 h1-apply">공모전 팀원을 구해보세요 :)</h1>
@@ -19,6 +21,17 @@
         </div>
 
         <div>
+          <h3 class="ml-4">제목 : </h3>
+          <v-col class="mx-auto" cols="12" md="11">
+            <v-text-field
+              label="제목"
+              outlined
+              v-model="applyData.title"
+            ></v-text-field>
+          </v-col>
+        </div>
+
+        <div>
           <h3 class="ml-4">팀 소개 : </h3>
           <v-col class="mx-auto" cols="12" md="11">
             <v-text-field
@@ -32,7 +45,7 @@
         <TeamInput @add-apply="addApply"/>
 
         <div>
-          <li class="itemLi" v-for="item in this.applyData.datalist" :key="item.id">
+          <li class="itemLi" v-for="item in this.applyData.dataList" :key="item.id">
             <v-col class="mx-auto" cols="12" md="11">
               <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
                 <h3 class="mb-3">{{ item.part }}</h3>
@@ -40,7 +53,7 @@
 
                 <v-list-item>
                   <v-list-item-content>
-                    <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
+                    <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headCount }}</h4></v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
                 
@@ -91,6 +104,17 @@
               v-model="applyData.local"
             ></v-select>
           </v-col>
+      </div>
+
+      <div>
+        <h3 class="ml-4">제목 : </h3>
+        <v-col class="mx-auto" cols="12" md="11">
+          <v-text-field
+            label="제목"
+            outlined
+            v-model="applyData.title"
+          ></v-text-field>
+        </v-col>
       </div>
 
       <div>
@@ -167,6 +191,17 @@
             ></v-select>
           </v-col>
       </div>
+      
+      <div>
+        <h3 class="ml-4">제목 : </h3>
+        <v-col class="mx-auto" cols="12" md="11">
+          <v-text-field
+            label="제목"
+            outlined
+            v-model="applyData.title"
+          ></v-text-field>
+        </v-col>
+      </div>
 
       <div>
         <h3 class="ml-4">팀 소개 : </h3>
@@ -182,7 +217,7 @@
       <TeamInput @add-apply="addApply"/>
 
       <div>
-        <li class="itemLi" v-for="item in this.applyData.datalist" :key="item.id">
+        <li class="itemLi" v-for="item in this.applyData.dataList" :key="item.id">
           <v-col class="mx-auto" cols="12" md="11">
             <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
               <h3 class="mb-3">{{ item.part }}</h3>
@@ -252,11 +287,12 @@ export default {
       selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
       applyData: {
         // no => 공모전 넘버, email => 팀장 정보, 등록하는 사람 정보
-        email : '',
         local : '',
+        email: '',
         description: '',
+        title: '',
         no: this.no,
-        datalist: [],
+        dataList: [],
       },
       show: false,
       windowWidth: window.innerWidth,
@@ -274,40 +310,21 @@ export default {
   methods: {
     ...mapActions(['teamregister']),
     addApply(Data){
-      this.applyData.datalist = [...this.applyData.datalist, Data]
+      this.applyData.dataList = [...this.applyData.dataList, Data]
     },
     onResize() {
       this.windowWidth = window.innerWidth
     },
   },
   mounted () {
-      this.applyData.email = this.email, 
+      this.applyData.email = this.$store.state.email, 
       this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
   },
   computed : {
     ...mapState(['email']),
-  }, 
-
-    // apply(){
-    //   console.log(this.applyData)
-    //   this.$emit('teamData', this.applyData)
-    //   console.log(this.applyData.no)
-      
-    //   axios.post('http://localhost:9999/mit/api/team/contestteam', {
-    //     description: this.applyData.description,
-    //     email: this.applyData.email,
-    //     local: this.applyData.local,
-    //     no: this.applyData.no,
-    //     dataList: this.applyData.dataList,
-    //   }).then(() => {
-    //     this.$router.push('/');
-    //   })
-    //   .catch(() => {
-    //     alert('망햇어,,,,');
-    //   })
-    // },
+  },
 
 }
 </script>

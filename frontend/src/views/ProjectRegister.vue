@@ -1,22 +1,22 @@
 <template>
 	<v-card color="#FAFAFA">
     <v-container>
+			{{ teamreg }}
 			{{ windowWidth }}
       <div>
 				<v-card id="card-apply" class="mx-auto py-5 px-3 my-8" outlined max-width="800">
 					<h1 v-if="windowWidth >= 730" class="text-center mb-8 h1-apply">프로젝트 팀원을 구해보세요 :)</h1>
 					<h2 v-if="windowWidth < 730 && windowWidth >= 400" class="text-center mb-8 h1-apply">프로젝트 팀원을 구해보세요 :)</h2>
 					<h3 v-if="windowWidth < 400" class="text-center mb-8 h1-apply">프로젝트 팀원을 구해보세요 :)</h3>
-					<div>
-						<h3 class="ml-4">프로젝트 주제 : </h3>
-						<v-col class="mx-auto" cols="12" md="11">
-							<v-text-field
-								label="프로젝트 주제"
-								outlined
-								v-model="projectData.title"
-							></v-text-field>
-						</v-col>
-					</div>
+					
+					<h3 class="ml-4">제목 : </h3>
+					<v-col cols="12" md="11" class="mx-auto">
+						<v-textarea
+							outlined
+							label="제목"
+							v-model="projectData.title"
+						></v-textarea>
+					</v-col>
 
 					<h3 class="ml-4">프로젝트 소개 : </h3>
 					<v-col cols="12" md="11" class="mx-auto">
@@ -29,7 +29,7 @@
 
 					<div class="mb-3">
 						<h3 class="ml-4">프로젝트 기간 : </h3>
-						<v-row>
+						<v-row v-if="windowWidth >= 400">
 							<v-col class="d-flex mx-auto" cols="5">
 								<template>
 									<div class="text-center">
@@ -43,12 +43,12 @@
 												>
 													<v-text-field label="프로젝트 시작"
 															outlined
-															v-model="projectData.startdate"></v-text-field>
+															v-model="projectData.start"></v-text-field>
 												</v-btn>
 											</template>
 										
 											<v-flex>
-												<v-date-picker v-model="projectData.startdate" color="green lighten-1"></v-date-picker>
+												<v-date-picker v-model="projectData.start" color="green lighten-1"></v-date-picker>
 											</v-flex>
 										</v-menu>
 									</div>
@@ -69,12 +69,12 @@
 													<v-text-field label="프로젝트 종료"
 															outlined
 															class="d-flex mx-auto" cols="5"
-															v-model="projectData.enddate"></v-text-field>
+															v-model="projectData.end"></v-text-field>
 												</v-btn>
 											</template>
 											
 												<v-flex>
-													<v-date-picker v-model="projectData.enddate" color="blue lighten-1"></v-date-picker>
+													<v-date-picker v-model="projectData.end" color="blue lighten-1"></v-date-picker>
 												</v-flex>
 										</v-menu>
 									</div>
@@ -82,7 +82,7 @@
 							</v-col>
 						</v-row>
 
-						<!-- 모바일
+						<!-- /////////////// 모바일 //////////////////-->
 						<v-row>
 							<v-col v-if="windowWidth < 400" class="d-flex">
 								<template>
@@ -97,12 +97,12 @@
 											>
 												<v-text-field label="시작"
 													outlined
-													v-model="projectData.startdate"></v-text-field>
+													v-model="projectData.start"></v-text-field>
 											</v-btn>
 										</template>
 									
 										<v-flex>
-											<v-date-picker v-model="projectData.startdate" color="green lighten-1"></v-date-picker>
+											<v-date-picker v-model="projectData.start" color="green lighten-1"></v-date-picker>
 										</v-flex>
 									</v-menu>
 								</template>
@@ -123,18 +123,18 @@
 													<v-text-field label="종료"
 															outlined
 															cols="6"
-															v-model="projectData.enddate"></v-text-field>
+															v-model="projectData.end"></v-text-field>
 												</v-btn>
 											</template>
 											
 												<v-flex>
-													<v-date-picker v-model="projectData.enddate" color="blue lighten-1"></v-date-picker>
+													<v-date-picker v-model="projectData.end" color="blue lighten-1"></v-date-picker>
 												</v-flex>
 										</v-menu>
 									</div>
 								</template>
 							</v-col>
-						</v-row> -->
+						</v-row>
 
 						<div>
 							<h3 class="ml-4">지역 : </h3>
@@ -217,13 +217,12 @@ export default {
 		return{
 			selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
 			projectData: {
-				email : "",
 				title: "",
+				email: "",
 				description: "",
 				start: "",
 				end: "",
 				local: "",
-				introduce: "",
 				dataList: [],
 			},
 			show: false,
@@ -248,13 +247,13 @@ export default {
     },
 	}, 
 	mounted () {
-			this.projectData.email = this.email, 
+			this.projectData.email = this.$store.state.email, 
       this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
 	},
 	computed : {
-    ...mapState(['email']),
+    ...mapState(['email', 'teamreg']),
   }, 
 }
 </script>

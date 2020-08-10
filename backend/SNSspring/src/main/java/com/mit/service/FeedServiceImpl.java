@@ -1,6 +1,7 @@
 package com.mit.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,18 @@ public class FeedServiceImpl implements FeedService {
 	public User selectPrivate(String email) {
 		// TODO Auto-generated method stub
 		return feedRepo.selectPrivate(email);
+	}
+
+	@Override
+	public Feed selectno(String no) {
+		// TODO Auto-generated method stub
+		return feedRepo.selectno(no);
+	}
+
+	@Override
+	public Feed slectnoemail(String no,String email) {
+		// TODO Auto-generated method stub
+		return slectnoemail(no,email);
 	}
 
 }

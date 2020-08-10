@@ -5,9 +5,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -25,8 +30,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mit.algorithm.Path;
 import com.mit.algorithm.Token;
 import com.mit.dto.Feed;
+import com.mit.dto.Follow;
 import com.mit.dto.User;
 import com.mit.returnDto.PrivateFeed;
 import com.mit.service.FeedService;
@@ -37,6 +44,7 @@ import com.mit.service.FeedscrapService;
 import com.mit.service.FeedtagService;
 import com.mit.service.FollowService;
 import com.mit.service.UserService;
+import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -47,7 +55,7 @@ public class FeedController {
 	private static final Logger logger = LoggerFactory.getLogger(FeedController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
-
+	private static Path path = new Path();
 	private static Token token = new Token();
 
 	@Autowired
@@ -113,26 +121,24 @@ public class FeedController {
 		if (feedService.insert(feed)) {
 			// 파일 업로드 끝
 			if (file != null && !file.isEmpty()) {
-				File dest = new File("C://images/feed/" + sb.toString());
+				File dest = new File(path.getIm()+"images/feed/" + sb.toString());
 				try {
 					file.transferTo(dest);
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
-				}
+				} 	
 				// db에 파일 위치랑 번호 등록
-
 			}
 		} else {
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 		}
 
-		
 		// feed tag 등록
 		StringTokenizer st = null;
 		if (tags != null)
-			st = new StringTokenizer(tags, ",");
+			st = new StringTokenizer(tags, "#");
 		// no 정보 가져오기 등록 email의 최신 no를 가져온다.
 		String no = feedService.Latestfeed(email);
 		while (st != null && st.hasMoreTokens()) {
@@ -148,7 +154,8 @@ public class FeedController {
 	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<byte[]> userSearch(@PathVariable("imagename") String imagename) throws IOException {
 		System.out.println("test");
-		InputStream imageStream = new FileInputStream("C://images/feed/" + imagename);
+
+		InputStream imageStream = new FileInputStream(path.getIm()+"images/feed/" + imagename);
 		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
 		imageStream.close();
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
@@ -167,14 +174,82 @@ public class FeedController {
 		User user = userService.selectPrivate(email);
 		privateFeedDto.setNickname(user.getNickname());
 		privateFeedDto.setDescription(user.getDescription());
-		privateFeedDto.setSrc("http://localhost:9999/mit/api/user/image/" + user.getSrc());
+
+		privateFeedDto.setSrc(path.getPath()+"/mit/api/user/image/" + user.getSrc());
 		List<Feed> feeds = feedService.selectEmail(email);
 		for (int i = 0; i < feeds.size(); i++) {
-			feeds.get(i).setSrc("http://localhost:9999/mit/api/feed/image/" + feeds.get(i).getSrc());
+			feeds.get(i).setSrc(path.getPath()+"/mit/api/feed/image/" + feeds.get(i).getSrc());
 		}
 		privateFeedDto.setFeeds(feeds);
 		privateFeedDto.setNickname(userService.selectNickname(email));
 		return new ResponseEntity<PrivateFeed>(privateFeedDto, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "feed 조회", notes = "email,tag 가 없을땐 모든 feed들을 시간순으로 조회합니다.\n"
+			+ "email 값만 있을 땐 email이 팔로윙하는 feed만 반환합니다.\n" + "tag만 있으면 tag 가 달린 feed들을 찾아서 조회합니다.\n" + "")
+	@PostMapping("search")
+	public ResponseEntity<List<Feed>> feedsearch(@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "tag", required = false) String tag) {
+
+		List<Feed> feeds = null;
+		// 모든 피드들을 전체조회힌다.
+		if (email == null && tag == null) {
+			feeds = feedService.selectAll();
+			Collections.sort(feeds);
+		}
+		// email 정보가 주어지면 email 이 팔로우한 사람들의 feed를 반환한다.
+		else if (email != null) {
+			System.out.println("test");
+			List<String> follows = followService.followingList(email);
+			feeds = new ArrayList<Feed>();
+			for (String follow : follows) {
+				feeds.addAll(feedService.selectEmail(follow));
+			}
+			// Sort 한다 기준은 최신순으로 솔팅한다.
+			Collections.sort(feeds);
+		}
+		// tag 정보가 주어지면 tag를 추가한 feed들을 반환한다.
+		else if (tag != null) {
+			// set으로 활용한다.
+			Set<String> set = new TreeSet<String>();
+			List<String> Nos = feedtagService.selectno(tag);
+			for (String no : Nos) {
+				set.add(no);
+			}
+			// 중복없이 no를 뽑앗음
+			feeds = new ArrayList<Feed>();
+
+			for (Iterator<String> it = set.iterator(); it.hasNext();) {
+				feeds.add(feedService.selectno(it.next()));
+			}
+
+			// no가 늦은 순으로 하는 게 최신순입니다.
+			Collections.reverse(feeds);
+		}
+		// 내가 팔로우 한사람중에 tag를 조회한다.
+		else {
+			// set으로 활용한다.
+			Set<String> set = new TreeSet<String>();
+			List<String> Nos = feedtagService.selectno(tag);
+			for (String no : Nos) {
+				set.add(no);
+			}
+			// 중복없이 no를 뽑앗음
+			feeds = new ArrayList<Feed>();
+
+			for (Iterator<String> it = set.iterator(); it.hasNext();) {
+				feeds.add(feedService.slectnoemail(it.next(), email));
+			}
+
+			// no가 늦은 순으로 하는 게 최신순입니다.
+			Collections.reverse(feeds);
+		}
+
+		for (int i = 0; i < feeds.size(); i++) {
+			feeds.get(i).setSrc(path.getPath()+"/mit/api/feed/image/" + feeds.get(i).getSrc());
+		}
+
+		return new ResponseEntity<List<Feed>>(feeds, HttpStatus.OK);
 	}
 
 }
