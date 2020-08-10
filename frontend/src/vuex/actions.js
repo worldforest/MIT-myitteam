@@ -279,15 +279,12 @@ export default {
 		console.log(res)
 		console.log(res.email)
 		console.log(res.code)
-		// var params = new URLSearchParams();
-		// params.append('code', res.code)
-		// params.append('email', res.email)
 		axios.post(`${SERVER_URL}/api/user/pwd?code=${res.code}&email=${res.email}`)
 			.then((response) => {
-				console.log(response)
+				context.commit('getPwdToken', response.data)
 			})
-			.catch(error => {
-				console.log(error.response.data)
+			.catch(() => {
+				alert('코드를 확인해주세요!')
 			});
 	},
 
