@@ -81,11 +81,7 @@ export default {
     },
   },
   computed: { 
-<<<<<<< HEAD
-    ...mapState(['club2', 'email'])
-=======
-    ...mapState(['club2', 'getTeamList'])
->>>>>>> 2a108421a45a493521e88ced655c9eff557b6500
+    ...mapState(['club2', 'getTeamList', 'email'])
   }
 }
 </script>

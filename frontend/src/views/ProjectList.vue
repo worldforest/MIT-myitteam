@@ -37,11 +37,7 @@ export default {
     this.getContestData()
   },
   computed: {
-<<<<<<< HEAD
-    ...mapState(['clubs2', 'email']),
-=======
-    ...mapState(['clubs2', 'getTeamList']),
->>>>>>> 2a108421a45a493521e88ced655c9eff557b6500
+    ...mapState(['clubs2', 'getTeamList', 'email']),
   }
 
 }

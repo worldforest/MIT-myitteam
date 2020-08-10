@@ -52,11 +52,7 @@
                             <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                           </v-card-text>
                           <v-row justify="center">
-<<<<<<< HEAD
-                            <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" v-if="email">
-=======
-                            <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
->>>>>>> 2a108421a45a493521e88ced655c9eff557b6500
+                            <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true"  v-if="email" @click="applyLeader(item); apply(sendData);">
                               지원하기
                             </v-btn>
 
@@ -429,11 +425,7 @@
                             <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                           </v-card-text>
                           <v-row justify="center">
-<<<<<<< HEAD
-                            <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" v-if="email">
-=======
-                            <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
->>>>>>> 2a108421a45a493521e88ced655c9eff557b6500
+                            <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" v-if="email" @click="applyLeader(item); apply(sendData);">
                               지원하기
                             </v-btn>
 
@@ -471,11 +463,7 @@
   </div>
 </template>
 <script>
-<<<<<<< HEAD
-import { mapState } from 'vuex'
-=======
 import { mapState, mapActions } from 'vuex'
->>>>>>> 2a108421a45a493521e88ced655c9eff557b6500
 
 export default {
   name: 'Team',
@@ -534,11 +522,7 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   computed : {
-<<<<<<< HEAD
-    ...mapState(['email'])
-=======
     ...mapState(['email']),
->>>>>>> 2a108421a45a493521e88ced655c9eff557b6500
   },
   mounted () {
       this.$nextTick(() => {
