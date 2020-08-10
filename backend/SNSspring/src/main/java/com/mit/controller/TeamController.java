@@ -153,9 +153,45 @@ public class TeamController {
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
+	// 내가 하고싶은 건 teaminfo에서
+	// 팀원 상세정보 입력할때 +로 추가한 정보를 삭제하거나 수정하는거야
+	@ApiOperation(value = "팀 정보 입력중 수정하기", notes = "teaminfo받아와(part, task, ability, advantage,headcount)")
+	@PostMapping("updateTeaminfo")
+	public ResponseEntity<Teaminfo> updateTeaminfo(@RequestParam("no") String no,
+			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
+			@RequestParam("task") String task, @RequestParam("ability") String ability,
+			@RequestParam("advantage") String advantage, @RequestParam("headcount") String headcount) {
+
+		Teaminfo teaminfo = new Teaminfo();
+		teaminfo.setNo(no);
+		teaminfo.setLeaderemail(leaderemail);
+		teaminfo.setPart(part);
+		teaminfo.setTask(task);
+		teaminfo.setAbility(ability);
+		teaminfo.setAdvantage(advantage);
+		teaminfo.setHeadcount(headcount);
+		teaminfoService.update(teaminfo);
+
+		return new ResponseEntity<Teaminfo>(teaminfo, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "팀 정보 입력중 삭제하기", notes = "")
+	@PostMapping("deleteTeaminfo")
+	public ResponseEntity<Teaminfo> deleteTeaminfo(@RequestParam("no") String no,
+			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part) {
+
+		Teaminfo teaminfo = new Teaminfo();
+		teaminfo.setNo(no);
+		teaminfo.setLeaderemail(leaderemail);
+		teaminfo.setPart(part);
+		teaminfoService.delete(teaminfo);
+
+		return new ResponseEntity<Teaminfo>(teaminfo, HttpStatus.OK);
+	}
+
 	@ApiOperation(value = "공모전, 프로젝트 번호로 해당 contents에 등록된 전체 팀 목록을 조회", notes = "팀 전체목록 list로 반환(프로젝트는 팀이 하나)")
 	@PostMapping("contentsteamlist")
-	public ResponseEntity<List<RegTeam>> contestTeamList(@RequestParam("no") String no) {
+	public ResponseEntity<List<RegTeam>> contentsTeamList(@RequestParam("no") String no) {
 
 		// 해당 공모전, 프로젝트에 해당하는 팀 정보 조회
 		// 공모전, 프로젝트 번호로 검색
@@ -234,14 +270,23 @@ public class TeamController {
 	public ResponseEntity<List<TeamDto>> applyTeam(@RequestParam("no") String no,
 			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
 			@RequestParam("email") String email) {
-		
+
 		Applymember applymember = new Applymember();
 		applymember.setNo(no);
 		applymember.setLeaderemail(leaderemail);
 		applymember.setPart(part);
 		applymember.setTeamemail(email);
 		applymemberService.insert(applymember);
-		
+
 		return null;
 	}
+
+	@ApiOperation(value = "팀 삭제하기", notes = "팀장이 팀 삭제(팀장메일과 로그인된 이메일이랑 같을때만 동작가능하게)")
+	@PostMapping("deleteTeam")
+	public ResponseEntity<String> deleteTeam(@RequestParam("no") String no,
+			@RequestParam("leaderemail") String leaderemail) {
+
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+
 }
