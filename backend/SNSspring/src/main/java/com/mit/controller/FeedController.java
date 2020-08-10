@@ -180,6 +180,7 @@ public class FeedController {
 		for (int i = 0; i < feeds.size(); i++) {
 			feeds.get(i).setSrc(path.getPath()+"/mit/api/feed/image/" + feeds.get(i).getSrc());
 		}
+		Collections.sort(feeds);
 		privateFeedDto.setFeeds(feeds);
 		privateFeedDto.setNickname(userService.selectNickname(email));
 		return new ResponseEntity<PrivateFeed>(privateFeedDto, HttpStatus.OK);
