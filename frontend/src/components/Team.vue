@@ -5,7 +5,7 @@
     <!-- {{ windowWidth }} -->
     <div class="container" v-if="windowWidth >= 900">
       <div class="ma-2">
-        <v-row>
+        <v-row v-if="email">
           <router-link class="TeamButton" style="color:white" :to="{name: 'TeamRegister', params:{no:club.no}}">
           <v-icon medium color="#FFFFFF" class="mr-2">mdi-pencil-box-multiple</v-icon> 팀원 모집하러 가기 </router-link>
         </v-row>
@@ -52,7 +52,7 @@
                             <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                           </v-card-text>
                           <v-row justify="center">
-                            <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true">
+                            <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" v-if="email">
                               지원하기
                             </v-btn>
 
@@ -106,7 +106,7 @@
 
     <div v-if="windowWidth < 900">
       <div class="ma-2">
-        <v-row>
+        <v-row v-if="email">
           <router-link class="TeamButton" style="color:white" :to="{name: 'TeamRegister', params:{no:club.no}}">
           <v-icon  color="#FFFFFF" class="mr-2">mdi-pencil-box-multiple</v-icon> 팀원 모집하러 가기 </router-link>
         </v-row>
@@ -193,7 +193,7 @@
                             <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                           </v-card-text>
                           <v-row justify="center">
-                            <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true">
+                            <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" v-if="email">
                               지원하기
                             </v-btn>
 
@@ -231,7 +231,8 @@
   </div>
 </template>
 <script>
-// import { mapActions } from 'vuex'
+import { mapState } from 'vuex'
+
 export default {
   name: 'Team',
   props: {
@@ -274,6 +275,7 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   computed : {
+    ...mapState(['email'])
   },
   mounted () {
       this.$nextTick(() => {

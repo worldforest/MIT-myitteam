@@ -70,9 +70,12 @@ export default {
         console.log(res)
         router.push({ name: "ProjectDetail" })
     },
-    goTeam() {
-        // state.teamreg = res
-        router.push({name:'ProjectRegister'})
+    goTeam(state) {
+        if (state.email) {   
+            router.push({name:'ProjectRegister'})
+        } else {
+            alert('로그인이 필요한 서비스입니다!')
+        }
     },
     getAllContest(state, res) {
         state.allContest = res

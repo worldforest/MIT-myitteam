@@ -17,14 +17,14 @@
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <span> <h2> {{ profileData.nickname }} </h2></span>
+          <span> <h3> {{ profileData.nickname }} </h3></span>
         </div>
         <div class="d-flex my-5 ml-5">
           <span><h3>팔로우| {{ profileData.followingCnt }}명</h3></span>
           <span class="mx-auto"><h3>팔로워| {{ profileData.followerCnt }}명</h3></span>
         </div>
         <div class="d-flex ml-5">
-          {{ profileData.description }}
+          <span> <h3>{{ profileData.description }} 개발자</h3> </span>
           <br>
           
         </div>
@@ -55,9 +55,8 @@
           <span class="mx-auto">팔로워| {{ profileData.followerCnt }}명</span>
         </div>
         <div class="d-flex ml-5">
-          {{ profileData.description }}
           <br>
-          
+          <span> {{ profileData.description }} 개발자 </span>
         </div>
       </v-col>
     </v-row>
@@ -83,8 +82,8 @@
         </div>
       </v-col>
     </v-row>
-    <span v-if="windowWidth < 788">{{ profileData.description }}</span>
-    <hr>
+    <span v-if="windowWidth < 788">{{ profileData.description }}개발자</span>
+    <hr v-if="windowWidth < 788">
     <v-row v-if="windowWidth < 788">
       <v-col cols="6">
         <h4>팔로우| {{ profileData.followingCnt }}명</h4>
@@ -103,7 +102,7 @@
     <v-row class="mt-4">
       <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
-          <img src="https://t1.daumcdn.net/cfile/tistory/9976523D5AD95B6627" 
+          <img :src="feed.src" 
           alt="" 
           style="width:100%;" 
           :feed="feed" 

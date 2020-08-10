@@ -41,7 +41,7 @@ export default {
     this.getContestData()
   },
   computed: {
-    ...mapState(['clubs2']),
+    ...mapState(['clubs2', 'email']),
   }
 
 }

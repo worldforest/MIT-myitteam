@@ -323,7 +323,7 @@ export default {
     })
   },
   computed : {
-    ...mapState(['email']),
+    ...mapState(['email',]),
   },
 
 }
