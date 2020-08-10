@@ -67,4 +67,10 @@ public class UserServiceImpl implements UserService {
 		return userRepo.update(email, pwd);
 	}
 
+	@Override
+	public boolean update(User user) {
+		// TODO Auto-generated method stub
+		return userRepo.updateUser(user);
+	}
+
 }
