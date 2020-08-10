@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- {{ windowWidth }} -->
+    {{ windowWidth }}
     <div class="cont" v-if="windowWidth >= 800">
       <div class="d-flex ma-2">
         <div class="ml-3">
@@ -21,7 +21,7 @@
       <div class="d-flex ma-2">
         <div class="ml-3">
           <!-- {{ club2 }} -->
-          <!-- {{ getTeamList }} -->
+          {{ getTeamList }}
           <h1 class="mb-3">{{ club2.title }}</h1>
           <h3>팀장 : {{ club2.nickname }}</h3>
           <h3 class="mt-3 mb-4 local"> <li v-for="i in getTeamList" :key="i">{{ i.local }}</li></h3>

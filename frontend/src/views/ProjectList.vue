@@ -1,24 +1,48 @@
 <template>
   <div>
-		<h1 class="my-3 ml-3">프로젝트 목록</h1>
+		<h1 v-if="windowWidth > 800" class="my-3 ml-3">프로젝트 목록</h1>
+    <h3 v-if="windowWidth < 800" class="my-3 ml-3">프로젝트 목록</h3>
+    <!-- {{ windowWidth }} -->
     <div class="d-flex">
       <v-btn color="primary" class="ml-auto mb-3"  @click="goTeam"><v-icon  color="#FFFFFF" class="mr-2">mdi-pencil-box-multiple</v-icon>프로젝트 등록하러 가기</v-btn>
     </div>
 
     <v-row no-gutters>
-      <li v-for="pjt in clubs2" :key="pjt" class="mx-auto">
-        <!-- {{ pjt }} -->
+      <li v-for="i in clubs2" :key="i" class="mx-auto">
+        {{ pjt }}
         <v-col v-for="n in 1" :key="n" cols="sm"> 
-          <button @click="projectDetail(pjt); getTeamData(pjt.no)">
-            <v-card class="mx-auto projectCard" max-width="300">
-              <v-card-title><h3 class="mx-auto my-auto title">{{ pjt.title }}</h3></v-card-title>
-              <hr class="hrr">
-              <v-card-text> {{ pjt.start }} ~ {{ pjt.end }} </v-card-text>
-            </v-card>
-          </button>
+          <v-card
+            class="mx-auto projectCard"
+            max-width="500">
+            <v-card-title>
+              <h4 v-if="i.title.length >= 15">{{ i.title.slice(0,8)}}...</h4>
+              <h4 v-else>{{ i.title }}</h4>
+            </v-card-title>
+
+            <v-card-text class="text--primary">{{ i.start }} ~ {{ i.end }}
+               <v-card-actions>
+                  <v-btn
+                    color="orange"
+                    text
+                    class="ml-auto"
+                    @click="projectDetail(i); getTeamData(i.no)"
+                  >
+                    자세히보기
+                  </v-btn>
+                </v-card-actions>
+            </v-card-text>
+          </v-card>
         </v-col>
       </li>
     </v-row>
+
+    <!-- <div>
+      <v-row >
+        <v-col cols="4" v-for="i in clubs2" :key="i.no" >
+          
+        </v-col>
+      </v-row>
+    </div> -->
 
   </div>
 </template>
@@ -27,27 +51,45 @@
 import { mapActions, mapState, mapMutations } from 'vuex'
 
 export default {
-	name: 'ProjectList',
+  name: 'ProjectList',
+  data() {
+    return{
+      windowWidth: window.innerWidth,
+    }
+  },
 	methods: {
     ...mapActions(['getContestData', 'getTeamData']),
     ...mapMutations(['projectDetail', 'goTeam']),
-    
+    onResize() {
+      this.windowWidth = window.innerWidth
+    },
   },
   mounted() {
-    this.getContestData()
+    this.getContestData(),
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
   },
   computed: {
     ...mapState(['clubs2', 'getTeamList']),
-  }
-
+  },
+  watch: {
+    windowWidth(newWidth, oldWidth) {
+     this.txt = `it changed to ${newWidth} from ${oldWidth}`;
+    }
+  },
+  beforeDestroy() { 
+    window.removeEventListener('resize', this.onResize); 
+  },
 }
 </script>
 
 <style>
   .projectCard{
     border: 3px solid rgb(92, 107, 192);
-    width: 300px;
+    width: 350px;
     height: 150px;
+    text-align: center;
   }
   .title{
     color: rgb(92, 107, 192);
@@ -55,6 +97,6 @@ export default {
   }
   .hrr{
     width: 200px;
-    margin: auto;
   }
+
 </style>
