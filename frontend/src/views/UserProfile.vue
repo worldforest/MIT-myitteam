@@ -156,13 +156,13 @@
     <div class="text-center">
       <h3>피드</h3>
     </div>
-    <router-link class="feed white--text"  to="/feedcreate">
+    <router-link class="feed white--text"  to="/feedcreate" v-if="userprofiledata.nickname === profileData.nickname">
       피드등록
     </router-link>
     <v-row class="my-4">
       <v-col cols="4" v-for="feed in userprofiledata.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
-          <img src="https://t1.daumcdn.net/cfile/tistory/9976523D5AD95B6627" 
+          <img :src="feed.src" 
           alt="" 
           style="width:100%;" 
           :feed="feed" 

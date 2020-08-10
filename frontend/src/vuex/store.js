@@ -31,11 +31,9 @@ const state = {
     teamreg: [],
     allContest: [],
     isFlag: true,
-<<<<<<< HEAD
     applyLeader: [],
-=======
     pwdToken: '',
->>>>>>> 0475d40be2a6351a0b3c05c2272638a4862d5104
+    updateProfile: [],
 }
 
 export default new Vuex.Store({

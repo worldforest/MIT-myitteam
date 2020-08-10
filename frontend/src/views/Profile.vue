@@ -5,28 +5,33 @@
         <div>
           <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
         </div>
-        <div class="filebox ml-4"> 
+        <!-- <div class="filebox ml-4"> 
           <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
           <input 
             type="file" 
             id="ex_file"
             accept="image/*"
             @change="onChange">
-        </div>
+        </div> -->
       </v-col>
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <span> <h2> {{ profileData.nickname }} </h2></span>
+          <span> <h3> {{ profileData.nickname }} </h3></span>
         </div>
         <div class="d-flex my-5 ml-5">
           <span><h3>팔로우| {{ profileData.followingCnt }}명</h3></span>
           <span class="mx-auto"><h3>팔로워| {{ profileData.followerCnt }}명</h3></span>
         </div>
         <div class="d-flex ml-5">
-          {{ profileData.description }}
+          <span> <h3>{{ profileData.description }} 개발자</h3> </span>
           <br>
           
+        </div>
+        <div class="d-flex">
+          <div class="ml-auto TeamButton cursor" style="color:white" @click="updateProfile(profileData)">
+            <img src="@/assets/edit.png" alt="" style="width:10px" class="mr-2" >프로필 수정
+          </div>
         </div>
       </v-col>
     </v-row>
@@ -55,9 +60,8 @@
           <span class="mx-auto">팔로워| {{ profileData.followerCnt }}명</span>
         </div>
         <div class="d-flex ml-5">
-          {{ profileData.description }}
           <br>
-          
+          <span> {{ profileData.description }} 개발자 </span>
         </div>
       </v-col>
     </v-row>
@@ -83,8 +87,8 @@
         </div>
       </v-col>
     </v-row>
-    <span v-if="windowWidth < 788">{{ profileData.description }}</span>
-    <hr>
+    <span v-if="windowWidth < 788">{{ profileData.description }}개발자</span>
+    <hr v-if="windowWidth < 788">
     <v-row v-if="windowWidth < 788">
       <v-col cols="6">
         <h4>팔로우| {{ profileData.followingCnt }}명</h4>
@@ -103,7 +107,7 @@
     <v-row class="mt-4">
       <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
-          <img src="https://t1.daumcdn.net/cfile/tistory/9976523D5AD95B6627" 
+          <img :src="feed.src" 
           alt="" 
           style="width:100%;" 
           :feed="feed" 
@@ -150,7 +154,7 @@ export default {
       this.windowWidth = window.innerWidth
     },
 
-    ...mapMutations(['feedDetail']),
+    ...mapMutations(['feedDetail', 'updateProfile']),
     ...mapActions(['profile'])
   },
   computed : {

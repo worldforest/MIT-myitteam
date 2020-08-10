@@ -81,7 +81,7 @@ export default {
     },
   },
   computed: { 
-    ...mapState(['club2', 'getTeamList'])
+    ...mapState(['club2', 'getTeamList', 'email'])
   }
 }
 </script>
