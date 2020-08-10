@@ -1,49 +1,321 @@
 <template>
-  <div class="container">
-    <h3>접수 기간</h3>
-    <div class="pill ma-2"><span >D-23</span></div>
-    <div class="ml-16 mt-2"><span >{{ club2.start }} ~ {{ club2.end }}</span></div>
-    <div class="mt-10 text-center" >      
-      <img :src="club2.imagesrc" alt="" style='width:100%'>
-    </div>
-    <div class="mt-10" style="white-space:pre-line;">{{ club2.description }}</div>
+  <div>
+    <!-- {{ windowWidth }} -->
+
+    <div class="container" v-if="windowWidth >= 800">
+      <h3 class="mt-4">접수 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h3>
+      <h3 class="mt-8">프로젝트 소개 : </h3>
+      <v-card class="mt-3 px-3 py-3" color="#FAFAFA" style="white-space:pre-line;">{{ club2.description }}</v-card>
     
-  </div>
+      <div>
+        <!-- {{ club2 }} -->
+        <!-- {{ getTeamList }} -->
+        <h3 class="mt-8 mb-4">팀원 모집 : </h3>
+        <v-row v-if="windowWidth >= 1270">
+          <v-col cols="6" v-for="i in getTeamList" :key="i">
+              <div class="d-flex mx-auto">
+                <div>
+                  <li v-for="item in i.dataList" :key="item">
+                    <div class="pjtCard mx-auto mb-6">
+                      <div class="headline mb-2 white--text partTitle" >
+                      {{ item.part }}
+                      </div>
+                      <h3 class="ml-3">담당 업무</h3>
+                      <v-card-text class="ml-2">
+                        <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                      </v-card-text>
+                      <hr class="mb-2">
+                      <h3 class="ml-3">필수 역량</h3>
+                      <v-card-text class="ml-2">
+                        <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                      </v-card-text>
+                      <hr class="mb-2">
+                      <h3 class="ml-3">우대 사항</h3>
+                      <v-card-text class="ml-2">
+                        <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                      </v-card-text>
+                      <v-row justify="center">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
+                          지원하기
+                        </v-btn>
+
+                        <v-dialog v-model="dialog2" max-width="450">
+                          <v-card>
+                            <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="green darken-1" text @click="dialog2 = false">
+                                닫기
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </v-row>
+                    </div>
+                  </li>
+                </div>
+              </div>     
+          </v-col>
+        </v-row>
+
+        <v-row v-if="windowWidth < 1270 && windowWidth >= 800">
+          <v-col v-for="i in getTeamList" :key="i">
+              <div class="d-flex mx-auto">
+                <div>
+                  <li v-for="item in i.dataList" :key="item">
+                    <div class=" pjtCard2 mx-auto mb-6">
+                      <div class="headline mb-2 white--text partTitle" >
+                      {{ item.part }}
+                      </div>
+                      <h3 class="ml-3">담당 업무</h3>
+                      <v-card-text class="ml-2">
+                        <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                      </v-card-text>
+                      <hr class="mb-2">
+                      <h3 class="ml-3">필수 역량</h3>
+                      <v-card-text class="ml-2">
+                        <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                      </v-card-text>
+                      <hr class="mb-2">
+                      <h3 class="ml-3">우대 사항</h3>
+                      <v-card-text class="ml-2">
+                        <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                      </v-card-text>
+                      <v-row justify="center">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
+                          지원하기
+                        </v-btn>
+
+                        <v-dialog v-model="dialog2" max-width="450">
+                          <v-card>
+                            <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="green darken-1" text @click="dialog2 = false">
+                                닫기
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </v-row>
+                    </div>
+                  </li>
+                </div>
+              </div>     
+          </v-col>
+        </v-row>
+      </div>
+    </div>
+
+    <!-- 웹 화면 작을 때 !!!!!!!!!!!!!!!!!!!!! -->
+    <div v-if="windowWidth < 800">
+      <h4 class="mt-4">접수 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h4>
+      <h4 class="mt-8">프로젝트 소개 : </h4>
+      <v-card class="mt-3 px-3 py-3" color="#FAFAFA" style="white-space:pre-line;">{{ club2.description }}</v-card>
+      <h4 class="mt-8 mb-4">팀원 모집 : </h4>
+      <v-row class="mx-auto" v-if="windowWidth < 800 && windowWidth >= 600">
+        <v-col v-for="i in getTeamList" :key="i">
+          <!-- {{ i }} -->
+            <div class="d-flex mx-auto">
+              <div>
+                <li v-for="item in i.dataList" :key="item">
+                  <div class="pjtCard3 mx-auto mb-6">
+                    <div class="headline mb-2 white--text partTitle" >
+                    {{ item.part }}
+                    </div>
+                    <h3 class="ml-3">담당 업무</h3>
+                    <v-card-text class="ml-2">
+                      <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                    </v-card-text>
+                    <hr class="mb-2">
+                    <h3 class="ml-3">필수 역량</h3>
+                    <v-card-text class="ml-2">
+                      <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                    </v-card-text>
+                    <hr class="mb-2">
+                    <h3 class="ml-3">우대 사항</h3>
+                    <v-card-text class="ml-2">
+                      <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                    </v-card-text>
+                    <v-row justify="center">
+                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
+                        지원하기
+                      </v-btn>
+
+                      <v-dialog v-model="dialog2" max-width="450">
+                        <v-card>
+                          <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="green darken-1" text @click="dialog2 = false">
+                              닫기
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </v-row>
+                  </div>
+                </li>
+              </div>
+            </div>     
+        </v-col>
+      </v-row>
+
+      <v-row class="mx-auto" v-if="windowWidth < 600 && windowWidth >= 400">
+        <v-col v-for="i in getTeamList" :key="i">
+          <!-- {{ i }} -->
+            <div class="d-flex mx-auto">
+              <div>
+                <li v-for="item in i.dataList" :key="item">
+                  <div class="pjtard5 mx-auto mb-6">
+                    <div class="headline mb-2 white--text partTitle" >
+                    {{ item.part }}
+                    </div>
+                    <h3 class="ml-3">담당 업무</h3>
+                    <v-card-text class="ml-2">
+                      <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                    </v-card-text>
+                    <hr class="mb-2">
+                    <h3 class="ml-3">필수 역량</h3>
+                    <v-card-text class="ml-2">
+                      <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                    </v-card-text>
+                    <hr class="mb-2">
+                    <h3 class="ml-3">우대 사항</h3>
+                    <v-card-text class="ml-2">
+                      <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                    </v-card-text>
+                    <v-row justify="center">
+                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
+                        지원하기
+                      </v-btn>
+
+                      <v-dialog v-model="dialog2" max-width="450">
+                        <v-card>
+                          <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="green darken-1" text @click="dialog2 = false">
+                              닫기
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </v-row>
+                  </div>
+                </li>
+              </div>
+            </div>     
+        </v-col>
+      </v-row>
+
+      <v-row v-if="windowWidth < 400">
+        <v-col v-for="i in getTeamList" :key="i">
+            <div class="d-flex mx-auto">
+              <div>
+                <li v-for="item in i.dataList" :key="item">
+                  <div class="pjtCard4 mx-auto mb-6">
+                    <div class="headline mb-2 white--text partTitle" >
+                    {{ item.part }}
+                    </div>
+                    <h3 class="ml-3">담당 업무</h3>
+                    <v-card-text class="ml-2">
+                      <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                    </v-card-text>
+                    <hr class="mb-2">
+                    <h3 class="ml-3">필수 역량</h3>
+                    <v-card-text class="ml-2">
+                      <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                    </v-card-text>
+                    <hr class="mb-2">
+                    <h3 class="ml-3">우대 사항</h3>
+                    <v-card-text class="ml-2">
+                      <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                    </v-card-text>
+                    <v-row justify="center">
+                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
+                        지원하기
+                      </v-btn>
+
+                      <v-dialog v-model="dialog2" max-width="450">
+                        <v-card>
+                          <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="green darken-1" text @click="dialog2 = false">
+                              닫기
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </v-row>
+                  </div>
+                </li>
+              </div>
+            </div>     
+        </v-col>
+      </v-row>
+    </div>
+  </div>  
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'Intro',
   props: {
     club2: Object,
+    getTeamList: Object,
   },
   data() {
     return {
       windowWidth: window.innerWidth,
       txt: '',
+      dialog: false,
+      dialog2: false,
+      applyData: '',
+      sendData: {
+        no: this.club2.no,
+        leaderemail: this.club2.email,
+        email: '',
+        part: '',
+      }
     }
   },
-
   watch: {
     windowWidth(newWidth, oldWidth) {
      this.txt = `it changed to ${newWidth} from ${oldWidth}`;
     }
   },
-
   mounted() {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
   },
-
   beforeDestroy() { 
     window.removeEventListener('resize', this.onResize); 
   },
-
-  methods: {  
+  computed : {
+    ...mapState(['email']),
+  },
+  methods: {
+    ...mapActions(['apply']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
+    submitProfile(){
+			alert('팀장에게 참여의사를 전달하였습니다.');
+    },
+    applyLeader(item){
+      this.sendData.part = item.part
+      this.sendData.email = this.$store.state.email
+      console.log(this.sendData)
+    },
+    // emailSave(i){
+    //   this.sendData.leaderemail = i.email
+    //   this.sendData.no = i.no
+    // }
   },
 
 }
@@ -61,8 +333,33 @@ export default {
     background-color: #a6a6a6;
   }
 
-  .container {
-    /* max-width: 50%; */
+  li {
+    list-style: none;
+  }
+  .partTitle {
+    background-color: rgb(92, 107, 192);
+    padding: 0.8rem;
+    font-weight: bold;
+  }
+  .pjtCard {
+    border: 2px solid lightgrey;
+    width : 700px;
+  }
+  .pjtCard2 {
+    border: 2px solid lightgrey;
+    width: 500px;
+  }
+  .pjtCard3 {
+    border: 2px solid lightgrey;
+    width: 500px;
+  }
+  .pjtCard4 {
+    border: 2px solid lightgrey;
+    width: 300px;
+  }
+  .pjtCard5 {
+    border: 2px solid lightgrey;
+    width: 300px;
   }
 
 </style>

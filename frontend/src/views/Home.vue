@@ -76,7 +76,7 @@
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
             <!-- {{ club2 }} -->
-            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2)">
+            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
                     {{ club2.title.slice(0,15)}}...
@@ -96,7 +96,7 @@
       <div v-else-if="400 > windowWidth">
         <carousel :per-page="1.5" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
-            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2)">
+            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
                     {{ club2.title.slice(0,15)}}...
@@ -116,7 +116,7 @@
       <div v-else>
         <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
-            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2)">
+            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
                     {{ club2.title.slice(0,15)}}...
@@ -210,7 +210,7 @@ export default {
 
   methods: {
     ...mapMutations(['feedDetail', 'gongmoDetail', 'projectDetail']),
-    ...mapActions(['getContestData', 'searchFeed', 'myFollowList', 'searchFollowFeed', 'profile']),
+    ...mapActions(['getContestData', 'searchFeed', 'myFollowList', 'searchFollowFeed', 'profile', 'getTeamData']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
