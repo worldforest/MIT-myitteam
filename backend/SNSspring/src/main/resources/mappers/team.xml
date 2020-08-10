@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where no=#{no} and leaderemail=#{leaderemail}
 	</update>
 	
-	<delete id="delete" parameterType="team">
+	<delete id="delete" parameterType="String">
 		delete from team
 		where no=#{no} and leaderemail=#{leaderemail}
 	</delete>

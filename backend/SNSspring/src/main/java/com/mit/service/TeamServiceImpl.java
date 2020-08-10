@@ -36,8 +36,8 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	@Override
-	public boolean delete(Team team) {
-		return teamRepo.delete(team);
+	public boolean delete(String no, String leaderemail) {
+		return teamRepo.delete(no, leaderemail);
 	}
 
 }

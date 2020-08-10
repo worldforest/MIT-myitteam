@@ -16,5 +16,5 @@ public interface TeamService {
 
 	public boolean update(Team team);
 
-	public boolean delete(Team team);
+	public boolean delete(String no, String leaderemail);
 }
