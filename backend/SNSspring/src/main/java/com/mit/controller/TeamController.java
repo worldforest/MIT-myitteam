@@ -1,7 +1,10 @@
 package com.mit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -157,42 +160,6 @@ public class TeamController {
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
-	// 내가 하고싶은 건 teaminfo에서
-	// 팀원 상세정보 입력할때 +로 추가한 정보를 삭제하거나 수정하는거야
-	@ApiOperation(value = "팀 정보 입력중 수정하기", notes = "teaminfo받아와(part, task, ability, advantage,headcount)")
-	@PostMapping("updateTeaminfo")
-	public ResponseEntity<Teaminfo> updateTeaminfo(@RequestParam("no") String no,
-			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
-			@RequestParam("task") String task, @RequestParam("ability") String ability,
-			@RequestParam("advantage") String advantage, @RequestParam("headcount") String headcount) {
-
-		Teaminfo teaminfo = new Teaminfo();
-		teaminfo.setNo(no);
-		teaminfo.setLeaderemail(leaderemail);
-		teaminfo.setPart(part);
-		teaminfo.setTask(task);
-		teaminfo.setAbility(ability);
-		teaminfo.setAdvantage(advantage);
-		teaminfo.setHeadcount(headcount);
-		teaminfoService.update(teaminfo);
-
-		return new ResponseEntity<Teaminfo>(teaminfo, HttpStatus.OK);
-	}
-
-	@ApiOperation(value = "팀 정보 입력중 삭제하기", notes = "")
-	@PostMapping("deleteTeaminfo")
-	public ResponseEntity<Teaminfo> deleteTeaminfo(@RequestParam("no") String no,
-			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part) {
-
-		Teaminfo teaminfo = new Teaminfo();
-		teaminfo.setNo(no);
-		teaminfo.setLeaderemail(leaderemail);
-		teaminfo.setPart(part);
-		teaminfoService.delete(teaminfo);
-
-		return new ResponseEntity<Teaminfo>(teaminfo, HttpStatus.OK);
-	}
-
 	@ApiOperation(value = "공모전, 프로젝트 번호로 해당 contents에 등록된 전체 팀 목록을 조회", notes = "팀 전체목록 list로 반환(프로젝트는 팀이 하나)")
 	@PostMapping("contentsteamlist")
 	public ResponseEntity<List<RegTeam>> contentsTeamList(@RequestParam("no") String no) {
@@ -284,12 +251,40 @@ public class TeamController {
 
 		return null;
 	}
+	
+	@ApiOperation(value = "팀원 확정하기", notes = "no, leaderemail(팀 구분), part(팀원 파트), teamemail(팀원 메일)")
+	@PostMapping("selectMember")
+	public ResponseEntity<String> selectMember(@RequestParam("no") String no,
+			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
+			@RequestParam("teamemail") String teamemail) {
+
+		// 그 팀의 
+		//applymember에서 삭제
+		applymemberService.delete(no, leaderemail, teamemail);
+		//member에 등록
+		Member member = new Member();
+		member.setNo(no);
+		member.setLeaderemail(leaderemail);
+		member.setPart(part);
+		member.setMemberemail(teamemail);
+		memberService.insert(member);
+		
+//		//teaminfo.setHeadcount(getHedcount()-1);
+//		//teaminfo에서 그 part의 headcount
+		String headcount = teaminfoService.selectHeadcount(no, leaderemail, part);
+		System.out.println(headcount);
+		int curr = Integer.parseInt(headcount)-1;
+		System.out.println(curr);
+		teaminfoService.update(no, leaderemail, part, curr+"");
+		
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
 
 	@ApiOperation(value = "팀 삭제하기", notes = "팀장이 팀 삭제(팀장메일과 로그인된 이메일이랑 같을때만 동작가능하게)")
 	@PostMapping("deleteTeam")
 	public ResponseEntity<String> deleteTeam(@RequestParam("no") String no,
 			@RequestParam("leaderemail") String leaderemail) {
-		
+
 		teamService.delete(no, leaderemail);
 
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -304,16 +299,56 @@ public class TeamController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
-	
-	@ApiOperation(value = "팀 회의날짜 선정하기", notes = "팀원별 일정 등록")
-	@PostMapping("selectSchedule")
-	public ResponseEntity<String> selectSchedule(@RequestBody MemberSchedule memberschedule) {
 
-		if (memberScheduleService.insert(memberschedule)) {
+	@ApiOperation(value = "팀원 일정 삭제하기", notes = "팀원별 일정 삭제(no, leaderemail로 팀 구분, memberemail로 팀원 구분, date로 원하는 날짜 선택")
+	@PostMapping("deleteSchedule")
+	public ResponseEntity<String> deleteSchedule(@RequestBody MemberSchedule memberschedule) {
+
+		if (memberScheduleService.delete(memberschedule)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
-	
+
+	@ApiOperation(value = "팀 회의날짜 선정하기", notes = "팀원별 일정 등록")
+	@PostMapping("selectSchedule")
+	public ResponseEntity<List<String>> selectSchedule(@RequestParam String no, @RequestParam String leaderemail) {
+
+		// 그 팀의 member들 일정 가져오기
+		List<MemberSchedule> memberschedule = memberScheduleService.selectAll(no, leaderemail);
+
+		// 팀원들이 가장 많이 되는 날 찾기위해 정보 저장
+		Map<String, Integer> selectSchedule = new HashMap<>();
+
+		for (MemberSchedule schedule : memberschedule) {
+			String memberdate = schedule.getDate();// 팀원 일정
+
+			// 날짜는 key로 두고 몇명이 되는지 체크
+			// date가 있으면
+			if (selectSchedule.containsKey(memberdate)) {
+				// 그 날짜 date에 value(되는 사람 수)++
+				selectSchedule.put(memberdate, selectSchedule.get(memberdate) + 1);
+			} else {
+				// 없으면 map에 추가
+				selectSchedule.put(memberdate, 1);
+			}
+		}
+
+		// map-->iterator
+		// 확인하는 방법
+		Iterator<String> keys = selectSchedule.keySet().iterator();
+
+		int memberCnt = memberService.memberCnt(no, leaderemail);
+		List<String> selectDate = new ArrayList<>();
+		while (keys.hasNext()) {
+			String key = keys.next();
+			//selectSchedule.get(key)는 그 날짜에 몇명 key는 날짜(date) 
+			int total = selectSchedule.get(key);
+			if(total==memberCnt) {
+				selectDate.add(key);
+			}
+		}
+		return new ResponseEntity<List<String>>(selectDate, HttpStatus.OK);
+	}
 
 }

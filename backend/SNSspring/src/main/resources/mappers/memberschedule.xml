@@ -6,9 +6,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insert" parameterType="memberschedule">
 		insert into memberschedule(no, leaderemail, memberemail, date)
-		values(#{no},#{leaderemail},#{memberemail},#{date});
+		values(#{no},#{leaderemail},#{memberemail},#{date})
 	</insert>
 	
+	<select id="selectAll" parameterType="String" resultType="memberschedule">
+		select memberemail, date
+		from memberschedule
+		where no=#{no} and leaderemail=#{leaderemail}
+	</select>
+	
+	<delete id="delete" parameterType="String">
+		delete from memberschedule
+		where date=#{date} and memberemail=#{memberemail}
+	</delete>
 	
 	
 </mapper>
