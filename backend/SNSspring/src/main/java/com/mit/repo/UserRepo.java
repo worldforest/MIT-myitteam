@@ -20,5 +20,7 @@ public interface UserRepo {
 	public User selectPrivate(String email);
 
 	public boolean update(String email, String pwd);
+	
+	public boolean updateUser(User user);
 
 }

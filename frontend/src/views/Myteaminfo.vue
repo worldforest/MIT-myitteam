@@ -1,7 +1,7 @@
 <template>
   <div>
-    {{ saveInfo }}
-    <v-card v-for="apply in saveInfo.info.applymembers" :key="apply"
+    <!-- {{ saveInfo.leaderemail }} -->
+    <v-card v-for="apply in saveInfo.applymembers" :key="apply"
       class="mx-auto"
       max-width="400"
     >
@@ -15,23 +15,24 @@
         <v-btn
           color="orange"
           text
-          @click='plusMember'
+          @click="agree"
         >
-          Share
+          수락
         </v-btn>
 
         <v-btn
           color="orange"
           text
+          @click="degree"
         >
-          Explore
+          거절
         </v-btn>
       </v-card-actions>
     </v-card>
     <v-layout row wrap>
       <v-flex xs12 sm6>
         <v-date-picker
-          v-model="dates"
+          v-model="dateInfo.dates"
           multiple
         ></v-date-picker>
       </v-flex>
@@ -48,24 +49,10 @@
           full-width
           min-width="290px"
         >
-          <v-combobox
-            slot="activator"
-            v-model="dates"
-            multiple
-            chips
-            small-chips
-            label="Multiple picker in menu"
-            prepend-icon="event"
-            readonly
-          ></v-combobox>
-          <v-date-picker v-model="dates" multiple no-title scrollable>
-            <v-spacer></v-spacer>
-            <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-            <v-btn flat color="primary" @click="$refs.menu.save(dates)">OK</v-btn>
-          </v-date-picker>
         </v-menu>
       </v-flex>
     </v-layout>
+    <v-btn class="blue darken-1" @click.native="postDate(dateInfo)">확정</v-btn>
   </div>
   
   
@@ -76,44 +63,56 @@ import { mapState, mapActions } from 'vuex'
 
 
 export default {
-  name: 'myTeamInfo',
-  props: {
-    info: Object
-  },
+  name: 'Myteaminfo',
   data () {
     return {
-      dates: [],
-      menu: false
+      dateInfo : {
+        dates: [],
+        leaderemail: '',
+        memberemail: '',
+        no: ''
+      },
+      menu: false,
+      saveInfo : null,
     }
   },
   computed: {
-    ...mapState(['saveInfo', 'myTeamInfo']),
-    teamInfo() {
-      return this.$route.params.info
-    },
+    ...mapState(['myTeamInfo', 'dates', 'email']),
   },
   methods : {
-    ...mapActions(['getTeamInfo']),
+    ...mapActions(['getTeamInfo', 'postDate']),
     plusMember () {
     }
    },
   mounted() {
-    console.log(typeof(this.$route.params.id))
-    if (!sessionStorage.teaminfo) {
-      console.log("성공")
-      sessionStorage.setItem('teaminfo', JSON.stringify(this.$route.params))
-      this.$store.state.saveInfo = JSON.parse(sessionStorage.getItem('teaminfo'))
-    } else {
-      console.log(this.saveInfo.id)
-      if (this.$route.params.id !== this.saveInfo.id) {
-        sessionStorage.setItem('teaminfo', JSON.stringify(this.$route.params))
-        this.$store.state.saveInfo = JSON.parse(sessionStorage.getItem('teaminfo'))
+    // this.dates = this.$store.state.dates
+    const infos = JSON.parse(sessionStorage.getItem('myTeam'))
+    for (let i=0; i < infos.length; i++){
+      if (this.$route.params.id === infos[i].no) {
+        this.saveInfo = infos[i]
+        this.dateInfo.leaderemail = infos[i].leaderemail
+        this.dateInfo.memberemail = this.$store.state.email
+        this.dateInfo.no = this.$route.params.id
       }
     }
+    // if (!sessionStorage.teaminfo) {
+    //   console.log("성공")
+    //   sessionStorage.setItem('teaminfo', JSON.stringify(this.$route.params))
+    //   this.$store.state.saveInfo = JSON.parse(sessionStorage.getItem('teaminfo'))
+    // } else {
+    //   console.log(this.saveInfo.id)
+    //   if (this.$route.params.id !== this.saveInfo.id) {
+    //     sessionStorage.setItem('teaminfo', JSON.stringify(this.$route.params))
+    //     this.$store.state.saveInfo = JSON.parse(sessionStorage.getItem('teaminfo'))
+    //   }
+    // }
   }
 }
 </script>
 
 <style>
+.btn {
+  text-align: right;
+}
 
 </style>

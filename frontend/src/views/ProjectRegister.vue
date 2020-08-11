@@ -1,6 +1,7 @@
 <template>
 	<v-card color="#FAFAFA">
     <v-container>
+			{{ teamreg }}
 			{{ windowWidth }}
       <div>
 				<v-card id="card-apply" class="mx-auto py-5 px-3 my-8" outlined max-width="800">
@@ -8,6 +9,15 @@
 					<h2 v-if="windowWidth < 730 && windowWidth >= 400" class="text-center mb-8 h1-apply">프로젝트 팀원을 구해보세요 :)</h2>
 					<h3 v-if="windowWidth < 400" class="text-center mb-8 h1-apply">프로젝트 팀원을 구해보세요 :)</h3>
 					
+					<h3 class="ml-4">제목 : </h3>
+					<v-col cols="12" md="11" class="mx-auto">
+						<v-textarea
+							outlined
+							label="제목"
+							v-model="projectData.title"
+						></v-textarea>
+					</v-col>
+
 					<h3 class="ml-4">프로젝트 소개 : </h3>
 					<v-col cols="12" md="11" class="mx-auto">
 						<v-textarea
@@ -243,7 +253,7 @@ export default {
     })
 	},
 	computed : {
-    ...mapState(['email']),
+    ...mapState(['email', 'teamreg']),
   }, 
 }
 </script>

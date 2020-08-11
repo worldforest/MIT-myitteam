@@ -1,5 +1,6 @@
 package com.mit.service;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,16 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public Team selectnoemail(String no, String leaderemail) {
 		return teamRepo.selectnoemail(no, leaderemail);
+	}
+
+	@Override
+	public boolean update(Team team) {
+		return teamRepo.update(team);
+	}
+
+	@Override
+	public boolean delete(String no, String leaderemail) {
+		return teamRepo.delete(no, leaderemail);
 	}
 
 }

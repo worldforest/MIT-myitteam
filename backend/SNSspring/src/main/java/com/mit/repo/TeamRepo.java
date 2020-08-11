@@ -1,5 +1,6 @@
 package com.mit.repo;
 
+
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,8 @@ public interface TeamRepo {
 	public List<Team> select(String no);
 
 	public Team selectnoemail(String no, String leaderemail);
+
+	public boolean update(Team team);
+
+	public boolean delete(String no, String leaderemail);
 }

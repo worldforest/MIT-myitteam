@@ -13,6 +13,7 @@ const state = {
     email : cookies.get('auth-email'),
     profileData: [],
     clubs: [],
+    clubs2: [],
     clubinfo: {},
     detailFeed: [],
     userprofiledata: [],
@@ -25,6 +26,15 @@ const state = {
     getTeamList: [],
     myTeamInfo: null,
     saveInfo: JSON.parse(sessionStorage.getItem('teaminfo')),
+    club: [],
+    club2: [],
+    teamreg: [],
+    allContest: [],
+    isFlag: true,
+    applyLeader: [],
+    pwdToken: '',
+    updateProfile: [],
+    dates: [],
 }
 
 export default new Vuex.Store({

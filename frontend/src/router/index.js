@@ -14,6 +14,12 @@ import ProjectList from '@/views/ProjectList.vue'
 import Myteam from '@/views/Myteam.vue'
 import Myteaminfo from '@/views/Myteaminfo.vue'
 
+import ProjectDetail from '@/views/ProjectDetail.vue'
+import FindPwd from '@/views/FindPwd.vue'
+import AllContest from '@/views/AllContest.vue'
+import Chat from '@/views/Chat.vue'
+import ChangePwd from '@/views/ChangePwd.vue'
+import UpdateProfile from '@/views/UpdateProfile.vue'
 
 
 Vue.use(VueRouter)
@@ -96,6 +102,32 @@ Vue.use(VueRouter)
     component: UserProfile,
     props: true,
   },
+  {
+    path: '/projectdetail',
+    name: 'ProjectDetail',
+    component: ProjectDetail,
+    props: true,
+  },
+  {
+    path: '/findpwd',
+    name: 'FindPwd',
+    component: FindPwd,
+  },
+  {
+    path: '/allcontest',
+    name: 'AllContest',
+    component: AllContest,
+  },
+  {
+    path: '/changepwd',
+    name: 'ChangePwd',
+    component: ChangePwd,
+  },
+  {
+    path: '/updateprofile',
+    name: 'UpdateProfile',
+    component: UpdateProfile,
+  },
   //////////지훈////////////
   {
     path: '/myteam',
@@ -108,7 +140,11 @@ Vue.use(VueRouter)
     component: Myteaminfo,
     props: true,
   },
-
+  {
+    path: '/chat',
+    name: "Chat",
+    component: Chat,
+  }
 ]
 
 const router = new VueRouter({

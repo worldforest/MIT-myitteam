@@ -5,6 +5,7 @@ import 'url-search-params-polyfill'
 // import { apply } from 'core-js/fn/reflect'
 
 const SERVER_URL = 'http://localhost:9999/mit'
+// const SERVER_URL = 'http:/i3b306.p.ssafy.io:9999/mit'
 
 export default {
 	postToken({ commit }, info) {
@@ -76,25 +77,6 @@ export default {
 				})
 		}
 	},
-	profile(context) {
-		const email = cookies.get('auth-email')
-		axios.get(`${SERVER_URL}/api/feed/${email}`)
-			.then(response => {
-				context.commit('INPUTDATA', response.data)
-			})
-			.catch(error => {
-				console.log(error)
-			})
-	},
-	userprofile(context, useremail) {
-        axios.get(`${SERVER_URL}/api/feed/${useremail}`)
-          .then(res => {
-              context.commit('USERINPUT', res.data)
-          })
-          .catch(err => {
-              console.log(err)
-          })
-    },
 	postEmailToken(context) {
 		axios.post(`${SERVER_URL}/api/user/getEmail`, context.state.authToken)
 			.then(res => {
@@ -102,12 +84,23 @@ export default {
 				// context.commit('POST_EMAIL', res)
 			})
 	},
-	getContestData({ commit }) {
-		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
-			.then(res => {
-				commit('contestData', res.data)
-			})
+
+	feedCreate(context, feedData) {
+		const formdata = new FormData();
+		formdata.append('category', feedData.category)
+		formdata.append('description', feedData.description)
+		formdata.append('email', feedData.email) 
+		formdata.append('file', feedData.file)
+		formdata.append('tags', feedData.tags)
+		axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
+		.then(() => {
+				router.push({ name: "Profile"})
+		})
+		.catch(error => {
+				console.log(error)
+		})
 	},
+	
 
 	//////////다인///////////////
 	teamregister(context, applyData){
@@ -115,16 +108,17 @@ export default {
 		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
 			.then(() => {
 				alert('성공적으로 등록하였습니다.')
+				router.push({ name: "GongmoDetail"})
 			})
 			.catch(error => console.log(error.response.data))
 	},
 	projectregister(context, projectData){
-		/// 아직 완료 아님  ///
 		console.log(context)
 		console.log(projectData)
 		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
 		.then(() => {
 			alert('성공적으로 등록하였습니다.')
+			router.push({ name: "ProjectList"})
 		})
 		.catch(err => {
 			console.log(err.response.data)
@@ -143,35 +137,80 @@ export default {
 			console.log(err.response.data)
 		})
 	},
-	//////////다인///////////////
+	apply(context, sendData){
+		console.log(context)
+		console.log('Action')
+		console.log(sendData)
 
-	feedCreate(context, feedData) {
-		const formdata = new FormData();
-		formdata.append('category', feedData.category)
-		formdata.append('description', feedData.description)
-		formdata.append('email', feedData.email) 
-		formdata.append('file', feedData.file)
-		formdata.append('tags', feedData.tags)
-		axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
-		.then(() => {
-				router.push({ name: "Profile"})
+		const params = new URLSearchParams();
+		params.append('no', sendData.no);
+		params.append('leaderemail', sendData.leaderemail);
+		params.append('email', sendData.email);
+		params.append('part', sendData.part);
+		axios.post(`${SERVER_URL}/api/team/applyTeam`, params)
+		.then(()=> {
+			console.log('팀장에게 보내기 완료 !! ')
 		})
-		.catch(error => {
-				console.log(error)
+		.catch(err => {
+			console.log(err.response.data)
 		})
 	},
+	//////////다인///////////////
 
+	/////////지훈////////////////
+	getContestData(context) {
+		var contest = []
+		var project = []
+		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
+			.then(res => {
+				for(var i=0; i<(res.data).length; i++) {
+					if (res.data[i].category === 0) {
+						contest.push(res.data[i])
+					}
+					else {
+						project.push(res.data[i])
+					}
+				}
+			context.commit('contestData', contest)
+			context.commit('projectData', project)
+			})
+	},
+
+	profile(context) {
+		const email = cookies.get('auth-email')
+		axios.get(`${SERVER_URL}/api/feed/${email}`)
+			.then(response => {
+				context.commit('INPUTDATA', response.data)
+			})
+			.catch(error => {
+				console.log(error)
+			})
+	},
+
+	userprofile(context, useremail) {
+        axios.get(`${SERVER_URL}/api/feed/${useremail}`)
+          .then(res => {
+              context.commit('USERINPUT', res.data)
+          })
+          .catch(err => {
+              console.log(err)
+          })
+	},
 	follow(context) {
 		var params = new URLSearchParams();
+		if (context.state.email !== null) {
 		params.append('email', context.state.email);
 		params.append('following', context.state.userprofiledata.feeds[0].email)
 		axios.post(`${SERVER_URL}/api/follow/follow`, params)
 				.then(() => {
-		context.commit('conffollowflag')
 		context.dispatch('follwerCnt', context.state.userprofiledata.feeds[0].email)
 		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
 				})
 				.catch(error => console.log(error.response.data))
+		}
+		else {
+			alert('회원만 팔로우를 할 수 있습니다.')
+		}
 	},
 
 	myFollowerList(context, res) {
@@ -184,7 +223,19 @@ export default {
 						data.push(response.data[i])
 			}
 			context.commit('INPUTFOLLOWER', data)
-			// console.log(data)
+			})
+	},
+
+	myFollowList(context, res) {
+		var params = new URLSearchParams();
+		var data = []
+		params.append('email', res)
+		axios.post(`${SERVER_URL}/api/follow/followingList`, params)
+			.then((response) => {
+				for (var i=0; i<(response.data).length; i++) {
+					data.push(response.data[i])
+				}
+			context.commit('INPUTFOLLOW', data)
 			})
 	},
 
@@ -194,12 +245,12 @@ export default {
 		params.append('following', res)
 		axios.post(`${SERVER_URL}/api/follow/unfollow`, params)
 		.then(() => {
-			context.commit('conffollowflag')
 			context.dispatch('myFollowerList', res)
 			context.dispatch('follwerCnt', context.state.email)
 		})
 		.catch(error => console.log(error.response.data))
 	},
+
 	follwerCnt(context, res) {
 		var params = new URLSearchParams();
 		params.append('email', res)
@@ -209,21 +260,77 @@ export default {
 		})
 	},
 	searchFeed(context) {
-		// var params = new URLSearchParams();
-		// params.append('tag', res)
 		axios.post(`${SERVER_URL}/api/feed/search`)
 			.then((response) => {
 				context.commit('setCommunity', response.data)
 			})
 	},
-	async getTeamInfo(context) {
+
+	searchFollowFeed(context, res) {
+		var params = new URLSearchParams();
+		params.append('email', res)
+		axios.post(`${SERVER_URL}/api/feed/search`, params)
+			.then((response) => {
+				context.commit('setCommunity', response.data)
+			})
+	},
+
+	subEmail(context, res) {
+		console.log(res)
+		var params = new URLSearchParams();
+		params.append('email', res)
+		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
+			.then((response) => {
+				context.commit('chageIsFlag')
+				console.log(response)
+			})
+			.catch(error => {
+				console.log(error.response.data)
+			});
+	},
+
+	pushCode(context, res) {
+		console.log(res)
+		console.log(res.email)
+		console.log(res.code)
+		axios.post(`${SERVER_URL}/api/user/pwd?code=${res.code}&email=${res.email}`)
+			.then((response) => {
+				context.commit('getPwdToken', response.data)
+			})
+			.catch(() => {
+				alert('코드를 확인해주세요!')
+			});
+	},
+
+	getAllContest(context) {
+		var data = []
+		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
+			.then((res) => {
+				for(var i=0; i<(res.data).length; i++) {
+					if (res.data[i].category === 0) {
+						data.push(res.data[i])
+					}
+				}
+				context.commit('getAllContest', data)
+			})
+	},
+	getTeamInfo(context) {
 		const params = new URLSearchParams();
 		params.append('email', context.state.email)
-		await axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
+		axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
 		.then(response => {
 			// context.commit('myTeamInfo', response.data)
-			context.state.myTeamInfo = response.data	
+			sessionStorage.setItem('myTeam', JSON.stringify(response.data))
+			// context.commit('myTeamInfo', res)
+		})
+	},
+	postDate (context, dateinfo) {
+		console.log(dateinfo)
+		axios.post(`${SERVER_URL}/api/team/insetSchedule`, dateinfo)
+		.then(response =>{
+			console.log(response)
 		})
 	}
+
 }
 

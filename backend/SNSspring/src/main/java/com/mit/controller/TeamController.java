@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mit.dto.Applymember;
 import com.mit.dto.Contents;
 import com.mit.dto.Member;
+import com.mit.dto.MemberSchedule;
 import com.mit.dto.Team;
 import com.mit.dto.Teaminfo;
 import com.mit.returnDto.RegTeam;
@@ -25,6 +26,7 @@ import com.mit.returnDto.RegTeamInfo;
 import com.mit.returnDto.TeamDto;
 import com.mit.service.ApplymemberService;
 import com.mit.service.ContentsService;
+import com.mit.service.MemberScheduleService;
 import com.mit.service.MemberService;
 import com.mit.service.TeamService;
 import com.mit.service.TeaminfoService;
@@ -51,6 +53,8 @@ public class TeamController {
 	private MemberService memberService;
 	@Autowired
 	private ApplymemberService applymemberService;
+	@Autowired
+	private MemberScheduleService memberScheduleService;
 
 	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n" + "필요 데이터\n"
 			+ "description,email(프로젝트팀 생성자),title,start,end,info")
@@ -153,9 +157,45 @@ public class TeamController {
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
+	// 내가 하고싶은 건 teaminfo에서
+	// 팀원 상세정보 입력할때 +로 추가한 정보를 삭제하거나 수정하는거야
+	@ApiOperation(value = "팀 정보 입력중 수정하기", notes = "teaminfo받아와(part, task, ability, advantage,headcount)")
+	@PostMapping("updateTeaminfo")
+	public ResponseEntity<Teaminfo> updateTeaminfo(@RequestParam("no") String no,
+			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
+			@RequestParam("task") String task, @RequestParam("ability") String ability,
+			@RequestParam("advantage") String advantage, @RequestParam("headcount") String headcount) {
+
+		Teaminfo teaminfo = new Teaminfo();
+		teaminfo.setNo(no);
+		teaminfo.setLeaderemail(leaderemail);
+		teaminfo.setPart(part);
+		teaminfo.setTask(task);
+		teaminfo.setAbility(ability);
+		teaminfo.setAdvantage(advantage);
+		teaminfo.setHeadcount(headcount);
+		teaminfoService.update(teaminfo);
+
+		return new ResponseEntity<Teaminfo>(teaminfo, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "팀 정보 입력중 삭제하기", notes = "")
+	@PostMapping("deleteTeaminfo")
+	public ResponseEntity<Teaminfo> deleteTeaminfo(@RequestParam("no") String no,
+			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part) {
+
+		Teaminfo teaminfo = new Teaminfo();
+		teaminfo.setNo(no);
+		teaminfo.setLeaderemail(leaderemail);
+		teaminfo.setPart(part);
+		teaminfoService.delete(teaminfo);
+
+		return new ResponseEntity<Teaminfo>(teaminfo, HttpStatus.OK);
+	}
+
 	@ApiOperation(value = "공모전, 프로젝트 번호로 해당 contents에 등록된 전체 팀 목록을 조회", notes = "팀 전체목록 list로 반환(프로젝트는 팀이 하나)")
 	@PostMapping("contentsteamlist")
-	public ResponseEntity<List<RegTeam>> contestTeamList(@RequestParam("no") String no) {
+	public ResponseEntity<List<RegTeam>> contentsTeamList(@RequestParam("no") String no) {
 
 		// 해당 공모전, 프로젝트에 해당하는 팀 정보 조회
 		// 공모전, 프로젝트 번호로 검색
@@ -234,14 +274,33 @@ public class TeamController {
 	public ResponseEntity<List<TeamDto>> applyTeam(@RequestParam("no") String no,
 			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
 			@RequestParam("email") String email) {
-		
+
 		Applymember applymember = new Applymember();
 		applymember.setNo(no);
 		applymember.setLeaderemail(leaderemail);
 		applymember.setPart(part);
 		applymember.setTeamemail(email);
 		applymemberService.insert(applymember);
-		
+
 		return null;
 	}
+
+	@ApiOperation(value = "팀 삭제하기", notes = "팀장이 팀 삭제(팀장메일과 로그인된 이메일이랑 같을때만 동작가능하게)")
+	@PostMapping("deleteTeam")
+	public ResponseEntity<String> deleteTeam(@RequestParam("no") String no,
+			@RequestParam("leaderemail") String leaderemail) {
+
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "팀원 일정 등록하기", notes = "팀원별 일정 등록")
+	@PostMapping("insetSchedule")
+	public ResponseEntity<String> insertSchedule(@RequestBody MemberSchedule memberschedule) {
+
+		if (memberScheduleService.insert(memberschedule)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
+
 }

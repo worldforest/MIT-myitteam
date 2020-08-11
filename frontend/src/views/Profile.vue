@@ -5,28 +5,33 @@
         <div>
           <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
         </div>
-        <div class="filebox ml-4"> 
+        <!-- <div class="filebox ml-4"> 
           <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
           <input 
             type="file" 
             id="ex_file"
             accept="image/*"
             @change="onChange">
-        </div>
+        </div> -->
       </v-col>
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <span>{{ profileData.nickname }}</span>
+          <span> <h3> {{ profileData.nickname }} </h3></span>
         </div>
         <div class="d-flex my-5 ml-5">
-          <span>팔로우| {{ profileData.followingCnt }}명</span>
-          <span class="mx-auto">팔로워| {{ profileData.followerCnt }}명</span>
+          <span><h3>팔로우| {{ profileData.followingCnt }}명</h3></span>
+          <span class="mx-auto"><h3>팔로워| {{ profileData.followerCnt }}명</h3></span>
         </div>
         <div class="d-flex ml-5">
-          {{ profileData.description }}
+          <span> <h3>{{ profileData.description }} 개발자</h3> </span>
           <br>
           
+        </div>
+        <div class="d-flex">
+          <div class="ml-auto TeamButton cursor" style="color:white" @click="updateProfile(profileData)">
+            <img src="@/assets/edit.png" alt="" style="width:10px" class="mr-2" >프로필 수정
+          </div>
         </div>
       </v-col>
     </v-row>
@@ -55,9 +60,8 @@
           <span class="mx-auto">팔로워| {{ profileData.followerCnt }}명</span>
         </div>
         <div class="d-flex ml-5">
-          {{ profileData.description }}
           <br>
-          
+          <span> {{ profileData.description }} 개발자 </span>
         </div>
       </v-col>
     </v-row>
@@ -79,31 +83,31 @@
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <p class="ml-5">{{ profileData.nickname }}</p>
+          <h4 class="ml-5">{{ profileData.nickname }}</h4>
         </div>
       </v-col>
     </v-row>
-    <span v-if="windowWidth < 788">{{ profileData.description }}</span>
-    <hr>
+    <span v-if="windowWidth < 788">{{ profileData.description }}개발자</span>
+    <hr v-if="windowWidth < 788">
     <v-row v-if="windowWidth < 788">
       <v-col cols="6">
-        팔로우| {{ profileData.followingCnt }}명
+        <h4>팔로우| {{ profileData.followingCnt }}명</h4>
       </v-col>
       <v-col cols="6">
-        팔로워| {{ profileData.followerCnt }}명
+        <h4>팔로워| {{ profileData.followerCnt }}명</h4>
       </v-col>
     </v-row>    
-    <hr>
+    <hr class="mb-2">
     <div class="text-center">
-      피드
+      <h3>피드</h3>
     </div>
-    <router-link to="/feedcreate">
+    <router-link class="feed white--text" to="/feedcreate">
       피드등록
     </router-link>
-    <v-row>
+    <v-row class="mt-4">
       <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
-          <img src="https://t1.daumcdn.net/cfile/tistory/9976523D5AD95B6627" 
+          <img :src="feed.src" 
           alt="" 
           style="width:100%;" 
           :feed="feed" 
@@ -150,7 +154,7 @@ export default {
       this.windowWidth = window.innerWidth
     },
 
-    ...mapMutations(['feedDetail']),
+    ...mapMutations(['feedDetail', 'updateProfile']),
     ...mapActions(['profile'])
   },
   computed : {
@@ -225,5 +229,13 @@ export default {
     height: 77px; 
     border-radius: 70%;
     overflow: hidden;
+  }
+
+  .feed {
+    background-color: rgb(92, 107, 192);
+    padding: 0.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 0.5rem;
   }
 </style>

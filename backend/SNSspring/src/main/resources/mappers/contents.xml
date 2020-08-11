@@ -12,7 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 
 	<select id="selectAll" parameterType="map" resultType="contents">
 		select no, email, nickname, title, category, description, start, end, reward, host, imagesrc, url, views
-		from contents;
+		from contents
+		order by no desc;
 	</select>
 	<select id="selectOne" parameterType="contents" resultType="contents">
 		select no, email, nickname, title, category, description, start, end, reward, host, imagesrc, url, views

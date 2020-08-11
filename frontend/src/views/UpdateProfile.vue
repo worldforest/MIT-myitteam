@@ -1,0 +1,97 @@
+<template>
+  <div>
+    
+    <div class="text-center my-3">
+      <h2> 프로필 수정 </h2>
+    </div>
+    <v-card color="#FAFAFA">
+      <v-container>
+        <div>
+          <h3 class="ml-4">닉네임  </h3>
+          <v-col xs="6" md="11" class="mx-auto">
+            <v-text-field 
+              v-model="updateProfile.nickname" label="닉네임" outlined id="nickname"></v-text-field>
+          </v-col>
+        </div>
+
+        <div>
+          <h3 class="ml-4">주소  </h3>
+          <v-col xs="6" md="11" class="mx-auto">
+            <v-text-field 
+              v-model="updateProfile.address" label="주소" outlined id="address"></v-text-field>
+          </v-col>
+        </div>
+
+        <div>
+          <h3 class="ml-4">자신을 한마디로 표현한다면?  </h3>
+          <v-col xs="6" md="11" class="mx-auto">
+            <v-text-field 
+              v-model="updateProfile.description" label="ex) 유쾌한, 고독한, 행복한 등등의 형용사" outlined id="description"></v-text-field>
+          </v-col>
+        </div>
+
+        <div>
+          <h3 class="ml-4"> 프로필 이미지 </h3>
+          <v-col xs="6" md="11" class="mx-auto">
+            <v-file-input
+              label="Image input"
+              filled
+              prepend-icon="mdi-camera"
+              accept = "image/*"
+              v-model="updateProfile.src"
+            ></v-file-input>
+          </v-col>
+        </div>
+
+        <div>
+          <h3 class="ml-4">비밀번호 : </h3>
+          <v-col xs="6" md="11" class="mx-auto">
+            <v-text-field :rules="[rules.required, rules.min]" v-model="updateData.pwd" label="비밀번호" outlined id="pwd" type="password"></v-text-field>
+          </v-col>
+        </div>
+
+        <div>
+          <h3 class="ml-4">비밀번호 확인 : </h3>
+          <v-col xs="6" md="11" class="mx-auto">
+            <v-text-field :rules="[rules.pwdcheck, rules.required]" v-model="updateData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
+          </v-col>
+        </div>
+
+         <v-col class="text-center mx-auto">
+          <div class="my-2">
+            <v-btn depressed x-large class="white--text" color="#5C6BC0">가입하기</v-btn>
+          </div>
+        </v-col>
+
+      </v-container>
+    </v-card>
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  data () {
+    return {
+      updateData: {
+        pwd: '',
+        pwd2: '',
+      },
+      rules: {
+        required: value => !!value || '필수 값 입니다.',
+        min: v => v.length >= 4 || '비밀번호는 최소 8자리 이상 적어주세요.' ,
+        emailMatch: () => ('The email and password you entered don\'t match'),
+        pwdcheck: v => v == this.updateData.pwd || '비밀번호가 일치하지 않습니다',
+      },
+    }
+  },
+  computed : {
+    ...mapState(['updateProfile'])
+  }
+}
+</script>
+
+<style>
+
+</style>

@@ -22,7 +22,7 @@
     </v-card-text>
 
     <v-card-actions>
-      <router-link :to="{name: 'Myteaminfo', params : {id:info.no, info:info}}">
+      <router-link :to="{name: 'Myteaminfo', params : {id:info.no}}">
         Share
       </router-link >
 
@@ -55,14 +55,9 @@ export default {
     ...mapState(['myTeamInfo', 'saveInfo'])
   },
   mounted () {
-    // this.email = this.$store.state.email
-    this.getTeamInfo()
-    // console.log(this.$store.state)
-    // console.log(this.$store.state.myTeamInfo) 
-    // this.myTeamInfo()
-
+    this.$store.state.myTeamInfo = JSON.parse(sessionStorage.getItem('myTeam')) 
   }
-}
+ }
 </script>
 
 <style>
