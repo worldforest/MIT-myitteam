@@ -17,7 +17,7 @@
 
     <div v-if="windowWidth >= 1064">
       <div class="mt-6">
-        <h1 @click="goContest" class="Pjt_h1">공모전</h1>
+        <h1 @click="goContest" class="Pjt_h1 mb-4">공모전</h1>
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" style="width:100%">
           <slide v-for="club in clubs" :key="club.no">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
@@ -39,7 +39,7 @@
 
     <div v-else-if="400 > windowWidth">
       <div class="mt-6">
-        <h1>공모전</h1>
+        <h1 class="Pjt_h1 mb-4">공모전</h1>
         <carousel :per-page="1.5" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club in clubs" :key="club.no">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
@@ -61,7 +61,7 @@
 
     <div v-else>
       <div class="mt-6">
-        <h1>공모전</h1>
+        <h1 class="Pjt_h1 mb-4">공모전</h1>
         <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club in clubs" :key="club.no">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 75%;">
@@ -82,8 +82,8 @@
     <!-- /////////////////////////////    프로젝트 시작     //////////////////////////////////////// -->
     <!-- /////////////////////////////    화면이 클 때     //////////////////////////////////////// -->
 
-    <div>
-      <h1 @click="goPJT" class="Pjt_h1">프로젝트</h1>
+    <div class="mt-9">
+      <h1 @click="goPJT" class="Pjt_h1 mb-4">프로젝트</h1>
       <div v-if="windowWidth >= 1064">      
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">

@@ -180,7 +180,10 @@ export default {
 		console.log(applyData)
 		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
 			.then(() => {
-				alert('성공적으로 등록하였습니다.')
+				Swal.fire({
+					icon: 'success',
+					title: '성공적으로 등록하였습니다.',
+				})
 				router.push({ name: "GongmoDetail"})
 			})
 			.catch(error => console.log(error.response.data))
@@ -190,7 +193,10 @@ export default {
 		console.log(projectData)
 		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
 		.then(() => {
-			alert('성공적으로 등록하였습니다.')
+			Swal.fire({
+				icon: 'success',
+				title: '성공적으로 등록하였습니다.',
+			})
 			router.push({ name: "ProjectList"})
 		})
 		.catch(err => {
@@ -237,42 +243,61 @@ export default {
 		params.append('leaderemail', deleteData.leaderemail);	
 		axios.post(`${SERVER_URL}/api/team/deleteTeam`, params)
 		.then(() => {
-			alert('팀이 삭제되었습니다.')
+			Swal.fire({
+				icon: 'info',
+				title: '등록한 팀이 삭제되었습니다.',
+			})
 			router.push({ name: "AllContest" })
 		})
 		.catch( err => {
 			console.log(err.response.data)
 		})
 	},
-	updateCard(context, updateData){
+	// updateCard(context, updateData){
+	// 	console.log(context)
+	// 	console.log(updateData)
+	// 	const params = new URLSearchParams();
+	// 	params.append('no', updateData.no);
+	// 	params.append('leaderemail', updateData.leaderemail);
+	// 	params.append('part', updateData.part);
+	// 	params.append('headcount', updateData.headcount);
+	// 	params.append('ability', updateData.ability);
+	// 	params.append('task', updateData.task);
+	// 	params.append('advantage', updateData.advantage);
+	// 	axios.post(`${SERVER_URL}/api/team/updateTeaminfo`, params)
+	// 	.then(() => {
+	// 		console.log('수정하자')
+	// 	})
+	// 	.catch( err => {
+	// 		console.log(err.response.data)
+	// 	})
+	// },
+	// deleteCard(context, deleteData){
+	// 	console.log(context)
+	// 	console.log(deleteData)
+	// 	const params = new URLSearchParams();
+	// 	params.append('no', deleteData.no);
+	// 	params.append('leaderemail', deleteData.leaderemail);
+	// 	params.append('part', deleteData.part);
+	// 	axios.post(`${SERVER_URL}/api/team/deleteTeaminfo`, params)
+	// 	.then(() => {
+	// 		alert('성공적으로 삭제되었습니다.')
+	// 	})
+	// 	.catch( err => console.log(err.response.data))
+	// },
+	deletePjt(context, deletePjtData){
+		console.log('내가 왔다아아아')
 		console.log(context)
-		console.log(updateData)
-		const params = new URLSearchParams();
-		params.append('no', updateData.no);
-		params.append('leaderemail', updateData.leaderemail);
-		params.append('part', updateData.part);
-		params.append('headcount', updateData.headcount);
-		params.append('ability', updateData.ability);
-		params.append('task', updateData.task);
-		params.append('advantage', updateData.advantage);
-		axios.post(`${SERVER_URL}/api/team/updateTeaminfo`, params)
+		console.log(deletePjtData.no)
+
+		axios.get(`${SERVER_URL}/api/contents/delete?no=${deletePjtData.no}`)
 		.then(() => {
-			console.log('수정하자')
-		})
-		.catch( err => {
-			console.log(err.response.data)
-		})
-	},
-	deleteCard(context, deleteData){
-		console.log(context)
-		console.log(deleteData)
-		const params = new URLSearchParams();
-		params.append('no', deleteData.no);
-		params.append('leaderemail', deleteData.leaderemail);
-		params.append('part', deleteData.part);
-		axios.post(`${SERVER_URL}/api/team/deleteTeaminfo`, params)
-		.then(() => {
-			alert('성공적으로 삭제되었습니다.')
+			console.log('성공')
+			Swal.fire({
+				icon: 'info',
+				title: '등록한 프로젝트가 삭제되었습니다.',
+			})
+			router.push({ name: "ProjectList" })
 		})
 		.catch( err => console.log(err.response.data))
 	},

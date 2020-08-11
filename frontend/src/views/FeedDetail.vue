@@ -18,6 +18,12 @@
       <div>
         {{ detailFeed.tag }}
       </div>
+      <hr>
+      <v-row>
+        <v-spacer></v-spacer>
+        <v-icon large class="mr-4">mdi-heart-multiple-outline</v-icon>
+        <v-icon large color="red" class="mr-4">mdi-heart-multiple</v-icon>
+      </v-row>
     </div>
     <div v-else>
       <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
