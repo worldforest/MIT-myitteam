@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mit.algorithm.Path;
 import com.mit.dto.Contents;
 import com.mit.service.ContentsService;
+import com.mit.service.TeamService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -34,6 +35,9 @@ public class ContentsController {
 
 	@Autowired
 	private ContentsService contentsService;
+
+	@Autowired
+	private TeamService teamService;
 
 	@ApiOperation(value = "공모전 등록 ", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
 	@PostMapping("create/contest")
@@ -59,6 +63,7 @@ public class ContentsController {
 	@ApiOperation(value = "공모전 삭제", notes = " ")
 	@GetMapping("delete")
 	public ResponseEntity<String> deleteContests(String no) {
+		teamService.deleteNo(no);
 		if (contentsService.delete(no)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
