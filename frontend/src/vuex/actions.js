@@ -330,7 +330,11 @@ export default {
 				.catch(error => console.log(error.response.data))
 		}
 		else {
-			alert('회원만 팔로우를 할 수 있습니다.')
+			Swal.fire({
+				icon: 'error',
+				text: '회원만 팔로우를 신청할 수 있어요!',
+				footer: '<a href="/login">로그인하기</a> <br>회원이 아니신가요?<a href="/login">   <br>가입하기   </a> '
+			})
 		}
 	},
 
@@ -445,6 +449,7 @@ export default {
 				context.commit('getAllContest', data)
 			})
 	},
+
 
 	/////////지훈////////////////
 	getTeamInfo(context) {

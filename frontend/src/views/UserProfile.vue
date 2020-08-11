@@ -17,7 +17,7 @@
               v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
-              @click="follow"
+              @click="follow()"
             >
               팔로우
             </v-btn>

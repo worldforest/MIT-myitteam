@@ -84,12 +84,21 @@
             </div>
          </div>
       </div>
-      <div class="bg2 container">
-        <div class="bg3 container">      
+      <div class="bg2 container" v-if="email">
+        <div class="bg3 container" >
           <img src="@/images/project.png" alt="" style="height:100%;" class="ml-2" @click="goPJT">
           <img src="@/images/contest.png" alt="" style="height:100%;" @click="goCON">
-          <img src="@/images/Team.png" alt="" style="height:100%;" @click="goTEAM">
-          <img src="@/images/profile.png" alt="" style="height:100%;" class="mr-2" @click="goPRO">          
+          <img src="@/images/Team.png" alt="" style="height:100%;" @click="goTEAM" v-if="email">
+          <img src="@/images/profile.png" alt="" style="height:100%;" class="mr-2" @click="goPRO" v-if="email">          
+        </div>
+      </div>
+
+      <div class="bg2 container" v-else>
+        <div class="bg5 container" >
+          <img src="@/images/project.png" alt="" style="height:100%;" class="ml-2" @click="goPJT">
+          <img src="@/images/contest.png" alt="" style="height:100%;" @click="goCON">
+          <img src="@/images/Team.png" alt="" style="height:100%;" @click="goTEAM" v-if="email">
+          <img src="@/images/profile.png" alt="" style="height:100%;" class="mr-2" @click="goPRO" v-if="email">          
         </div>
       </div>
     </div>
@@ -240,6 +249,15 @@ export default {
 
   .bg4 {
     background-color: #fafafa;
+  }
+
+  .bg5 {
+    background-color: white;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    border-radius: 0.5rem;
+    justify-content: space-around;
   }
 
 </style>
