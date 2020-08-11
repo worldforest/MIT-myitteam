@@ -88,9 +88,10 @@ public class UserController {
 	
 	@ApiOperation(value = "회원 정보 수정", notes = "성공시 200, 실패시 에러를 반환합니다.")
 	@PostMapping("update")
-	public ResponseEntity<String> update(@RequestParam String nickname,@RequestParam String pwd,@RequestParam String description,@RequestParam String address,@RequestParam String src) {
+	public ResponseEntity<String> update(@RequestParam String email,@RequestParam String nickname,@RequestParam String pwd,@RequestParam String description,@RequestParam String address,@RequestParam String src) {
 		
 		User user = new User();
+		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setPwd(pwd);
 		user.setDescription(description);
