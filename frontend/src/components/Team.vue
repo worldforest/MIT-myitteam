@@ -549,12 +549,7 @@ export default {
 	},
 }
 </script>
-<<<<<<< HEAD
 <style scoped>
-=======
-
-<style>
->>>>>>> b494e51a63d3a94f2bd43a85c05be4c457e3b8ac
   .teamCard {
     border: 2px solid rgb(92, 107, 192);
     width: 330px;

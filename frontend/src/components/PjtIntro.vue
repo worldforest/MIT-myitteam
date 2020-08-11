@@ -54,7 +54,10 @@
                     </div>
                   </li>
                 </div>
-              </div>     
+              </div>  
+              <v-btn color="red" class="white--text ml-auto" @click="projectDetail(i); getTeamData(i.no)">
+                삭제하기
+              </v-btn>   
           </v-col>
         </v-row>
 
