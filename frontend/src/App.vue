@@ -176,7 +176,7 @@ export default {
   *{ font-family: myFont, sans-serif; }
 
   .not-home > a { 
-    position: relative;
+    /* position: relative; */
     text-decoration: none;
     color: rgb(92, 107, 192);
     margin-right: 2rem;

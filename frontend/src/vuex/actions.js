@@ -11,6 +11,17 @@ const SERVER_URL = 'http://localhost:9999/mit'
 
 export default {
 	postToken2({ commit }, info) {
+		Swal.fire({
+			text: '회원가입을 축하합니다!',
+			width: 600,
+			padding: '3em',
+			backdrop: `
+				rgba(0,0,123,0.4)
+				url("https://pgnqdrjultom1827145.cdn.ntruss.com/img/d6/3f/d63fc54819cd3fb0c319021e2e7cd6bfee951e8ce2db9e948bd828f538272da6_v1.jpg")
+				left top
+				no-repeat
+			`
+		})
 		const params = new URLSearchParams();
 		params.append('email', info.data.email);
 		params.append('pwd', info.data.pwd);
@@ -402,11 +413,8 @@ export default {
 		console.log(res)
 		var params = new URLSearchParams();
 		params.append('email', res)
+		context.commit('chageIsFlag')
 		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
-			.then((response) => {
-				context.commit('chageIsFlag')
-				console.log(response)
-			})
 			.catch(error => {
 				console.log(error.response.data)
 			});

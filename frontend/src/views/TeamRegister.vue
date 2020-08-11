@@ -368,7 +368,11 @@ export default {
 }
 </script>
 
+<<<<<<< HEAD
+<style scoped>
+=======
 <style scoped >
+>>>>>>> b494e51a63d3a94f2bd43a85c05be4c457e3b8ac
   #card-apply {
     border:1px solid rgb(92, 107, 192);
   }
