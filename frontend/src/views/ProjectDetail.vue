@@ -7,8 +7,8 @@
           <!-- {{ club2 }} -->
           <!-- {{ getTeamList }} -->
           <h1 class="mb-3">{{ club2.title }}</h1>
-          <h3>팀장 : {{ club2.nickname }}</h3>
-          <h3 class="mt-3 mb-4 local"> <li v-for="i in getTeamList" :key="i">{{ i.local }}</li></h3>
+          <h4>팀장 : {{ club2.nickname }}</h4>
+          <h4 class="mt-3 mb-4 local"> <li v-for="i in getTeamList" :key="i">{{ i.local }}</li></h4>
         </div>
       </div>
       <hr>
@@ -24,7 +24,7 @@
           {{ getTeamList }}
           <h1 class="mb-3">{{ club2.title }}</h1>
           <h3>팀장 : {{ club2.nickname }}</h3>
-          <h3 class="mt-3 mb-4 local"> <li v-for="i in getTeamList" :key="i">{{ i.local }}</li></h3>
+          <h3 class="mt-4 mb-4 local"> <li v-for="i in getTeamList" :key="i">{{ i.local }}</li></h3>
         </div>
       </div>
       <hr>
