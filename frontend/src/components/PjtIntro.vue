@@ -321,7 +321,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .pill {
     position: absolute;
     padding: 0 8px;

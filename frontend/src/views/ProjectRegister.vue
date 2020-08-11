@@ -258,7 +258,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 	.v-expansion-panels{
 		max-width: 500px;
 	}

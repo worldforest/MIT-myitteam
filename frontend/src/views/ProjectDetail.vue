@@ -86,7 +86,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .title-img {
     width: 80px;
     height: 114px;

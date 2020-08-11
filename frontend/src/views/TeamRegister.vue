@@ -367,7 +367,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   #card-apply {
     border:1px solid rgb(92, 107, 192);
   }

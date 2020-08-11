@@ -22,8 +22,8 @@
           <slide v-for="club in clubs" :key="club.no">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
               <b-card-text @click="gongmoDetail(club)">
-                <div v-if="club.title.length >= 15" >
-                    {{ club.title.slice(0,15)}}...
+                <div v-if="club.title.length >= 10" >
+                    {{ club.title.slice(0,10)}}...
                 </div>
                 <div v-else>
                     {{ club.title }}
