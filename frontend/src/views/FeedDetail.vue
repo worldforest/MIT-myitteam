@@ -1,8 +1,10 @@
 <template>
   <div class="mt-3">
     <div v-if="windowWidth >= 767" class="cont15">
+      {{detailFeed}}
       {{ windowWidth }}
-      <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
+      <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
+      <router-link to='/profile' v-else><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
       <hr>
       <div class="d-flex justify-end mb-4">
         <h4>작성일자: {{ detailFeed.writedate.slice(0,10) }}</h4>
@@ -26,7 +28,8 @@
       </v-row>
     </div>
     <div v-else>
-      <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
+      <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
+      <router-link to='/profile' v-else><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
       <hr>
       <div class="d-flex justify-end mb-4">
         <h4>작성일자: {{ detailFeed.writedate }}</h4>
@@ -51,7 +54,7 @@ import { mapState, mapMutations } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['detailFeed']),
+    ...mapState(['detailFeed', 'email']),
   },
   data() {
     return {

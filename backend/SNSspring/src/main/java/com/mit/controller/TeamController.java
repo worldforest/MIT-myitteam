@@ -251,33 +251,46 @@ public class TeamController {
 
 		return null;
 	}
-	
+
 	@ApiOperation(value = "팀원 확정하기", notes = "no, leaderemail(팀 구분), part(팀원 파트), teamemail(팀원 메일)")
 	@PostMapping("selectMember")
 	public ResponseEntity<String> selectMember(@RequestParam("no") String no,
 			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
 			@RequestParam("teamemail") String teamemail) {
 
-		// 그 팀의 
-		//applymember에서 삭제
+		// 그 팀의
+		// applymember에서 삭제
 		applymemberService.delete(no, leaderemail, teamemail);
-		//member에 등록
+		// member에 등록
 		Member member = new Member();
 		member.setNo(no);
 		member.setLeaderemail(leaderemail);
 		member.setPart(part);
 		member.setMemberemail(teamemail);
 		memberService.insert(member);
-		
+
 //		//teaminfo.setHeadcount(getHedcount()-1);
 //		//teaminfo에서 그 part의 headcount
 		String headcount = teaminfoService.selectHeadcount(no, leaderemail, part);
 		System.out.println(headcount);
-		int curr = Integer.parseInt(headcount)-1;
+		int curr = Integer.parseInt(headcount) - 1;
 		System.out.println(curr);
-		teaminfoService.update(no, leaderemail, part, curr+"");
-		
+		teaminfoService.update(no, leaderemail, part, curr + "");
+
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "팀원 거절하기", notes = "no, leaderemail(팀 구분), part(팀원 파트), teamemail(팀원 메일)")
+	@PostMapping("deleteMember")
+	public ResponseEntity<String> deleteMember(@RequestParam("no") String no,
+			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
+			@RequestParam("teamemail") String teamemail) {
+
+		if (applymemberService.delete(no, leaderemail, teamemail)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+
 	}
 
 	@ApiOperation(value = "팀 삭제하기", notes = "팀장이 팀 삭제(팀장메일과 로그인된 이메일이랑 같을때만 동작가능하게)")
@@ -342,9 +355,9 @@ public class TeamController {
 		List<String> selectDate = new ArrayList<>();
 		while (keys.hasNext()) {
 			String key = keys.next();
-			//selectSchedule.get(key)는 그 날짜에 몇명 key는 날짜(date) 
+			// selectSchedule.get(key)는 그 날짜에 몇명 key는 날짜(date)
 			int total = selectSchedule.get(key);
-			if(total==memberCnt) {
+			if (total == memberCnt) {
 				selectDate.add(key);
 			}
 		}
