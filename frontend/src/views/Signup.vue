@@ -42,7 +42,7 @@
             <v-text-field :rules="[rules.required]" v-model="signupData.nickname" label="닉네임" outlined id="nickname"></v-text-field>
             </v-col>
             <v-col xs="1" md="2" class="mx-auto">
-              <v-btn class="white--text" large color="#5C6BC0" @click="checkNickname">중복 검사</v-btn>
+              <v-btn class="white--text" large color="#5C6BC0" @click="checkNickname(signupData.nickname)">중복 검사</v-btn>
             </v-col>
           </v-row>
         </div>

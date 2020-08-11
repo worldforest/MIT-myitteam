@@ -1,24 +1,49 @@
 <template>
   <div>
-		<h1 class="my-3 ml-3">프로젝트 목록</h1>
+		<h1 v-if="windowWidth > 800" class="my-3 ml-3">프로젝트 목록</h1>
+    <h3 v-if="windowWidth < 800" class="my-3 ml-3">프로젝트 목록</h3>
+    <!-- {{ windowWidth }} -->
     <div class="d-flex">
       <v-btn color="primary" class="ml-auto mb-3"  @click="goTeam"><v-icon  color="#FFFFFF" class="mr-2">mdi-pencil-box-multiple</v-icon>프로젝트 등록하러 가기</v-btn>
     </div>
 
     <v-row no-gutters>
-      <li v-for="pjt in clubs2" :key="pjt" class="mx-auto">
-        <!-- {{ pjt }} -->
+      <li v-for="i in clubs2" :key="i" class="mx-auto">
+        {{ pjt }}
         <v-col v-for="n in 1" :key="n" cols="sm"> 
-          <button @click="projectDetail(pjt); getTeamData(pjt.no)">
-            <v-card class="mx-auto projectCard" max-width="300">
-              <v-card-title><h3 class="mx-auto my-auto title">{{ pjt.title }}</h3></v-card-title>
-              <hr class="hrr">
-              <v-card-text> {{ pjt.start }} ~ {{ pjt.end }} </v-card-text>
-            </v-card>
-          </button>
+          <div
+            class="mx-auto projectCard"
+            max-width="500">
+            <div class="cardBar"> </div>
+            <v-card-title>
+              <h4 class="mx-auto mt-3" v-if="i.title.length >= 15">{{ i.title.slice(0,8)}}...</h4>
+              <h4 class="mx-auto mt-3" v-else>{{ i.title }}</h4>
+            </v-card-title>
+            <hr class="hrr">
+            <v-card-text class="text--primary mb-3">{{ i.start }} ~ {{ i.end }}
+               <v-card-actions>
+                  <v-btn
+                    color="orange"
+                    text
+                    class="ml-auto"
+                    @click="projectDetail(i); getTeamData(i.no)"
+                  >
+                    자세히보기
+                  </v-btn>
+                </v-card-actions>
+            </v-card-text>
+          </div>
         </v-col>
       </li>
     </v-row>
+
+    <!-- <div>
+      <v-row >
+        <v-col cols="4" v-for="i in clubs2" :key="i.no" >
+          
+        </v-col>
+      </v-row>
+    </div> -->
 
   </div>
 </template>
@@ -27,27 +52,46 @@
 import { mapActions, mapState, mapMutations } from 'vuex'
 
 export default {
-	name: 'ProjectList',
+  name: 'ProjectList',
+  data() {
+    return{
+      windowWidth: window.innerWidth,
+    }
+  },
 	methods: {
     ...mapActions(['getContestData', 'getTeamData']),
     ...mapMutations(['projectDetail', 'goTeam']),
-    
+    onResize() {
+      this.windowWidth = window.innerWidth
+    },
   },
   mounted() {
-    this.getContestData()
+    this.getContestData(),
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
   },
   computed: {
     ...mapState(['clubs2', 'getTeamList', 'email']),
-  }
-
+  },
+  watch: {
+    windowWidth(newWidth, oldWidth) {
+     this.txt = `it changed to ${newWidth} from ${oldWidth}`;
+    }
+  },
+  beforeDestroy() { 
+    window.removeEventListener('resize', this.onResize); 
+  },
 }
 </script>
 
 <style>
   .projectCard{
-    border: 3px solid rgb(92, 107, 192);
-    width: 300px;
-    height: 150px;
+    border: 2px solid rgb(92, 107, 192);
+    width: 330px;
+    height: 200px;
+    text-align: center;
+    border-top: thick solid rgb(92, 107, 192);
   }
   .title{
     color: rgb(92, 107, 192);
@@ -55,6 +99,11 @@ export default {
   }
   .hrr{
     width: 200px;
-    margin: auto;
+    margin: 0 auto;
   }
+  h4 {
+    color: rgb(92, 107, 192);
+    font-weight: bold;
+  }
+
 </style>

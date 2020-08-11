@@ -88,14 +88,16 @@
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
             <!-- {{ club2 }} -->
-            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2); getTeamData(club2.no)">
+            <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
-                    {{ club2.title.slice(0,15)}}...
+                    <h3 class="mt-3 title">{{ club2.title.slice(0,8)}}...</h3>
                 </div>
                 <div v-else>
-                    {{ club2.title }}
+                  <h3 class="mt-3 title">{{ club2.title }}</h3>
                 </div>
+                <hr class="hrr">
+                <p class="date"> {{ club2.start }} ~ {{ club2.end }} </p>
               </b-card-text>
             </b-card>
           </slide>
@@ -108,14 +110,16 @@
       <div v-else-if="400 > windowWidth">
         <carousel :per-page="1.5" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
-            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2); getTeamData(club2.no)">
+            <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
-                    {{ club2.title.slice(0,15)}}...
+                    <h4 class="title mt-3">{{ club2.title.slice(0,8)}}...</h4>
                 </div>
                 <div v-else>
-                    {{ club2.title }}
+                  <h4 class="title mt-3">{{ club2.title }}</h4>
                 </div>
+                <hr class="hrr">
+                <p class="date"> {{ club2.start }} ~ {{ club2.end }} </p>
               </b-card-text>
             </b-card>
           </slide>
@@ -128,14 +132,16 @@
       <div v-else>
         <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
-            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2); getTeamData(club2.no)">
+            <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
-                    {{ club2.title.slice(0,15)}}...
+                    <h3 class="title mt-3">{{ club2.title.slice(0,8)}}...</h3>
                 </div>
                 <div v-else>
-                    {{ club2.title }}
+                  <h3 class="title mt-3">{{ club2.title }}</h3>
                 </div>
+                <hr class="hrr">
+                <p class="date"> {{ club2.start }} ~ {{ club2.end }} </p>
               </b-card-text>
             </b-card>
           </slide>
@@ -295,6 +301,27 @@ export default {
 
   .cont10 {
     margin: 0 3%;
+  }
+
+  .homeCard{
+    height: 200px;
+    text-align: center;
+    margin: auto ;
+    border-top: thick solid rgb(92, 107, 192);
+  }
+
+  .date{
+    color: black;
+  }
+
+  .hrr{
+    width: 200px;
+    margin: 1.5rem auto;
+  }
+
+  .title{
+    color: rgb(92, 107, 192);
+    font-weight: bold;
   }
 
 </style>

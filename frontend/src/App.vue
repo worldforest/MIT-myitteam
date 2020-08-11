@@ -9,8 +9,8 @@
             <img id="logo" src="./images/1.jpg" alt="logo">
           </router-link>
           <div class="not-home">
-            <router-link class="mr-3" to="/AllContest">공모전</router-link>
-            <router-link class="mr-3" to="/projectlist">프로젝트</router-link>
+            <router-link class="ml-3 mr-4" to="/AllContest">공모전</router-link>
+            <router-link class="mr-5" to="/projectlist">프로젝트</router-link>
           </div>
           <div class="spacer"></div>
           <!--로그인 안 된 상태-->
@@ -84,10 +84,10 @@
       </div>
       <div class="bg2 container">
         <div class="bg3 container">      
-          <img src="@/images/project.png" alt="" style="height:100%;" class="ml-2">
-          <img src="@/images/contest.png" alt="" style="height:100%;">
-          <img src="@/images/Team.png" alt="" style="height:100%;">
-          <img src="@/images/profile.png" alt="" style="height:100%;" class="mr-2">          
+          <img src="@/images/project.png" alt="" style="height:100%;" class="ml-2" @click="goPJT">
+          <img src="@/images/contest.png" alt="" style="height:100%;" @click="goCON">
+          <img src="@/images/Team.png" alt="" style="height:100%;" @click="goTEAM">
+          <img src="@/images/profile.png" alt="" style="height:100%;" class="mr-2" @click="goPRO">          
         </div>
       </div>
     </div>
@@ -126,6 +126,20 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
+    goPJT(){
+      this.$router.push('/projectlist')
+    },
+    goCON(){
+      this.$router.push('/AllContest')
+    },
+    goTEAM(){
+      this.$router.push('/myteam')
+    },
+    goPRO(){
+      this.$router.push('/profile')
+    }
+
+
   },
   computed: {
     ...mapState(['email']),
