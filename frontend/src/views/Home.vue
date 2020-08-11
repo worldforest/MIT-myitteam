@@ -8,7 +8,7 @@
           label="Search"
           single-line="true"
           hide-details
-          @keypress.enter="tagSearch()"           
+          @keypress.enter="searchTagFeed(searchData.search)"           
         ></v-text-field>
       </v-col>
     </v-row>
@@ -222,7 +222,7 @@ export default {
 
   methods: {
     ...mapMutations(['feedDetail', 'gongmoDetail', 'projectDetail']),
-    ...mapActions(['getContestData', 'searchFeed', 'myFollowList', 'searchFollowFeed', 'profile', 'getTeamData']),
+    ...mapActions(['getContestData', 'searchFeed', 'myFollowList', 'searchFollowFeed', 'profile', 'getTeamData', 'searchTagFeed']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
