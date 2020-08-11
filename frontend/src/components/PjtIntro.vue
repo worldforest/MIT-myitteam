@@ -3,14 +3,14 @@
     <!-- {{ windowWidth }} -->
 
     <div class="container" v-if="windowWidth >= 800">
-      <h3 class="mt-4">접수 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h3>
-      <h3 class="mt-8">프로젝트 소개 : </h3>
+      <h4 class="mt-4">접수 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h4>
+      <h4 class="mt-8">프로젝트 소개 : </h4>
       <v-card class="mt-3 px-3 py-3" color="#FAFAFA" style="white-space:pre-line;">{{ club2.description }}</v-card>
     
       <div>
         <!-- {{ club2 }} -->
         <!-- {{ getTeamList }} -->
-        <h3 class="mt-8 mb-4">팀원 모집 : </h3>
+        <h4 class="mt-8 mb-4">팀원 모집 : </h4>
         <v-row v-if="windowWidth >= 1270">
           <v-col cols="6" v-for="i in getTeamList" :key="i">
               <div class="d-flex mx-auto">
@@ -18,9 +18,9 @@
                   <li v-for="item in i.dataList" :key="item">
                     <div class="pjtCard mx-auto mb-6">
                       <div class="headline mb-2 white--text partTitle" >
-                      {{ item.part }}
+                      <h4>{{ item.part }}</h4>
                       </div>
-                      <h3 class="ml-3">담당 업무</h3>
+                      <h3 class="ml-3 mt-3">담당 업무</h3>
                       <v-card-text class="ml-2">
                         <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
                       </v-card-text>
@@ -35,11 +35,11 @@
                         <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                       </v-card-text>
                       <v-row justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
                           지원하기
                         </v-btn>
 
-                        <v-dialog v-model="dialog2" max-width="450">
+                        <!-- <v-dialog v-model="dialog2" max-width="450">
                           <v-card>
                             <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
                             <v-card-actions>
@@ -49,7 +49,7 @@
                               </v-btn>
                             </v-card-actions>
                           </v-card>
-                        </v-dialog>
+                        </v-dialog> -->
                       </v-row>
                     </div>
                   </li>
@@ -261,6 +261,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Intro',
@@ -305,7 +306,9 @@ export default {
       this.windowWidth = window.innerWidth
     },
     submitProfile(){
-			alert('팀장에게 참여의사를 전달하였습니다.');
+			Swal.fire({
+				text: '팀장에게 성공적으로 전달하였습니다.',
+			})
     },
     applyLeader(item){
       this.sendData.part = item.part

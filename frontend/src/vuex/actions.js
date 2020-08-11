@@ -227,6 +227,7 @@ export default {
 		axios.post(`${SERVER_URL}/api/team/deleteTeam`, params)
 		.then(() => {
 			alert('팀이 삭제되었습니다.')
+			router.push({ name: "AllContest" })
 		})
 		.catch( err => {
 			console.log(err.response.data)
