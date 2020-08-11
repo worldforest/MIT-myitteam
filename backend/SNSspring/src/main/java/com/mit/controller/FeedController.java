@@ -87,13 +87,6 @@ public class FeedController {
 		// 시간과 originalFilename으로 매핑 시켜서 src 주소를 만들어 낸다.
 		// feed-> image 는 대표이미지 feedimage에는 추가 이미지들을 삽입한다.
 		// feed tag들을 삽입한다 ,로 구분
-		System.out.println(email);
-		if (file == null || file.isEmpty()) {
-			System.out.println("비어있다.");
-		} else {
-			System.out.println(file.getOriginalFilename());
-			System.out.println("비어 있지 않다");
-		}
 		Feed feed = new Feed();
 		feed.setEmail(email);
 		if (tags != null)
