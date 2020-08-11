@@ -17,16 +17,16 @@
 
     <div v-if="windowWidth >= 1064">
       <div class="mt-6">
-        <h1>공모전</h1>
+        <h1 @click="goContest" class="Pjt_h1">공모전</h1>
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" style="width:100%">
           <slide v-for="club in clubs" :key="club.no">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
-                    {{ club.title.slice(0,15)}}...
+                    <h5>{{ club.title.slice(0,13)}}...</h5>
                 </div>
                 <div v-else>
-                    {{ club.title }}
+                    <h5>{{ club.title }}</h5>
                 </div>
               </b-card-text>
             </b-card>
@@ -45,10 +45,10 @@
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
-                    {{ club.title.slice(0,15)}}...
+                    <h6>{{ club.title.slice(0,15)}}...</h6>
                 </div>
                 <div v-else>
-                    {{ club.title }}
+                    <h6>{{ club.title }}</h6>
                 </div>
               </b-card-text>
             </b-card>
@@ -67,10 +67,10 @@
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 75%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
-                    {{ club.title.slice(0,15)}}...
+                    <h4>{{ club.title.slice(0,15)}}...</h4>
                 </div>
                 <div v-else>
-                    {{ club.title }}
+                    <h4>{{ club.title }}</h4>
                 </div>
               </b-card-text>
             </b-card>
@@ -83,7 +83,7 @@
     <!-- /////////////////////////////    화면이 클 때     //////////////////////////////////////// -->
 
     <div>
-      <h1>프로젝트</h1>
+      <h1 @click="goPJT" class="Pjt_h1">프로젝트</h1>
       <div v-if="windowWidth >= 1064">      
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
@@ -232,6 +232,12 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
+    goPJT(){
+      this.$router.push('/projectlist')
+    },
+    goContest(){
+      this.$router.push('/allcontest')
+    }
   },
 
   computed: {
@@ -324,4 +330,7 @@ export default {
     font-weight: bold;
   }
 
+  .Pjt_h1{
+    cursor: pointer;
+  }
 </style>

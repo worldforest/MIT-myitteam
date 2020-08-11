@@ -183,7 +183,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .h1-signup {
     color: rgb(92, 107, 192);
   }
