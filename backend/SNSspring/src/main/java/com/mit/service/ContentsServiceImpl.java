@@ -13,7 +13,7 @@ public class ContentsServiceImpl implements ContentsService {
 
 	@Autowired
 	private ContentsRepo contentsRepo;
-	
+
 	@Override
 	public boolean insert(Contents contents) {
 		return contentsRepo.insert(contents);
@@ -34,6 +34,9 @@ public class ContentsServiceImpl implements ContentsService {
 		return contentsRepo.LatestContents(email);
 	}
 
-	
+	@Override
+	public boolean delete(String no) {
+		return contentsRepo.delete(no);
+	}
 
 }
