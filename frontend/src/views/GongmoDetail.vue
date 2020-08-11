@@ -15,12 +15,12 @@
       <v-row class="mx-2">
         <v-col cols="6">
           <div class="text-center">
-            <span @click="onClick_intro" class="cursor"><h6>소개</h6></span>  
+            <span @click="onClick_intro" class="cursor"><h5>소개</h5></span>  
           </div>        
         </v-col>
         <v-col cols="6">
           <div class="text-center">
-            <span @click="onClick_Team(); getTeamData(club.no);" class="cursor"><h6>팀원모집</h6></span>  
+            <span @click="onClick_Team(); getTeamData(club.no);" class="cursor"><h5>팀원모집</h5></span>  
           </div>        
         </v-col>
       </v-row>
@@ -45,12 +45,12 @@
       <v-row class="mx-2">
         <v-col cols="6">
           <div class="text-center">
-            <span @click="onClick_intro" class="cursor"><h6>소개</h6></span>  
+            <span @click="onClick_intro" class="cursor"><h5>소개</h5></span>  
           </div>        
         </v-col>
         <v-col cols="6">
           <div class="text-center">
-            <span @click="onClick_Team(); getTeamData(club.no);" class="cursor"><h6>팀원모집</h6></span>  
+            <span @click="onClick_Team(); getTeamData(club.no);" class="cursor"><h5>팀원모집</h5></span>  
           </div>        
         </v-col>
       </v-row>
