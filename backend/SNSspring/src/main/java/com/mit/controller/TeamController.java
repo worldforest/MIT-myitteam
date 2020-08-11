@@ -289,6 +289,8 @@ public class TeamController {
 	@PostMapping("deleteTeam")
 	public ResponseEntity<String> deleteTeam(@RequestParam("no") String no,
 			@RequestParam("leaderemail") String leaderemail) {
+		
+		teamService.delete(no, leaderemail);
 
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
@@ -302,5 +304,16 @@ public class TeamController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
+	
+	@ApiOperation(value = "팀 회의날짜 선정하기", notes = "팀원별 일정 등록")
+	@PostMapping("selectSchedule")
+	public ResponseEntity<String> selectSchedule(@RequestBody MemberSchedule memberschedule) {
+
+		if (memberScheduleService.insert(memberschedule)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
+	
 
 }
