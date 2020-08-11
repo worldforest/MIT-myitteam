@@ -10,6 +10,7 @@
         v-model="contestanother"
         v-show="ans"
       ></b-table> -->
+      {{windowWidth}}
       <v-row >
         <v-col cols="4" v-for="i in allContest" :key="i.no" >
           <v-card
@@ -23,7 +24,8 @@
             >
             </v-img>
 
-            <v-card-subtitle class="pb-0"><h4>{{i.title.slice(0,15)}}...</h4></v-card-subtitle>
+            <v-card-subtitle class="pb-0" v-if="windowWidth > 800"><h4>{{i.title.slice(0,15)}}...</h4></v-card-subtitle>
+            <v-card-subtitle class="pb-0" v-else><p>{{i.title.slice(0,10)}}...</p></v-card-subtitle>
 
             <v-card-actions>
               <v-btn
@@ -62,15 +64,32 @@ export default {
       currentPage: 1,
       contestanother: [],
       ans: false,
+      windowWidth: window.innerWidth,
     }
   },
   methods: {
     ...mapActions(['getAllContest']),
-    ...mapMutations(['gongmoDetail'])
+    ...mapMutations(['gongmoDetail']),
+     onResize() {
+      this.windowWidth = window.innerWidth
+    },
   },
+  watch: {
+    windowWidth(newWidth, oldWidth) {
+    this.txt = `it changed to ${newWidth} from ${oldWidth}`;
+    }
+  },
+
+  beforeDestroy() { 
+    window.removeEventListener('resize', this.onResize); 
+  },
+
 
   mounted() {
     this.getAllContest()
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
   },
   
   computed: {
