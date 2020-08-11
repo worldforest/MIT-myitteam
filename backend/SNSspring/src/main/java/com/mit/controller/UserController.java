@@ -85,6 +85,19 @@ public class UserController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
+	
+	@ApiOperation(value = "회원 정보 수정", notes = "성공시 200, 실패시 에러를 반환합니다.")
+	@PostMapping("update")
+	public ResponseEntity<String> update(@RequestBody User user) {
+		
+		boolean updateUser = userService.update(user);
+		
+		if (updateUser) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
+	
 
 	@ApiOperation(value = "getToken", notes = "이메일을 주면 Token을 반환합니다.")
 	@PostMapping("getToken")

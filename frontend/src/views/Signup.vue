@@ -74,6 +74,13 @@
         </div>
 
         <div>
+          <h3 class="ml-4">자신을 한마디로 표현한다면? : </h3>
+          <v-col md="11" class="mx-auto">
+            <v-text-field v-model="signupData.description" label="ex) 유쾌한, 고독한, 행복한 등등의 형용사" outlined id="description"></v-text-field>
+          </v-col>
+        </div>
+
+        <div>
           <h3 class="ml-4">주소 : </h3>
           <v-row class="mx-auto">
             <v-col md="11" class="mx-auto" >
@@ -128,6 +135,7 @@ export default {
         gender: "",
         major: "",
         address: "",
+        description: "",
       },
       dialog: false,
       selectGender: ['남', '여'],

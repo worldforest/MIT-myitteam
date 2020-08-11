@@ -5,7 +5,7 @@
       <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
       <hr>
       <div class="d-flex justify-end mb-4">
-        <h4>작성일자: {{ detailFeed.writedate }}</h4>
+        <h4>작성일자: {{ detailFeed.writedate.slice(0,10) }}</h4>
         <h4 class="ml-4">조회수:  {{ detailFeed.views }}</h4>
       </div>
 

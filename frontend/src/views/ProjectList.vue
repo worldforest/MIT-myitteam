@@ -72,7 +72,7 @@ export default {
     })
   },
   computed: {
-    ...mapState(['clubs2', 'getTeamList']),
+    ...mapState(['clubs2', 'getTeamList', 'email']),
   },
   watch: {
     windowWidth(newWidth, oldWidth) {

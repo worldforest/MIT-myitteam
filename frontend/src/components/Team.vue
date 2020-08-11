@@ -5,7 +5,7 @@
     {{ windowWidth }}
     <div class="container" v-if="windowWidth >= 900">
       <div class="ma-2">
-        <v-row>
+        <v-row v-if="email">
           <router-link class="TeamButton" style="color:white" :to="{name: 'TeamRegister', params:{no:club.no}}">
           <v-icon medium color="#FFFFFF" class="ml-auto">mdi-pencil-box-multiple</v-icon> 팀원 모집하러 가기 </router-link>
         </v-row>
@@ -17,6 +17,82 @@
           <v-col cols="6" v-for="i in getTeamList" :key="i">
             <!-- {{ i }} -->
             <div class="teamCard py-5 px-5">
+              <div class="d-flex">
+                <div>
+                  <span class="local">{{ i.local }}</span>
+                  <h4 class="my-3">{{ i.description }}</h4>
+
+
+                  <div class="text-center">
+                    <v-dialog v-model="dialog" width="500">
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn v-bind="attrs" v-on="on" class="white--text" color="#5C6BC0" @click="emailSave(i)">
+                          상세보기
+                        </v-btn>
+                      </template>
+
+                      <!-- {{ i.datalist }} -->
+                      <v-card>
+                        <li v-for="item in i.dataList" :key="item">
+                          <div class="headline mb-2 white--text partTitle" >
+                          <!-- {{ item.part }} -->
+                          </div>
+                          <h3 class="ml-3">담당 업무</h3>
+                          <v-card-text class="ml-2">
+                            <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                          </v-card-text>
+                          <hr class="mb-2">
+                          <h3 class="ml-3">필수 역량</h3>
+                          <v-card-text class="ml-2">
+                            <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                          </v-card-text>
+                          <hr class="mb-2">
+                          <h3 class="ml-3">우대 사항</h3>
+                          <v-card-text class="ml-2">
+                            <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                          </v-card-text>
+                          <v-row justify="center">
+                            <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true"  v-if="email" @click="applyLeader(item); apply(sendData);">
+                              지원하기
+                            </v-btn>
+
+                            <v-dialog v-model="dialog2" max-width="450">
+                              <v-card>
+                                <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
+                                <v-card-actions>
+                                  <v-spacer></v-spacer>
+                                  <v-btn color="green darken-1" text @click="dialog2 = false">
+                                    닫기
+                                  </v-btn>
+                                </v-card-actions>
+                              </v-card>
+                            </v-dialog>
+                          </v-row>
+                        </li>
+
+                        <v-divider></v-divider>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn class="local" color="primary" text @click="dialog = false">
+                            닫기
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </div>
+                </div>
+              </div>
+            </div>      
+          </v-col>
+        </v-row>
+      </div>
+
+      <!-- 900이상 1270미만 -->
+      <v-row v-if="windowWidth < 1270 && windowWidth >= 900 ">
+        <v-col cols="6" class="px-6" v-for="i in getTeamList" :key="i">
+          <div class="teamCard2 py-5 px-5">
+            <div class="d-flex">
               <div>
                 <h6><span class="local">{{ i.local }}</span></h6>
                 <h4 class="mt-6 my-3 Black">{{ i.description }}</h4>
@@ -81,10 +157,10 @@
                   </v-dialog>
                 </div>
               </div>
-            </div>    
-          </v-col>
-        </v-row>
-      </div>
+            </div>
+          </div>    
+        </v-col>
+      </v-row>
 
       <!-- 900이상 1270미만 -->
       <v-row v-if="windowWidth < 1270 && windowWidth >= 900 ">
@@ -159,10 +235,10 @@
       </v-row>
     </div>
 
-
+    <!-- 900보다 작을때 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! --> 
     <div v-if="windowWidth < 900">
       <div class="ma-2">
-        <v-row>
+        <v-row v-if="email">
           <router-link class="TeamButton" style="color:white" :to="{name: 'TeamRegister', params:{no:club.no}}">
           <v-icon  color="#FFFFFF" class="ml-auto">mdi-pencil-box-multiple</v-icon> 팀원 모집하러 가기 </router-link>
         </v-row>

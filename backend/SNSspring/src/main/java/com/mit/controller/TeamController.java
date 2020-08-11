@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mit.dto.Applymember;
 import com.mit.dto.Contents;
 import com.mit.dto.Member;
+import com.mit.dto.MemberSchedule;
 import com.mit.dto.Team;
 import com.mit.dto.Teaminfo;
 import com.mit.returnDto.RegTeam;
@@ -25,6 +26,7 @@ import com.mit.returnDto.RegTeamInfo;
 import com.mit.returnDto.TeamDto;
 import com.mit.service.ApplymemberService;
 import com.mit.service.ContentsService;
+import com.mit.service.MemberScheduleService;
 import com.mit.service.MemberService;
 import com.mit.service.TeamService;
 import com.mit.service.TeaminfoService;
@@ -51,6 +53,8 @@ public class TeamController {
 	private MemberService memberService;
 	@Autowired
 	private ApplymemberService applymemberService;
+	@Autowired
+	private MemberScheduleService memberScheduleService;
 
 	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n" + "필요 데이터\n"
 			+ "description,email(프로젝트팀 생성자),title,start,end,info")
@@ -285,8 +289,31 @@ public class TeamController {
 	@PostMapping("deleteTeam")
 	public ResponseEntity<String> deleteTeam(@RequestParam("no") String no,
 			@RequestParam("leaderemail") String leaderemail) {
+		
+		teamService.delete(no, leaderemail);
 
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
+
+	@ApiOperation(value = "팀원 일정 등록하기", notes = "팀원별 일정 등록")
+	@PostMapping("insetSchedule")
+	public ResponseEntity<String> insertSchedule(@RequestBody MemberSchedule memberschedule) {
+
+		if (memberScheduleService.insert(memberschedule)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
+	
+	@ApiOperation(value = "팀 회의날짜 선정하기", notes = "팀원별 일정 등록")
+	@PostMapping("selectSchedule")
+	public ResponseEntity<String> selectSchedule(@RequestBody MemberSchedule memberschedule) {
+
+		if (memberScheduleService.insert(memberschedule)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
+	
 
 }

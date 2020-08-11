@@ -36,7 +36,7 @@
                   <v-list-item>
                     <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
                   </v-list-item>
-                  <v-list-item>                    
+                  <v-list-item >                    
                     <v-list-item-title class="not-home"><router-link to="/myteam">나의 팀 관리</router-link></v-list-item-title>
                   </v-list-item>
                   <v-list-item>
@@ -166,6 +166,7 @@ export default {
 
 <style scoped>
   .not-home > a { 
+    position: relative;
     text-decoration: none;
     color: rgb(92, 107, 192);
     margin-right: 2rem;

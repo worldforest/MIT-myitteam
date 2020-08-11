@@ -54,9 +54,10 @@ export default {
     },
     setCommunity(state, res) {
         state.community = res
-			if (state.followerList.includes(state.email)) {
-					state.followflag = true
-			}
+        state.tagData = res
+			// if (state.followerList.includes(state.email)) {
+			// 		state.followflag = true
+			// }
     },
     GETTEAMDATA(state, res) {
       state.getTeamList = res
@@ -70,9 +71,12 @@ export default {
         console.log(res)
         router.push({ name: "ProjectDetail" })
     },
-    goTeam() {
-        // state.teamreg = res
-        router.push({name:'ProjectRegister'})
+    goTeam(state) {
+        if (state.email) {   
+            router.push({name:'ProjectRegister'})
+        } else {
+            alert('로그인이 필요한 서비스입니다!')
+        }
     },
     getAllContest(state, res) {
         state.allContest = res
@@ -84,4 +88,13 @@ export default {
         state.pwdToken = res
         router.push({name:'ChangePwd'})
     },
+    updateProfile(state, res) {
+        state.updateProfile = res
+        router.push({name: "UpdateProfile"})
+    },
+    setTag(state, data) {
+        state.tagData = data.res
+        state.keyword = data.keyword
+        router.push({name: "searchTag"})
+    }
 }

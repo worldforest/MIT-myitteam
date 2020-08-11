@@ -33,6 +33,9 @@ const state = {
     isFlag: true,
     applyLeader: [],
     pwdToken: '',
+    updateProfile: [],
+    tagData: [],
+    keyword: '',
 }
 
 export default new Vuex.Store({

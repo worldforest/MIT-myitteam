@@ -3,12 +3,14 @@ import router from '@/router'
 import cookies from 'vue-cookies'
 import 'url-search-params-polyfill'
 // import { apply } from 'core-js/fn/reflect'
+import Swal from 'sweetalert2'
+
 
 const SERVER_URL = 'http://localhost:9999/mit'
-// const SERVER_URL = 'http://i3b306.p.ssafy.io/mit'
+// const SERVER_URL = 'http:/i3b306.p.ssafy.io:9999/mit'
 
 export default {
-	postToken({ commit }, info) {
+	postToken2({ commit }, info) {
 		const params = new URLSearchParams();
 		params.append('email', info.data.email);
 		params.append('pwd', info.data.pwd);
@@ -19,15 +21,27 @@ export default {
 				cookies.set('auth-email', response.data.email)
 				router.go({ name: "Home" })
 			})
-			.catch(error => console.log(error.response.data))
 	},
 
-	login({ dispatch }, loginData) {
-		const info = {
-			data: loginData
-		}
-
-		dispatch('postToken', info)
+	login(context, loginData) {
+		const params = new URLSearchParams();
+		params.append('email', loginData.email);
+		params.append('pwd', loginData.pwd);
+		axios.post(`${SERVER_URL}/api/user/login/`, params)
+			.then(response => {
+				context.commit('SET_TOKEN', response.data.token)
+				// commit('GET_EMAIL', response.data.email)
+				cookies.set('auth-email', response.data.email)
+				router.go({ name: "Home" })
+			})
+			.catch(() => {
+				Swal.fire({
+					icon: 'error',
+					title: '로그인 실패',
+					text: '아이디 혹은 비밀번호를 확인해주세요.',
+					footer: '회원이 아니신가요?<a href="/signup">   가입하기   </a>'
+				})
+			})
 	},
 	logout() {
 		cookies.remove('auth-token')
@@ -41,7 +55,7 @@ export default {
 		router.go({ name: "Home" })
 	},
 	postSignup({ dispatch }, signupInfo) {
-		axios.post(`${SERVER_URL}/api/user/join`, signupInfo.data)
+		axios.post("http://localhost:9999/mit/api/user/join", signupInfo.data)
 			.then(() => {
 				const loginInfo = {
 					data: {
@@ -49,17 +63,64 @@ export default {
 						pwd: signupInfo.data.pwd
 					}
 				}
-				dispatch("postToken", loginInfo)
+				dispatch("postToken2", loginInfo)
 			})
 			.catch(() => {
 				alert("사용중인 아이디가 존재합니다.");
 			})
 	},
 	signup({ dispatch }, signupData) {
-		const signupInfo = {
-			data: signupData
-		}
-		dispatch('postSignup', signupInfo)
+		if (signupData.email.length < 6) {
+			Swal.fire({
+				icon: 'error',
+				title: '이메일을 입력하지 않았습니다.',
+			})
+		} else if ((signupData.pwd !== signupData.pwd2) || signupData.pwd === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '비밀번호가 일치하지 않습니다.',
+			})
+		} else if (signupData.name === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '이름을 입력해주세요.',
+			})
+		} else if (signupData.nickname === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '닉네임을 입력해주세요.',
+			})
+		} else if (signupData.age === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '나이를 입력해주세요.',
+			})
+		} else if (signupData.gender === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '성별을 입력해주세요.',
+			})
+		} else if (signupData.major === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '전공을 입력해주세요.',
+			})
+		} else if (signupData.description === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '소개를 입력해주세요.',
+			})
+		} else if (signupData.address === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '주소를 입력해주세요.',
+			})
+		} else {
+			const signupInfo = {
+				data: signupData
+			}
+			dispatch('postSignup', signupInfo)
+		}		
 	},
 	checkNickname(context, nickname) {
 		console.log(context)
@@ -68,7 +129,7 @@ export default {
 			const nick = {
 				data: nickname
 			}
-			axios.get(`${SERVER_URL}/api/user/checkNickname/${nick.data}`)
+			axios.get(`http://localhost:9999/mit/api/user/checkNickname/${nick.data}`)
 				.then(() => {
 					alert('사용가능한 별명입니다')
 				})
@@ -251,7 +312,6 @@ export default {
 		params.append('following', context.state.userprofiledata.feeds[0].email)
 		axios.post(`${SERVER_URL}/api/follow/follow`, params)
 				.then(() => {
-		context.commit('conffollowflag')
 		context.dispatch('follwerCnt', context.state.userprofiledata.feeds[0].email)
 		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
 				})
@@ -294,7 +354,6 @@ export default {
 		params.append('following', res)
 		axios.post(`${SERVER_URL}/api/follow/unfollow`, params)
 		.then(() => {
-			context.commit('conffollowflag')
 			context.dispatch('myFollowerList', res)
 			context.dispatch('follwerCnt', context.state.email)
 		})
@@ -310,7 +369,6 @@ export default {
 		})
 	},
 	searchFeed(context) {
-		console.log(`${SERVER_URL}`)
 		axios.post(`${SERVER_URL}/api/feed/search`)
 			.then((response) => {
 				context.commit('setCommunity', response.data)
@@ -323,6 +381,19 @@ export default {
 		axios.post(`${SERVER_URL}/api/feed/search`, params)
 			.then((response) => {
 				context.commit('setCommunity', response.data)
+			})
+	},
+
+	searchTagFeed(context, res) {
+		var params = new URLSearchParams();
+		params.append('tag', res)
+		axios.post(`${SERVER_URL}/api/feed/search`, params)
+			.then((response) => {
+				const data = {
+					res: response.data,
+					keyword: res
+				}
+				context.commit('setTag', data)
 			})
 	},
 

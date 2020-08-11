@@ -1,5 +1,17 @@
 <template>
   <div>
+    <v-row class="d-flex justify-center"> 
+      <v-col sm="4" >
+        <v-text-field
+          v-model="searchData.search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line="true"
+          hide-details
+          @keypress.enter="searchTagFeed(searchData.search)"           
+        ></v-text-field>
+      </v-col>
+    </v-row>
 
     <!-- /////////////////////////////    화면이 가장 클 때    //////////////////////////////////////// -->
 
@@ -8,7 +20,7 @@
         <h1>공모전</h1>
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" style="width:100%">
           <slide v-for="club in clubs" :key="club.no">
-            <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor">
+            <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
                     {{ club.title.slice(0,15)}}...
@@ -30,7 +42,7 @@
         <h1>공모전</h1>
         <carousel :per-page="1.5" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club in clubs" :key="club.no">
-            <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor">
+            <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
                     {{ club.title.slice(0,15)}}...
@@ -52,7 +64,7 @@
         <h1>공모전</h1>
         <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club in clubs" :key="club.no">
-            <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor">
+            <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 75%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
                     {{ club.title.slice(0,15)}}...
@@ -143,7 +155,7 @@
         <div class="center">
           <button @click="searchFeed()">전체 게시글</button>
         </div>
-        <div class="right">
+        <div class="right" v-if="email">
           <button @click="searchFollowFeed(email)">팔로우 게시물</button>
         </div>
       </div>
@@ -216,7 +228,7 @@ export default {
 
   methods: {
     ...mapMutations(['feedDetail', 'gongmoDetail', 'projectDetail']),
-    ...mapActions(['getContestData', 'searchFeed', 'myFollowList', 'searchFollowFeed', 'profile', 'getTeamData']),
+    ...mapActions(['getContestData', 'searchFeed', 'myFollowList', 'searchFollowFeed', 'profile', 'getTeamData', 'searchTagFeed']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
