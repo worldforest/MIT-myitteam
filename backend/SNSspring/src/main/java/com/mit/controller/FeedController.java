@@ -33,7 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mit.algorithm.Path;
 import com.mit.algorithm.Token;
 import com.mit.dto.Feed;
-import com.mit.dto.Follow;
+import com.mit.dto.Feedlike;
 import com.mit.dto.User;
 import com.mit.returnDto.PrivateFeed;
 import com.mit.service.FeedService;
@@ -44,7 +44,6 @@ import com.mit.service.FeedscrapService;
 import com.mit.service.FeedtagService;
 import com.mit.service.FollowService;
 import com.mit.service.UserService;
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -114,14 +113,14 @@ public class FeedController {
 		if (feedService.insert(feed)) {
 			// 파일 업로드 끝
 			if (file != null && !file.isEmpty()) {
-				File dest = new File(path.getIm()+"images/feed/" + sb.toString());
+				File dest = new File(path.getIm() + "images/feed/" + sb.toString());
 				try {
 					file.transferTo(dest);
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
-				} 	
+				}
 				// db에 파일 위치랑 번호 등록
 			}
 		} else {
@@ -148,7 +147,7 @@ public class FeedController {
 	public ResponseEntity<byte[]> userSearch(@PathVariable("imagename") String imagename) throws IOException {
 		System.out.println("test");
 
-		InputStream imageStream = new FileInputStream(path.getIm()+"images/feed/" + imagename);
+		InputStream imageStream = new FileInputStream(path.getIm() + "images/feed/" + imagename);
 		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
 		imageStream.close();
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
@@ -169,10 +168,10 @@ public class FeedController {
 		privateFeedDto.setDescription(user.getDescription());
 		privateFeedDto.setAddress(user.getAddress());
 
-		privateFeedDto.setSrc(path.getPath()+"/mit/api/user/image/" + user.getSrc());
+		privateFeedDto.setSrc(path.getPath() + "/mit/api/user/image/" + user.getSrc());
 		List<Feed> feeds = feedService.selectEmail(email);
 		for (int i = 0; i < feeds.size(); i++) {
-			feeds.get(i).setSrc(path.getPath()+"/mit/api/feed/image/" + feeds.get(i).getSrc());
+			feeds.get(i).setSrc(path.getPath() + "/mit/api/feed/image/" + feeds.get(i).getSrc());
 		}
 		Collections.sort(feeds);
 		privateFeedDto.setFeeds(feeds);
@@ -241,10 +240,49 @@ public class FeedController {
 		}
 
 		for (int i = 0; i < feeds.size(); i++) {
-			feeds.get(i).setSrc(path.getPath()+"/mit/api/feed/image/" + feeds.get(i).getSrc());
+			feeds.get(i).setSrc(path.getPath() + "/mit/api/feed/image/" + feeds.get(i).getSrc());
 		}
 
 		return new ResponseEntity<List<Feed>>(feeds, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "feed 좋아요", notes = "해당 피드 번호 no, 좋아요 누르는 사람의 email")
+	@PostMapping("feedlike")
+	public ResponseEntity<String> feedlike(@RequestParam String no, @RequestParam String email) {
+		Feedlike feedlike = new Feedlike();
+		feedlike.setNo(no);
+		feedlike.setEmail(email);
+		if (feedlikeService.insert(feedlike)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
+
+	@ApiOperation(value = "feed 좋아요 취소", notes = "해당 피드 번호 no, 좋아요 누르는 사람의 email")
+	@PostMapping("feedunlike")
+	public ResponseEntity<String> feedunlike(@RequestParam String no, @RequestParam String email) {
+		Feedlike feedlike = new Feedlike();
+		feedlike.setNo(no);
+		feedlike.setEmail(email);
+		if (feedlikeService.delete(feedlike)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
+
+	@ApiOperation(value = "feed 좋아요 개수", notes = "해당 피드 번호 no")
+	@PostMapping("feedlikeCnt")
+	public ResponseEntity<Integer> feedlikeCnt(@RequestParam String no) {
+
+		return new ResponseEntity<Integer>(feedlikeService.select(no), HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "feed 좋아요한 사람 명단", notes = "해당 피드 번호 no")
+	@PostMapping("feedlikeUser")
+	public ResponseEntity<List<String>> feedlikeUser(@RequestParam String no) {
+		List<String> feedlikeuser = feedlikeService.selectAll(no);
+
+		return new ResponseEntity<List<String>>(feedlikeuser, HttpStatus.OK);
 	}
 
 }
