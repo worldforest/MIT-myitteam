@@ -59,7 +59,7 @@
 
          <v-col class="text-center mx-auto">
           <div class="my-2">
-            <v-btn depressed x-large class="white--text" color="#5C6BC0">가입하기</v-btn>
+            <v-btn depressed x-large class="white--text" color="#5C6BC0">수정하기</v-btn>
           </div>
         </v-col>
 

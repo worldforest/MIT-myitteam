@@ -20,6 +20,7 @@ import AllContest from '@/views/AllContest.vue'
 import Chat from '@/views/Chat.vue'
 import ChangePwd from '@/views/ChangePwd.vue'
 import UpdateProfile from '@/views/UpdateProfile.vue'
+import searchTag from '@/views/searchTag.vue'
 
 
 Vue.use(VueRouter)
@@ -127,6 +128,11 @@ Vue.use(VueRouter)
     path: '/updateprofile',
     name: 'UpdateProfile',
     component: UpdateProfile,
+  },
+  {
+    path: '/searchtag',
+    name: 'searchTag',
+    component: searchTag,
   },
   //////////지훈////////////
   {

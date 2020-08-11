@@ -6,6 +6,8 @@ import com.mit.dto.Member;
 
 public interface MemberRepo {
 	public List<Member> select(String no, String leaderemail);
+	
+	public int memberCnt(String no, String leaderemail);
 
 	public boolean delete(String no, String leaderemail, String teamemail);
 

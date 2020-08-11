@@ -35,6 +35,8 @@ const state = {
     pwdToken: '',
     updateProfile: [],
     dates: [],
+    tagData: [],
+    keyword: '',
 }
 
 export default new Vuex.Store({

@@ -23,13 +23,7 @@
             >
             </v-img>
 
-            <v-card-subtitle class="pb-0">{{i.title}}</v-card-subtitle>
-
-            <v-card-text class="text--primary">
-              <div>
-                {{i.description.slice(0,15)}}...
-              </div>
-            </v-card-text>
+            <v-card-subtitle class="pb-0"><h4>{{i.title.slice(0,15)}}...</h4></v-card-subtitle>
 
             <v-card-actions>
               <v-btn

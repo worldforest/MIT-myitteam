@@ -8,7 +8,7 @@
           label="Search"
           single-line="true"
           hide-details
-          @keypress.enter="tagSearch()"           
+          @keypress.enter="searchTagFeed(searchData.search)"           
         ></v-text-field>
       </v-col>
     </v-row>
@@ -17,16 +17,21 @@
 
     <div v-if="windowWidth >= 1064">
       <div class="mt-6">
-        <h1>공모전</h1>
+        <h1 @click="goContest" class="Pjt_h1">공모전</h1>
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" style="width:100%">
           <slide v-for="club in clubs" :key="club.no">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
               <b-card-text @click="gongmoDetail(club)">
+<<<<<<< HEAD
+                <div v-if="club.title.length >= 10" >
+                    {{ club.title.slice(0,10)}}...
+=======
                 <div v-if="club.title.length >= 15" >
-                    {{ club.title.slice(0,15)}}...
+                    <h5>{{ club.title.slice(0,13)}}...</h5>
+>>>>>>> b494e51a63d3a94f2bd43a85c05be4c457e3b8ac
                 </div>
                 <div v-else>
-                    {{ club.title }}
+                    <h5>{{ club.title }}</h5>
                 </div>
               </b-card-text>
             </b-card>
@@ -45,10 +50,10 @@
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
-                    {{ club.title.slice(0,15)}}...
+                    <h6>{{ club.title.slice(0,15)}}...</h6>
                 </div>
                 <div v-else>
-                    {{ club.title }}
+                    <h6>{{ club.title }}</h6>
                 </div>
               </b-card-text>
             </b-card>
@@ -67,10 +72,10 @@
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 75%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
-                    {{ club.title.slice(0,15)}}...
+                    <h4>{{ club.title.slice(0,15)}}...</h4>
                 </div>
                 <div v-else>
-                    {{ club.title }}
+                    <h4>{{ club.title }}</h4>
                 </div>
               </b-card-text>
             </b-card>
@@ -83,19 +88,21 @@
     <!-- /////////////////////////////    화면이 클 때     //////////////////////////////////////// -->
 
     <div>
-      <h1>프로젝트</h1>
+      <h1 @click="goPJT" class="Pjt_h1">프로젝트</h1>
       <div v-if="windowWidth >= 1064">      
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
             <!-- {{ club2 }} -->
-            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2); getTeamData(club2.no)">
+            <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
-                    {{ club2.title.slice(0,15)}}...
+                    <h3 class="mt-3 title">{{ club2.title.slice(0,8)}}...</h3>
                 </div>
                 <div v-else>
-                    {{ club2.title }}
+                  <h3 class="mt-3 title">{{ club2.title }}</h3>
                 </div>
+                <hr class="hrr">
+                <p class="date"> {{ club2.start }} ~ {{ club2.end }} </p>
               </b-card-text>
             </b-card>
           </slide>
@@ -108,14 +115,16 @@
       <div v-else-if="400 > windowWidth">
         <carousel :per-page="1.5" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
-            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2); getTeamData(club2.no)">
+            <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
-                    {{ club2.title.slice(0,15)}}...
+                    <h4 class="title mt-3">{{ club2.title.slice(0,8)}}...</h4>
                 </div>
                 <div v-else>
-                    {{ club2.title }}
+                  <h4 class="title mt-3">{{ club2.title }}</h4>
                 </div>
+                <hr class="hrr">
+                <p class="date"> {{ club2.start }} ~ {{ club2.end }} </p>
               </b-card-text>
             </b-card>
           </slide>
@@ -128,14 +137,16 @@
       <div v-else>
         <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
-            <b-card :img-src="club2.imagesrc" img-alt="Image" img-top tag="article" class="cursor" @click="projectDetail(club2); getTeamData(club2.no)">
+            <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
-                    {{ club2.title.slice(0,15)}}...
+                    <h3 class="title mt-3">{{ club2.title.slice(0,8)}}...</h3>
                 </div>
                 <div v-else>
-                    {{ club2.title }}
+                  <h3 class="title mt-3">{{ club2.title }}</h3>
                 </div>
+                <hr class="hrr">
+                <p class="date"> {{ club2.start }} ~ {{ club2.end }} </p>
               </b-card-text>
             </b-card>
           </slide>
@@ -222,10 +233,16 @@ export default {
 
   methods: {
     ...mapMutations(['feedDetail', 'gongmoDetail', 'projectDetail']),
-    ...mapActions(['getContestData', 'searchFeed', 'myFollowList', 'searchFollowFeed', 'profile', 'getTeamData']),
+    ...mapActions(['getContestData', 'searchFeed', 'myFollowList', 'searchFollowFeed', 'profile', 'getTeamData', 'searchTagFeed']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
+    goPJT(){
+      this.$router.push('/projectlist')
+    },
+    goContest(){
+      this.$router.push('/allcontest')
+    }
   },
 
   computed: {
@@ -297,4 +314,28 @@ export default {
     margin: 0 3%;
   }
 
+  .homeCard{
+    height: 200px;
+    text-align: center;
+    margin: auto ;
+    border-top: thick solid rgb(92, 107, 192);
+  }
+
+  .date{
+    color: black;
+  }
+
+  .hrr{
+    width: 200px;
+    margin: 1.5rem auto;
+  }
+
+  .title{
+    color: rgb(92, 107, 192);
+    font-weight: bold;
+  }
+
+  .Pjt_h1{
+    cursor: pointer;
+  }
 </style>

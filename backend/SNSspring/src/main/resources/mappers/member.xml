@@ -7,6 +7,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select *
 		from member where no = #{no} and leaderemail = #{leaderemail}
 	</select>
+	
+	<select id="memberCnt" parameterType="String" resultType="member">
+		select count(*)
+		from member where no = #{no} and leaderemail = #{leaderemail}
+	</select>
 
 	<insert id="insert" parameterType="member">
 		insert into
