@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- {{ saveInfo.leaderemail }} -->
+    {{ saveInfo.applymembers }}
     <v-card v-for="apply in saveInfo.applymembers" :key="apply"
       class="mx-auto"
       max-width="400"
@@ -15,7 +15,7 @@
         <v-btn
           color="orange"
           text
-          @click="agree"
+          @click="selectMember(apply)"
         >
           수락
         </v-btn>
@@ -80,7 +80,7 @@ export default {
     ...mapState(['myTeamInfo', 'dates', 'email']),
   },
   methods : {
-    ...mapActions(['getTeamInfo', 'postDate']),
+    ...mapActions(['getTeamInfo', 'postDate', 'selectMember']),
     plusMember () {
     }
    },

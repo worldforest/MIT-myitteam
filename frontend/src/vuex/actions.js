@@ -368,7 +368,7 @@ export default {
 		.then(() => {
 			context.dispatch('myFollowerList', res)
 			context.dispatch('follwerCnt', context.state.email)
-		})
+		})	
 		.catch(error => console.log(error.response.data))
 	},
 
@@ -460,6 +460,19 @@ export default {
 		axios.post(`${SERVER_URL}/api/team/insetSchedule`, dateinfo)
 		.then(response =>{
 			console.log(response)
+		})
+	},
+	selectMember (context, apply) {
+		console.log(apply)
+		const params = new URLSearchParams();
+		params.append('leaderemail', apply.leaderemail)
+		params.append('no', apply.no)
+		params.append('part', apply.part)
+		params.append('teamemail', apply.teamemail)
+		axios.post(`${SERVER_URL}/api/team/selectMember`, params)
+		.then(response => {
+			console.log(response)
+			router.push({name : 'Myteaminfo'})
 		})
 	}
 
