@@ -18,20 +18,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where no=#{no} and leaderemail=#{leaderemail}
 	</select>
 
-	<update id="update" parameterType="teaminfo">
+	<select id="selectHeadcount" parameterType="String"
+		resultType="String">
+		select headcount
+		from teaminfo
+		where no=#{no} and
+		leaderemail=#{leaderemail} and part=#{part}
+	</select>
+
+	<update id="update" parameterType="String">
 		update teaminfo
 		set
-		part=#{part},
-		task=#{task},
-		ability=#{ability},
-		advantage=#{advantage},
 		headcount=#{headcount}
 		where no=#{no} and leaderemail=#{leaderemail}
+		and part=#{part}
 	</update>
-
-	<delete id="delete" parameterType="teaminfo">
-		delete from teaminfo
-		where no=#{no} and leaderemail=#{leaderemail} and part=#{part}
-	</delete>
 
 </mapper>

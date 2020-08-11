@@ -10,7 +10,9 @@ public interface TeaminfoService {
 
 	public List<Teaminfo> select(String no, String leaderemail);
 	
-	public boolean update(Teaminfo teaminfo);
+	public String selectHeadcount(String no, String leaderemail, String part);
+	
+	public boolean update(String no, String leaderemail, String part, String headcount);
 
 	public boolean delete(Teaminfo teaminfo);
 }

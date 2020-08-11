@@ -34,4 +34,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepo.selectEmail(email);
 	}
 
+	@Override
+	public int memberCnt(String no, String leaderemail) {
+		return memberRepo.memberCnt(no, leaderemail);
+	}
+
 }
