@@ -6,14 +6,6 @@
         <div>
           <img  v-if="userprofiledata.src" :src="userprofiledata.src" class="box" style="width:150px; height:150px;">
         </div>
-        <div class="filebox ml-4"> 
-          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
-          <input 
-            type="file" 
-            id="ex_file"
-            accept="image/*"
-            @change="onChange">
-        </div>
       </v-col>
       
       <v-col col="10" sm="10" class="fg2">
@@ -45,7 +37,7 @@
           <span class="mx-auto"><h4>팔로워| {{ followerList.length }}명</h4></span>
         </div>
         <div class="d-flex ml-5">
-          {{ userprofiledata.description }}
+          <span> <h3>{{ userprofiledata.description }} 개발자</h3> </span>
           <br>
           
         </div>
@@ -56,14 +48,6 @@
       <v-col col="2" sm="2" class="fg1 mr-6">
         <div class="pf-box">
           <img  v-if="userprofiledata.src" :src="userprofiledata.src" class="box" style="width:150px; height:150px;">
-        </div>
-        <div class="filebox ml-4"> 
-          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
-          <input 
-            type="file" 
-            id="ex_file"
-            accept="image/*"
-            @change="onChange">
         </div>
       </v-col>
       
@@ -95,7 +79,7 @@
           <span class="mx-auto">팔로워| {{ followerList.length }}명</span>
         </div>
         <div class="d-flex ml-5">
-          {{ userprofiledata.description }}
+           <span> <h4>{{ userprofiledata.description }} 개발자</h4> </span>
           <br>
           
         </div>
@@ -106,14 +90,6 @@
       <v-col col="2" sm="2" class="fg1 mr-6">
         <div class="pf-box">
           <img  v-if="userprofiledata.src" :src="userprofiledata.src" class="box2" style="width:77px; height:77px;">
-        </div>
-        <div class="filebox ml-4"> 
-          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px"></label>
-          <input 
-            type="file" 
-            id="ex_file"
-            accept="image/*"
-            @change="onChange">
         </div>
       </v-col>
       
@@ -142,8 +118,8 @@
         </div>
       </v-col>
     </v-row>
-    <span v-if="windowWidth < 788">{{ userprofiledata.description }}</span>
-    <hr>
+    <span v-if="windowWidth < 788">{{ userprofiledata.description }} 개발자</span>
+    <hr v-if="windowWidth < 788">
     <v-row v-if="windowWidth < 788">
       <v-col cols="6">
         <h4>팔로우| {{ userprofiledata.followingCnt }}명 </h4>

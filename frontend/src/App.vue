@@ -9,8 +9,10 @@
             <img id="logo" src="./images/1.jpg" alt="logo">
           </router-link>
           <div class="not-home">
-            <router-link class="ml-3 mr-4" to="/AllContest">공모전</router-link>
-            <router-link class="mr-5" to="/projectlist">프로젝트</router-link>
+            <v-row>
+              <router-link class="ml-3 mr-4 nav_a" to="/AllContest"><h4>공모전</h4></router-link>
+              <router-link class="mr-5 nav_a" to="/projectlist"><h4>프로젝트</h4></router-link>
+            </v-row>
           </div>
           <div class="spacer"></div>
           <!--로그인 안 된 상태-->
@@ -97,6 +99,7 @@
       </div>
     </v-app>
   </div>
+
 </template>
 
 <script>
@@ -165,7 +168,22 @@ export default {
 </script>
 
 <style scoped>
+  @font-face {
+    font-family: myFont;
+    src: url("./font/BMJUA_ttf.ttf");
+  }
+
+  *{ font-family: myFont, sans-serif; }
+
   .not-home > a { 
+    /* position: relative; */
+    text-decoration: none;
+    color: rgb(92, 107, 192);
+    margin-right: 2rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+  .nav_a{
     position: relative;
     text-decoration: none;
     color: rgb(92, 107, 192);

@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h2>{{ pwdToken }} </h2>
-    {{ pwdData }}
-
     <h2 class="text-center mt-2">비밀번호 변경</h2>
     <div>
       <h3 class="ml-4">변경할 비밀번호 : </h3>

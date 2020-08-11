@@ -41,14 +41,6 @@
         <div class="pf-box">
           <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
         </div>
-        <div class="filebox ml-4"> 
-          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
-          <input 
-            type="file" 
-            id="ex_file"
-            accept="image/*"
-            @change="onChange">
-        </div>
       </v-col>
       
       <v-col col="10" sm="10" class="fg2">
@@ -61,7 +53,12 @@
         </div>
         <div class="d-flex ml-5">
           <br>
-          <span> {{ profileData.description }} 개발자 </span>
+          <span> <h4>{{ profileData.description }} 개발자</h4> </span>
+        </div>
+        <div class="d-flex">
+          <div class="ml-auto TeamButton cursor" style="color:white" @click="updateProfile(profileData)">
+            <img src="@/assets/edit.png" alt="" style="width:10px" class="mr-2" >프로필 수정
+          </div>
         </div>
       </v-col>
     </v-row>
@@ -71,23 +68,20 @@
         <div class="pf-box">
           <img  v-if="profileData.src" :src="profileData.src" class="box2" style="width:77px; height:77px;">
         </div>
-        <div class="filebox ml-4"> 
-          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px"></label>
-          <input 
-            type="file" 
-            id="ex_file"
-            accept="image/*"
-            @change="onChange">
-        </div>
       </v-col>
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
           <h4 class="ml-5">{{ profileData.nickname }}</h4>
+          <span>{{ profileData.description }}개발자</span>
+        </div>
+        <div class="d-flex">
+          <div class="ml-auto TeamButton2 cursor mt-2" style="color:white" @click="updateProfile(profileData)">
+            <img src="@/assets/edit.png" alt="" style="width:10px" class="mr-2" >프로필 수정
+          </div>
         </div>
       </v-col>
     </v-row>
-    <span v-if="windowWidth < 788">{{ profileData.description }}개발자</span>
     <hr v-if="windowWidth < 788">
     <v-row v-if="windowWidth < 788">
       <v-col cols="6">
@@ -238,4 +232,28 @@ export default {
     text-decoration: none;
     border-radius: 0.5rem;
   }
+
+  .cursor {
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .TeamButton {
+    text-decoration: none;
+    background-color: rgb(92, 107, 192);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+
+  .TeamButton2 {
+    text-decoration: none;
+    background-color: rgb(92, 107, 192);
+    padding: 0.5rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.5rem;
+    font-weight: bold;
+  }
+
 </style>

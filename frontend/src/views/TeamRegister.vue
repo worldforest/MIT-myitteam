@@ -78,12 +78,13 @@
                     <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-
-                <v-row>
+                
+                <!-- 보류 !!!!!!! -->
+                <!-- <v-row>
                   <v-spacer></v-spacer>
                   <v-btn class="white--text mr-3" color="green" @click="updateCardSave(item); updateCard(updateData);"> 수정하기 </v-btn>
                   <v-btn class="white--text mr-3" color="red" @click="deleteCardSave(item); deleteCard(deleteData);"> 삭제하기 </v-btn>
-                </v-row>
+                </v-row> -->
               </v-card>
             </v-col>
           </li>
@@ -186,7 +187,7 @@
   <!--400보다 작을 때-->
   <div v-if="windowWidth < 400">
     <div id="card-apply" class="py-5 px-3 my-8 cont730" outlined>
-      <h3 class="text-center mb-5 h1-apply">공모전 팀원을 구해보세요 :)</h3>
+      <h4 class="text-center mb-5 h1-apply">공모전 팀원을 구해보세요 :)</h4>
       <div>
         <h3 class="ml-4">지역 : </h3>
           <v-col class="d-flex mx-auto" cols="12" md="11">
@@ -329,7 +330,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['teamregister', 'updateCard', 'deleteCard']),
+    ...mapActions(['teamregister', 'updateCard', 'deleteCard', 'getTeamData']),
     addApply(Data){
       this.applyData.dataList = [...this.applyData.dataList, Data]
     },
@@ -361,13 +362,17 @@ export default {
     })
   },
   computed : {
-    ...mapState(['email',]),
+    ...mapState(['email', 'getTeamList']),
   },
 
 }
 </script>
 
-<style>
+<<<<<<< HEAD
+<style scoped>
+=======
+<style scoped >
+>>>>>>> b494e51a63d3a94f2bd43a85c05be4c457e3b8ac
   #card-apply {
     border:1px solid rgb(92, 107, 192);
   }
