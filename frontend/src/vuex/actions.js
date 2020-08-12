@@ -397,7 +397,7 @@ export default {
 		.then(() => {
 			context.dispatch('myFollowerList', res)
 			context.dispatch('follwerCnt', context.state.email)
-		})
+		})	
 		.catch(error => console.log(error.response.data))
 	},
 
@@ -474,16 +474,55 @@ export default {
 				context.commit('getAllContest', data)
 			})
 	},
+<<<<<<< HEAD
+=======
 
 
 	/////////지훈////////////////
+>>>>>>> 02fbc0c74f803c513a0784fdad904e5b21c7ec07
 	getTeamInfo(context) {
 		const params = new URLSearchParams();
 		params.append('email', context.state.email)
 		axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
 		.then(response => {
+			sessionStorage.setItem('myTeam', JSON.stringify(response.data))
 			context.commit('myTeamInfo', response.data)
+			// context.commit('myTeamInfo', res)
 		})
+	},
+	postDate (context, dateinfo) {
+		console.log(dateinfo)
+		axios.post(`${SERVER_URL}/api/team/insetSchedule`, dateinfo)
+		.then(response =>{
+			console.log(response)
+		})
+	},
+	selectMember ({dispatch}, apply) {
+		console.log(apply)
+		const params = new URLSearchParams();
+		params.append('leaderemail', apply.leaderemail)
+		params.append('no', apply.no)
+		params.append('part', apply.part)
+		params.append('teamemail', apply.teamemail)
+		axios.post(`${SERVER_URL}/api/team/selectMember`, params)
+		.then(response => {
+			console.log(response)
+			dispatch('getTeamInfo')
+			router.push({name : 'Myteaminfo'})
+		})
+	},
+	deleteMember ({dispatch}, apply) {
+		const params = new URLSearchParams();
+		params.append('leaderemail', apply.leaderemail)
+		params.append('no', apply.no)
+		params.append('part', apply.part)
+		params.append('teamemail', apply.teamemail)
+		axios.post(`${SERVER_URL}/api/team/deleteMember`, params)
+		.then(response => {
+			console.log(response)
+			dispatch('getTeamInfo')
+		})
+		router.go({name:'Myteaminfo'})
 	}
 }
 

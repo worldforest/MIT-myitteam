@@ -1,9 +1,10 @@
 <template>
   <div>
-    <v-card v-for="info in myTeamInfo" :key="info"  
+    {{ myTeamInfo }}
+    <v-card v-for="info in this.$store.state.myTeamInfo" :key="info"  
     class="mx-auto"
     max-width="400"
-  >
+    >
     <v-img
       class="white--text align-end"
       height="200px"
@@ -21,12 +22,9 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn
-        color="orange"
-        text
-      >
+      <router-link :to="{name: 'Myteaminfo', params : {id:info.no}}">
         Share
-      </v-btn>
+      </router-link >
 
       <v-btn
         color="orange"
@@ -40,7 +38,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'Myteam',
@@ -50,22 +48,16 @@ export default {
     }
   },
   methods :{
-    checkDate (date) {
-      this.day = date
-      console.log(this.day)
-      this.day.time
-      },
-    ...mapActions(['getTeamInfo'])
+    ...mapActions(['getTeamInfo']),
+    ...mapMutations(['myTeamInfo'])
   },
   computed : {
-    ...mapState(['myTeamInfo'])
+    ...mapState(['myTeamInfo', 'saveInfo'])
   },
   mounted () {
-    console.log(this.info)
-    // this.email = this.$store.state.email
-    this.getTeamInfo()
+    this.$store.state.myTeamInfo = JSON.parse(sessionStorage.getItem('myTeam')) 
   }
-}
+ }
 </script>
 
 <style>

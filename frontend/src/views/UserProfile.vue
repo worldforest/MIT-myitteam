@@ -1,3 +1,6 @@
+	
+김지훈[대전3반B306]
+오후 1:59
 <template>
   <div  class="cont10">
     <v-row v-if="windowWidth >= 1270">
