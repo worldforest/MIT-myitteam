@@ -39,4 +39,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where
 		no=#{no}
 	</delete>
+	
+	<update id="viewsplus" parameterType="String">
+		update contents set views = views + 1 where no = #{no}
+	</update>
 </mapper>

@@ -71,9 +71,14 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	@Override
-	public Feed slectnoemail(String no,String email) {
+	public Feed slectnoemail(String no, String email) {
 		// TODO Auto-generated method stub
-		return slectnoemail(no,email);
+		return feedRepo.slectnoemail(no, email);
+	}
+
+	@Override
+	public boolean viewsplus(String no) {
+		return feedRepo.viewsplus(no);
 	}
 
 }
