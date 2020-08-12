@@ -206,14 +206,15 @@ public class TeamController {
 
 		// email이 속한 모든 멤버를 가져온다 여기서 no 와 leaderemail를 서치한다 이것을 기준으로 필요한 데이터를 만든다.
 		List<Member> members = memberService.selectEmail(email);
-
 		for (Member member : members) {
 			String no = member.getNo();
 			String leaderemail = member.getLeaderemail();
 			Team team = teamService.selectnoemail(no, leaderemail);
 			Contents contents = contentsService.selectOne(no);
+			int allCount = teaminfoService.countHead(no, leaderemail);
 
 			TeamDto teamDto = new TeamDto();
+			teamDto.setAllCnt(String.valueOf(allCount));
 			teamDto.setCategory(contents.getCategory() + "");
 			teamDto.setDescription(team.getDescription());
 			teamDto.setEnd(contents.getEnd());
@@ -268,14 +269,6 @@ public class TeamController {
 		member.setPart(part);
 		member.setMemberemail(teamemail);
 		memberService.insert(member);
-
-//		//teaminfo.setHeadcount(getHedcount()-1);
-//		//teaminfo에서 그 part의 headcount
-		String headcount = teaminfoService.selectHeadcount(no, leaderemail, part);
-		System.out.println(headcount);
-		int curr = Integer.parseInt(headcount) - 1;
-		System.out.println(curr);
-		teaminfoService.update(no, leaderemail, part, curr + "");
 
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}

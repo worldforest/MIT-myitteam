@@ -38,4 +38,9 @@ public class TeaminfoServiceImpl implements TeaminfoService {
 		return teaminfoRepo.selectHeadcount(no, leaderemail, part);
 	}
 
+	@Override
+	public int countHead(String no, String leaderemail) {
+		return teaminfoRepo.countHead(no, leaderemail);
+	}
+
 }

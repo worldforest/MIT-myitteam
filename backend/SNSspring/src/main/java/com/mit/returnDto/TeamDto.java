@@ -32,6 +32,16 @@ public class TeamDto {
 	String imagesrc;
 	// 공모전 관련 URL
 	String url;
+	// 역할별 총수
+	String allCnt;
+
+	public String getAllCnt() {
+		return allCnt;
+	}
+
+	public void setAllCnt(String allCnt) {
+		this.allCnt = allCnt;
+	}
 
 	// applymembers 대기자 명단
 	List<Applymember> applymembers;
