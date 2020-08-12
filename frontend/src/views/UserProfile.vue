@@ -3,8 +3,6 @@
 오후 1:59
 <template>
   <div  class="cont10">
-    {{ user }}
-
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
@@ -21,7 +19,7 @@
               v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
-              @click="follow()"
+              @click="follow(user)"
             >
               팔로우
             </v-btn>
@@ -63,7 +61,7 @@
               v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
-              @click="follow()"
+              @click="follow(user)"
             >
               팔로우
             </v-btn>
@@ -105,7 +103,7 @@
               v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
-              @click="follow()"
+              @click="follow(user)"
             >
               팔로우
             </v-btn>
@@ -143,7 +141,7 @@
       <v-col cols="4" v-for="feed in userprofiledata.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
           <img :src="feed.src" 
-          alt="" 
+          alt="안나오는겁니다!" 
           style="width:100%;" 
           :feed="feed" 
           @click="feedDetail(feed)" >

@@ -10,7 +10,7 @@ public class Path {
 //		this.im = "/home/ubuntu/";
 		
 //		배포안할시 개발
-		this.path = "http://localhost:9999";
+		this.path = "https://localhost:9999";
 		this.im = "C://";
 	}
 

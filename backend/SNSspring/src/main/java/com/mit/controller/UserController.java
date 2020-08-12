@@ -1,8 +1,10 @@
 package com.mit.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mit.algorithm.Path;
 import com.mit.algorithm.Pwd;
@@ -85,26 +88,50 @@ public class UserController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
-	
+
 	@ApiOperation(value = "회원 정보 수정", notes = "성공시 200, 실패시 에러를 반환합니다.")
 	@PostMapping("update")
-	public ResponseEntity<String> update(@RequestParam String email,@RequestParam String nickname,@RequestParam String pwd,@RequestParam String description,@RequestParam String address,@RequestParam String src) {
-		
+	public ResponseEntity<String> update(@RequestParam String email, @RequestParam String nickname,
+			@RequestParam String pwd, @RequestParam String description, @RequestParam String address,
+			@RequestParam(value = "file", required = false) MultipartFile file) {
+
 		User user = new User();
 		user.setEmail(email);
 		user.setNickname(nickname);
 		user.setPwd(pwd);
 		user.setDescription(description);
 		user.setAddress(address);
-		user.setSrc(src);
-		boolean updateUser = userService.update(user);
-		
-		if (updateUser) {
+
+		// image고유 이름 만들기
+		Date date = new Date();
+		StringBuilder sb = new StringBuilder();
+		if (file == null || file.isEmpty()) {
+			// file image 가 없을 경우
+			sb.append("none.png");
+		} else {
+			sb.append(date.getTime());
+			sb.append(file.getOriginalFilename());
+		}
+		user.setSrc(sb.toString());
+
+		// 파일을local, server에 저장
+		if (file != null && !file.isEmpty()) {
+			// 파일을 저장할 위치에 파일 고유 이름 파일을 저장
+			File dest = new File(path.getIm() + "images/feed/" + sb.toString());
+			try {
+				file.transferTo(dest);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (userService.updateUser(user)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
-	
 
 	@ApiOperation(value = "getToken", notes = "이메일을 주면 Token을 반환합니다.")
 	@PostMapping("getToken")

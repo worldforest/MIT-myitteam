@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <div class="text-center my-3">
       <h2> 프로필 수정 </h2>
     </div>
@@ -16,10 +15,28 @@
 
         <div>
           <h3 class="ml-4">주소  </h3>
-          <v-col xs="6" md="11" class="mx-auto">
-            <v-text-field 
-              v-model="updateProfile.address" label="주소" outlined id="address"></v-text-field>
-          </v-col>
+          <v-row class="mx-auto">
+            <v-col md="11" class="mx-auto" >
+              <div class="text-center">
+                <v-dialog
+                  v-model="dialog"
+                  width="500" 
+                >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field 
+                  v-bind="attrs"
+                  v-on="on"
+                  v-model="updateProfile.address" label="주소" outlined id="address"></v-text-field>
+                </template>
+
+                <v-card class="py-5">
+                  <vue-daum-postcode@complete="getData" />
+                  <v-divider></v-divider>
+                </v-card>
+                </v-dialog>
+              </div>
+            </v-col>
+          </v-row>
         </div>
 
         <div>
@@ -59,7 +76,7 @@
 
          <v-col class="text-center mx-auto">
           <div class="my-2">
-            <v-btn depressed x-large class="white--text" color="#5C6BC0">수정하기</v-btn>
+            <v-btn depressed x-large class="white--text" color="#5C6BC0" @click="ProfileUpdate(updateProfile, updateData)">수정하기</v-btn>
           </div>
         </v-col>
 
@@ -70,6 +87,9 @@
 
 <script>
 import { mapState } from 'vuex'
+import axios from 'axios'
+
+const SERVER_URL = 'http://localhost:9999/mit'
 
 export default {
   data () {
@@ -77,7 +97,9 @@ export default {
       updateData: {
         pwd: '',
         pwd2: '',
+        email: ''
       },
+      dialog: false,
       rules: {
         required: value => !!value || '필수 값 입니다.',
         min: v => v.length >= 4 || '비밀번호는 최소 8자리 이상 적어주세요.' ,
@@ -87,7 +109,28 @@ export default {
     }
   },
   computed : {
-    ...mapState(['updateProfile'])
+    ...mapState(['updateProfile', 'email'])
+  },
+  methods: {
+    getData(data) {
+      // 클릭한 데이터를 address에 저장
+      this.updateProfile.address = data.address;
+      this.dialog = false;
+    },
+    ProfileUpdate(res,res2) {
+      const formdata = new FormData();
+      formdata.append('address', res.address)
+      formdata.append('description', res.description)
+      formdata.append('email', this.email)
+      formdata.append('nickname', res.nickname)
+      formdata.append('pwd', res2.pwd)
+      formdata.append('file', res.src)
+      axios.post(`${SERVER_URL}/api/user/update`, formdata)
+        .then(() => {
+          alert('성공적으로 수정하였습니다.')
+          this.$router.push('/profile')
+        })
+    }
   }
 }
 </script>

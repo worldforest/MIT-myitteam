@@ -22,14 +22,10 @@
             <hr class="hrr">
             <v-card-text class="text--primary mb-3">{{ i.start }} ~ {{ i.end }}
                <v-card-actions>
-                  <v-btn
-                    color="orange"
-                    text
-                    class="ml-auto"
-                    @click="projectDetail(i); getTeamData(i.no)"
-                  >
+                  <v-btn color="orange" text class="ml-auto" @click="projectDetail(i); getTeamData(i.no)">
                     자세히보기
                   </v-btn>
+                  
                 </v-card-actions>
             </v-card-text>
           </div>
@@ -104,6 +100,9 @@ export default {
   h4 {
     color: rgb(92, 107, 192);
     font-weight: bold;
+  }
+  li {
+    list-style: none;
   }
 
 </style>

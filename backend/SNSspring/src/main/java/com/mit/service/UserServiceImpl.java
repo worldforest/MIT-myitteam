@@ -58,7 +58,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User selectPrivate(String email) {
-		// TODO Auto-generated method stub
 		return userRepo.selectPrivate(email);
 	}
 
@@ -68,8 +67,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean update(User user) {
-		// TODO Auto-generated method stub
+	public boolean updateUser(User user) {
 		return userRepo.updateUser(user);
 	}
 
