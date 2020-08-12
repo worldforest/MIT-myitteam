@@ -1,17 +1,5 @@
 <template>
   <div>
-    <v-row class="d-flex justify-center"> 
-      <v-col sm="4" >
-        <v-text-field
-          v-model="searchData.search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line="true"
-          hide-details
-          @keypress.enter="searchTagFeed(searchData.search)"           
-        ></v-text-field>
-      </v-col>
-    </v-row>
 
     <!-- /////////////////////////////    화면이 가장 클 때    //////////////////////////////////////// -->
 
@@ -150,8 +138,20 @@
       </div>
 
       <!-- //////////////////////// 게시글 조회 ////////////////////// -->
-
-      <div class="text-box">
+      <h1 class="text-center"> 게시글 </h1>
+    <v-row class="d-flex justify-center"> 
+      <v-col sm="4" >
+        <v-text-field
+          v-model="searchData.search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line="true"
+          hide-details
+          @keypress.enter="searchTagFeed(searchData.search)"           
+        ></v-text-field>
+      </v-col>
+    </v-row>
+      <div class="text-box my-6">
         <div class="center">
           <button @click="searchFeed()">전체 게시글</button>
         </div>

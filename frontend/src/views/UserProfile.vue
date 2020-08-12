@@ -1,7 +1,5 @@
-	
-김지훈[대전3반B306]
-오후 1:59
 <template>
+
   <div  class="cont10">
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
@@ -16,7 +14,7 @@
             <!-- 현재 사용중인 유저 닉네임과 프로필 유저 닉네임이 같지 않고, 팔로우리스트안에 이메일이 없을 경우 -->
           <span v-if="user !== email">
             <v-btn
-              v-if="!followerList.includes(email)"
+              v-if="!followerList2.includes(email)"
               class="ml-3"
               color="primary"
               @click="follow(user)"
@@ -58,7 +56,7 @@
           <span>{{ userprofiledata.nickname }}</span>
           <span v-if="user !== email">
             <v-btn
-              v-if="!followerList.includes(email)"
+              v-if="!followerList2.includes(email)"
               class="ml-3"
               color="primary"
               @click="follow(user)"
@@ -100,7 +98,7 @@
           <h3 class="ml-5 mb-3">{{ userprofiledata.nickname }}</h3>
           <span v-if="user.email !== email">
             <v-btn
-              v-if="!followerList.includes(email)"
+              v-if="!followerList2.includes(email)"
               class="ml-3"
               color="primary"
               @click="follow(user)"
@@ -166,7 +164,8 @@ export default {
   data() {
     return {
       windowWidth: window.innerWidth,
-      followList : []
+      followList : [],
+      followconf: true,
     }
   },
   watch: {
@@ -193,7 +192,7 @@ export default {
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
-    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt']),
+    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2']),
     ...mapGetters(['isLoggedIn',])
      
   },

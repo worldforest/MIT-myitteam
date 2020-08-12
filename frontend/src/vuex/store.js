@@ -37,6 +37,7 @@ const state = {
     dates: [],
     tagData: [],
     keyword: '',
+    followerList2: [],
 }
 
 export default new Vuex.Store({
