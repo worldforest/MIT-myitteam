@@ -93,7 +93,7 @@ export default {
     /// 비밀번호 찾기 페이지//
     gotofind() {
       this.$router.push('/findpwd')
-    }
+    },
   },
   mounted() {
     this.$nextTick(() => {

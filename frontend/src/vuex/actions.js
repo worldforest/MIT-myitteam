@@ -159,19 +159,26 @@ export default {
 	},
 
 	feedCreate(context, feedData) {
-		const formdata = new FormData();
-		formdata.append('category', feedData.category)
-		formdata.append('description', feedData.description)
-		formdata.append('email', feedData.email) 
-		formdata.append('file', feedData.file)
-		formdata.append('tags', feedData.tags)
-		axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
-		.then(() => {
-				router.push({ name: "Profile"})
+		if (feedData.description === '' || feedData.file === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '필수 항목들을 입력해주세요!(사진, 소개)',
+			})
+		} else {
+			const formdata = new FormData();
+			formdata.append('description', feedData.description)
+			formdata.append('email', feedData.email) 
+			formdata.append('file', feedData.file)
+			formdata.append('tags', feedData.tags)
+			axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
+			.then(() => {
+					router.push({ name: "Profile"})
+			})
+			.catch(error => {
+					console.log(error)
 		})
-		.catch(error => {
-				console.log(error)
-		})
+		}
+		
 	},
 	
 
@@ -380,13 +387,17 @@ export default {
 		params.append('following', context.state.userprofiledata.feeds[0].email)
 		axios.post(`${SERVER_URL}/api/follow/follow`, params)
 				.then(() => {
-		context.dispatch('follwerCnt', context.state.userprofiledata.feeds[0].email)
+		context.dispatch('followerCnt', context.state.userprofiledata.feeds[0].email)
 		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
 				})
 				.catch(error => console.log(error.response.data))
 		}
 		else {
-			alert('회원만 팔로우를 할 수 있습니다.')
+			Swal.fire({
+				icon: 'error',
+				text: '회원만 팔로우를 할 수 있습니다.',
+				footer: '회원이 아니신가요?<a href="/signup">   가입하기   </a>'
+			})
 		}
 	},
 
@@ -399,7 +410,12 @@ export default {
 				for(var i=0; i<(response.data).length; i++) {
 						data.push(response.data[i])
 			}
+			var data2 = []
+			for (var z=0; z<data.length; z++) {
+				data2.push(data[z].email)
+			}
 			context.commit('INPUTFOLLOWER', data)
+			context.commit('INPUTFOLLOWER2', data2)
 			})
 	},
 
@@ -424,12 +440,12 @@ export default {
 		axios.post(`${SERVER_URL}/api/follow/unfollow`, params)
 		.then(() => {
 			context.dispatch('myFollowerList', res)
-			context.dispatch('follwerCnt', context.state.email)
+			context.dispatch('followerCnt', context.state.email)
 		})	
 		.catch(error => console.log(error.response.data))
 	},
 
-	follwerCnt(context, res) {
+	followerCnt(context, res) {
 		var params = new URLSearchParams();
 		params.append('email', res)
 		axios.post(`${SERVER_URL}/api/follow/followerCnt`, params)
