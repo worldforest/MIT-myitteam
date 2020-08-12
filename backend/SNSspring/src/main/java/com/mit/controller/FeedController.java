@@ -196,7 +196,7 @@ public class FeedController {
 		else if (email != null) {
 			System.out.println("test");
 			List<FollowList> follows = followService.followingList(email);
-			
+
 			feeds = new ArrayList<Feed>();
 			for (FollowList follow : follows) {
 				feeds.addAll(feedService.selectEmail(follow.getEmail()));
@@ -281,21 +281,19 @@ public class FeedController {
 
 	@ApiOperation(value = "feed 좋아요한 사람 명단", notes = "해당 피드 번호 no")
 	@PostMapping("feedlikeUser")
-	public ResponseEntity<List<String>> feedlikeUser(@RequestParam String no) {
-		List<String> feedlikeuser = feedlikeService.selectAll(no);
-
-		return new ResponseEntity<List<String>>(feedlikeuser, HttpStatus.OK);
+	public ResponseEntity<List<FollowList>> feedlikeUser(@RequestParam String no) {
+		List<FollowList> feedlikeuser = feedlikeService.selectAll(no);// email목록
+		
+		return new ResponseEntity<List<FollowList>>(feedlikeuser, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "feed 조회수 1증가", notes = " 해당 피드번호의 조회수를 1증가 시키는 API")
 	@GetMapping("viewplus")
-	public ResponseEntity<String> viewplus(@RequestParam String no){
-		if(feedService.viewsplus(no)) {
-			return new ResponseEntity<String>(SUCCESS,HttpStatus.OK);
+	public ResponseEntity<String> viewplus(@RequestParam String no) {
+		if (feedService.viewsplus(no)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
-		
-		return new ResponseEntity<String>(FAIL,HttpStatus.FAILED_DEPENDENCY);
-		
+		return new ResponseEntity<String>(FAIL, HttpStatus.FAILED_DEPENDENCY);
 	}
 
 }
