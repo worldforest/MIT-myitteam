@@ -77,4 +77,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where email=#{email}
 	</update>
 
+	<select id="selectAddressMember" parameterType="String"
+		resultType="user">
+		select nickname,address from (select * from member where no =
+		#{no} and leaderemail = #{leaderemail}) m INNER JOIN user ON
+		m.memberemail = user.email
+
+	</select>
+
 </mapper>
