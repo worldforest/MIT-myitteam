@@ -294,6 +294,7 @@ export default {
 				for(var i=0; i<(res.data).length; i++) {
 					if (res.data[i].category === 0) {
 						contest.push(res.data[i])
+						console.log(typeof(contest))
 					}
 					else {
 						project.push(res.data[i])
@@ -490,7 +491,7 @@ export default {
 			dispatch('getTeamInfo')
 			setTimeout(() => {
 				router.go()
-			}, 500)
+			}, 200)
 		})
 	},
 	deleteMember ({dispatch}, apply) {
