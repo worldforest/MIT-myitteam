@@ -37,4 +37,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="feed">
 		select * from feed where no = #{no} and email = #{email}
 	</select>
+	
+	<update id="viewsplus" parameterType="String">
+		update feed set views = (views + 1) where no = #{no}
+	</update>
 </mapper>

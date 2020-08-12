@@ -26,4 +26,6 @@ public interface FeedService {
 	public Feed selectno(String no);
 
 	public Feed slectnoemail(String no, String email);
+	
+	public boolean viewsplus(String no);
 }
