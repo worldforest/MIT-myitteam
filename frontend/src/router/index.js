@@ -13,7 +13,6 @@ import UserProfile from '@/views/UserProfile.vue'
 import ProjectList from '@/views/ProjectList.vue'
 import Myteam from '@/views/Myteam.vue'
 import Myteaminfo from '@/views/Myteaminfo.vue'
-
 import ProjectDetail from '@/views/ProjectDetail.vue'
 import FindPwd from '@/views/FindPwd.vue'
 import AllContest from '@/views/AllContest.vue'
@@ -22,6 +21,7 @@ import ChangePwd from '@/views/ChangePwd.vue'
 import UpdateProfile from '@/views/UpdateProfile.vue'
 import searchTag from '@/views/searchTag.vue'
 import dmap from '@/views/dmap.vue'
+import FeedUpdate from '@/views/FeedUpdate.vue'
 
 
 Vue.use(VueRouter)
@@ -139,6 +139,11 @@ Vue.use(VueRouter)
     path: '/dmap',
     name: 'dmap',
     component: dmap
+  },
+  {
+    path: '/feedupdate',
+    name: 'FeedUpdate',
+    component: FeedUpdate,
   },
   //////////지훈////////////
   {

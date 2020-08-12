@@ -24,6 +24,16 @@ export default {
         router.push({ name: "GongmoDetail"})
     },
     INPUTDATA (state, res) {
+        for (let i=0; i<res.feeds.length; i++) {
+            res.feeds[i].tag = res.feeds[i].tag.split('#');
+            let data = [];
+            for (let z=0; z<res.feeds[i].tag.length; z++) {
+                if (res.feeds[i].tag[z] !== '') {
+                    data.push(res.feeds[i].tag[z])
+                }
+            }
+            res.feeds[i].tag = data
+        }
         state.profileData = res
     },
     contestData(state, res) {
@@ -57,10 +67,18 @@ export default {
     },
     setCommunity(state, res) {
         state.community = res
-        state.tagData = res
-			// if (state.followerList.includes(state.email)) {
-			// 		state.followflag = true
-			// }
+        // state.tagData = res
+        for (let i=0; i<res.length; i++) {
+            res[i].tag = res[i].tag.split('#');
+            let data = [];
+            for (let z=0; z<res[i].tag.length; z++) {
+                if (res[i].tag[z] !== '') {
+                    data.push(res[i].tag[z])
+                }
+            }
+            res[i].tag = data
+        }
+        state.community = res
     },
     GETTEAMDATA(state, res) {
       state.getTeamList = res
@@ -73,6 +91,10 @@ export default {
         console.log('Here~~~~~~~~~~~')
         console.log(res)
         router.push({ name: "ProjectDetail" })
+    },
+    updateFeed(state, res) {
+        state.upFeed = res
+        router.push({name: "FeedUpdate"})
     },
     goTeam(state) {
         if (state.email) {   
@@ -99,5 +121,14 @@ export default {
         state.tagData = data.res
         state.keyword = data.keyword
         router.push({name: "searchTag"})
-    }
+    },
+    likeCnt(state, data) {
+      state.likeCntnum = data
+		},
+    likeUser(state, data) {
+        state.likeUserList = data
+    },
+    likeUser2(state, data) {
+        state.likeUserList2 = data
+    },
 }

@@ -18,61 +18,56 @@ public class FeedServiceImpl implements FeedService {
 
 	@Override
 	public List<Feed> selectAll() {
-		// TODO Auto-generated method stub
 		return feedRepo.selectAll();
 	}
 
 	@Override
 	public List<Feed> selectEmail(String email) {
-		// TODO Auto-generated method stub
 		return feedRepo.selectEmail(email);
 	}
 
 	@Override
 	public Feed selectOne(String no) {
-		// TODO Auto-generated method stub
 		return feedRepo.selectOne(no);
 	}
 
 	@Override
 	public boolean insert(Feed feed) {
-		// TODO Auto-generated method stub
 		return feedRepo.insert(feed);
 	}
 
 	@Override
 	public boolean update(Feed feed) {
-		// TODO Auto-generated method stub
 		return feedRepo.update(feed);
 	}
 
 	@Override
-	public boolean delete(String no) {
-		// TODO Auto-generated method stub
-		return feedRepo.delete(no);
+	public boolean delete(String no,String email) {
+		return feedRepo.delete(no,email);
+	}
+
+	@Override
+	public boolean deletetags(String no) {
+		return feedRepo.deletetags(no);
 	}
 
 	@Override
 	public String Latestfeed(String email) {
-		// TODO Auto-generated method stub
 		return feedRepo.Latestfeed(email);
 	}
 
 	@Override
 	public User selectPrivate(String email) {
-		// TODO Auto-generated method stub
 		return feedRepo.selectPrivate(email);
 	}
 
 	@Override
 	public Feed selectno(String no) {
-		// TODO Auto-generated method stub
 		return feedRepo.selectno(no);
 	}
 
 	@Override
 	public Feed slectnoemail(String no, String email) {
-		// TODO Auto-generated method stub
 		return feedRepo.slectnoemail(no, email);
 	}
 

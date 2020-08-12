@@ -74,9 +74,9 @@ public class TeamController {
 		contents.setEnd(regTeam.getEnd());
 		if (!contentsService.insert(contents))
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
-
 		Team team = new Team();
 		String no = contentsService.LatestContents(regTeam.getEmail());
+		System.out.println(">>>>>>>>>>>>>>>>>>test");
 
 		team.setNo(no);
 		team.setLeaderemail(regTeam.getEmail());
@@ -269,7 +269,6 @@ public class TeamController {
 		member.setPart(part);
 		member.setMemberemail(teamemail);
 		memberService.insert(member);
-
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 

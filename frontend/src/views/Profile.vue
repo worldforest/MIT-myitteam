@@ -1,28 +1,78 @@
 <template>
   <div  class="cont10">
-    {{profileData}}
+    <!-- {{profileData}} -->
+    {{ windowWidth }}
     <v-row v-if="windowWidth >= 1270">
-      <v-col col="2" sm="2" class="fg1">
+      <v-col col="2" sm="3" class="fg1">
         <div>
           <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
         </div>
-        <!-- <div class="filebox ml-4"> 
-          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
-          <input 
-            type="file" 
-            id="ex_file"
-            accept="image/*"
-            @change="onChange">
-        </div> -->
       </v-col>
       
-      <v-col col="10" sm="10" class="fg2">
+      <v-col col="10" sm="9" class="fg2">
         <div class="ml-5">
           <span> <h3> {{ profileData.nickname }} </h3></span>
         </div>
         <div class="d-flex my-5 ml-5">
-          <span><h3>팔로우| {{ profileData.followingCnt }}명</h3></span>
-          <span class="mx-auto"><h3>팔로워| {{ profileData.followerCnt }}명</h3></span>
+          <div class="text-center mr-15">
+            <v-dialog v-model="dialog" width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowList(email);">
+                  <h3>팔로잉| {{ profileData.followingCnt }}명</h3>
+                </span>
+              </template>
+
+              <!-- {{ i.datalist }} -->
+              <v-card class="cardModal">
+                <!-- {{ followList }} -->
+                <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
+                
+                <li v-for="item in followList" :key="item">
+                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <hr>
+                </li>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn class="local" color="primary" text @click="dialog = false">
+                    <h5>닫기</h5>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
+
+          
+
+          <div class="text-center">
+            <v-dialog v-model="dialog2" width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowerList(email);">
+                  <h3>팔로워| {{ profileData.followerCnt }}명</h3>
+                </span>
+              </template>
+
+              <!-- {{ i.datalist }} -->
+              <v-card class="cardModal">
+                <!-- {{ followerList }} -->
+                <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
+                
+                <li v-for="item in followerList" :key="item">
+                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <hr>
+                </li>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn class="local" color="primary" text @click="dialog2 = false">
+                    <h5>닫기</h5>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
+          <!-- <span class="cursor" @click="myFollowList(email);"><h3>팔로우| {{ profileData.followingCnt }}명</h3></span> -->
+          <!-- <span class="mx-auto"><h3>팔로워| {{ profileData.followerCnt }}명</h3></span> -->
         </div>
         <div class="d-flex ml-5">
           <span> <h3>{{ profileData.description }} 개발자</h3> </span>
@@ -37,20 +87,74 @@
       </v-col>
     </v-row>
 
+    <!--////////////////////// 윈도우 788 이상 //////////////////////-->
     <v-row v-else-if="windowWidth >= 788">
-      <v-col col="2" sm="2" class="fg1 mr-6">
+      <v-col col="2" sm="4" class="fg1 mr-6">
         <div class="pf-box">
           <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
         </div>
       </v-col>
       
-      <v-col col="10" sm="10" class="fg2">
+      <v-col col="10" sm="8" class="fg2">
         <div class="ml-5">
-          <span>{{ profileData.nickname }}</span>
+          <span><h3>{{ profileData.nickname }}</h3></span>
         </div>
         <div class="d-flex my-5 ml-5">
-          <span>팔로우| {{ profileData.followingCnt }}명</span>
-          <span class="mx-auto">팔로워| {{ profileData.followerCnt }}명</span>
+          <div class="text-center mr-15">
+            <v-dialog v-model="dialog" width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowList(email);">
+                  <h4>팔로잉| {{ profileData.followingCnt }}명</h4>
+                </span>
+              </template>
+
+              <!-- {{ i.datalist }} -->
+              <v-card class="cardModal">
+                <!-- {{ followList }} -->
+                <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
+                
+                <li v-for="item in followList" :key="item">
+                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <hr>
+                </li>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn class="local" color="primary" text @click="dialog = false">
+                    <h5>닫기</h5>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
+
+          <div class="text-center">
+            <v-dialog v-model="dialog2" width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowerList(email);">
+                  <h4>팔로워| {{ profileData.followerCnt }}명</h4>
+                </span>
+              </template>
+
+              <!-- {{ i.datalist }} -->
+              <v-card class="cardModal">
+                <!-- {{ followerList }} -->
+                <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
+                
+                <li v-for="item in followerList" :key="item">
+                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <hr>
+                </li>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn class="local" color="primary" text @click="dialog2 = false">
+                    <h5>닫기</h5>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
         </div>
         <div class="d-flex ml-5">
           <br>
@@ -65,13 +169,13 @@
     </v-row>
     
     <v-row v-else>
-      <v-col col="2" sm="2" class="fg1 mr-6">
+      <v-col col="2" sm="3" class="fg1 mr-6">
         <div class="pf-box">
           <img  v-if="profileData.src" :src="profileData.src" class="box2" style="width:77px; height:77px;">
         </div>
       </v-col>
       
-      <v-col col="10" sm="10" class="fg2">
+      <v-col col="10" sm="9" class="fg2">
         <div class="ml-5">
           <h4 class="ml-5">{{ profileData.nickname }}</h4>
           <span>{{ profileData.description }}개발자</span>
@@ -86,20 +190,74 @@
     <hr v-if="windowWidth < 788">
     <v-row v-if="windowWidth < 788">
       <v-col cols="6">
-        <h4>팔로우| {{ profileData.followingCnt }}명</h4>
+        <div class="text-center">
+          <v-dialog v-model="dialog" width="500">
+            <template v-slot:activator="{ on, attrs }">
+              <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowList(email);">
+                <h5>팔로잉| {{ profileData.followingCnt }}명</h5>
+              </span>
+            </template>
+
+            <!-- {{ i.datalist }} -->
+            <v-card class="cardModal">
+              <!-- {{ followList }} -->
+              <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
+              
+              <li v-for="item in followList" :key="item">
+                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                <hr>
+              </li>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn class="local" color="primary" text @click="dialog = false">
+                  <h5>닫기</h5>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </div>
       </v-col>
+
       <v-col cols="6">
-        <h4>팔로워| {{ profileData.followerCnt }}명</h4>
+        <div class="text-center">
+            <v-dialog v-model="dialog2" width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowerList(email);">
+                  <h5>팔로워| {{ profileData.followerCnt }}명</h5>
+                </span>
+              </template>
+
+              <!-- {{ i.datalist }} -->
+              <v-card class="cardModal">
+                <!-- {{ followerList }} -->
+                <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
+                
+                <li v-for="item in followerList" :key="item">
+                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <hr>
+                </li>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn class="local" color="primary" text @click="dialog2 = false">
+                    <h5>닫기</h5>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
       </v-col>
-    </v-row>    
+    </v-row>
+
     <hr class="mb-2">
     <div class="text-center">
       <h3>피드</h3>
     </div>
-    <router-link class="feed white--text" to="/feedcreate">
+    <router-link class="feed white--text mb-3" to="/feedcreate">
       피드등록
     </router-link>
-    <v-row class="mt-4">
+    <v-row class="mt-4" v-if="windowWidth > 788">
       <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
           <img :src="feed.src" 
@@ -108,6 +266,44 @@
           :feed="feed" 
           @click="feedDetail(feed)" >
         </div>
+      </v-col>
+    </v-row>
+    <v-row v-else class="bg-gray">
+      <v-col cols='12'  v-for="feed in profileData.feeds" :key="feed.no">
+        <v-card
+          :loading="loading"
+          class="mx-auto my-3"
+        >
+          <v-img
+            height="300"
+            :src="feed.src"
+            @click="feedDetail(feed)"
+          ></v-img>
+
+          <v-card-text @click="feedDetail(feed)">
+            <v-row
+              align="center"
+              class="mx-0"
+            >
+            </v-row>
+
+            <div class="my-4 subtitle-1">
+              {{feed.description}}
+            </div>
+          </v-card-text>
+
+          <v-card-text>
+            <v-chip-group
+              v-model="selection"
+              active-class="deep-purple accent-4 white--text"
+              column
+            >
+              <v-chip v-for="(tag,i) in feed.tag" :key="i" @click="searchTagFeed(tag)">
+                #{{tag}}
+              </v-chip>
+            </v-chip-group>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
 
@@ -127,6 +323,9 @@ export default {
   data() {
     return {
       windowWidth: window.innerWidth,
+      email: this.$store.state.email,
+      dialog: false,
+      dialog2: false,
     }
   },
   watch: {
@@ -150,11 +349,11 @@ export default {
     },
 
     ...mapMutations(['feedDetail', 'updateProfile']),
-    ...mapActions(['profile'])
+    ...mapActions(['profile', 'myFollowList', 'myFollowerList','searchTagFeed'])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
-    ...mapState(['profileData', 'email']),
+    ...mapState(['profileData', 'email', 'followList', 'followerList']),
     ...mapGetters(['isLoggedIn',])
   },
   mounted() {
@@ -168,6 +367,11 @@ export default {
 </script>
 
 <style scoped>
+  @font-face {
+    font-family: myFont;
+    src: url("/src/font/BMJUA_ttf.ttf");
+  }
+
   .h1 {
     font-size: 30px;
   }
@@ -257,4 +461,24 @@ export default {
     font-weight: bold;
   }
 
+  .bg-gray {
+    background-color: #e9e9e9;
+  }
+
+  .cardModal{
+    font-family: myFont, sans-serif;
+    width: 300px;
+  }
+  .modaltitle{
+    padding: 0.7rem;
+    background-color: rgb(92, 107, 192);
+    color: white;
+  }
+  li{
+    list-style: none;
+  }
+  .followa{
+    text-decoration: none;
+    color:black;
+  }
 </style>
