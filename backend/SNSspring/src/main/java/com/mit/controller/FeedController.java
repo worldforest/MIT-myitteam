@@ -284,5 +284,16 @@ public class FeedController {
 
 		return new ResponseEntity<List<String>>(feedlikeuser, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "feed 조회수 1증가", notes = " 해당 피드번호의 조회수를 1증가 시키는 API")
+	@GetMapping("viewplus")
+	public ResponseEntity<String> viewplus(@RequestParam String no){
+		if(feedService.viewsplus(no)) {
+			return new ResponseEntity<String>(SUCCESS,HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<String>(FAIL,HttpStatus.FAILED_DEPENDENCY);
+		
+	}
 
 }
