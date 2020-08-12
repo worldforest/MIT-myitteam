@@ -63,7 +63,7 @@ export default {
       state.getTeamList = res
     },
     myTeamInfo(state, res) {
-        state.myTeamInfo = JSON.parse(sessionStorage.getItem(res))
+        state.myTeamInfo = res
     },
     projectDetail(state, res) {
         state.club2 = res

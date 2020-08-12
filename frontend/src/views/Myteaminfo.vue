@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ saveInfo.applymembers }}
+    <!-- {{ saveInfo.applymembers }} -->
     <v-card v-for="apply in saveInfo.applymembers" :key="apply"
       class="mx-auto"
       max-width="400"
@@ -23,7 +23,7 @@
         <v-btn
           color="orange"
           text
-          @click="degree"
+          @click="deleteMember(apply)"
         >
           거절
         </v-btn>
@@ -80,10 +80,8 @@ export default {
     ...mapState(['myTeamInfo', 'dates', 'email']),
   },
   methods : {
-    ...mapActions(['getTeamInfo', 'postDate', 'selectMember']),
-    plusMember () {
-    }
-   },
+    ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember']),
+  },
   mounted() {
     // this.dates = this.$store.state.dates
     const infos = JSON.parse(sessionStorage.getItem('myTeam'))

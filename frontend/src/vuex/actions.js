@@ -450,8 +450,8 @@ export default {
 		params.append('email', context.state.email)
 		axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
 		.then(response => {
-			// context.commit('myTeamInfo', response.data)
 			sessionStorage.setItem('myTeam', JSON.stringify(response.data))
+			context.commit('myTeamInfo', response.data)
 			// context.commit('myTeamInfo', res)
 		})
 	},
@@ -462,7 +462,7 @@ export default {
 			console.log(response)
 		})
 	},
-	selectMember (context, apply) {
+	selectMember ({dispatch}, apply) {
 		console.log(apply)
 		const params = new URLSearchParams();
 		params.append('leaderemail', apply.leaderemail)
@@ -472,9 +472,22 @@ export default {
 		axios.post(`${SERVER_URL}/api/team/selectMember`, params)
 		.then(response => {
 			console.log(response)
+			dispatch('getTeamInfo')
 			router.push({name : 'Myteaminfo'})
 		})
+	},
+	deleteMember ({dispatch}, apply) {
+		const params = new URLSearchParams();
+		params.append('leaderemail', apply.leaderemail)
+		params.append('no', apply.no)
+		params.append('part', apply.part)
+		params.append('teamemail', apply.teamemail)
+		axios.post(`${SERVER_URL}/api/team/deleteMember`, params)
+		.then(response => {
+			console.log(response)
+			dispatch('getTeamInfo')
+		})
+		router.go({name:'Myteaminfo'})
 	}
-
 }
 

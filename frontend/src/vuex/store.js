@@ -24,7 +24,7 @@ const state = {
     followCnt: '',
     community: [],
     getTeamList: [],
-    myTeamInfo: null,
+    myTeamInfo: '',
     saveInfo: JSON.parse(sessionStorage.getItem('teaminfo')),
     club: [],
     club2: [],
