@@ -22,9 +22,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectAll" parameterType="String"
-		resultType="String">
-		select email
-		from feedlike
+		resultType="com.mit.returnDto.FollowList">
+		select a.nickname as nickname, a.email as email
+		from user a
+		join feedlike b
+		on a.email=b.email
 		where no=#{no}
 	</select>
 

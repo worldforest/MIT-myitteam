@@ -1,6 +1,7 @@
 package com.mit.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mit.algorithm.Path;
 import com.mit.dto.Follow;
+import com.mit.returnDto.FollowList;
 import com.mit.service.FollowService;
+
 import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
@@ -56,30 +59,25 @@ public class FollowController {
 
 	@ApiOperation(value = "내가 팔로우한 리스트를 보여준다.", notes = "list로 팔로우한 사람들 리스트 보여준다")
 	@PostMapping("followingList")
-	public ResponseEntity<List<String>> followingList(@RequestParam("email") String email) {
-		List<String> followingList = followService.followingList(email);
+	public ResponseEntity<List<FollowList>> followingList(@RequestParam("email") String email) {
+		List<FollowList> followingList = followService.followingList(email);
 		if (followingList != null) {
 			System.out.println(email + "가 팔로우한 리스트(팔로잉)");
-			for (int i = 0; i < followingList.size(); i++) {
-				System.out.println(followingList.get(i));
-			}
-			return new ResponseEntity<List<String>>(followingList, HttpStatus.OK);
+			return new ResponseEntity<List<FollowList>>(followingList, HttpStatus.OK);
 		}
-		return new ResponseEntity<List<String>>(followingList, HttpStatus.EXPECTATION_FAILED);
+		return new ResponseEntity<List<FollowList>>(followingList, HttpStatus.EXPECTATION_FAILED);
 	}
 
 	@ApiOperation(value = "나를 팔로우한 리스트를 보여준다.", notes = "list로 나를 팔로잉한 사람들 리스트 보여준다")
 	@PostMapping("followerList")
-	public ResponseEntity<List<String>> followerList(@RequestParam("email") String email) {
-		List<String> followerList = followService.followerList(email);
+	public ResponseEntity<List<FollowList>> followerList(@RequestParam("email") String email) {
+		List<FollowList> followerList = followService.followerList(email);
+		
 		if (followerList != null) {
 			System.out.println(email + "를 팔로우한 리스트(팔로워)");
-			for (int i = 0; i < followerList.size(); i++) {
-				System.out.println(followerList.get(i));
-			}
-			return new ResponseEntity<List<String>>(followerList, HttpStatus.OK);
+			return new ResponseEntity<List<FollowList>>(followerList, HttpStatus.OK);
 		}
-		return new ResponseEntity<List<String>>(followerList, HttpStatus.EXPECTATION_FAILED);
+		return new ResponseEntity<List<FollowList>>(followerList, HttpStatus.EXPECTATION_FAILED);
 	}
 
 	@ApiOperation(value = "내가 팔로우한 사람 수.", notes = "")
