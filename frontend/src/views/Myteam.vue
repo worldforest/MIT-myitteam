@@ -55,7 +55,8 @@ export default {
     ...mapState(['myTeamInfo', 'saveInfo'])
   },
   mounted () {
-    this.$store.state.myTeamInfo = JSON.parse(sessionStorage.getItem('myTeam')) 
+    this.getTeamInfo()
+    this.$store.state.myTeamInfo = JSON.parse(sessionStorage.getItem('myTeam'))
   }
  }
 </script>

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <!-- {{ saveInfo.applymembers }} -->
+    {{ saveInfo }}
+    <span v-if="saveInfo.leaderemail === email">
     <v-card v-for="apply in saveInfo.applymembers" :key="apply"
       class="mx-auto"
       max-width="400"
@@ -53,6 +54,10 @@
       </v-flex>
     </v-layout>
     <v-btn class="blue darken-1" @click.native="postDate(dateInfo)">확정</v-btn>
+    </span>
+    <span v-else>
+
+    </span>
   </div>
   
   
@@ -84,6 +89,7 @@ export default {
   },
   mounted() {
     // this.dates = this.$store.state.dates
+    this.getTeamInfo()
     const infos = JSON.parse(sessionStorage.getItem('myTeam'))
     for (let i=0; i < infos.length; i++){
       if (this.$route.params.id === infos[i].no) {
@@ -93,18 +99,8 @@ export default {
         this.dateInfo.no = this.$route.params.id
       }
     }
-    // if (!sessionStorage.teaminfo) {
-    //   console.log("성공")
-    //   sessionStorage.setItem('teaminfo', JSON.stringify(this.$route.params))
-    //   this.$store.state.saveInfo = JSON.parse(sessionStorage.getItem('teaminfo'))
-    // } else {
-    //   console.log(this.saveInfo.id)
-    //   if (this.$route.params.id !== this.saveInfo.id) {
-    //     sessionStorage.setItem('teaminfo', JSON.stringify(this.$route.params))
-    //     this.$store.state.saveInfo = JSON.parse(sessionStorage.getItem('teaminfo'))
-    //   }
-    // }
-  }
+  },
+  
 }
 </script>
 
@@ -112,5 +108,4 @@ export default {
 .btn {
   text-align: right;
 }
-
 </style>
