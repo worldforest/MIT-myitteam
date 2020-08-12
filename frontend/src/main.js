@@ -11,6 +11,7 @@ import VueCarousel from 'vue-carousel'
 import firebase from 'firebase'
 
 
+
 // Required for side-effects
 require("firebase/firestore");
 
