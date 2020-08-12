@@ -342,17 +342,17 @@ export default {
               console.log(err)
           })
 	},
-	follow(context) {
+	follow(context, res) {
 		var params = new URLSearchParams();
 		if (context.state.email !== null) {
 		params.append('email', context.state.email);
-		params.append('following', context.state.userprofiledata.feeds[0].email)
+		params.append('following', res)
 		axios.post(`${SERVER_URL}/api/follow/follow`, params)
-				.then(() => {
-		context.dispatch('follwerCnt', context.state.userprofiledata.feeds[0].email)
-		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
-				})
-				.catch(error => console.log(error.response.data))
+			.then(() => {
+				context.dispatch('follwerCnt', res)
+				context.dispatch('myFollowerList', res)
+			})
+			.catch(error => console.log(error.response.data))
 		}
 		else {
 			Swal.fire({
