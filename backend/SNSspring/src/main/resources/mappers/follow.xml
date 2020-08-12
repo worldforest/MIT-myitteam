@@ -18,15 +18,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 내(email)가 팔로우한(following) -->
 	<select id="followingList" parameterType="string"
-		resultType="string">
-		select following from
-		follow where email=#{email}
+		resultType="com.mit.returnDto.FollowList">
+		select a.nickname as nickname, a.email as email
+		from user a
+		join follow b
+		on a.email=b.following
+		where b.email=#{email}
 	</select>
 
 	<select id="followerList" parameterType="string"
-		resultType="string">
-		select email from
-		follow where following=#{email}
+		resultType="com.mit.returnDto.FollowList">
+		select a.nickname as nickname, a.email as email
+		from user a
+		join follow b
+		on a.email=b.email
+		where b.following=#{email}
 	</select>
 
 	<select id="followingCnt" parameterType="string"

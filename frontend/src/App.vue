@@ -39,7 +39,7 @@
                     <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
                   </v-list-item>
                   <v-list-item >                    
-                    <v-list-item-title class="not-home"><router-link to="/myteam">나의 팀 관리</router-link></v-list-item-title>
+                    <v-list-item-title class="not-home"><router-link to="/myteam" @click="getTeamInfo">나의 팀 관리</router-link></v-list-item-title>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/" @click.native="logout">LOGOUT</router-link></v-list-item-title>
@@ -104,7 +104,7 @@
     </div>
     <v-app color="#FAFAFA" class="container">
       <div>
-        <router-view />
+        <router-view :key="$route.fullPath"/>
       </div>
     </v-app>
   </div>
@@ -134,7 +134,7 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   methods: {
-    ...mapActions(['logout', 'profile', 'postEmailToken']),
+    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -160,6 +160,7 @@ export default {
   mounted() {
     if (this.$cookies.isKey('auth-token')) {
       this.postEmailToken()
+      this.getTeamInfo()
       } 
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);

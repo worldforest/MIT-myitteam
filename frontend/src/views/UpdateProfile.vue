@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{updateProfile}}
     <div class="text-center my-3">
       <h2> 프로필 수정 </h2>
     </div>
