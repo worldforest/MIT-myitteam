@@ -91,56 +91,24 @@
         </div>
         <div class="mesgs">
           <div class="msg_history">
-            <div class="incoming_msg">
+            <div v-for="message in messages" :key="message" class="incoming_msg">
               <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
               <div class="received_msg">
                 <div class="received_withd_msg">
-                  <p>Test which is a new approach to have all
-                    solutions</p>
-                  <span class="time_date"> 11:01 AM    |    June 9</span></div>
-              </div>
-            </div>
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Test which is a new approach to have all
-                  solutions</p>
-                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-            </div>
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>Test, which is a new approach to have</p>
-                  <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-              </div>
-            </div>
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Apollo University, Delhi, India Test</p>
-                <span class="time_date"> 11:01 AM    |    Today</span> </div>
-            </div>
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>We work directly with our designers and suppliers,
-                    and sell direct to you, which means quality, exclusive
-                    products, at a price anyone can afford.</p>
-                  <span class="time_date"> 11:01 AM    |    Today</span></div>
+                  <p>{{message}}</p>
+                  <span class="time_date"> {{createdAt}}</span>
+                  </div>
               </div>
             </div>
           </div>
           <div class="type_msg">
             <div class="input_msg_write">
-              <input @keyup-enter="saveMessage" v-model="message" type="text" class="write_msg" placeholder="Type a message" />
-              <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+              <input @keyup.enter="saveMessage" v-model="message" type="text" class="write_msg" placeholder="Type a message" />
+              <button @click="saveMessage" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
             </div>
           </div>
         </div>
       </div>
-      
-      
-      <p class="text-center top_spac"> Design by <a target="_blank" href="#">Sunil Rajput</a></p>
       
     </div></div>
 </template>
@@ -153,50 +121,38 @@
 <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
 
 <script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyBzruTO6rkxZAMLxHGWajdzxXEudjuP838",
-    authDomain: "mit-my-it-team.firebaseapp.com",
-    databaseURL: "https://mit-my-it-team.firebaseio.com",
-    projectId: "mit-my-it-team",
-    storageBucket: "mit-my-it-team.appspot.com",
-    messagingSenderId: "1002570956122",
-    appId: "1:1002570956122:web:0d0bd71bd06e58c8eb0763",
-    measurementId: "G-8F3CQPXRMH"
-  };
-  // Initialize Firebase
-  // firebase.initializeApp(firebaseConfig);
-  // firebase.analytics();
-
   export default {
+    name: 'Chat',
     data(){
       return {
         message: null,
-        messages:this.messages
+        messages: [],
+        createdAt:null,
       }
     },
     methods:{
       saveMessage(){
         //save to message
         db.collection('chat').add({
-          message:this.message
+          message:this.message,
+          createdAt: new Date()
         })
-
-        this.message=null;
       },
-      fetchMessafes(){
-        db.collection('chat').get().then((querySnapshot)=>{
-          let allMessages=[];
-          querySnapshot.forEach(doc=>{
-            allMessages.push(doc.data)
+      fetchMessages(){
+        db.collection("chat")
+          .orderBy('createdAt')
+          .onSnapshot( querySnapshot =>{
+            let allMessages=[];
+            querySnapshot.forEach( doc =>{
+             allMessages.push(doc.data().message)
+             this.createdAt=new Date()
+            });
+             this.messages=allMessages
           })
-
-          this.messages=allMessages;
-        })
       }
     },
     created(){
-      this.fetchMessafes();
+      this.fetchMessages();
     }
   }
 </script>
@@ -222,7 +178,7 @@ img{ max-width:100%;}
 .srch_bar {
   display: inline-block;
   text-align: right;
-  width: 60%; padding:
+  width: 60%;
 }
 .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
 

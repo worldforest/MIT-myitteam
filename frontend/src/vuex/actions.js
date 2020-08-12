@@ -253,38 +253,7 @@ export default {
 			console.log(err.response.data)
 		})
 	},
-	// updateCard(context, updateData){
-	// 	console.log(context)
-	// 	console.log(updateData)
-	// 	const params = new URLSearchParams();
-	// 	params.append('no', updateData.no);
-	// 	params.append('leaderemail', updateData.leaderemail);
-	// 	params.append('part', updateData.part);
-	// 	params.append('headcount', updateData.headcount);
-	// 	params.append('ability', updateData.ability);
-	// 	params.append('task', updateData.task);
-	// 	params.append('advantage', updateData.advantage);
-	// 	axios.post(`${SERVER_URL}/api/team/updateTeaminfo`, params)
-	// 	.then(() => {
-	// 		console.log('수정하자')
-	// 	})
-	// 	.catch( err => {
-	// 		console.log(err.response.data)
-	// 	})
-	// },
-	// deleteCard(context, deleteData){
-	// 	console.log(context)
-	// 	console.log(deleteData)
-	// 	const params = new URLSearchParams();
-	// 	params.append('no', deleteData.no);
-	// 	params.append('leaderemail', deleteData.leaderemail);
-	// 	params.append('part', deleteData.part);
-	// 	axios.post(`${SERVER_URL}/api/team/deleteTeaminfo`, params)
-	// 	.then(() => {
-	// 		alert('성공적으로 삭제되었습니다.')
-	// 	})
-	// 	.catch( err => console.log(err.response.data))
-	// },
+
 	deletePjt(context, deletePjtData){
 		console.log('내가 왔다아아아')
 		console.log(context)
@@ -474,12 +443,8 @@ export default {
 				context.commit('getAllContest', data)
 			})
 	},
-<<<<<<< HEAD
-=======
-
 
 	/////////지훈////////////////
->>>>>>> 02fbc0c74f803c513a0784fdad904e5b21c7ec07
 	getTeamInfo(context) {
 		const params = new URLSearchParams();
 		params.append('email', context.state.email)
@@ -487,7 +452,6 @@ export default {
 		.then(response => {
 			sessionStorage.setItem('myTeam', JSON.stringify(response.data))
 			context.commit('myTeamInfo', response.data)
-			// context.commit('myTeamInfo', res)
 		})
 	},
 	postDate (context, dateinfo) {
