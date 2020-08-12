@@ -29,5 +29,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="member">
 		select * from member where memberemail = #{email}
 	</select>
+	
+	<select id="countMember" parameterType="String"
+		resultType="String">
+		select count(*) from member where leaderemail = #{leaderemail} and no =#{no}
+	</select>
+	
 
 </mapper>

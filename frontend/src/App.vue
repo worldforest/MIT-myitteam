@@ -84,7 +84,7 @@
             </div>
          </div>
       </div>
-      <div class="bg2 container" v-if="email">
+      <div class="bg2 px-3" v-if="email">
         <div class="bg3 container" >
           <img src="@/images/project.png" alt="" style="height:100%;" class="ml-2" @click="goPJT">
           <img src="@/images/contest.png" alt="" style="height:100%;" @click="goCON">
@@ -93,7 +93,7 @@
         </div>
       </div>
 
-      <div class="bg2 container" v-else>
+      <div class="bg2 px-3" v-else>
         <div class="bg5 container" >
           <img src="@/images/project.png" alt="" style="height:100%;" class="ml-2" @click="goPJT">
           <img src="@/images/contest.png" alt="" style="height:100%;" @click="goCON">
@@ -104,7 +104,7 @@
     </div>
     <v-app color="#FAFAFA" class="container">
       <div>
-        <router-view />
+        <router-view :key="$route.fullPath"/>
       </div>
     </v-app>
   </div>
@@ -186,12 +186,16 @@ export default {
   *{ font-family: myFont, sans-serif; }
 
   .not-home > a { 
-    /* position: relative; */
+    position: relative;
     text-decoration: none;
     color: rgb(92, 107, 192);
     margin-right: 2rem;
     font-size: 1.3rem;
     font-weight: bold;
+  }
+
+  .cont5 {
+    margin: 0 5%;
   }
   .nav_a{
     position: relative;

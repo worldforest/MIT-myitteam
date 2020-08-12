@@ -1,1 +1,424 @@
 2020-07-26 18:57:28,652 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2020-08-12 13:00:14,538 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2020-08-12 13:09:11,452 [Worker-18: Updating Maven Dependencies] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.sns:SNSspring:0.0.1-SNAPSHOT @ C:\ssafy\project\sns by git flow\backend\SNSspring\pom.xml.
+2020-08-12 13:09:12,466 [Worker-17: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.sns:SNSspring:0.0.1-SNAPSHOT @ C:\ssafy\project\sns by git flow\backend\SNSspring\pom.xml.
+2020-08-12 13:09:14,871 [Worker-17: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:09:14,875 [Worker-17: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 13:09:14,887 [Worker-17: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 16 resources
+2020-08-12 13:09:14,938 [Worker-17: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:09:14,938 [Worker-17: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 13:09:16,522 [Worker-14: Updating Maven Dependencies] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.sns:SNSspring:0.0.1-SNAPSHOT @ C:\ssafy\project\sns by git flow\backend\SNSspring\pom.xml.
+2020-08-12 13:09:17,435 [Worker-11: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:09:17,440 [Worker-11: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 13:09:17,450 [Worker-11: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 16 resources
+2020-08-12 13:09:17,478 [Worker-11: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:09:17,478 [Worker-11: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 13:09:19,213 [Worker-15: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:09:19,215 [Worker-15: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 13:09:19,218 [Worker-15: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 16 resources
+2020-08-12 13:09:19,222 [Worker-15: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:09:19,222 [Worker-15: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 13:25:32,755 [Worker-20: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:25:32,758 [Worker-20: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 13:25:32,761 [Worker-20: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 13:25:32,770 [Worker-20: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:25:32,770 [Worker-20: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 13:28:40,867 [Worker-32: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:28:40,869 [Worker-32: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 13:28:40,872 [Worker-32: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 13:28:40,875 [Worker-32: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:28:40,875 [Worker-32: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 13:43:44,950 [Worker-36: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:43:44,952 [Worker-36: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 13:43:44,955 [Worker-36: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 13:43:44,958 [Worker-36: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:43:44,958 [Worker-36: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 13:56:27,985 [Worker-36: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:56:27,987 [Worker-36: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 13:56:27,990 [Worker-36: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 13:56:27,993 [Worker-36: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 13:56:27,993 [Worker-36: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 14:00:01,702 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 14:00:01,704 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 14:00:01,707 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 14:00:01,711 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 14:00:01,711 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 14:27:14,969 [Worker-44: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 14:27:14,969 [Worker-44: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 14:27:14,970 [Worker-44: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 14:27:14,972 [Worker-44: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 14:27:14,972 [Worker-44: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 14:42:54,622 [Worker-44: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 14:42:54,624 [Worker-44: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 14:42:54,627 [Worker-44: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 14:42:54,630 [Worker-44: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 14:42:54,631 [Worker-44: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 14:44:06,756 [Worker-43: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 14:44:06,758 [Worker-43: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 14:44:06,760 [Worker-43: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 14:44:06,764 [Worker-43: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 14:44:06,764 [Worker-43: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 14:47:48,845 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 14:47:48,846 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 14:47:48,846 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 14:47:48,847 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 14:47:48,847 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:40:45,108 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:40:45,109 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 16:40:45,110 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:40:45,116 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:40:45,117 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:42:39,089 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:42:39,091 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 16:42:39,091 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:42:39,099 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:42:39,099 [Worker-52: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:45:05,433 [Worker-62: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:45:05,433 [Worker-62: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 16:45:05,434 [Worker-62: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:45:05,461 [Worker-62: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:45:05,462 [Worker-62: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:45:50,957 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:45:50,958 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 16:45:50,958 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:45:50,962 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:45:50,962 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:45:54,785 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:45:54,786 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 16:45:54,786 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:45:54,790 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:45:54,790 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:47:04,445 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:47:04,449 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:47:04,458 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:47:04,471 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:47:04,471 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:47:38,805 [Worker-62: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:47:38,810 [Worker-62: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:47:38,817 [Worker-62: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:47:38,824 [Worker-62: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:47:38,825 [Worker-62: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:48:01,118 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:48:01,123 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:48:01,130 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:48:01,138 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:48:01,138 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:48:58,827 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:48:58,832 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:48:58,839 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:48:58,846 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:48:58,847 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:48:59,929 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:48:59,932 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:48:59,936 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:48:59,941 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:48:59,942 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:49:07,641 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:49:07,644 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:49:07,648 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:49:07,652 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:49:07,653 [Worker-60: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:49:21,064 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:49:21,069 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:49:21,075 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:49:21,080 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:49:21,080 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:49:22,200 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:49:22,202 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:49:22,207 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:49:22,211 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:49:22,212 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:49:27,135 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:49:27,144 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:49:27,155 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:49:27,167 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:49:27,168 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:49:32,140 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:49:32,148 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:49:32,158 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:49:32,167 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:49:32,167 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:59:10,370 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:59:10,374 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:59:10,379 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:59:10,384 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:59:10,384 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:59:20,037 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:59:20,040 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:59:20,044 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:59:20,048 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:59:20,048 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:59:42,559 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:59:42,561 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:59:42,565 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 16:59:42,569 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:59:42,569 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 16:59:58,193 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:59:58,193 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 16:59:58,194 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 16:59:58,197 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 16:59:58,198 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:00:33,889 [Worker-68: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:00:33,890 [Worker-68: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 17:00:33,890 [Worker-68: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:00:33,894 [Worker-68: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:00:33,895 [Worker-68: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:01:59,996 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:02:00,002 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:02:00,012 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:02:00,024 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:02:00,024 [Worker-63: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:04:20,175 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:04:20,180 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:04:20,186 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:04:20,194 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:04:20,194 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:06:32,461 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:06:32,462 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 17:06:32,462 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:06:32,466 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:06:32,466 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:08:12,015 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:08:12,034 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:08:12,045 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:08:12,057 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:08:12,057 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:19:36,230 [Worker-68: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:19:36,234 [Worker-68: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:19:36,239 [Worker-68: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:19:36,250 [Worker-68: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:19:36,251 [Worker-68: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:26:04,075 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:26:04,078 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:26:04,080 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:26:04,083 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:26:04,084 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:26:08,688 [Worker-75: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:26:08,690 [Worker-75: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:26:08,692 [Worker-75: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:26:08,695 [Worker-75: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:26:08,695 [Worker-75: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:39:45,498 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:39:45,500 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:39:45,503 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:39:45,506 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:39:45,506 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:40:04,417 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:40:04,419 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:40:04,422 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:40:04,424 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:40:04,425 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:41:04,112 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:41:04,112 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 17:41:04,112 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:41:04,114 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:41:04,114 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:41:16,938 [Worker-78: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:41:16,938 [Worker-78: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 17:41:16,939 [Worker-78: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:41:16,941 [Worker-78: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:41:16,941 [Worker-78: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:41:41,389 [Worker-77: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:41:41,391 [Worker-77: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:41:41,393 [Worker-77: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:41:41,396 [Worker-77: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:41:41,396 [Worker-77: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:41:42,476 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:41:42,478 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:41:42,481 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:41:42,484 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:41:42,484 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:41:47,399 [Worker-70: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:41:47,402 [Worker-70: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:41:47,405 [Worker-70: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:41:47,408 [Worker-70: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:41:47,408 [Worker-70: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:41:59,592 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:41:59,594 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:41:59,597 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:41:59,600 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:41:59,601 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:42:00,719 [Worker-78: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:42:00,721 [Worker-78: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:42:00,723 [Worker-78: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:42:00,726 [Worker-78: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:42:00,726 [Worker-78: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:42:17,485 [Worker-77: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:42:17,487 [Worker-77: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:42:17,490 [Worker-77: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:42:17,493 [Worker-77: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:42:17,493 [Worker-77: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:44:22,295 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:44:22,297 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 17:44:22,299 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 17:44:22,302 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:44:22,302 [Worker-76: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 17:49:45,630 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:49:45,631 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 17:49:45,631 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 17:49:45,632 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 17:49:45,632 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 20:49:00,380 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:49:00,383 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 20:49:00,387 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 20:49:00,391 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:49:00,391 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 20:52:11,615 [Worker-104: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:52:11,617 [Worker-104: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 20:52:11,620 [Worker-104: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 20:52:11,622 [Worker-104: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:52:11,622 [Worker-104: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 20:56:37,552 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:56:37,552 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 20:56:37,552 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 20:56:37,555 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:56:37,555 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 20:57:12,563 [Worker-112: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:57:12,565 [Worker-112: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 20:57:12,567 [Worker-112: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 20:57:12,570 [Worker-112: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:57:12,570 [Worker-112: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 20:57:21,518 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:57:21,520 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 20:57:21,522 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 20:57:21,525 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:57:21,525 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 20:57:22,889 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:57:22,891 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 20:57:22,893 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 20:57:22,896 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:57:22,896 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 20:57:54,039 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:57:54,041 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 20:57:54,043 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 20:57:54,046 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:57:54,046 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 20:58:20,838 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:58:20,841 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 20:58:20,843 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 20:58:20,846 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 20:58:20,846 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:00:58,644 [Worker-112: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:00:58,647 [Worker-112: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:00:58,649 [Worker-112: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:00:58,652 [Worker-112: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:00:58,652 [Worker-112: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:02:29,892 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:02:29,893 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:02:29,896 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:02:29,899 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:02:29,899 [Worker-116: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:04:52,553 [Worker-104: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:04:52,553 [Worker-104: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 21:04:52,554 [Worker-104: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:04:52,556 [Worker-104: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:04:52,556 [Worker-104: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:14:39,985 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:14:39,986 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 21:14:39,986 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:14:39,988 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:14:39,988 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:15:07,559 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:15:07,561 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:15:07,565 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:15:07,570 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:15:07,570 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:15:17,836 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:15:17,839 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:15:17,843 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:15:17,847 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:15:17,847 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:15:31,178 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:15:31,180 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:15:31,182 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:15:31,185 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:15:31,185 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:16:06,095 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:16:06,097 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:16:06,099 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:16:06,102 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:16:06,102 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:16:32,552 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:16:32,554 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:16:32,556 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:16:32,559 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:16:32,559 [Worker-113: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:16:44,814 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:16:44,816 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:16:44,818 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:16:44,821 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:16:44,821 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:16:48,609 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:16:48,611 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:16:48,613 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:16:48,616 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:16:48,616 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:17:29,955 [Worker-119: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:17:29,955 [Worker-119: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 21:17:29,955 [Worker-119: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:17:29,958 [Worker-119: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:17:29,958 [Worker-119: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:18:50,784 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:18:50,786 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:18:50,789 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:18:50,791 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:18:50,791 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:19:01,342 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:19:01,344 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:19:01,347 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:19:01,349 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:19:01,349 [Worker-114: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:19:15,231 [Worker-119: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:19:15,233 [Worker-119: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:19:15,236 [Worker-119: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:19:15,238 [Worker-119: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:19:15,238 [Worker-119: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:19:24,583 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:19:24,586 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:19:24,587 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:19:24,590 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:19:24,590 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:19:41,398 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:19:41,399 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:19:41,402 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:19:41,404 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:19:41,405 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:19:58,030 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:19:58,032 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:19:58,035 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:19:58,038 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:19:58,038 [Worker-118: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:20:59,685 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:20:59,685 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 21:20:59,685 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:20:59,687 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:20:59,687 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:21:52,842 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:21:52,844 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:21:52,846 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:21:52,849 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:21:52,849 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:22:34,300 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:22:34,302 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:22:34,304 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:22:34,306 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:22:34,306 [Worker-121: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:26:26,849 [Worker-122: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:26:26,849 [Worker-122: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 21:26:26,849 [Worker-122: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2020-08-12 21:26:26,850 [Worker-122: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:26:26,850 [Worker-122: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:29:29,429 [Worker-122: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.sns:SNSspring:0.0.1-SNAPSHOT @ C:\ssafy\project\sns by git flow\backend\SNSspring\pom.xml.
+2020-08-12 21:29:30,589 [Worker-122: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:29:30,591 [Worker-122: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:29:30,600 [Worker-122: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 3 resources
+2020-08-12 21:29:30,607 [Worker-122: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:29:30,607 [Worker-122: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:29:33,421 [Worker-126: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:29:33,423 [Worker-126: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:29:33,426 [Worker-126: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2020-08-12 21:29:33,460 [Worker-126: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:29:33,460 [Worker-126: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\ssafy\project\sns by git flow\backend\SNSspring\src\test\resources
+2020-08-12 21:29:45,435 [Worker-124: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-08-12 21:29:45,437 [Worker-124: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2020-08-12 21:29:45,440 [Worker-124: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources

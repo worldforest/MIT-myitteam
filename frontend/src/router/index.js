@@ -21,6 +21,7 @@ import Chat from '@/views/Chat.vue'
 import ChangePwd from '@/views/ChangePwd.vue'
 import UpdateProfile from '@/views/UpdateProfile.vue'
 import searchTag from '@/views/searchTag.vue'
+import dmap from '@/views/dmap.vue'
 
 
 Vue.use(VueRouter)
@@ -133,6 +134,11 @@ Vue.use(VueRouter)
     path: '/searchtag',
     name: 'searchTag',
     component: searchTag,
+  },
+  {
+    path: '/dmap',
+    name: 'dmap',
+    component: dmap
   },
   //////////지훈////////////
   {

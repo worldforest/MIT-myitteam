@@ -12,7 +12,7 @@ import VueCarousel from 'vue-carousel'
 // firebase 설정------------------------------------------
 import firebase from 'firebase'
 
-// // Required for side-effects
+// Required for side-effects
 require("firebase/firestore");
 
 // // firebase intialize

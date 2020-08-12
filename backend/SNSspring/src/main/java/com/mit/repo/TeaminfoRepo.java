@@ -17,4 +17,6 @@ public interface TeaminfoRepo {
 	public boolean update(String no, String leaderemail, String part, String headcount);
 
 	public boolean delete(Teaminfo teaminfo);
+	
+	public int countHead(String no, String leaderemail);
 }
