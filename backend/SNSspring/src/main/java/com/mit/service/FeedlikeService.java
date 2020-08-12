@@ -3,9 +3,10 @@ package com.mit.service;
 import java.util.List;
 
 import com.mit.dto.Feedlike;
+import com.mit.returnDto.FollowList;
 
 public interface FeedlikeService {
-	List<String> selectAll(String no);
+	List<FollowList> selectAll(String no);
 
 	public boolean insert(Feedlike feedlike);
 

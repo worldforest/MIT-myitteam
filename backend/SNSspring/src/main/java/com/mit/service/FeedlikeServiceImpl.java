@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mit.dto.Feedlike;
 import com.mit.repo.FeedlikeRepo;
+import com.mit.returnDto.FollowList;
 
 @Service
 public class FeedlikeServiceImpl implements FeedlikeService {
@@ -15,7 +16,7 @@ public class FeedlikeServiceImpl implements FeedlikeService {
 	FeedlikeRepo feedlikeRepo;
 
 	@Override
-	public List<String> selectAll(String no) {
+	public List<FollowList> selectAll(String no) {
 		return feedlikeRepo.selectAll(no);
 	}
 
