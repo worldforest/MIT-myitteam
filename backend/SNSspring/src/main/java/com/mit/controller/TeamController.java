@@ -274,6 +274,11 @@ public class TeamController {
 		String headcount = teaminfoService.selectHeadcount(no, leaderemail, part);
 		System.out.println(headcount);
 		int curr = Integer.parseInt(headcount) - 1;
+		if(curr==0) {
+			teamService.delete(no, leaderemail);
+//			List<Teaminfo> teaminfo = teaminfoService.select(no, leaderemail);
+//			teaminfoService.delete(teaminfo);
+		}
 		System.out.println(curr);
 		teaminfoService.update(no, leaderemail, part, curr + "");
 

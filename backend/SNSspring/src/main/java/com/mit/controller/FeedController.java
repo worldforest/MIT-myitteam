@@ -61,13 +61,13 @@ public class FeedController {
 	@Autowired
 	private FeedService feedService;
 	@Autowired
-	private FeedscrapService feedscrapService;
-	@Autowired
 	private FeedimageService feedimageService;
 	@Autowired
 	private FeedlikeService feedlikeService;
-	@Autowired
-	private FeedreplyService feedreplyService;
+//	@Autowired
+//	private FeedreplyService feedreplyService;
+//	@Autowired
+//	private FeedscrapService feedscrapService;
 	@Autowired
 	private FeedtagService feedtagService;
 	@Autowired
@@ -139,6 +139,73 @@ public class FeedController {
 			feedtagService.insert(no, tag);
 		}
 
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "피드 수정 ", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
+	@PostMapping("update")
+	public ResponseEntity<String> updateFeed(@RequestParam("no") String no,
+			@RequestParam("description") String description,
+			@RequestParam(value = "tags", required = false) String tags,
+			@RequestParam(value = "file", required = false) MultipartFile file) {
+
+		// 시간과 originalFilename으로 매핑 시켜서 src 주소를 만들어 낸다.
+		// feed-> image 는 대표이미지 feedimage에는 추가 이미지들을 삽입한다.
+		// feed tag들을 삽입한다 ,로 구분
+		Feed feed = new Feed();
+		feed.setNo(no);
+		if (tags != null)
+			feed.setTag(tags);
+		else
+			feed.setTag("");
+
+		feed.setDescription(description);
+		Date date = new Date();
+		StringBuilder sb = new StringBuilder();
+
+		if (file == null || file.isEmpty()) {
+			// file image 가 없을 경우
+			sb.append("none.png");
+		} else {
+			sb.append(date.getTime());
+			sb.append(file.getOriginalFilename());
+		}
+		feed.setSrc(sb.toString());
+
+		if (feedService.update(feed)) {
+			// 파일 업로드 끝
+			if (file != null && !file.isEmpty()) {
+				File dest = new File(path.getIm() + "images/feed/" + sb.toString());
+				try {
+					file.transferTo(dest);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				// db에 파일 위치랑 번호 등록
+			}
+		} else {
+			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+		}
+
+		// feed tag 등록
+		StringTokenizer st = null;
+		if (tags != null)
+			st = new StringTokenizer(tags, "#");
+		while (st != null && st.hasMoreTokens()) {
+			String tag = st.nextToken();
+			feedtagService.insert(no, tag);
+		}
+
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "피드 삭제 ", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
+	@PostMapping("delete")
+	public ResponseEntity<String> deleteFeed(@RequestParam("no") String no,@RequestParam("email") String email) {
+		feedService.deletetags(no);
+		feedService.delete(no,email);
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
@@ -283,7 +350,7 @@ public class FeedController {
 	@PostMapping("feedlikeUser")
 	public ResponseEntity<List<FollowList>> feedlikeUser(@RequestParam String no) {
 		List<FollowList> feedlikeuser = feedlikeService.selectAll(no);// email목록
-		
+
 		return new ResponseEntity<List<FollowList>>(feedlikeuser, HttpStatus.OK);
 	}
 

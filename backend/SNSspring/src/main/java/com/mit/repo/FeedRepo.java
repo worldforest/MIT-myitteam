@@ -17,7 +17,9 @@ public interface FeedRepo {
 
 	public boolean update(Feed feed);
 
-	public boolean delete(String no);
+	public boolean delete(String no,String email);
+
+	public boolean deletetags(String no);
 
 	public String Latestfeed(String email);
 
