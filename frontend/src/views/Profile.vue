@@ -1,19 +1,10 @@
 <template>
-  <div  class="cont10">
-    {{profileData}}
-    <v-row v-if="windowWidth >= 1270">
+  <div>
+    <v-row v-if="windowWidth >= 1270" class="cont10">
       <v-col col="2" sm="2" class="fg1">
         <div>
           <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
         </div>
-        <!-- <div class="filebox ml-4"> 
-          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
-          <input 
-            type="file" 
-            id="ex_file"
-            accept="image/*"
-            @change="onChange">
-        </div> -->
       </v-col>
       
       <v-col col="10" sm="10" class="fg2">
@@ -37,7 +28,7 @@
       </v-col>
     </v-row>
 
-    <v-row v-else-if="windowWidth >= 788">
+    <v-row v-else-if="windowWidth >= 788" class="cont10">
       <v-col col="2" sm="2" class="fg1 mr-6">
         <div class="pf-box">
           <img  v-if="profileData.src" :src="profileData.src" class="box" style="width:150px; height:150px;">
@@ -65,13 +56,13 @@
     </v-row>
     
     <v-row v-else>
-      <v-col col="2" sm="2" class="fg1 mr-6">
+      <v-col col="2" sm="2" class="fg1 mr-6 cont10">
         <div class="pf-box">
           <img  v-if="profileData.src" :src="profileData.src" class="box2" style="width:77px; height:77px;">
         </div>
       </v-col>
       
-      <v-col col="10" sm="10" class="fg2">
+      <v-col col="10" sm="10" class="fg2 cont10">
         <div class="ml-5">
           <h4 class="ml-5">{{ profileData.nickname }}</h4>
           <span>{{ profileData.description }}개발자</span>
@@ -85,10 +76,10 @@
     </v-row>
     <hr v-if="windowWidth < 788">
     <v-row v-if="windowWidth < 788">
-      <v-col cols="6">
+      <v-col cols="6" class="cont10">
         <h4>팔로우| {{ profileData.followingCnt }}명</h4>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="6" class="cont10">
         <h4>팔로워| {{ profileData.followerCnt }}명</h4>
       </v-col>
     </v-row>    
@@ -96,10 +87,10 @@
     <div class="text-center">
       <h3>피드</h3>
     </div>
-    <router-link class="feed white--text" to="/feedcreate">
+    <router-link class="feed white--text mb-3" to="/feedcreate">
       피드등록
     </router-link>
-    <v-row class="mt-4">
+    <v-row class="mt-4" v-if="windowWidth > 788">
       <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
           <img :src="feed.src" 
@@ -108,6 +99,44 @@
           :feed="feed" 
           @click="feedDetail(feed)" >
         </div>
+      </v-col>
+    </v-row>
+    <v-row v-else class="bg-gray">
+      <v-col cols='12'  v-for="feed in profileData.feeds" :key="feed.no">
+        <v-card
+          :loading="loading"
+          class="mx-auto my-3"
+        >
+          <v-img
+            height="300"
+            :src="feed.src"
+            @click="feedDetail(feed)"
+          ></v-img>
+
+          <v-card-text @click="feedDetail(feed)">
+            <v-row
+              align="center"
+              class="mx-0"
+            >
+            </v-row>
+
+            <div class="my-4 subtitle-1">
+              {{feed.description}}
+            </div>
+          </v-card-text>
+
+          <v-card-text>
+            <v-chip-group
+              v-model="selection"
+              active-class="deep-purple accent-4 white--text"
+              column
+            >
+              <v-chip v-for="(tag,i) in feed.tag" :key="i" @click="searchTagFeed(tag)">
+                #{{tag}}
+              </v-chip>
+            </v-chip-group>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
 
@@ -150,7 +179,7 @@ export default {
     },
 
     ...mapMutations(['feedDetail', 'updateProfile']),
-    ...mapActions(['profile'])
+    ...mapActions(['profile', 'searchTagFeed'])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
@@ -255,6 +284,10 @@ export default {
     border-radius: 0.5rem;
     font-size: 0.5rem;
     font-weight: bold;
+  }
+
+  .bg-gray {
+    background-color: #e9e9e9;
   }
 
 </style>
