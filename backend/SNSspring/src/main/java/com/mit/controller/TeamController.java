@@ -269,7 +269,6 @@ public class TeamController {
 		member.setPart(part);
 		member.setMemberemail(teamemail);
 		memberService.insert(member);
-
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 

@@ -7,15 +7,15 @@ import vuetify from './plugins/vuetify'
 import BootstrapVue from 'bootstrap-vue'
 import VueDaumPostcode from "vue-daum-postcode"
 import VueCarousel from 'vue-carousel'
+
+
 // firebase 설정------------------------------------------
 import firebase from 'firebase'
-
-
 
 // Required for side-effects
 require("firebase/firestore");
 
-// firebase intialize
+// // firebase intialize
 var firebaseConfig = {
   apiKey: "AIzaSyBzruTO6rkxZAMLxHGWajdzxXEudjuP838",
   authDomain: "mit-my-it-team.firebaseapp.com",
@@ -28,10 +28,12 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
+// Initialize Cloud firestore through firebase
 var db = firebase.firestore();
 
-window.db= db;
+window.db=db;
 
+// Disable deprecated features
 db.settings({
   timestampsInSnapshots: true
 });
