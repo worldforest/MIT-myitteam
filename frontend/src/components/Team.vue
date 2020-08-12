@@ -37,10 +37,14 @@
                     </template>
 
                     <!-- {{ i.datalist }} -->
-                    <v-card>
+                    <v-card class="cardModal">
                       <li v-for="item in i.dataList" :key="item">
                         <div class="headline mb-2 white--text partTitle" >
-                        {{ item.part }}
+                          <v-row class="cardModal">
+                            <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                            <v-spacer></v-spacer>
+                            <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                          </v-row>
                         </div>
                         <h3 class="ml-3">담당 업무</h3>
                         <v-card-text class="ml-2">
@@ -57,21 +61,9 @@
                           <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                         </v-card-text>
                         <v-row justify="center">
-                          <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true"  v-if="email" @click="applyLeader(item); apply(sendData);">
+                          <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true"  v-if="email" @click="applyLeader(item); apply(sendData); submitProfile();">
                             지원하기
                           </v-btn>
-
-                          <v-dialog v-model="dialog2" max-width="450">
-                            <v-card>
-                              <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
-                              <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn color="green darken-1" text @click="dialog2 = false">
-                                  닫기
-                                </v-btn>
-                              </v-card-actions>
-                            </v-card>
-                          </v-dialog>
                         </v-row>
                       </li>
 
@@ -113,10 +105,14 @@
                     </template>
 
                     <!-- {{ i.datalist }} -->
-                    <v-card>
+                    <v-card class="cardModal">
                       <li v-for="item in i.dataList" :key="item">
                         <div class="headline mb-2 white--text partTitle" >
-                        {{ item.part }}
+                          <v-row class="cardModal">
+                            <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                            <v-spacer></v-spacer>
+                            <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                          </v-row>
                         </div>
                         <h3 class="ml-3">담당 업무</h3>
                         <v-card-text class="ml-2">
@@ -133,21 +129,9 @@
                           <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                         </v-card-text>
                         <v-row justify="center">
-                          <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
+                          <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData); submitProfile();">
                             지원하기
                           </v-btn>
-
-                          <v-dialog v-model="dialog2" max-width="450">
-                            <v-card>
-                              <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
-                              <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn color="green darken-1" text @click="dialog2 = false">
-                                  닫기
-                                </v-btn>
-                              </v-card-actions>
-                            </v-card>
-                          </v-dialog>
                         </v-row>
                       </li>
 
@@ -198,10 +182,14 @@
                   </template>
 
                   <!-- {{ i.datalist }} -->
-                  <v-card>
+                  <v-card class="cardModal">
                     <li v-for="item in i.dataList" :key="item">
                       <div class="headline mb-2 white--text partTitle" >
-                      {{ item.part }}
+                        <v-row class="cardModal">
+                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                          <v-spacer></v-spacer>
+                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                        </v-row>
                       </div>
                       <h3 class="ml-3">담당 업무</h3>
                       <v-card-text class="ml-2">
@@ -218,21 +206,9 @@
                         <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                       </v-card-text>
                       <v-row justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData); submitProfile();">
                           지원하기
                         </v-btn>
-
-                        <v-dialog v-model="dialog2" max-width="450">
-                          <v-card>
-                            <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="green darken-1" text @click="dialog2 = false">
-                                닫기
-                              </v-btn>
-                            </v-card-actions>
-                          </v-card>
-                        </v-dialog>
                       </v-row>
                     </li>
 
@@ -270,10 +246,14 @@
                     <v-btn v-if="i.email == email" class="ml-3 white--text" color="red" @click="deleteSave(i); deleteTeam(deleteData);">삭제하기</v-btn>
                   </template>
 
-                  <v-card>
+                  <v-card class="cardModal">
                     <li v-for="item in i.dataList" :key="item">
                       <div class="headline mb-2 white--text partTitle" >
-                      {{ item.part }}
+                        <v-row class="cardModal">
+                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                          <v-spacer></v-spacer>
+                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                        </v-row>
                       </div>
                       <h3 class="ml-3">담당 업무</h3>
                       <v-card-text class="ml-2">
@@ -290,21 +270,9 @@
                         <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                       </v-card-text>
                       <v-row justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData); submitProfile();">
                           지원하기
                         </v-btn>
-
-                        <v-dialog v-model="dialog2" max-width="450">
-                          <v-card>
-                            <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="green darken-1" text @click="dialog2 = false">
-                                닫기
-                              </v-btn>
-                            </v-card-actions>
-                          </v-card>
-                        </v-dialog>
                       </v-row>
                     </li>
 
@@ -343,10 +311,14 @@
                   </template>
 
                   <!-- {{ i.datalist }} -->
-                  <v-card>
+                  <v-card class="cardModal">
                     <li v-for="item in i.dataList" :key="item">
                       <div class="headline mb-2 white--text partTitle" >
-                      {{ item.part }}
+                        <v-row class="cardModal">
+                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                          <v-spacer></v-spacer>
+                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                        </v-row>
                       </div>
                       <h3 class="ml-3">담당 업무</h3>
                       <v-card-text class="ml-2">
@@ -363,21 +335,9 @@
                         <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                       </v-card-text>
                       <v-row justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData); submitProfile();">
                           지원하기
                         </v-btn>
-
-                        <v-dialog v-model="dialog2" max-width="450">
-                          <v-card>
-                            <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="green darken-1" text @click="dialog2 = false">
-                                닫기
-                              </v-btn>
-                            </v-card-actions>
-                          </v-card>
-                        </v-dialog>
                       </v-row>
                     </li>
 
@@ -416,10 +376,14 @@
                   </template>
 
                   <!-- {{ i.datalist }} -->
-                  <v-card>
+                  <v-card class="cardModal">
                     <li v-for="item in i.dataList" :key="item">
                       <div class="headline mb-2 white--text partTitle" >
-                      {{ item.part }}
+                        <v-row class="cardModal">
+                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                          <v-spacer></v-spacer>
+                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                        </v-row>
                       </div>
                       <h3 class="ml-3">담당 업무</h3>
                       <v-card-text class="ml-2">
@@ -436,21 +400,9 @@
                         <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                       </v-card-text>
                       <v-row justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData);">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData); submitProfile();">
                           지원하기
                         </v-btn>
-
-                        <v-dialog v-model="dialog2" max-width="450">
-                          <v-card>
-                            <v-card-title><h3>팀장에게 참여의사를 전송하였습니다.</h3> </v-card-title>
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="green darken-1" text @click="dialog2 = false">
-                                닫기
-                              </v-btn>
-                            </v-card-actions>
-                          </v-card>
-                        </v-dialog>
                       </v-row>
                     </li>
 
@@ -493,7 +445,7 @@ export default {
     },
 		submitProfile(){
 			Swal.fire({
-				title: '팀장에게 성공적으로 전달하였습니다.',
+				text: '팀장에게 성공적으로 전달하였습니다.',
 			})
     },
     onResize() {
@@ -550,6 +502,11 @@ export default {
 }
 </script>
 <style scoped>
+  @font-face {
+    font-family: myFont;
+    src: url("/src/font/BMJUA_ttf.ttf");
+  }
+
   .teamCard {
     border: 2px solid rgb(92, 107, 192);
     width: 330px;
@@ -613,5 +570,8 @@ export default {
   .hrr{
     width: 200px;
     margin: 1rem auto;
+  }
+  .cardModal{
+    font-family: myFont, sans-serif;
   }
 </style>

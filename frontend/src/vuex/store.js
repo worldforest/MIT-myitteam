@@ -37,6 +37,9 @@ const state = {
     dates: [],
     tagData: [],
     keyword: '',
+    likeCntnum: '',
+    likeUserList: [],
+    likeUserList2: [],
     followerList2: [],
 }
 

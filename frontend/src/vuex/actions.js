@@ -187,7 +187,11 @@ export default {
 		console.log(applyData)
 		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
 			.then(() => {
-				alert('성공적으로 등록하였습니다.')
+				Swal.fire({
+					icon: 'success',
+					title: '성공적으로 등록하였습니다.',
+					width: 600
+				})
 				router.push({ name: "GongmoDetail"})
 			})
 			.catch(error => console.log(error.response.data))
@@ -197,7 +201,11 @@ export default {
 		console.log(projectData)
 		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
 		.then(() => {
-			alert('성공적으로 등록하였습니다.')
+			Swal.fire({
+				icon: 'success',
+				title: '성공적으로 등록하였습니다.',
+				width: 600
+			})
 			router.push({ name: "ProjectList"})
 		})
 		.catch(err => {
@@ -244,7 +252,11 @@ export default {
 		params.append('leaderemail', deleteData.leaderemail);	
 		axios.post(`${SERVER_URL}/api/team/deleteTeam`, params)
 		.then(() => {
-			alert('팀이 삭제되었습니다.')
+			Swal.fire({
+				icon: 'info',
+				title: '등록한 팀이 삭제되었습니다.',
+				width: 600
+			})
 			router.push({ name: "AllContest" })
 		})
 		.catch( err => {
@@ -264,22 +276,75 @@ export default {
 		params.append('advantage', updateData.advantage);
 		axios.post(`${SERVER_URL}/api/team/updateTeaminfo`, params)
 		.then(() => {
-			console.log('수정하자')
+			console.log('성공')
+			Swal.fire({
+				icon: 'info',
+				title: '등록한 프로젝트가 삭제되었습니다.',
+				width: 600
+			})
+			router.push({ name: "ProjectList" })
 		})
-		.catch( err => {
-			console.log(err.response.data)
-		})
+		.catch( err => console.log(err.response.data))
 	},
-	deleteCard(context, deleteData){
+	like(context, likeData){
 		console.log(context)
-		console.log(deleteData)
+		console.log(likeData)
 		const params = new URLSearchParams();
-		params.append('no', deleteData.no);
-		params.append('leaderemail', deleteData.leaderemail);
-		params.append('part', deleteData.part);
-		axios.post(`${SERVER_URL}/api/team/deleteTeaminfo`, params)
+		params.append('no', likeData.no),
+		params.append('email', likeData.email)
+		axios.post(`${SERVER_URL}/api/feed/feedlike`, params)
 		.then(() => {
-			alert('성공적으로 삭제되었습니다.')
+			console.log('좋아요 성공')
+			context.dispatch('likeCnt', likeData)
+			context.dispatch('likeUser', likeData)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	unlike(context, likeData){
+    console.log(context)
+		console.log(likeData)
+		const params = new URLSearchParams();
+		params.append('no', likeData.no),
+		params.append('email', likeData.email)
+		axios.post(`${SERVER_URL}/api/feed/feedunlike`, params)
+		.then(() => {
+			console.log('좋아요 성공')
+			context.dispatch('likeCnt', likeData)
+			context.dispatch('likeUser', likeData)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	likeCnt(context, likeCntData){
+		// console.log(context)
+		// console.log(likeCntData)
+		const params = new URLSearchParams();
+		params.append('no', likeCntData.no)
+		axios.post(`${SERVER_URL}/api/feed/feedlikeCnt`, params)
+		.then( res => {
+			console.log(res)
+			context.commit('likeCnt', res.data)
+			
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	likeUser(context, likeCntData){
+		console.log('좋아요 명단')
+		console.log(context)
+		console.log(likeCntData)
+		const params = new URLSearchParams();
+		params.append('no', likeCntData.no)
+		axios.post(`${SERVER_URL}/api/feed/feedlikeUser`, params)
+		.then((response) => {
+			var data = []
+			for(var i=0; i<(response.data).length; i++) {
+				data.push(response.data[i])
+			}
+			var data2 = []
+			for (var z=0; z<data.length; z++) {
+				data2.push(data[z].email)
+			}
+			context.commit('likeUser', data)
+			context.commit('likeUser2', data2)
 		})
 		.catch( err => console.log(err.response.data))
 	},
@@ -290,18 +355,18 @@ export default {
 		var contest = []
 		var project = []
 		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
-			.then(res => {
-				for(var i=0; i<(res.data).length; i++) {
-					if (res.data[i].category === 0) {
-						contest.push(res.data[i])
-					}
-					else {
-						project.push(res.data[i])
-					}
+		.then(res => {
+			for(var i=0; i<(res.data).length; i++) {
+				if (res.data[i].category === 0) {
+					contest.push(res.data[i])
 				}
-			context.commit('contestData', contest)
-			context.commit('projectData', project)
-			})
+				else {
+					project.push(res.data[i])
+				}
+			}
+		context.commit('contestData', contest)
+		context.commit('projectData', project)
+		})
 	},
 
 	profile(context) {
@@ -316,13 +381,13 @@ export default {
 	},
 
 	userprofile(context, useremail) {
-        axios.get(`${SERVER_URL}/api/feed/${useremail}`)
-          .then(res => {
-              context.commit('USERINPUT', res.data)
-          })
-          .catch(err => {
-              console.log(err)
-          })
+		axios.get(`${SERVER_URL}/api/feed/${useremail}`)
+			.then(res => {
+					context.commit('USERINPUT', res.data)
+			})
+			.catch(err => {
+					console.log(err)
+			})
 	},
 	follow(context) {
 		var params = new URLSearchParams();
@@ -365,15 +430,16 @@ export default {
 
 	myFollowList(context, res) {
 		var params = new URLSearchParams();
-		var data = []
+		// var data = []
 		params.append('email', res)
 		axios.post(`${SERVER_URL}/api/follow/followingList`, params)
-			.then((response) => {
-				for (var i=0; i<(response.data).length; i++) {
-					data.push(response.data[i])
-				}
-			context.commit('INPUTFOLLOW', data)
-			})
+		.then((response) => {
+			console.log(response)
+			// for (var i=0; i<(response.data).length; i++) {
+			// 	data.push(response.data[i])
+			// }
+			context.commit('INPUTFOLLOW', response.data)
+		})
 	},
 
 	unfollow(context, res) {
@@ -461,23 +527,15 @@ export default {
 				context.commit('getAllContest', data)
 			})
 	},
-<<<<<<< HEAD
 
 	/////////지훈////////////////
-=======
->>>>>>> f27afe048503a9e92d6cf557a0c2c23dea552224
 	getTeamInfo(context) {
 		const params = new URLSearchParams();
 		params.append('email', context.state.email)
 		axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
 		.then(response => {
 			sessionStorage.setItem('myTeam', JSON.stringify(response.data))
-<<<<<<< HEAD
 			context.commit('myTeamInfo', response.data)
-=======
-			// context.commit('myTeamInfo', response.data)
-			// context.commit('myTeamInfo', res)
->>>>>>> f27afe048503a9e92d6cf557a0c2c23dea552224
 		})
 	},
 	postDate (context, dateinfo) {
