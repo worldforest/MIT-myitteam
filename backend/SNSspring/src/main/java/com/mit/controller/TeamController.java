@@ -364,4 +364,10 @@ public class TeamController {
 		return new ResponseEntity<List<String>>(selectDate, HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "팀원 총인원 구하기", notes = "contents no 와 leaderemail을 등록하면 총 수를 반환합니다 리더수 포함.")
+	@PostMapping("countTeam")
+	public ResponseEntity<String> contTeam(@RequestParam String no, @RequestParam String leaderemail) {
+		return new ResponseEntity<String>(memberService.countMember(no, leaderemail), HttpStatus.OK);
+	}
+
 }
