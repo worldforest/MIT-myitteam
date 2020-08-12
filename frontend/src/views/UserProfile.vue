@@ -1,6 +1,5 @@
 <template>
   <div  class="cont10">
-
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
@@ -12,12 +11,12 @@
         <div class="ml-5">
           <span ><h3 class="my-3">{{ userprofiledata.nickname }}</h3></span>
             <!-- 현재 사용중인 유저 닉네임과 프로필 유저 닉네임이 같지 않고, 팔로우리스트안에 이메일이 없을 경우 -->
-          <span v-if="userprofiledata.feeds[0].email !== email">
+          <span v-if="user !== email">
             <v-btn
               v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
-              @click="follow()"
+              @click="follow(user)"
             >
               팔로우
             </v-btn>
@@ -26,7 +25,7 @@
               v-else
               class="ml-3"
               color="primary"
-              @click="unfollow(userprofiledata.feeds[0].email)"
+              @click="unfollow(user)"
             >
               팔로우 취소
             </v-btn>
@@ -54,12 +53,12 @@
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
           <span>{{ userprofiledata.nickname }}</span>
-          <span v-if="userprofiledata.feeds[0].email !== email">
+          <span v-if="user !== email">
             <v-btn
               v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
-              @click="follow()"
+              @click="follow(user)"
             >
               팔로우
             </v-btn>
@@ -68,7 +67,7 @@
               v-else
               class="ml-3"
               color="primary"
-              @click="unfollow(userprofiledata.feeds[0].email)"
+              @click="unfollow(user)"
             >
               팔로우 취소
             </v-btn>
@@ -96,12 +95,12 @@
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
           <h3 class="ml-5 mb-3">{{ userprofiledata.nickname }}</h3>
-          <span v-if="userprofiledata.feeds[0].email !== email">
+          <span v-if="user.email !== email">
             <v-btn
               v-if="!followerList.includes(email)"
               class="ml-3"
               color="primary"
-              @click="follow()"
+              @click="follow(user)"
             >
               팔로우
             </v-btn>
@@ -110,7 +109,7 @@
               v-else
               class="ml-3"
               color="primary"
-              @click="unfollow(userprofiledata.feeds[0].email)"
+              @click="unfollow(user)"
             >
               팔로우 취소
             </v-btn>
@@ -139,7 +138,7 @@
       <v-col cols="4" v-for="feed in userprofiledata.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
           <img :src="feed.src" 
-          alt="" 
+          alt="안나오는겁니다!" 
           style="width:100%;" 
           :feed="feed" 
           @click="feedDetail(feed)" >
