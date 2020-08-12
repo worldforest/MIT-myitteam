@@ -38,6 +38,9 @@ export default {
     INPUTFOLLOWER(state, res) {
         state.followerList = res
     },
+    INPUTFOLLOWER2(state, res) {
+        state.followerList2 = res
+    },
     INPUTFOLLOW(state, res) {
         state.followList = res
     },

@@ -4,15 +4,6 @@
       <v-row>
         <v-col cols="12">
           <v-text-field
-            v-model="feedData.category"
-            label="Category"
-            outlined
-          ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12">
-          <v-text-field
             v-model="feedData.description"
             label="Description"
             outlined
@@ -49,7 +40,6 @@ export default {
   data() {
     return {
       feedData: {
-        category: "",
         description: "",
         email : "",
         file: "",
