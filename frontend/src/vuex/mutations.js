@@ -117,5 +117,14 @@ export default {
         state.tagData = data.res
         state.keyword = data.keyword
         router.push({name: "searchTag"})
-    }
+    },
+    likeCnt(state, data) {
+      state.likeCntnum = data
+		},
+    likeUser(state, data) {
+        state.likeUserList = data
+    },
+    likeUser2(state, data) {
+        state.likeUserList2 = data
+    },
 }

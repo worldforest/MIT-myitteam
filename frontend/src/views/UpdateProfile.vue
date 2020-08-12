@@ -63,14 +63,14 @@
         <div>
           <h3 class="ml-4">비밀번호 : </h3>
           <v-col xs="6" md="11" class="mx-auto">
-            <v-text-field :rules="[rules.required, rules.min]" v-model="updateData.pwd" label="비밀번호" outlined id="pwd" type="password"></v-text-field>
+            <v-text-field class="passwordfont" :rules="[rules.required, rules.min]" v-model="updateData.pwd" label="비밀번호" outlined id="pwd" type="password"></v-text-field>
           </v-col>
         </div>
 
         <div>
           <h3 class="ml-4">비밀번호 확인 : </h3>
           <v-col xs="6" md="11" class="mx-auto">
-            <v-text-field :rules="[rules.pwdcheck, rules.required]" v-model="updateData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
+            <v-text-field class="passwordfont" :rules="[rules.pwdcheck, rules.required]" v-model="updateData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
           </v-col>
         </div>
 
@@ -136,5 +136,7 @@ export default {
 </script>
 
 <style>
-
+  .passwordfont{
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
 </style>

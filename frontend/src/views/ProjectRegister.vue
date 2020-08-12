@@ -160,7 +160,7 @@
 
 									<v-list-item>
 										<v-list-item-content>
-											<v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
+											<v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headCount }}</h4></v-list-item-title>
 										</v-list-item-content>
 									</v-list-item>
 									
@@ -247,7 +247,7 @@ export default {
     },
 	}, 
 	mounted () {
-			this.projectData.email = this.$store.state.email, 
+		this.projectData.email = this.$store.state.email, 
       this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })

@@ -4,7 +4,7 @@
     <h3 v-if="windowWidth < 800" class="my-3 ml-3">프로젝트 목록</h3>
     <!-- {{ windowWidth }} -->
     <div class="d-flex">
-      <v-btn color="primary" class="ml-auto mb-3"  @click="goTeam"><v-icon  color="#FFFFFF" class="mr-2">mdi-pencil-box-multiple</v-icon>프로젝트 등록하러 가기</v-btn>
+      <v-btn color="primary" class="ml-auto mb-3"  @click="goTeam"><v-icon  color="#FFFFFF" class="mr-2">mdi-pencil-box-multiple</v-icon>프로젝트 등록</v-btn>
     </div>
 
     <v-row no-gutters>
@@ -24,23 +24,13 @@
                <v-card-actions>
                   <v-btn color="orange" text class="ml-auto" @click="projectDetail(i); getTeamData(i.no)">
                     자세히보기
-                  </v-btn>
-                  
+                  </v-btn>  
                 </v-card-actions>
             </v-card-text>
           </div>
         </v-col>
       </li>
     </v-row>
-
-    <!-- <div>
-      <v-row >
-        <v-col cols="4" v-for="i in clubs2" :key="i.no" >
-          
-        </v-col>
-      </v-row>
-    </div> -->
-
   </div>
 </template>
 
@@ -84,7 +74,7 @@ export default {
 <style scoped>
   .projectCard{
     border: 2px solid rgb(92, 107, 192);
-    width: 330px;
+    width: 320px;
     height: 200px;
     text-align: center;
     border-top: thick solid rgb(92, 107, 192);

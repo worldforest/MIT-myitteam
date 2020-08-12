@@ -1,5 +1,7 @@
 package com.mit.service;
 
+import java.util.List;
+
 import com.mit.dto.User;
 
 public interface UserService {
@@ -22,4 +24,6 @@ public interface UserService {
 	public boolean update(String email, String pwd);
 
 	public boolean updateUser(User user);
+
+	public List<User> selectAddressMember(String no, String leaderemail);
 }
