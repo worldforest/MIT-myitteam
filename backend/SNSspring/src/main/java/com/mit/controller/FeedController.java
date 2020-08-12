@@ -35,6 +35,7 @@ import com.mit.algorithm.Token;
 import com.mit.dto.Feed;
 import com.mit.dto.Feedlike;
 import com.mit.dto.User;
+import com.mit.returnDto.FollowList;
 import com.mit.returnDto.PrivateFeed;
 import com.mit.service.FeedService;
 import com.mit.service.FeedimageService;
@@ -194,10 +195,11 @@ public class FeedController {
 		// email 정보가 주어지면 email 이 팔로우한 사람들의 feed를 반환한다.
 		else if (email != null) {
 			System.out.println("test");
-			List<String> follows = followService.followingList(email);
+			List<FollowList> follows = followService.followingList(email);
+			
 			feeds = new ArrayList<Feed>();
-			for (String follow : follows) {
-				feeds.addAll(feedService.selectEmail(follow));
+			for (FollowList follow : follows) {
+				feeds.addAll(feedService.selectEmail(follow.getEmail()));
 			}
 			// Sort 한다 기준은 최신순으로 솔팅한다.
 			Collections.sort(feeds);
