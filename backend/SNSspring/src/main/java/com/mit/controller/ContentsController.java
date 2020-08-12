@@ -57,7 +57,12 @@ public class ContentsController {
 	@ApiOperation(value = "공모전 상세정보 조회", notes = " ")
 	@GetMapping("readOne/contest")
 	public ResponseEntity<Contents> readOneContests(String no) {
-		return new ResponseEntity<Contents>(contentsService.selectOne(no), HttpStatus.OK);
+
+		Contents contents = contentsService.selectOne(no);
+		if (contents != null && contentsService.viewsplus(no)) {
+			return new ResponseEntity<Contents>(contents, HttpStatus.OK);
+		}
+		return new ResponseEntity<Contents>(contents, HttpStatus.FAILED_DEPENDENCY);
 	}
 
 	@ApiOperation(value = "공모전 삭제", notes = " ")
