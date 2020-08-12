@@ -11,6 +11,7 @@ public class PrivateFeed {
 	int followingCnt;
 	String description;
 	String address;
+
 	public String getAddress() {
 		return address;
 	}
