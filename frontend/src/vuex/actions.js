@@ -528,6 +528,23 @@ export default {
 			})
 	},
 
+	deleteFeed(context, res) {
+		const params = new URLSearchParams();
+		params.append('email', res.email)
+		params.append('no', res.no)
+		axios.post(`${SERVER_URL}/api/feed/delete`, params)
+			.then(() => {
+				Swal.fire({
+					icon: 'success',
+					text: '성공적으로 삭제하였습니다.!',
+				})
+				router.push({ name: "Profile" })
+			})
+			.catch(() => {
+				console.log('삭제실패')
+			})
+	},
+
 	/////////지훈////////////////
 	getTeamInfo(context) {
 		const params = new URLSearchParams();

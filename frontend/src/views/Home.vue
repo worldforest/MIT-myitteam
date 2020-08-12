@@ -159,7 +159,7 @@
         </div>
       </div>
       <div>
-        <v-row class="cont10">
+        <v-row class="cont10" v-if="windowWidth > 760">
           <v-col cols="4" v-for="i in community" :key="i.no">
             <div class="mx-2 detail_hover">
               {{ i.nickname }}
@@ -168,21 +168,38 @@
                 style="width:100%; height: 350px"
                 :i="i"
                 @click='feedDetail(i)'
-                v-if="windowWidth >= 767"
-              >
-              <img :src="i.src"
-                alt="안뜨는거라고!"
-                style="width:100%; height: 150px;"
-                :i="i"
-                @click='feedDetail(i)'
-                v-else
               >
             </div>       
           </v-col>
         </v-row>
+        <v-row v-else class="bg-gray">
+          <v-col cols='12'  v-for="i in community" :key="i.no">
+            <v-card
+              :loading="loading"
+              class="mx-auto my-3"
+            >
+              <v-img
+                height="300"
+                :src="i.src"
+                @click="feedDetail(i)"
+              ></v-img>
+
+              <v-card-text>
+               <v-chip-group
+                  v-model="selection"
+                  active-class="deep-purple accent-4 white--text"
+                  column
+                >
+                  <v-chip v-for="(tag,z) in i.tag" :key="z" @click="searchTagFeed(tag)">
+                    #{{tag}}
+                  </v-chip>
+                </v-chip-group>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </div>
     </div>
-    {{ currentPageClubs }}
   </div>
 </template>
 

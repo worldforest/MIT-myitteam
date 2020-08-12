@@ -1,7 +1,7 @@
 <template>
   <div class="mt-3">
+    {{detailFeed}}
     <div v-if="windowWidth >= 767" class="cont15">
-      {{ detailFeed }}
       {{ windowWidth }}
       <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
       <h3><router-link to='/profile' v-if="email === detailFeed.email"> {{ detailFeed.nickname }}</router-link></h3>
@@ -59,25 +59,72 @@
         <v-icon v-if="likeUserList2.includes(email)" large class="mr-4 likebtn" color="red" @click="unlike(likeData);">mdi-heart-multiple</v-icon>
       </v-row>
     </div>
-
-    <!-- 크기 작을 때 !!!!!!!!!!!!!!!1 -->
-    <div v-if="windowWidth < 767">
-      <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
-      <router-link to='/profile' v-else><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
+    <div v-else>
+      <div class="d-flex">
+        <v-avatar>
+          <img
+            :src="userprofiledata.src"
+            alt="프로필사진"
+          >
+        </v-avatar>
+        <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email" class="mt-3 ml-2"><h5 style="color:black">{{ detailFeed.nickname }}</h5></router-link>
+        <router-link to='/profile' v-else><h5 style="color:black" class="mt-3 ml-2">{{ detailFeed.nickname }}</h5></router-link>
+      </div>      
       <hr>
       <div class="d-flex justify-end mb-4">
-        <h4>작성일자: {{ detailFeed.writedate }}</h4>
-        <h4 class="ml-4">조회수:  {{ detailFeed.views }}</h4>
+        <span>작성일자: {{ detailFeed.writedate.slice(0,10) }}</span>
+        <span class="ml-4">조회수:  {{ detailFeed.views }}</span>
       </div>
 
       <div>      
         <img :src="detailFeed.src" alt="" class="mx-auto" style="width:100%">
       </div>
-      <div>
+      <div class="cont2 mt-3">
         {{ detailFeed.description}}
       </div>
-      <div>
-        {{ detailFeed.tag }}
+      <div class="cont2">
+        <v-chip-group
+          v-model="selection"
+          active-class="deep-purple accent-4 white--text"
+          column
+          
+        >
+          <v-chip
+            class="ma-2"
+            color="pink"
+            label
+            text-color="white"
+            v-for="(tag,z) in detailFeed.tag"
+            @click="searchTagFeed(tag)"
+            :key="z"
+          >
+            <v-icon left>mdi-label</v-icon>
+            {{tag}}
+          </v-chip>
+        </v-chip-group>
+      </div>
+
+      <div class="d-flex cont2" v-if=" detailFeed.email === email">
+        <div class="ml-auto">
+          <span class="mr-3">
+            <v-chip
+              color="red"
+              text-color="white"
+              @click="updateFeed(detailFeed)"
+            >
+              수정
+            </v-chip>
+          </span>
+          <span>
+            <v-chip
+              color="red"
+              text-color="white"
+              @click="deleteFeed(detailFeed)"
+            >
+              삭제
+            </v-chip>
+          </span>
+        </div>
       </div>
 
       <hr>
@@ -115,7 +162,6 @@
         </div>
 
         <v-icon v-if="!likeUserList2.includes(email)" large class="mr-4 likebtn" @click="like(likeData);">mdi-heart-multiple-outline</v-icon>
-        <!-- <h5 v-if="likeUserList.includes(email)" class="mr-4">본인을 포함한 외 {{ likeCntnum }}명이 좋아합니다. </h5> -->
         <v-icon v-if="likeUserList2.includes(email)" large class="mr-4 likebtn" color="red" @click="unlike(likeData);">mdi-heart-multiple</v-icon>
       </v-row>
     </div>
@@ -127,7 +173,7 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['detailFeed', 'email', 'likeCntnum', 'likeUserList', 'likeUserList2']),
+    ...mapState(['detailFeed', 'email', 'likeCntnum', 'likeUserList', 'likeUserList2', 'userprofiledata']),
   },
   data() {
     return {
@@ -148,13 +194,14 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
-    ...mapMutations(['getuseremail']),
-    ...mapActions(['like', 'likeCnt', 'likeUser', 'unlike']),
+    ...mapMutations(['getuseremail', 'updateFeed']),
+    ...mapActions(['like', 'likeCnt', 'likeUser', 'unlike','userprofile', 'searchTagFeed', 'deleteFeed']),
   },
   mounted() {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+    this.userprofile(this.detailFeed.email)
   },
   created(){
     this.likeCnt(this.likeCntData);
@@ -193,5 +240,9 @@ export default {
   .followa{
     text-decoration: none;
     color:black;
+  }
+
+  .cont2 {
+    margin: 0 2%;
   }
 </style>
