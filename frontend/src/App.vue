@@ -104,7 +104,7 @@
     </div>
     <v-app color="#FAFAFA" class="container">
       <div>
-        <router-view />
+        <router-view :key="$route.fullPath"/>
       </div>
     </v-app>
   </div>

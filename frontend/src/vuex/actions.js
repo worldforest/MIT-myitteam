@@ -180,10 +180,7 @@ export default {
 		console.log(applyData)
 		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
 			.then(() => {
-				Swal.fire({
-					icon: 'success',
-					title: '성공적으로 등록하였습니다.',
-				})
+				alert('성공적으로 등록하였습니다.')
 				router.push({ name: "GongmoDetail"})
 			})
 			.catch(error => console.log(error.response.data))
@@ -193,10 +190,7 @@ export default {
 		console.log(projectData)
 		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
 		.then(() => {
-			Swal.fire({
-				icon: 'success',
-				title: '성공적으로 등록하였습니다.',
-			})
+			alert('성공적으로 등록하였습니다.')
 			router.push({ name: "ProjectList"})
 		})
 		.catch(err => {
@@ -243,61 +237,42 @@ export default {
 		params.append('leaderemail', deleteData.leaderemail);	
 		axios.post(`${SERVER_URL}/api/team/deleteTeam`, params)
 		.then(() => {
-			Swal.fire({
-				icon: 'info',
-				title: '등록한 팀이 삭제되었습니다.',
-			})
+			alert('팀이 삭제되었습니다.')
 			router.push({ name: "AllContest" })
 		})
 		.catch( err => {
 			console.log(err.response.data)
 		})
 	},
-	// updateCard(context, updateData){
-	// 	console.log(context)
-	// 	console.log(updateData)
-	// 	const params = new URLSearchParams();
-	// 	params.append('no', updateData.no);
-	// 	params.append('leaderemail', updateData.leaderemail);
-	// 	params.append('part', updateData.part);
-	// 	params.append('headcount', updateData.headcount);
-	// 	params.append('ability', updateData.ability);
-	// 	params.append('task', updateData.task);
-	// 	params.append('advantage', updateData.advantage);
-	// 	axios.post(`${SERVER_URL}/api/team/updateTeaminfo`, params)
-	// 	.then(() => {
-	// 		console.log('수정하자')
-	// 	})
-	// 	.catch( err => {
-	// 		console.log(err.response.data)
-	// 	})
-	// },
-	// deleteCard(context, deleteData){
-	// 	console.log(context)
-	// 	console.log(deleteData)
-	// 	const params = new URLSearchParams();
-	// 	params.append('no', deleteData.no);
-	// 	params.append('leaderemail', deleteData.leaderemail);
-	// 	params.append('part', deleteData.part);
-	// 	axios.post(`${SERVER_URL}/api/team/deleteTeaminfo`, params)
-	// 	.then(() => {
-	// 		alert('성공적으로 삭제되었습니다.')
-	// 	})
-	// 	.catch( err => console.log(err.response.data))
-	// },
-	deletePjt(context, deletePjtData){
-		console.log('내가 왔다아아아')
+	updateCard(context, updateData){
 		console.log(context)
-		console.log(deletePjtData.no)
-
-		axios.get(`${SERVER_URL}/api/contents/delete?no=${deletePjtData.no}`)
+		console.log(updateData)
+		const params = new URLSearchParams();
+		params.append('no', updateData.no);
+		params.append('leaderemail', updateData.leaderemail);
+		params.append('part', updateData.part);
+		params.append('headcount', updateData.headcount);
+		params.append('ability', updateData.ability);
+		params.append('task', updateData.task);
+		params.append('advantage', updateData.advantage);
+		axios.post(`${SERVER_URL}/api/team/updateTeaminfo`, params)
 		.then(() => {
-			console.log('성공')
-			Swal.fire({
-				icon: 'info',
-				title: '등록한 프로젝트가 삭제되었습니다.',
-			})
-			router.push({ name: "ProjectList" })
+			console.log('수정하자')
+		})
+		.catch( err => {
+			console.log(err.response.data)
+		})
+	},
+	deleteCard(context, deleteData){
+		console.log(context)
+		console.log(deleteData)
+		const params = new URLSearchParams();
+		params.append('no', deleteData.no);
+		params.append('leaderemail', deleteData.leaderemail);
+		params.append('part', deleteData.part);
+		axios.post(`${SERVER_URL}/api/team/deleteTeaminfo`, params)
+		.then(() => {
+			alert('성공적으로 삭제되었습니다.')
 		})
 		.catch( err => console.log(err.response.data))
 	},
@@ -342,24 +317,20 @@ export default {
               console.log(err)
           })
 	},
-	follow(context, res) {
+	follow(context) {
 		var params = new URLSearchParams();
 		if (context.state.email !== null) {
 		params.append('email', context.state.email);
-		params.append('following', res)
+		params.append('following', context.state.userprofiledata.feeds[0].email)
 		axios.post(`${SERVER_URL}/api/follow/follow`, params)
-			.then(() => {
-				context.dispatch('follwerCnt', res)
-				context.dispatch('myFollowerList', res)
-			})
-			.catch(error => console.log(error.response.data))
+				.then(() => {
+		context.dispatch('follwerCnt', context.state.userprofiledata.feeds[0].email)
+		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
+				})
+				.catch(error => console.log(error.response.data))
 		}
 		else {
-			Swal.fire({
-				icon: 'error',
-				text: '회원만 팔로우를 신청할 수 있어요!',
-				footer: '<a href="/login">로그인하기</a> <br>회원이 아니신가요?<a href="/login">   <br>가입하기   </a> '
-			})
+			alert('회원만 팔로우를 할 수 있습니다.')
 		}
 	},
 
@@ -474,19 +445,13 @@ export default {
 				context.commit('getAllContest', data)
 			})
 	},
-<<<<<<< HEAD
-=======
-
-
-	/////////지훈////////////////
->>>>>>> 02fbc0c74f803c513a0784fdad904e5b21c7ec07
 	getTeamInfo(context) {
 		const params = new URLSearchParams();
 		params.append('email', context.state.email)
 		axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
 		.then(response => {
 			sessionStorage.setItem('myTeam', JSON.stringify(response.data))
-			context.commit('myTeamInfo', response.data)
+			// context.commit('myTeamInfo', response.data)
 			// context.commit('myTeamInfo', res)
 		})
 	},
@@ -505,10 +470,11 @@ export default {
 		params.append('part', apply.part)
 		params.append('teamemail', apply.teamemail)
 		axios.post(`${SERVER_URL}/api/team/selectMember`, params)
-		.then(response => {
-			console.log(response)
+		.then(() => {
 			dispatch('getTeamInfo')
-			router.push({name : 'Myteaminfo'})
+			setTimeout(() => {
+				router.go()
+			}, 500)
 		})
 	},
 	deleteMember ({dispatch}, apply) {
@@ -518,11 +484,12 @@ export default {
 		params.append('part', apply.part)
 		params.append('teamemail', apply.teamemail)
 		axios.post(`${SERVER_URL}/api/team/deleteMember`, params)
-		.then(response => {
-			console.log(response)
+		.then(() => {
 			dispatch('getTeamInfo')
+			setTimeout(() => {
+				router.go()
+			}, 200)
 		})
-		router.go({name:'Myteaminfo'})
-	}
+	},
 }
 
