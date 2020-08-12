@@ -23,7 +23,7 @@ export default {
         state.club = res
         router.push({ name: "GongmoDetail"})
     },
-    INPUTDATA (state, res) {
+    INPUTDATA(state, res) {
         state.profileData = res
     },
     contestData(state, res) {
@@ -103,7 +103,10 @@ export default {
     likeCnt(state, data) {
       state.likeCntnum = data
 		},
-		likeUser(state, data) {
-			state.likeUserList = data
-		},
+    likeUser(state, data) {
+        state.likeUserList = data
+    },
+    likeUser2(state, data) {
+        state.likeUserList2 = data
+    },
 }

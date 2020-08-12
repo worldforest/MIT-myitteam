@@ -39,6 +39,7 @@ const state = {
     keyword: '',
     likeCntnum: '',
     likeUserList: [],
+    likeUserList2: [],
     followerList2: [],
 }
 

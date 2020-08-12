@@ -323,6 +323,7 @@ export default {
 		.then( res => {
 			console.log(res)
 			context.commit('likeCnt', res.data)
+			
 		})
 		.catch( err => console.log(err.response.data))
 	},
@@ -333,9 +334,17 @@ export default {
 		const params = new URLSearchParams();
 		params.append('no', likeCntData.no)
 		axios.post(`${SERVER_URL}/api/feed/feedlikeUser`, params)
-		.then(res => {
-			console.log(res)
-			context.commit('likeUser', res.data)
+		.then((response) => {
+			var data = []
+			for(var i=0; i<(response.data).length; i++) {
+				data.push(response.data[i])
+			}
+			var data2 = []
+			for (var z=0; z<data.length; z++) {
+				data2.push(data[z].email)
+			}
+			context.commit('likeUser', data)
+			context.commit('likeUser2', data2)
 		})
 		.catch( err => console.log(err.response.data))
 	},
@@ -346,18 +355,18 @@ export default {
 		var contest = []
 		var project = []
 		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
-			.then(res => {
-				for(var i=0; i<(res.data).length; i++) {
-					if (res.data[i].category === 0) {
-						contest.push(res.data[i])
-					}
-					else {
-						project.push(res.data[i])
-					}
+		.then(res => {
+			for(var i=0; i<(res.data).length; i++) {
+				if (res.data[i].category === 0) {
+					contest.push(res.data[i])
 				}
-			context.commit('contestData', contest)
-			context.commit('projectData', project)
-			})
+				else {
+					project.push(res.data[i])
+				}
+			}
+		context.commit('contestData', contest)
+		context.commit('projectData', project)
+		})
 	},
 
 	profile(context) {
@@ -372,13 +381,13 @@ export default {
 	},
 
 	userprofile(context, useremail) {
-        axios.get(`${SERVER_URL}/api/feed/${useremail}`)
-          .then(res => {
-              context.commit('USERINPUT', res.data)
-          })
-          .catch(err => {
-              console.log(err)
-          })
+		axios.get(`${SERVER_URL}/api/feed/${useremail}`)
+			.then(res => {
+					context.commit('USERINPUT', res.data)
+			})
+			.catch(err => {
+					console.log(err)
+			})
 	},
 	follow(context) {
 		var params = new URLSearchParams();
