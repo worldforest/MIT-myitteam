@@ -146,11 +146,10 @@
             </b-card>
           </slide>
         </carousel>
-        <hr class="mt-2">
       </div>
 
       <!-- //////////////////////// 게시글 조회 ////////////////////// -->
-
+      
       <div class="text-box">
         <div class="center">
           <button @click="searchFeed()">전체 게시글</button>

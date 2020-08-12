@@ -24,7 +24,7 @@
               :type="show2 ? 'text' : 'password'"
               name="input-10-2"
               hint="At least 8 characters"
-              class="input-group--focused"
+              class="input-group--focused passwordfont"
               @click:append="show2 = !show2"
               @keypress.enter="login(loginData)"
             ></v-text-field>
@@ -106,5 +106,8 @@ export default {
 <style scoped>
 .cont15 {
   margin: 0 15%;
+}
+.passwordfont{
+  font-family: Arial, Helvetica, sans-serif !important;
 }
 </style>

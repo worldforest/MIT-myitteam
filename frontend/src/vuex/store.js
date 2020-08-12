@@ -36,6 +36,8 @@ const state = {
     updateProfile: [],
     tagData: [],
     keyword: '',
+    likeCntnum: '',
+    likeUserList: [],
 }
 
 export default new Vuex.Store({

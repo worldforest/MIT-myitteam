@@ -17,8 +17,12 @@
                 <div>
                   <li v-for="item in i.dataList" :key="item">
                     <div class="pjtCard mx-auto mb-6">
-                      <div class="headline mb-2 white--text partTitle" >
-                      <h4>{{ item.part }}</h4>
+                      <div class="mb-2 white--text partTitle" >
+                        <v-row>
+                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                          <v-spacer></v-spacer>
+                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                        </v-row>
                       </div>
                       <h3 class="ml-3 mt-3">담당 업무</h3>
                       <v-card-text class="ml-2">
@@ -59,7 +63,11 @@
                   <li v-for="item in i.dataList" :key="item">
                     <div class=" pjtCard2 mx-auto mb-6">
                       <div class="headline mb-2 white--text partTitle" >
-                      {{ item.part }}
+                        <v-row>
+                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                          <v-spacer></v-spacer>
+                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                        </v-row>
                       </div>
                       <h3 class="ml-3">담당 업무</h3>
                       <v-card-text class="ml-2">
@@ -109,7 +117,11 @@
                 <li v-for="item in i.dataList" :key="item">
                   <div class="pjtCard3 mx-auto mb-6">
                     <div class="headline mb-2 white--text partTitle" >
-                    {{ item.part }}
+                      <v-row>
+                        <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                        <v-spacer></v-spacer>
+                        <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                      </v-row>
                     </div>
                     <h3 class="ml-3">담당 업무</h3>
                     <v-card-text class="ml-2">
@@ -151,7 +163,11 @@
                 <li v-for="item in i.dataList" :key="item">
                   <div class="pjtCard5 mx-auto mb-6">
                     <div class="headline mb-2 white--text partTitle" >
-                    {{ item.part }}
+                      <v-row>
+                        <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                        <v-spacer></v-spacer>
+                        <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                      </v-row>
                     </div>
                     <h3 class="ml-3">담당 업무</h3>
                     <v-card-text class="ml-2">
@@ -192,7 +208,11 @@
                 <li v-for="item in i.dataList" :key="item">
                   <div class="pjtCard4 mx-auto mb-6">
                     <div class="mb-2 white--text partTitle" >
-                    <h3>{{ item.part }}</h3>
+                      <v-row>
+                        <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                        <v-spacer></v-spacer>
+                        <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                      </v-row>
                     </div>
                     <h4 class="ml-3">담당 업무</h4>
                     <v-card-text class="ml-2">
@@ -280,7 +300,7 @@ export default {
     },
     submitProfile(){
 			Swal.fire({
-				text: '팀장에게 성공적으로 전달하였습니다.',
+        text: '팀장에게 프로필을 전달하였습니다.',
 			})
     },
     applyLeader(item){

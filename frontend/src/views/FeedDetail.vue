@@ -1,7 +1,7 @@
 <template>
   <div class="mt-3">
     <div v-if="windowWidth >= 767" class="cont15">
-      {{detailFeed}}
+      {{ detailFeed }}
       {{ windowWidth }}
       <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
       <router-link to='/profile' v-else><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
@@ -21,10 +21,14 @@
         {{ detailFeed.tag }}
       </div>
       <hr>
+      <!-- 좋아요를 시작해보지 -->
+      {{ likeUserList }}
       <v-row>
         <v-spacer></v-spacer>
-        <v-icon large class="mr-4">mdi-heart-multiple-outline</v-icon>
-        <v-icon large color="red" class="mr-4">mdi-heart-multiple</v-icon>
+        <h5 class="mr-4">{{ likeCntnum }}명이 좋아합니다. </h5>
+        <v-icon v-if="!likeUserList.includes(email)" large class="mr-4 likebtn" @click="like(likeData);">mdi-heart-multiple-outline</v-icon>
+        <!-- <h5 v-if="likeUserList.includes(email)" class="mr-4">본인을 포함한 외 {{ likeCntnum }}명이 좋아합니다. </h5> -->
+        <v-icon v-if="likeUserList.includes(email)" large class="mr-4 likebtn" color="red" @click="unlike(likeData);">mdi-heart-multiple</v-icon>
       </v-row>
     </div>
     <div v-else>
@@ -50,15 +54,22 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['detailFeed', 'email']),
+    ...mapState(['detailFeed', 'email', 'likeCntnum', 'likeUserList']),
   },
   data() {
     return {
       windowWidth: window.innerWidth,
+      likeData: {
+        no: this.$store.state.detailFeed.no,
+        email: this.$store.state.email, 
+      },
+      likeCntData: {
+        no: this.$store.state.detailFeed.no,
+      }
     }
   },
   beforeDestroy() { 
@@ -69,11 +80,16 @@ export default {
       this.windowWidth = window.innerWidth
     },
     ...mapMutations(['getuseremail']),
+    ...mapActions(['like', 'likeCnt', 'likeUser', 'unlike']),
   },
   mounted() {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+  },
+  created(){
+    this.likeCnt(this.likeCntData);
+    this.likeUser(this.likeCntData);
   },
 }
 </script>
@@ -90,5 +106,9 @@ export default {
 
   .cont15 {
     margin: 0 15%;
+  }
+
+  .likebtn{
+    cursor: pointer;
   }
 </style>

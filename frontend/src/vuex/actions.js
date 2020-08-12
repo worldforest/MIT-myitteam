@@ -183,6 +183,7 @@ export default {
 				Swal.fire({
 					icon: 'success',
 					title: '성공적으로 등록하였습니다.',
+					width: 600
 				})
 				router.push({ name: "GongmoDetail"})
 			})
@@ -196,6 +197,7 @@ export default {
 			Swal.fire({
 				icon: 'success',
 				title: '성공적으로 등록하였습니다.',
+				width: 600
 			})
 			router.push({ name: "ProjectList"})
 		})
@@ -246,6 +248,7 @@ export default {
 			Swal.fire({
 				icon: 'info',
 				title: '등록한 팀이 삭제되었습니다.',
+				width: 600
 			})
 			router.push({ name: "AllContest" })
 		})
@@ -296,8 +299,62 @@ export default {
 			Swal.fire({
 				icon: 'info',
 				title: '등록한 프로젝트가 삭제되었습니다.',
+				width: 600
 			})
 			router.push({ name: "ProjectList" })
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	like(context, likeData){
+		console.log(context)
+		console.log(likeData)
+		const params = new URLSearchParams();
+		params.append('no', likeData.no),
+		params.append('email', likeData.email)
+		axios.post(`${SERVER_URL}/api/feed/feedlike`, params)
+		.then(() => {
+			console.log('좋아요 성공')
+			context.dispatch('likeCnt', likeData)
+			context.dispatch('likeUser', likeData)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	unlike(context, likeData){
+    console.log(context)
+		console.log(likeData)
+		const params = new URLSearchParams();
+		params.append('no', likeData.no),
+		params.append('email', likeData.email)
+		axios.post(`${SERVER_URL}/api/feed/feedunlike`, params)
+		.then(() => {
+			console.log('좋아요 성공')
+			context.dispatch('likeCnt', likeData)
+			context.dispatch('likeUser', likeData)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	likeCnt(context, likeCntData){
+		// console.log(context)
+		// console.log(likeCntData)
+		const params = new URLSearchParams();
+		params.append('no', likeCntData.no)
+		axios.post(`${SERVER_URL}/api/feed/feedlikeCnt`, params)
+		.then( res => {
+			console.log(res)
+			context.commit('likeCnt', res.data)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	likeUser(context, likeCntData){
+		console.log('좋아요 명단')
+		console.log(context)
+		console.log(likeCntData)
+		const params = new URLSearchParams();
+		params.append('no', likeCntData.no)
+		axios.post(`${SERVER_URL}/api/feed/feedlikeUser`, params)
+		.then(res => {
+			console.log(res)
+			context.commit('likeUser', res.data)
 		})
 		.catch( err => console.log(err.response.data))
 	},
