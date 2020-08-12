@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mit.dto.Follow;
 import com.mit.repo.FollowRepo;
+import com.mit.returnDto.FollowList;
 
 @Service
 public class FollowServiceImpl implements FollowService {
@@ -24,12 +25,12 @@ public class FollowServiceImpl implements FollowService {
 	}
 
 	@Override
-	public List<String> followingList(String email) {
+	public List<FollowList> followingList(String email) {
 		return followRepo.followingList(email);
 	}
 
 	@Override
-	public List<String> followerList(String email) {
+	public List<FollowList> followerList(String email) {
 		return followRepo.followerList(email);
 	}
 
@@ -42,6 +43,5 @@ public class FollowServiceImpl implements FollowService {
 	public int followerCnt(String email) {
 		return followRepo.followerCnt(email);
 	}
-
 
 }
