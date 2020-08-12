@@ -1,7 +1,7 @@
 <template>
   <div class="mt-3">
+    {{detailFeed}}
     <div v-if="windowWidth >= 767" class="cont15">
-      
       {{ windowWidth }}
       <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
       <h3><router-link to='/profile' v-if="email === detailFeed.email"> {{ detailFeed.nickname }}</router-link></h3>
@@ -104,6 +104,29 @@
         </v-chip-group>
       </div>
 
+      <div class="d-flex cont2" v-if=" detailFeed.email === email">
+        <div class="ml-auto">
+          <span class="mr-3">
+            <v-chip
+              color="red"
+              text-color="white"
+              @click="updateFeed(detailFeed)"
+            >
+              수정
+            </v-chip>
+          </span>
+          <span>
+            <v-chip
+              color="red"
+              text-color="white"
+              @click="deleteFeed(detailFeed)"
+            >
+              삭제
+            </v-chip>
+          </span>
+        </div>
+      </div>
+
       <hr>
       <!-- 좋아요를 시작해보지 -->
       {{ likeUserList }}
@@ -139,7 +162,6 @@
         </div>
 
         <v-icon v-if="!likeUserList2.includes(email)" large class="mr-4 likebtn" @click="like(likeData);">mdi-heart-multiple-outline</v-icon>
-        <!-- <h5 v-if="likeUserList.includes(email)" class="mr-4">본인을 포함한 외 {{ likeCntnum }}명이 좋아합니다. </h5> -->
         <v-icon v-if="likeUserList2.includes(email)" large class="mr-4 likebtn" color="red" @click="unlike(likeData);">mdi-heart-multiple</v-icon>
       </v-row>
     </div>
@@ -172,8 +194,8 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
-    ...mapMutations(['getuseremail']),
-    ...mapActions(['like', 'likeCnt', 'likeUser', 'unlike','userprofile', 'searchTagFeed']),
+    ...mapMutations(['getuseremail', 'updateFeed']),
+    ...mapActions(['like', 'likeCnt', 'likeUser', 'unlike','userprofile', 'searchTagFeed', 'deleteFeed']),
   },
   mounted() {
     this.$nextTick(() => {

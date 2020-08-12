@@ -92,6 +92,10 @@ export default {
         console.log(res)
         router.push({ name: "ProjectDetail" })
     },
+    updateFeed(state, res) {
+        state.upFeed = res
+        router.push({name: "FeedUpdate"})
+    },
     goTeam(state) {
         if (state.email) {   
             router.push({name:'ProjectRegister'})
