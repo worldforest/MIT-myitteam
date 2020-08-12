@@ -258,8 +258,7 @@ export default {
 
   computed: {
     ...mapState(['clubs', 'clubs2', 'community', 'email', 'followList', 'profileData']),
-  }
-
+  },
 }
 </script>
 

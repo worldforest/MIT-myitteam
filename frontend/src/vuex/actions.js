@@ -355,14 +355,15 @@ export default {
 		var contest = []
 		var project = []
 		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
-		.then(res => {
-			for(var i=0; i<(res.data).length; i++) {
-				if (res.data[i].category === 0) {
-					contest.push(res.data[i])
-				}
-				else {
-					project.push(res.data[i])
-				}
+			.then(res => {
+				for(var i=0; i<(res.data).length; i++) {
+					if (res.data[i].category === 0) {
+						contest.push(res.data[i])
+						console.log(typeof(contest))
+					}
+					else {
+						project.push(res.data[i])
+					}
 			}
 		context.commit('contestData', contest)
 		context.commit('projectData', project)
@@ -574,7 +575,7 @@ export default {
 			dispatch('getTeamInfo')
 			setTimeout(() => {
 				router.go()
-			}, 500)
+			}, 200)
 		})
 	},
 	deleteMember ({dispatch}, apply) {

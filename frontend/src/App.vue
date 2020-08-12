@@ -134,7 +134,7 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   methods: {
-    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo']),
+    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo', 'getContestData']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -158,6 +158,7 @@ export default {
     ...mapGetters(['isLoggedIn', 'isEmail'])
   },
   mounted() {
+    this.getContestData()
     if (this.$cookies.isKey('auth-token')) {
       this.postEmailToken()
       this.getTeamInfo()
