@@ -21,8 +21,66 @@
           <span> <h3> {{ profileData.nickname }} </h3></span>
         </div>
         <div class="d-flex my-5 ml-5">
-          <span><h3>팔로우| {{ profileData.followingCnt }}명</h3></span>
-          <span class="mx-auto"><h3>팔로워| {{ profileData.followerCnt }}명</h3></span>
+
+          <div class="text-center mr-15">
+            <v-dialog v-model="dialog" width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowList(email);">
+                  <h3>팔로잉| {{ profileData.followingCnt }}명</h3>
+                </span>
+              </template>
+
+              <!-- {{ i.datalist }} -->
+              <v-card class="cardModal">
+                <!-- {{ followList }} -->
+                <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
+                
+                <li v-for="item in followList" :key="item">
+                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <hr>
+                </li>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn class="local" color="primary" text @click="dialog = false">
+                    <h5>닫기</h5>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
+
+          
+
+          <div class="text-center">
+            <v-dialog v-model="dialog2" width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowerList(email);">
+                  <h3>팔로워| {{ profileData.followerCnt }}명</h3>
+                </span>
+              </template>
+
+              <!-- {{ i.datalist }} -->
+              <v-card class="cardModal">
+                {{ followerList }}
+                <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
+                
+                <li v-for="item in followerList" :key="item">
+                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <hr>
+                </li>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn class="local" color="primary" text @click="dialog2 = false">
+                    <h5>닫기</h5>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
+          <!-- <span class="cursor" @click="myFollowList(email);"><h3>팔로우| {{ profileData.followingCnt }}명</h3></span> -->
+          <!-- <span class="mx-auto"><h3>팔로워| {{ profileData.followerCnt }}명</h3></span> -->
         </div>
         <div class="d-flex ml-5">
           <span> <h3>{{ profileData.description }} 개발자</h3> </span>
@@ -127,6 +185,9 @@ export default {
   data() {
     return {
       windowWidth: window.innerWidth,
+      email: this.$store.state.email,
+      dialog: false,
+      dialog2: false,
     }
   },
   watch: {
@@ -150,11 +211,11 @@ export default {
     },
 
     ...mapMutations(['feedDetail', 'updateProfile']),
-    ...mapActions(['profile'])
+    ...mapActions(['profile', 'myFollowList', 'myFollowerList'])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
-    ...mapState(['profileData', 'email']),
+    ...mapState(['profileData', 'email', 'followList', 'followerList']),
     ...mapGetters(['isLoggedIn',])
   },
   mounted() {
@@ -168,6 +229,11 @@ export default {
 </script>
 
 <style scoped>
+  @font-face {
+    font-family: myFont;
+    src: url("/src/font/BMJUA_ttf.ttf");
+  }
+
   .h1 {
     font-size: 30px;
   }
@@ -256,5 +322,20 @@ export default {
     font-size: 0.5rem;
     font-weight: bold;
   }
-
+  .cardModal{
+    font-family: myFont, sans-serif;
+    width: 300px;
+  }
+  .modaltitle{
+    padding: 0.7rem;
+    background-color: rgb(92, 107, 192);
+    color: white;
+  }
+  li{
+    list-style: none;
+  }
+  .followa{
+    text-decoration: none;
+    color:black;
+  }
 </style>

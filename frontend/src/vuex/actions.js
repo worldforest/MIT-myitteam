@@ -405,15 +405,16 @@ export default {
 
 	myFollowList(context, res) {
 		var params = new URLSearchParams();
-		var data = []
+		// var data = []
 		params.append('email', res)
 		axios.post(`${SERVER_URL}/api/follow/followingList`, params)
-			.then((response) => {
-				for (var i=0; i<(response.data).length; i++) {
-					data.push(response.data[i])
-				}
-			context.commit('INPUTFOLLOW', data)
-			})
+		.then((response) => {
+			console.log(response)
+			// for (var i=0; i<(response.data).length; i++) {
+			// 	data.push(response.data[i])
+			// }
+			context.commit('INPUTFOLLOW', response.data)
+		})
 	},
 
 	unfollow(context, res) {

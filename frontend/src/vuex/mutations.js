@@ -102,5 +102,5 @@ export default {
 		},
 		likeUser(state, data) {
 			state.likeUserList = data
-		}
+		},
 }
