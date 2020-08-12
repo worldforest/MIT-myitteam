@@ -527,14 +527,23 @@ export default {
 				context.commit('getAllContest', data)
 			})
 	},
+<<<<<<< HEAD
+
+	/////////지훈////////////////
+=======
+>>>>>>> f27afe048503a9e92d6cf557a0c2c23dea552224
 	getTeamInfo(context) {
 		const params = new URLSearchParams();
 		params.append('email', context.state.email)
 		axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
 		.then(response => {
 			sessionStorage.setItem('myTeam', JSON.stringify(response.data))
+<<<<<<< HEAD
+			context.commit('myTeamInfo', response.data)
+=======
 			// context.commit('myTeamInfo', response.data)
 			// context.commit('myTeamInfo', res)
+>>>>>>> f27afe048503a9e92d6cf557a0c2c23dea552224
 		})
 	},
 	postDate (context, dateinfo) {

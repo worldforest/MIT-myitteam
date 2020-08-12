@@ -5,6 +5,8 @@ import java.util.List;
 import com.mit.dto.Member;
 
 public interface MemberService {
+	public String countMember(String no, String leaderemail);
+
 	public List<Member> select(String no, String leaderemail);
 
 	public int memberCnt(String no, String leaderemail);
