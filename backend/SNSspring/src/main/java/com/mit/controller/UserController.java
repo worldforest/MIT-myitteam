@@ -117,7 +117,7 @@ public class UserController {
 		// 파일을local, server에 저장
 		if (file != null && !file.isEmpty()) {
 			// 파일을 저장할 위치에 파일 고유 이름 파일을 저장
-			File dest = new File(path.getIm() + "images/feed/" + sb.toString());
+			File dest = new File(path.getIm() + "images/user/" + sb.toString());
 			try {
 				file.transferTo(dest);
 			} catch (IllegalStateException e) {

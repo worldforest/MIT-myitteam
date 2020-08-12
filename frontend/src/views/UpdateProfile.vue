@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{updateProfile}}
     <div class="text-center my-3">
       <h2> 프로필 수정 </h2>
     </div>
@@ -110,7 +109,7 @@ export default {
     }
   },
   computed : {
-    ...mapState(['updateProfile'])
+    ...mapState(['updateProfile', 'email'])
   },
   methods: {
     getData(data) {
@@ -122,7 +121,7 @@ export default {
       const formdata = new FormData();
       formdata.append('address', res.address)
       formdata.append('description', res.description)
-      formdata.append('email', res.feeds[0].email)
+      formdata.append('email', this.email)
       formdata.append('nickname', res.nickname)
       formdata.append('pwd', res2.pwd)
       formdata.append('file', res.src)

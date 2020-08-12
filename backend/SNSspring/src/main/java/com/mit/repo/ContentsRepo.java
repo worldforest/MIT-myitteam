@@ -16,4 +16,6 @@ public interface ContentsRepo {
 	public String LatestContents(String email);
 
 	public boolean delete(String no);
+	
+	public boolean viewsplus(String no);
 }

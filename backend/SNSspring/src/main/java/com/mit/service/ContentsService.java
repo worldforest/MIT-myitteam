@@ -14,4 +14,6 @@ public interface ContentsService {
 	public String LatestContents(String email);
 
 	public boolean delete(String no);
+	
+	public boolean viewsplus(String no);
 }

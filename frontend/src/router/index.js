@@ -12,6 +12,8 @@ import FeedCreate from '@/views/FeedCreate.vue'
 import UserProfile from '@/views/UserProfile.vue'
 import ProjectList from '@/views/ProjectList.vue'
 import Myteam from '@/views/Myteam.vue'
+import Myteaminfo from '@/views/Myteaminfo.vue'
+
 import ProjectDetail from '@/views/ProjectDetail.vue'
 import FindPwd from '@/views/FindPwd.vue'
 import AllContest from '@/views/AllContest.vue'
@@ -24,7 +26,7 @@ import searchTag from '@/views/searchTag.vue'
 Vue.use(VueRouter)
 
   const routes = [
-  {
+    {
     path: '/',
     name: 'Home',
     component: Home
@@ -137,6 +139,12 @@ Vue.use(VueRouter)
     path: '/myteam',
     name: "Myteam",
     component: Myteam,
+  },
+  {
+    path: '/myteam/:id',
+    name: "Myteaminfo",
+    component: Myteaminfo,
+    props: true,
   },
   {
     path: '/chat',

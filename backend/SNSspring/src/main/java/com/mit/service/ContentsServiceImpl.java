@@ -39,4 +39,9 @@ public class ContentsServiceImpl implements ContentsService {
 		return contentsRepo.delete(no);
 	}
 
+	@Override
+	public boolean viewsplus(String no) {
+		return contentsRepo.viewsplus(no);
+	}
+
 }
