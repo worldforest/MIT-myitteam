@@ -44,8 +44,8 @@ public class ChatController {
 
 	// 닉네임으로 채팅방 만들기
 	@ApiOperation(value = "1:1방 이름 설정", notes = "1:1방 가져오기 했는데 '내 메일, 상대 메일'로 채팅방 이름 설정")
-	@PostMapping("privateChat")
-	public ResponseEntity<String> privateChat(@RequestParam("mynickname") String mynickname,
+	@PostMapping("createprivate")
+	public ResponseEntity<String> createprivate(@RequestParam("mynickname") String mynickname,
 			@RequestParam("yournickname") String yournickname) {
 
 		String roomname = mynickname.concat(",").concat(yournickname);
@@ -57,8 +57,8 @@ public class ChatController {
 	}
 
 	@ApiOperation(value = "나의 1:1방 가져오기", notes = "'내 메일, 상대 메일'로 채팅방 이름 가져오기")
-	@PostMapping("myfrivateChat")
-	public ResponseEntity<String> myfrivateChat(@RequestParam("mynickname") String mynickname,
+	@PostMapping("findfrivate")
+	public ResponseEntity<String> findfrivate(@RequestParam("mynickname") String mynickname,
 			@RequestParam("yournickname") String yournickname) {
 		String no = chatmemberService.select(mynickname, yournickname);
 		if (no != null) {
@@ -69,7 +69,7 @@ public class ChatController {
 	}
 
 	@ApiOperation(value = "팀 채팅방 이름 설정", notes = "no,email보내면 팀멤버들이름으로  채팅방 이름 설정")
-	@PostMapping("groupChat")
+	@PostMapping("creategroupChat")
 	public ResponseEntity<String> groupChat(@RequestParam("no") String no,
 			@RequestParam("leaderemail") String leaderemail) {
 
