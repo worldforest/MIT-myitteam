@@ -34,4 +34,9 @@ public class MemberScheduleServiceImpl implements MemberScheduleService {
 		return memberScheduleRepo.selectMember(no, leaderemail, memberemail);
 	}
 
+	@Override
+	public boolean deleteMember(MemberSchedule memberschedule) {
+		return memberScheduleRepo.deleteMember(memberschedule);
+	}
+
 }

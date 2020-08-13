@@ -306,12 +306,18 @@ public class TeamController {
 
 	@ApiOperation(value = "팀원 일정 등록하기", notes = "팀원별 일정 등록")
 	@PostMapping("insetSchedule")
-	public ResponseEntity<String> insertSchedule(@RequestBody MemberSchedule memberschedule) {
+	public ResponseEntity<String> insertSchedule(@RequestBody List<MemberSchedule> memberschedules) {
 
-		if (memberScheduleService.insert(memberschedule)) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		if (!memberScheduleService.deleteMember(memberschedules.get(0)))
+			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+
+		for (MemberSchedule memberschedule : memberschedules) {
+			if (!memberScheduleService.insert(memberschedule)) {
+				return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+			}
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "팀원 일정 삭제하기", notes = "팀원별 일정 삭제(no, leaderemail로 팀 구분, memberemail로 팀원 구분, date로 원하는 날짜 선택")
@@ -351,8 +357,8 @@ public class TeamController {
 		// map-->iterator
 		// 확인하는 방법
 		Iterator<String> keys = selectSchedule.keySet().iterator();
-
 		int memberCnt = memberService.memberCnt(no, leaderemail);
+		System.out.println("Test<<<<<<<<<<<<<<<");
 		System.out.println(memberCnt);
 		List<String> selectDate = new ArrayList<>();
 		while (keys.hasNext()) {

@@ -11,5 +11,7 @@ public interface MemberScheduleService {
 
 	public List<MemberSchedule> selectAll(String no, String leaderemail);
 
+	public boolean deleteMember(MemberSchedule memberschedule);
+
 	public List<String> selectMember(String no, String leaderemail, String memberemail);
 }
