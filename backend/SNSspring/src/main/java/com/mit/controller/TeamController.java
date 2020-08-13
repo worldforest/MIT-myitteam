@@ -344,6 +344,7 @@ public class TeamController {
 		Iterator<String> keys = selectSchedule.keySet().iterator();
 
 		int memberCnt = memberService.memberCnt(no, leaderemail);
+		System.out.println(memberCnt);
 		List<String> selectDate = new ArrayList<>();
 		while (keys.hasNext()) {
 			String key = keys.next();
