@@ -327,6 +327,7 @@ export default {
       email: this.$store.state.email,
       dialog: false,
       dialog2: false,
+      
     }
   },
   watch: {
