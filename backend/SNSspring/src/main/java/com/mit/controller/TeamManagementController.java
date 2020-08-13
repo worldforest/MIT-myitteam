@@ -1,15 +1,7 @@
 package com.mit.controller;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.jws.soap.SOAPBinding.Use;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +17,7 @@ import com.mit.algorithm.Latitude;
 import com.mit.algorithm.XY;
 import com.mit.dto.User;
 import com.mit.returnDto.LatitudeDto;
-import com.mit.service.MemberService;
 import com.mit.service.UserService;
-import com.sun.mail.handlers.message_rfc822;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -40,6 +30,8 @@ public class TeamManagementController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	Latitude latitude;
 
 	@ApiOperation(value = "최적의 장소 구해주는 api")
 	@GetMapping
@@ -49,8 +41,6 @@ public class TeamManagementController {
 
 		List<XY> lotates = new ArrayList<XY>();
 
-		Latitude latitude = new Latitude();
-
 		/*
 		 * no email을 이용하여 team에 등록된 모든 멤버의 email가져오고 이 email을 이용해서 user의 현재 주소를 가져온다.
 		 * 이주소를 List<String> 에 넣는다. 주소<String> 을 이용해서 lotates.add(XY) 값을 넣는다. N개의 x,y 의
@@ -59,15 +49,24 @@ public class TeamManagementController {
 		 */
 
 		List<User> users = userService.selectAddressMember(no, leaderemail);
+		// users 들의 x , y 의 값으로 평균 x , y 를 구해보자.
 
 		for (User user : users) {
 			XY xy = latitude.GetLatitude(user.getAddress());
-			xy.setName(user.getNickname());
 			if (xy != null) {
+				xy.setName(user.getNickname()+"");
 				latitudeDto.getMembers().add(xy);
 			}
 		}
 
-		return new ResponseEntity<LatitudeDto>(latitudeDto, HttpStatus.FAILED_DEPENDENCY);
+		XY center = new XY();
+		
+		XY tmp = latitude.getCentterLatitude(latitudeDto.getMembers());
+		center.setName("중앙값");
+		center.setX(tmp.getX());
+		center.setY(tmp.getY());
+
+		latitudeDto.setCenter(center);
+		return new ResponseEntity<LatitudeDto>(latitudeDto, HttpStatus.OK);
 	}
 }
