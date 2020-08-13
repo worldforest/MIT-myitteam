@@ -29,4 +29,9 @@ public class MemberScheduleServiceImpl implements MemberScheduleService {
 		return memberScheduleRepo.selectAll(no, leaderemail);
 	}
 
+	@Override
+	public List<String> selectMember(String no, String leaderemail, String memberemail) {
+		return memberScheduleRepo.selectMember(no, leaderemail, memberemail);
+	}
+
 }
