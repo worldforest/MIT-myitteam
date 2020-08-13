@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mit.repo.ChatmemberRepo">
+	<insert id="insert" parameterType="String">
+		insert into chatmember(no,
+		nickname)
+		values(#{no},#{nickname})
+	</insert>
+
+	<!-- nickname보내면 내가 포함된 채팅방 번호 -->
+	<select id="selectAll" parameterType="String"
+		resultType="String">
+		select no
+		from chatmember
+		where nickname=#{nickname}
+	</select>
+
+	<select id="select" parameterType="String" resultType="String">
+		select no
+		from chatmember
+		where (nickname=#{yournickname}
+		and (no in 
+		(select no
+		from chatmember
+		where nickname=#{mynickname}))
+		)
+	</select>
+
+</mapper>
