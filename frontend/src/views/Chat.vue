@@ -1,9 +1,9 @@
 <template>
     <div class="container">
-<h3 class=" text-center">Messaging</h3>
-<div class="messaging">
+      <h3 class=" text-center">Messaging {{ nickname }} </h3>
+      <div class="messaging">
       <div class="inbox_msg">
-        <div class="inbox_people">
+        <!-- <div class="inbox_people">
           <div class="headind_srch">
             <div class="recent_heading">
               <h4>Recent</h4>
@@ -88,7 +88,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="mesgs">
           <div class="msg_history">
             <div v-for="message in messages" :key="message" class="incoming_msg">
@@ -130,10 +130,14 @@
         createdAt:null,
       }
     },
+    props: {
+      nickname: String
+    },
     methods:{
       saveMessage(){
         //save to message
         db.collection('chat').add({
+          senduser:'user',
           message:this.message,
           createdAt: new Date()
         })
