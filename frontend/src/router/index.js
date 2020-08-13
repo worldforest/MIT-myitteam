@@ -23,8 +23,8 @@ import searchTag from '@/views/searchTag.vue'
 import dmap from '@/views/dmap.vue'
 import FeedUpdate from '@/views/FeedUpdate.vue'
 
-
 Vue.use(VueRouter)
+
 
   const routes = [
     {
