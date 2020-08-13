@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from member where no = #{no} and leaderemail = #{leaderemail}
 	</select>
 	
-	<select id="memberCnt" parameterType="String" resultType="member">
+	<select id="memberCnt" parameterType="String" resultType="int">
 		select count(*)
 		from member where no = #{no} and leaderemail = #{leaderemail}
 	</select>
