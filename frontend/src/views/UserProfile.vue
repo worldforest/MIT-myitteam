@@ -3,8 +3,8 @@
   <div  class="cont10">
     {{user}}
     <!-- {{ email }} -->
-    {{ myNickname }}
-    {{ this.privateData }}
+    {{ myNick }}
+    {{ privateData }}
     {{ privateChatTitle }}
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
@@ -173,7 +173,7 @@ export default {
       followconf: true,
       email : this.$store.state.email, 
       privateData: {
-        myNickname : this.$store.state.myNickname,
+        myNickname : this.$store.state.myNick,
         yourNickname : this.$store.state.userprofiledata.nickname, 
       }
     }
@@ -193,16 +193,15 @@ export default {
       const file = e.target.files[0];
       this.profileData.src = URL.createObjectURL(file)
     },
-
     onResize() {
       this.windowWidth = window.innerWidth
     },
     ...mapMutations(['feedDetail', 'GET_EMAIL']),
-    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'follwerCnt', 'getNickname', 'privateChat'])
+    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'follwerCnt', 'getNickname', 'privateChat', 'findPrivate'])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
-    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2', 'myNickname', 'privateChatTitle']),
+    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2', 'myNick', 'privateChatTitle']),
     ...mapGetters(['isLoggedIn',])
      
   },
@@ -212,6 +211,8 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
     this.follwerCnt(this.user)
+    this.getNickname(this.$store.state.email)
+    // this.findPrivate(this.privateData)
   },
 
   created () {
@@ -220,8 +221,8 @@ export default {
     this.userprofile(this.user)
     // 로그인한 유저의 정보를 확인
     this.profile()
-    this.getNickname(this.email)
-    this.privateChat(this.privateData)
+    this.getNickname(this.$store.state.email)
+    this.findPrivate(this.privateData)
   },
   updated () {
     this.followerList

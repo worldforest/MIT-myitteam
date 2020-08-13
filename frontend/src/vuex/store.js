@@ -42,7 +42,7 @@ const state = {
     likeUserList2: [],
     followerList2: [],
     upFeed: [],
-    myNickname: '',
+    myNick: '',
     privateChatTitle: '',
 }
 

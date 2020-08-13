@@ -349,13 +349,13 @@ export default {
 		.catch( err => console.log(err.response.data))
 	},
 	getNickname(context, email){
-		console.log('닉네임을 받아와보자')
-		console.log(context)
-		console.log(email)
+		// console.log('닉네임을 받아와보자')
+		// console.log(context)
+		// console.log(email)
 		axios.get(`${SERVER_URL}/api/user/selectNickname/?email=${email}`)
 		.then(res => {
-			console.log('닉네임을 받아와보자2')
-			console.log(res.data)
+			// console.log('닉네임을 받아와보자2')
+			// console.log(res.data)
 			context.commit('getNick', res.data)
 		})
 	},
@@ -366,13 +366,31 @@ export default {
 		const params = new URLSearchParams();
 		params.append('mynickname', privateData.myNickname)
 		params.append('yournickname', privateData.yourNickname)
-		axios.post(`${SERVER_URL}/api/chat/privateChat`, params)
+		axios.post(`${SERVER_URL}/api/chat/createprivate`, params)
 		.then( res => {
-			console.log('애가 오는거다아아아')
+			console.log('만든다!!!!')
 			console.log(res.data)
 			context.commit('privateChatSave', res.data)
 		})
 		.catch( err => console.log(err.response.data))
+	},
+	findPrivate(context, privateData){
+		console.log('채팅방 이름 있다 찾자')
+		console.log(context)
+		console.log(privateData)
+		const params = new URLSearchParams();
+		params.append('mynickname', privateData.myNickname)
+		params.append('yournickname', privateData.yourNickname)
+		axios.post(`${SERVER_URL}/api/chat/findfrivate`, params)
+		.then( res => {
+			console.log('있는거 저장한다아아아')
+			console.log(res.data)
+			context.commit('privateChatSave', res.data)
+		})
+		.catch(() => {
+			console.log('없다 만들러 가자')
+			context.dispatch('privateChat', privateData) 
+		})
 	},
 	//////////다인///////////////
 

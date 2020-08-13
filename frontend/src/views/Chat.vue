@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       {{ privateChatTitle }}
-
+      {{ myNick }}
       <h3 class=" text-center">Messaging</h3>
       <div class="messaging">
         <div class="inbox_msg">
@@ -95,7 +95,7 @@
           <div class="mesgs">
             <div class="msg_history">
               <div v-for="message in messages" :key="message" class="incoming_msg">
-                <div v-if="message.senduser !== myNickname">
+                <div v-if="message.senduser !== myNick">
                   <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                     <div class="received_msg mb-4">
                       <div class="received_withd_msg">
@@ -105,7 +105,7 @@
                       </div>
                     </div>
                 </div>
-                <div v-if="message.senduser === myNickname">
+                <div v-if="message.senduser === myNick">
                   <div class="outgoing_msg">
                     <div class="sent_msg">
                       <p>{{ message.message }}</p>
@@ -117,8 +117,8 @@
             </div>
             <div class="type_msg">
               <div class="input_msg_write">
-                <input @keyup.enter="saveMessage(myNickname)" v-model="message" type="text" class="write_msg" placeholder="Type a message" />
-                <button @click="saveMessage(myNickname)" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                <input @keyup.enter="saveMessage(myNick)" v-model="message" type="text" class="write_msg" placeholder="Type a message" />
+                <button @click="saveMessage(myNick)" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
               </div>
             </div>
           </div>
@@ -142,7 +142,6 @@ export default {
       createdAt: null,
       // chatAt:null,
       email: this.$store.state.email,
-      myNickname : this.$store.state.myNickname,
     }
   },
   props: {
@@ -152,11 +151,6 @@ export default {
   methods:{
     ...mapActions(['getNickname', 'privateChat']),
     saveMessage(sendnick){
-      var iterable = this.privateChatTitle
-
-      for(var i of iterable){
-        console.log(i)
-      }
       //save to message
       db.collection(this.privateChatTitle).add({
         senduser: sendnick,
@@ -178,10 +172,11 @@ export default {
     }
   },
   computed:{
-    ...mapState(['email', 'myNickname']),
+    ...mapState(['email', 'myNick']),
   },
   created(){
     this.fetchMessages();
+    this.getNickname(this.$store.state.email)
   }
 }
 </script>
