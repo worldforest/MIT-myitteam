@@ -226,6 +226,8 @@ public class TeamController {
 			teamDto.setReward(contents.getReward());
 			teamDto.setTitle(team.getTitle());
 
+			teamDto.setAllCnt(teaminfoService.countHead(no, leaderemail) + "");
+
 			teamDto.setMembers(memberService.select(no, leaderemail));
 			teamDto.setApplymembers(applymemberService.select(no, leaderemail));
 
@@ -350,6 +352,7 @@ public class TeamController {
 		// 확인하는 방법
 		Iterator<String> keys = selectSchedule.keySet().iterator();
 
+		System.out.println();
 		int memberCnt = memberService.memberCnt(no, leaderemail);
 		System.out.println(memberCnt);
 		List<String> selectDate = new ArrayList<>();
@@ -366,11 +369,12 @@ public class TeamController {
 
 	@ApiOperation(value = "팀원 일정 확인", notes = "no, leaderemail로 팀 구분하고 memberemail로 팀원 구분후 팀원별 일정 확인")
 	@PostMapping("memberSchedule")
-	public ResponseEntity<List<String>> memberSchedule(@RequestParam String no, @RequestParam String leaderemail,@RequestParam String memberemail) {
+	public ResponseEntity<List<String>> memberSchedule(@RequestParam String no, @RequestParam String leaderemail,
+			@RequestParam String memberemail) {
 		List<String> memberSchedule = memberScheduleService.selectMember(no, leaderemail, memberemail);
 		return new ResponseEntity<List<String>>(memberSchedule, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "팀원 총인원 구하기", notes = "contents no 와 leaderemail을 등록하면 총 수를 반환합니다 리더수 포함.")
 	@PostMapping("countTeam")
 	public ResponseEntity<String> contTeam(@RequestParam String no, @RequestParam String leaderemail) {
