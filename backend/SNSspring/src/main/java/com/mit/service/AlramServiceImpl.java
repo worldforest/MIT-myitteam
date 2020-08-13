@@ -30,8 +30,8 @@ public class AlramServiceImpl implements AlramService {
 	}
 
 	@Override
-	public boolean update(Alram alram) {
-		return alramRepo.update(alram);
+	public boolean update(String no) {
+		return alramRepo.update(no);
 	}
 
 	@Override

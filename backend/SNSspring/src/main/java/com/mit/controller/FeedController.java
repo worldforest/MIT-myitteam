@@ -331,7 +331,7 @@ public class FeedController {
 			String sendernickname = userService.selectNickname(email);
 			alram.setSender(sendernickname);
 			alram.setMessage(sendernickname + "님이 피드에 좋아요를 눌렀습니다.");
-			alram.setCheck("0");
+			alram.setFlag("0");
 			alramService.insert(alram);
 
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);

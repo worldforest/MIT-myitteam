@@ -262,7 +262,7 @@ public class TeamController {
 		String membernickname = userService.selectNickname(email);
 		alram.setSender(membernickname);// 내가
 		alram.setMessage(membernickname + "님이 팀에 지원했습니다.");
-		alram.setCheck("0");
+		alram.setFlag("0");
 		alramService.insert(alram);
 
 		return null;

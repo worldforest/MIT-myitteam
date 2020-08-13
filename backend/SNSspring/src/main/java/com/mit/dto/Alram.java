@@ -6,7 +6,7 @@ public class Alram {
 	private String sender;
 	private String message;
 	private String date;
-	private String check;
+	private String flag;
 
 	public String getNo() {
 		return no;
@@ -48,12 +48,12 @@ public class Alram {
 		this.date = date;
 	}
 
-	public String getCheck() {
-		return check;
+	public String getFlag() {
+		return flag;
 	}
 
-	public void setCheck(String check) {
-		this.check = check;
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 
 }
