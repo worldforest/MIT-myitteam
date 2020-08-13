@@ -18,7 +18,7 @@
           filled
           prepend-icon="mdi-camera"
           accept = "image/*"
-          v-model="upFeed.file"
+          v-model="upFeed.src"
         ></v-file-input>
 
         <v-row>
@@ -30,14 +30,14 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-btn width="100%" large class="white--text" color="#6200EA" @click="feedCreate(feedData)">피드등록</v-btn>
+        <v-btn width="100%" large class="white--text" color="#6200EA" @click="feedUpdate(upFeed)">피드등록</v-btn>
       </v-container>
     </v-form>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -45,6 +45,12 @@ export default {
 
     }
   },
+
+  methods: {
+    ...mapActions(['feedUpdate'])    
+  },
+
+  
   
   computed: {
     ...mapState(['upFeed'])

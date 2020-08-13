@@ -1,8 +1,6 @@
 <template>
   <div class="mt-3">
-    {{detailFeed}}
     <div v-if="windowWidth >= 767" class="cont15">
-      {{ windowWidth }}
       <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
       <h3><router-link to='/profile' v-if="email === detailFeed.email"> {{ detailFeed.nickname }}</router-link></h3>
       <hr>
@@ -129,7 +127,6 @@
 
       <hr>
       <!-- 좋아요를 시작해보지 -->
-      {{ likeUserList }}
       <v-row>
         <v-spacer></v-spacer>
 
@@ -184,7 +181,8 @@ export default {
       },
       likeCntData: {
         no: this.$store.state.detailFeed.no,
-      }
+      },
+      dialog: false,
     }
   },
   beforeDestroy() { 
