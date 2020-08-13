@@ -1,6 +1,7 @@
 <template>
 
   <div  class="cont10">
+    {{user}}
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
@@ -39,7 +40,7 @@
         <div class="d-flex ml-5">
           <span> <h3>{{ userprofiledata.description }} 개발자</h3> </span>
           <br>
-          
+          <router-link :to="{name: 'Chat', params:{ yournickname : userprofiledata.nickname }}">채팅 하기</router-link>
         </div>
       </v-col>
     </v-row>

@@ -15,6 +15,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where no=#{no} and leaderemail=#{leaderemail}
 	</select>
 	
+	<select id="selectMember" parameterType="String" resultType="String">
+		select date
+		from memberschedule
+		where no=#{no} and leaderemail=#{leaderemail} and memberemail=#{memberemail}
+	</select>
+	
 	<delete id="delete" parameterType="String">
 		delete from memberschedule
 		where date=#{date} and memberemail=#{memberemail}

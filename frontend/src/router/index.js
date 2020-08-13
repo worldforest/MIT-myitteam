@@ -23,8 +23,8 @@ import searchTag from '@/views/searchTag.vue'
 import dmap from '@/views/dmap.vue'
 import FeedUpdate from '@/views/FeedUpdate.vue'
 
-
 Vue.use(VueRouter)
+
 
   const routes = [
     {
@@ -161,6 +161,7 @@ Vue.use(VueRouter)
     path: '/chat',
     name: "Chat",
     component: Chat,
+    props: true,
   }
 ]
 

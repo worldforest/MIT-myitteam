@@ -347,6 +347,18 @@ export default {
 		})
 		.catch( err => console.log(err.response.data))
 	},
+	getNickname(context, email){
+		console.log('닉네임을 받아와보자')
+		console.log(context)
+		console.log(email)
+		axios.get(`${SERVER_URL}/api/user/selectNickname/?email=${email}`)
+		.then(res => {
+			console.log('닉네임을 받아와보자2')
+			console.log(res.data)
+			context.commit('getNick', res.data)
+		})
+
+	},
 	//////////다인///////////////
 
 	/////////지훈////////////////

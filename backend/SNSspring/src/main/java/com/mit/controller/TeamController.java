@@ -76,7 +76,6 @@ public class TeamController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 		Team team = new Team();
 		String no = contentsService.LatestContents(regTeam.getEmail());
-		System.out.println(">>>>>>>>>>>>>>>>>>test");
 
 		team.setNo(no);
 		team.setLeaderemail(regTeam.getEmail());
@@ -206,15 +205,14 @@ public class TeamController {
 
 		// email이 속한 모든 멤버를 가져온다 여기서 no 와 leaderemail를 서치한다 이것을 기준으로 필요한 데이터를 만든다.
 		List<Member> members = memberService.selectEmail(email);
+
 		for (Member member : members) {
 			String no = member.getNo();
 			String leaderemail = member.getLeaderemail();
 			Team team = teamService.selectnoemail(no, leaderemail);
 			Contents contents = contentsService.selectOne(no);
-			int allCount = teaminfoService.countHead(no, leaderemail);
 
 			TeamDto teamDto = new TeamDto();
-			teamDto.setAllCnt(String.valueOf(allCount));
 			teamDto.setCategory(contents.getCategory() + "");
 			teamDto.setDescription(team.getDescription());
 			teamDto.setEnd(contents.getEnd());
@@ -227,6 +225,8 @@ public class TeamController {
 			teamDto.setRegemail(contents.getEmail());
 			teamDto.setReward(contents.getReward());
 			teamDto.setTitle(team.getTitle());
+
+			teamDto.setAllCnt(teaminfoService.countHead(no, leaderemail) + "");
 
 			teamDto.setMembers(memberService.select(no, leaderemail));
 			teamDto.setApplymembers(applymemberService.select(no, leaderemail));
@@ -269,6 +269,15 @@ public class TeamController {
 		member.setPart(part);
 		member.setMemberemail(teamemail);
 		memberService.insert(member);
+
+//		//teaminfo.setHeadcount(getHedcount()-1);
+//		//teaminfo에서 그 part의 headcount
+		String headcount = teaminfoService.selectHeadcount(no, leaderemail, part);
+		System.out.println(headcount);
+		int curr = Integer.parseInt(headcount) - 1;
+		System.out.println(curr);
+		teaminfoService.update(no, leaderemail, part, curr + "");
+
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
@@ -344,6 +353,7 @@ public class TeamController {
 		Iterator<String> keys = selectSchedule.keySet().iterator();
 
 		int memberCnt = memberService.memberCnt(no, leaderemail);
+		System.out.println(memberCnt);
 		List<String> selectDate = new ArrayList<>();
 		while (keys.hasNext()) {
 			String key = keys.next();
@@ -354,6 +364,14 @@ public class TeamController {
 			}
 		}
 		return new ResponseEntity<List<String>>(selectDate, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "팀원 일정 확인", notes = "no, leaderemail로 팀 구분하고 memberemail로 팀원 구분후 팀원별 일정 확인")
+	@PostMapping("memberSchedule")
+	public ResponseEntity<List<String>> memberSchedule(@RequestParam String no, @RequestParam String leaderemail,
+			@RequestParam String memberemail) {
+		List<String> memberSchedule = memberScheduleService.selectMember(no, leaderemail, memberemail);
+		return new ResponseEntity<List<String>>(memberSchedule, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "팀원 총인원 구하기", notes = "contents no 와 leaderemail을 등록하면 총 수를 반환합니다 리더수 포함.")
