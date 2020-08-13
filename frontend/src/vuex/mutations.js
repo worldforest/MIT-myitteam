@@ -131,4 +131,7 @@ export default {
     likeUser2(state, data) {
         state.likeUserList2 = data
     },
+    getNick(state, data) {
+        state.myNickname = data
+    }
 }
