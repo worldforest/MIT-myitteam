@@ -1,12 +1,8 @@
 <template>
   <div class="container">
-    <h3>접수 기간</h3>
-    <div class="pill ma-2"><span >D-23</span></div>
-    <div class="ml-16 mt-2"><span >{{ club.start }} ~ {{ club.end }}</span></div>
-    <h3 class="mt-10">주최</h3>
-    <div class="ma-2"><span>{{ club.host }}</span></div>
-    <h3 class="mt-10">총 시상금</h3>
-    <div class="ma-2"><span>{{ club.reward }}</span></div>
+    <h4>접수 기간 : {{ club.start }} ~ {{ club.end }} </h4>
+    <h4 class="mt-10">주최 : {{ club.host }} </h4>
+    <h4 class="mt-10">총 시상금 : {{ club.reward }} </h4>
     <div class="mt-10 text-center" >      
       <img :src="club.imagesrc" alt="" style='width:100%'>
     </div>
@@ -53,7 +49,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .pill {
     position: absolute;
     padding: 0 8px;

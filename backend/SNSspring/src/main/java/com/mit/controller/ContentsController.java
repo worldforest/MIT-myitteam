@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mit.algorithm.Path;
 import com.mit.dto.Contents;
 import com.mit.service.ContentsService;
+import com.mit.service.TeamService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -34,6 +35,9 @@ public class ContentsController {
 
 	@Autowired
 	private ContentsService contentsService;
+
+	@Autowired
+	private TeamService teamService;
 
 	@ApiOperation(value = "공모전 등록 ", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
 	@PostMapping("create/contest")
@@ -50,9 +54,25 @@ public class ContentsController {
 		return new ResponseEntity<List<Contents>>(contestAll, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "공모전 상세정보 조회", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
+	@ApiOperation(value = "공모전 상세정보 조회", notes = " ")
 	@GetMapping("readOne/contest")
 	public ResponseEntity<Contents> readOneContests(String no) {
-		return new ResponseEntity<Contents>(contentsService.selectOne(no), HttpStatus.OK);
+
+		Contents contents = contentsService.selectOne(no);
+		if (contents != null && contentsService.viewsplus(no)) {
+			return new ResponseEntity<Contents>(contents, HttpStatus.OK);
+		}
+		return new ResponseEntity<Contents>(contents, HttpStatus.FAILED_DEPENDENCY);
+	}
+
+	@ApiOperation(value = "공모전 삭제", notes = " ")
+	@GetMapping("delete")
+	public ResponseEntity<String> deleteContests(String no) {
+		teamService.deleteNo(no);
+		if (contentsService.delete(no)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+
 	}
 }

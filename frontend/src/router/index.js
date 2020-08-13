@@ -12,15 +12,22 @@ import FeedCreate from '@/views/FeedCreate.vue'
 import UserProfile from '@/views/UserProfile.vue'
 import ProjectList from '@/views/ProjectList.vue'
 import Myteam from '@/views/Myteam.vue'
+import Myteaminfo from '@/views/Myteaminfo.vue'
 import ProjectDetail from '@/views/ProjectDetail.vue'
 import FindPwd from '@/views/FindPwd.vue'
 import AllContest from '@/views/AllContest.vue'
-
+import Chat from '@/views/Chat.vue'
+import ChangePwd from '@/views/ChangePwd.vue'
+import UpdateProfile from '@/views/UpdateProfile.vue'
+import searchTag from '@/views/searchTag.vue'
+import dmap from '@/views/dmap.vue'
+import FeedUpdate from '@/views/FeedUpdate.vue'
 
 Vue.use(VueRouter)
 
+
   const routes = [
-  {
+    {
     path: '/',
     name: 'Home',
     component: Home
@@ -113,12 +120,49 @@ Vue.use(VueRouter)
     name: 'AllContest',
     component: AllContest,
   },
+  {
+    path: '/changepwd',
+    name: 'ChangePwd',
+    component: ChangePwd,
+  },
+  {
+    path: '/updateprofile',
+    name: 'UpdateProfile',
+    component: UpdateProfile,
+  },
+  {
+    path: '/searchtag',
+    name: 'searchTag',
+    component: searchTag,
+  },
+  {
+    path: '/dmap',
+    name: 'dmap',
+    component: dmap
+  },
+  {
+    path: '/feedupdate',
+    name: 'FeedUpdate',
+    component: FeedUpdate,
+  },
   //////////지훈////////////
   {
     path: '/myteam',
     name: "Myteam",
     component: Myteam,
   },
+  {
+    path: '/myteam/:id',
+    name: "Myteaminfo",
+    component: Myteaminfo,
+    props: true,
+  },
+  {
+    path: '/chat',
+    name: "Chat",
+    component: Chat,
+    props: true,
+  }
 ]
 
 const router = new VueRouter({

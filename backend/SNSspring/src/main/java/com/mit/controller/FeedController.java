@@ -33,8 +33,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mit.algorithm.Path;
 import com.mit.algorithm.Token;
 import com.mit.dto.Feed;
-import com.mit.dto.Follow;
+import com.mit.dto.Feedlike;
 import com.mit.dto.User;
+import com.mit.returnDto.FollowList;
 import com.mit.returnDto.PrivateFeed;
 import com.mit.service.FeedService;
 import com.mit.service.FeedimageService;
@@ -44,7 +45,6 @@ import com.mit.service.FeedscrapService;
 import com.mit.service.FeedtagService;
 import com.mit.service.FollowService;
 import com.mit.service.UserService;
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -61,13 +61,13 @@ public class FeedController {
 	@Autowired
 	private FeedService feedService;
 	@Autowired
-	private FeedscrapService feedscrapService;
-	@Autowired
 	private FeedimageService feedimageService;
 	@Autowired
 	private FeedlikeService feedlikeService;
-	@Autowired
-	private FeedreplyService feedreplyService;
+//	@Autowired
+//	private FeedreplyService feedreplyService;
+//	@Autowired
+//	private FeedscrapService feedscrapService;
 	@Autowired
 	private FeedtagService feedtagService;
 	@Autowired
@@ -87,13 +87,6 @@ public class FeedController {
 		// 시간과 originalFilename으로 매핑 시켜서 src 주소를 만들어 낸다.
 		// feed-> image 는 대표이미지 feedimage에는 추가 이미지들을 삽입한다.
 		// feed tag들을 삽입한다 ,로 구분
-		System.out.println(email);
-		if (file == null || file.isEmpty()) {
-			System.out.println("비어있다.");
-		} else {
-			System.out.println(file.getOriginalFilename());
-			System.out.println("비어 있지 않다");
-		}
 		Feed feed = new Feed();
 		feed.setEmail(email);
 		if (tags != null)
@@ -121,14 +114,14 @@ public class FeedController {
 		if (feedService.insert(feed)) {
 			// 파일 업로드 끝
 			if (file != null && !file.isEmpty()) {
-				File dest = new File(path.getIm()+"images/feed/" + sb.toString());
+				File dest = new File(path.getIm() + "images/feed/" + sb.toString());
 				try {
 					file.transferTo(dest);
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
-				} 	
+				}
 				// db에 파일 위치랑 번호 등록
 			}
 		} else {
@@ -149,19 +142,86 @@ public class FeedController {
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "피드 수정 ", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
+	@PostMapping("update")
+	public ResponseEntity<String> updateFeed(@RequestParam("no") String no,
+			@RequestParam("description") String description,
+			@RequestParam(value = "tags", required = false) String tags,
+			@RequestParam(value = "file", required = false) MultipartFile file) {
+
+		// 시간과 originalFilename으로 매핑 시켜서 src 주소를 만들어 낸다.
+		// feed-> image 는 대표이미지 feedimage에는 추가 이미지들을 삽입한다.
+		// feed tag들을 삽입한다 ,로 구분
+		Feed feed = new Feed();
+		feed.setNo(no);
+		if (tags != null)
+			feed.setTag(tags);
+		else
+			feed.setTag("");
+
+		feed.setDescription(description);
+		Date date = new Date();
+		StringBuilder sb = new StringBuilder();
+
+		if (file == null || file.isEmpty()) {
+			// file image 가 없을 경우
+			sb.append("none.png");
+		} else {
+			sb.append(date.getTime());
+			sb.append(file.getOriginalFilename());
+		}
+		feed.setSrc(sb.toString());
+
+		if (feedService.update(feed)) {
+			// 파일 업로드 끝
+			if (file != null && !file.isEmpty()) {
+				File dest = new File(path.getIm() + "images/feed/" + sb.toString());
+				try {
+					file.transferTo(dest);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				// db에 파일 위치랑 번호 등록
+			}
+		} else {
+			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+		}
+
+		// feed tag 등록
+		StringTokenizer st = null;
+		if (tags != null)
+			st = new StringTokenizer(tags, "#");
+		while (st != null && st.hasMoreTokens()) {
+			String tag = st.nextToken();
+			feedtagService.insert(no, tag);
+		}
+
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "피드 삭제 ", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
+	@PostMapping("delete")
+	public ResponseEntity<String> deleteFeed(@RequestParam("no") String no,@RequestParam("email") String email) {
+		feedService.deletetags(no);
+		feedService.delete(no,email);
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+
 	// feed image 반환하기
 	@ApiOperation(value = "feed image 조회 ", notes = "feed Ima	ge를 반환합니다. 못찾은경우 기본 image를 반환합니다.")
 	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<byte[]> userSearch(@PathVariable("imagename") String imagename) throws IOException {
 		System.out.println("test");
 
-		InputStream imageStream = new FileInputStream(path.getIm()+"images/feed/" + imagename);
+		InputStream imageStream = new FileInputStream(path.getIm() + "images/feed/" + imagename);
 		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
 		imageStream.close();
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "sns 계정 개인 페이지 조회", notes = " get 타입으로 email을 통회 개인페이지를 조회합니다.\n"
+	@ApiOperation(value = "sns 계정 개인 페이지 조회", notes = " get 타입으로 email을 통 개인페이지를 조회합니다.\n"
 			+ "Json 형태로 nickname , followerCnt , follwingCnt , description, feeds(개인피드들 정보 feed 번호, feedimagesrc 정보)Jsons 형태로 반환")
 	@GetMapping(value = "{email}")
 	public ResponseEntity<PrivateFeed> userPage(@PathVariable("email") String email) {
@@ -174,12 +234,14 @@ public class FeedController {
 		User user = userService.selectPrivate(email);
 		privateFeedDto.setNickname(user.getNickname());
 		privateFeedDto.setDescription(user.getDescription());
+		privateFeedDto.setAddress(user.getAddress());
 
-		privateFeedDto.setSrc(path.getPath()+"/mit/api/user/image/" + user.getSrc());
+		privateFeedDto.setSrc(path.getPath() + "/mit/api/user/image/" + user.getSrc());
 		List<Feed> feeds = feedService.selectEmail(email);
 		for (int i = 0; i < feeds.size(); i++) {
-			feeds.get(i).setSrc(path.getPath()+"/mit/api/feed/image/" + feeds.get(i).getSrc());
+			feeds.get(i).setSrc(path.getPath() + "/mit/api/feed/image/" + feeds.get(i).getSrc());
 		}
+		Collections.sort(feeds);
 		privateFeedDto.setFeeds(feeds);
 		privateFeedDto.setNickname(userService.selectNickname(email));
 		return new ResponseEntity<PrivateFeed>(privateFeedDto, HttpStatus.OK);
@@ -200,10 +262,11 @@ public class FeedController {
 		// email 정보가 주어지면 email 이 팔로우한 사람들의 feed를 반환한다.
 		else if (email != null) {
 			System.out.println("test");
-			List<String> follows = followService.followingList(email);
+			List<FollowList> follows = followService.followingList(email);
+
 			feeds = new ArrayList<Feed>();
-			for (String follow : follows) {
-				feeds.addAll(feedService.selectEmail(follow));
+			for (FollowList follow : follows) {
+				feeds.addAll(feedService.selectEmail(follow.getEmail()));
 			}
 			// Sort 한다 기준은 최신순으로 솔팅한다.
 			Collections.sort(feeds);
@@ -246,10 +309,58 @@ public class FeedController {
 		}
 
 		for (int i = 0; i < feeds.size(); i++) {
-			feeds.get(i).setSrc(path.getPath()+"/mit/api/feed/image/" + feeds.get(i).getSrc());
+			feeds.get(i).setSrc(path.getPath() + "/mit/api/feed/image/" + feeds.get(i).getSrc());
 		}
 
 		return new ResponseEntity<List<Feed>>(feeds, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "feed 좋아요", notes = "해당 피드 번호 no, 좋아요 누르는 사람의 email")
+	@PostMapping("feedlike")
+	public ResponseEntity<String> feedlike(@RequestParam String no, @RequestParam String email) {
+		Feedlike feedlike = new Feedlike();
+		feedlike.setNo(no);
+		feedlike.setEmail(email);
+		if (feedlikeService.insert(feedlike)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
+
+	@ApiOperation(value = "feed 좋아요 취소", notes = "해당 피드 번호 no, 좋아요 누르는 사람의 email")
+	@PostMapping("feedunlike")
+	public ResponseEntity<String> feedunlike(@RequestParam String no, @RequestParam String email) {
+		Feedlike feedlike = new Feedlike();
+		feedlike.setNo(no);
+		feedlike.setEmail(email);
+		if (feedlikeService.delete(feedlike)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+	}
+
+	@ApiOperation(value = "feed 좋아요 개수", notes = "해당 피드 번호 no")
+	@PostMapping("feedlikeCnt")
+	public ResponseEntity<Integer> feedlikeCnt(@RequestParam String no) {
+
+		return new ResponseEntity<Integer>(feedlikeService.select(no), HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "feed 좋아요한 사람 명단", notes = "해당 피드 번호 no")
+	@PostMapping("feedlikeUser")
+	public ResponseEntity<List<FollowList>> feedlikeUser(@RequestParam String no) {
+		List<FollowList> feedlikeuser = feedlikeService.selectAll(no);// email목록
+
+		return new ResponseEntity<List<FollowList>>(feedlikeuser, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "feed 조회수 1증가", notes = " 해당 피드번호의 조회수를 1증가 시키는 API")
+	@GetMapping("viewplus")
+	public ResponseEntity<String> viewplus(@RequestParam String no) {
+		if (feedService.viewsplus(no)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.FAILED_DEPENDENCY);
 	}
 
 }

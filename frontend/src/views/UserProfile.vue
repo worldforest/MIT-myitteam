@@ -1,18 +1,11 @@
 <template>
-  <div  class="cont10">
 
+  <div  class="cont10">
+    {{user}}
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
           <img  v-if="userprofiledata.src" :src="userprofiledata.src" class="box" style="width:150px; height:150px;">
-        </div>
-        <div class="filebox ml-4"> 
-          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
-          <input 
-            type="file" 
-            id="ex_file"
-            accept="image/*"
-            @change="onChange">
         </div>
       </v-col>
       
@@ -20,12 +13,12 @@
         <div class="ml-5">
           <span ><h3 class="my-3">{{ userprofiledata.nickname }}</h3></span>
             <!-- 현재 사용중인 유저 닉네임과 프로필 유저 닉네임이 같지 않고, 팔로우리스트안에 이메일이 없을 경우 -->
-          <span v-if="userprofiledata.feeds[0].email !== email">
+          <span v-if="user !== email">
             <v-btn
-              v-if="!followerList.includes(email)"
+              v-if="!followerList2.includes(email)"
               class="ml-3"
               color="primary"
-              @click="follow"
+              @click="follow(user)"
             >
               팔로우
             </v-btn>
@@ -34,7 +27,7 @@
               v-else
               class="ml-3"
               color="primary"
-              @click="unfollow(userprofiledata.feeds[0].email)"
+              @click="unfollow(user)"
             >
               팔로우 취소
             </v-btn>
@@ -45,9 +38,9 @@
           <span class="mx-auto"><h4>팔로워| {{ followerList.length }}명</h4></span>
         </div>
         <div class="d-flex ml-5">
-          {{ userprofiledata.description }}
+          <span> <h3>{{ userprofiledata.description }} 개발자</h3> </span>
           <br>
-          
+          <router-link :to="{name: 'Chat', params:{ yournickname : userprofiledata.nickname }}">채팅 하기</router-link>
         </div>
       </v-col>
     </v-row>
@@ -57,25 +50,17 @@
         <div class="pf-box">
           <img  v-if="userprofiledata.src" :src="userprofiledata.src" class="box" style="width:150px; height:150px;">
         </div>
-        <div class="filebox ml-4"> 
-          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px">수정</label>
-          <input 
-            type="file" 
-            id="ex_file"
-            accept="image/*"
-            @change="onChange">
-        </div>
       </v-col>
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
           <span>{{ userprofiledata.nickname }}</span>
-          <span v-if="userprofiledata.feeds[0].email !== email">
+          <span v-if="user !== email">
             <v-btn
-              v-if="!followerList.includes(email)"
+              v-if="!followerList2.includes(email)"
               class="ml-3"
               color="primary"
-              @click="follow()"
+              @click="follow(user)"
             >
               팔로우
             </v-btn>
@@ -84,7 +69,7 @@
               v-else
               class="ml-3"
               color="primary"
-              @click="unfollow(userprofiledata.feeds[0].email)"
+              @click="unfollow(user)"
             >
               팔로우 취소
             </v-btn>
@@ -95,7 +80,7 @@
           <span class="mx-auto">팔로워| {{ followerList.length }}명</span>
         </div>
         <div class="d-flex ml-5">
-          {{ userprofiledata.description }}
+           <span> <h4>{{ userprofiledata.description }} 개발자</h4> </span>
           <br>
           
         </div>
@@ -107,25 +92,17 @@
         <div class="pf-box">
           <img  v-if="userprofiledata.src" :src="userprofiledata.src" class="box2" style="width:77px; height:77px;">
         </div>
-        <div class="filebox ml-4"> 
-          <label for="ex_file"><img src="@/assets/edit.png" alt="" style="width:10px"></label>
-          <input 
-            type="file" 
-            id="ex_file"
-            accept="image/*"
-            @change="onChange">
-        </div>
       </v-col>
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
           <h3 class="ml-5 mb-3">{{ userprofiledata.nickname }}</h3>
-          <span v-if="userprofiledata.feeds[0].email !== email">
+          <span v-if="user.email !== email">
             <v-btn
-              v-if="!followerList.includes(email)"
+              v-if="!followerList2.includes(email)"
               class="ml-3"
               color="primary"
-              @click="follow()"
+              @click="follow(user)"
             >
               팔로우
             </v-btn>
@@ -134,7 +111,7 @@
               v-else
               class="ml-3"
               color="primary"
-              @click="unfollow(userprofiledata.feeds[0].email)"
+              @click="unfollow(user)"
             >
               팔로우 취소
             </v-btn>
@@ -142,8 +119,8 @@
         </div>
       </v-col>
     </v-row>
-    <span v-if="windowWidth < 788">{{ userprofiledata.description }}</span>
-    <hr>
+    <span v-if="windowWidth < 788">{{ userprofiledata.description }} 개발자</span>
+    <hr v-if="windowWidth < 788">
     <v-row v-if="windowWidth < 788">
       <v-col cols="6">
         <h4>팔로우| {{ userprofiledata.followingCnt }}명 </h4>
@@ -156,14 +133,14 @@
     <div class="text-center">
       <h3>피드</h3>
     </div>
-    <router-link class="feed white--text"  to="/feedcreate">
+    <router-link class="feed white--text"  to="/feedcreate" v-if="userprofiledata.nickname === profileData.nickname">
       피드등록
     </router-link>
     <v-row class="my-4">
       <v-col cols="4" v-for="feed in userprofiledata.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
-          <img src="https://t1.daumcdn.net/cfile/tistory/9976523D5AD95B6627" 
-          alt="" 
+          <img :src="feed.src" 
+          alt="안나오는겁니다!" 
           style="width:100%;" 
           :feed="feed" 
           @click="feedDetail(feed)" >
@@ -188,7 +165,8 @@ export default {
   data() {
     return {
       windowWidth: window.innerWidth,
-      followList : []
+      followList : [],
+      followconf: true,
     }
   },
   watch: {
@@ -215,7 +193,7 @@ export default {
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
-    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt']),
+    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2']),
     ...mapGetters(['isLoggedIn',])
      
   },

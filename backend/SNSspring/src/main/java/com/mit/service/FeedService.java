@@ -17,7 +17,9 @@ public interface FeedService {
 
 	public boolean update(Feed feed);
 
-	public boolean delete(String no);
+	public boolean delete(String no,String email);
+
+	public boolean deletetags(String no);
 
 	public String Latestfeed(String email);
 
@@ -26,4 +28,6 @@ public interface FeedService {
 	public Feed selectno(String no);
 
 	public Feed slectnoemail(String no, String email);
+	
+	public boolean viewsplus(String no);
 }

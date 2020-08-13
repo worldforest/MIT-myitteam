@@ -1,5 +1,7 @@
 package com.mit.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -58,13 +60,22 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User selectPrivate(String email) {
-		// TODO Auto-generated method stub
 		return userRepo.selectPrivate(email);
 	}
 
 	@Override
 	public boolean update(String email, String pwd) {
 		return userRepo.update(email, pwd);
+	}
+
+	@Override
+	public boolean updateUser(User user) {
+		return userRepo.updateUser(user);
+	}
+
+	@Override
+	public List<User> selectAddressMember(String no, String leaderemail) {
+		return userRepo.selectAddressMember(no, leaderemail);
 	}
 
 }

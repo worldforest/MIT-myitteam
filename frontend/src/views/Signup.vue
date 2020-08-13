@@ -16,14 +16,14 @@
         <div>
           <h3 class="ml-4">비밀번호 : </h3>
           <v-col xs="6" md="11" class="mx-auto">
-            <v-text-field :rules="[rules.required, rules.min]" v-model="signupData.pwd" label="비밀번호" outlined id="pwd" type="password"></v-text-field>
+            <v-text-field class="passwordfont" :rules="[rules.required, rules.min]" v-model="signupData.pwd" label="비밀번호" outlined id="pwd" type="password"></v-text-field>
           </v-col>
         </div>
 
         <div>
           <h3 class="ml-4">비밀번호 확인 : </h3>
           <v-col xs="6" md="11" class="mx-auto">
-            <v-text-field :rules="[rules.pwdcheck, rules.required]" v-model="signupData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
+            <v-text-field class="passwordfont" :rules="[rules.pwdcheck, rules.required]" v-model="signupData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
           </v-col>
         </div>
 
@@ -42,7 +42,7 @@
             <v-text-field :rules="[rules.required]" v-model="signupData.nickname" label="닉네임" outlined id="nickname"></v-text-field>
             </v-col>
             <v-col xs="1" md="2" class="mx-auto">
-              <v-btn class="white--text" large color="#5C6BC0" @click="checkNickname">중복 검사</v-btn>
+              <v-btn class="white--text" large color="#5C6BC0" @click="checkNickname(signupData.nickname)">중복 검사</v-btn>
             </v-col>
           </v-row>
         </div>
@@ -70,6 +70,13 @@
           <h3 class="ml-4">전공 : </h3>
           <v-col md="11" class="mx-auto">
             <v-text-field v-model="signupData.major" label="전공" outlined id="major"></v-text-field>
+          </v-col>
+        </div>
+
+        <div>
+          <h3 class="ml-4">자신을 한마디로 표현한다면? : </h3>
+          <v-col md="11" class="mx-auto">
+            <v-text-field v-model="signupData.description" label="ex) 유쾌한, 고독한, 행복한 등등의 형용사" outlined id="description"></v-text-field>
           </v-col>
         </div>
 
@@ -128,6 +135,7 @@ export default {
         gender: "",
         major: "",
         address: "",
+        description: "",
       },
       dialog: false,
       selectGender: ['남', '여'],
@@ -175,7 +183,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .h1-signup {
     color: rgb(92, 107, 192);
   }
@@ -196,5 +204,8 @@ export default {
     color : red;
     background-color: white;
   }
-
+  
+  .passwordfont{
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
 </style>

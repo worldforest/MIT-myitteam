@@ -12,9 +12,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="select" parameterType="String" resultType="teaminfo">
-		select no, leaderemail, part, task, ability, advantage, headcount
+		select no,
+		leaderemail, part, task, ability, advantage, headcount
 		from teaminfo
 		where no=#{no} and leaderemail=#{leaderemail}
+	</select>
+
+	<select id="selectHeadcount" parameterType="String"
+		resultType="String">
+		select headcount
+		from teaminfo
+		where no=#{no} and
+		leaderemail=#{leaderemail} and part=#{part}
+	</select>
+	
+	<update id="update" parameterType="String">
+		update teaminfo
+		set
+		headcount=#{headcount}
+		where no=#{no} and leaderemail=#{leaderemail}
+		and part=#{part}
+	</update>
+	
+	<select id="countHead" parameterType="String" resultType="int">
+		select SUM(headcount) from teaminfo where no=#{no} and leaderemail=#{leaderemail}
 	</select>
 
 </mapper>

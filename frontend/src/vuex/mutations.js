@@ -24,6 +24,16 @@ export default {
         router.push({ name: "GongmoDetail"})
     },
     INPUTDATA (state, res) {
+        for (let i=0; i<res.feeds.length; i++) {
+            res.feeds[i].tag = res.feeds[i].tag.split('#');
+            let data = [];
+            for (let z=0; z<res.feeds[i].tag.length; z++) {
+                if (res.feeds[i].tag[z] !== '') {
+                    data.push(res.feeds[i].tag[z])
+                }
+            }
+            res.feeds[i].tag = data
+        }
         state.profileData = res
     },
     contestData(state, res) {
@@ -37,6 +47,9 @@ export default {
     },
     INPUTFOLLOWER(state, res) {
         state.followerList = res
+    },
+    INPUTFOLLOWER2(state, res) {
+        state.followerList2 = res
     },
     INPUTFOLLOW(state, res) {
         state.followList = res
@@ -54,9 +67,18 @@ export default {
     },
     setCommunity(state, res) {
         state.community = res
-			if (state.followerList.includes(state.email)) {
-					state.followflag = true
-			}
+        // state.tagData = res
+        for (let i=0; i<res.length; i++) {
+            res[i].tag = res[i].tag.split('#');
+            let data = [];
+            for (let z=0; z<res[i].tag.length; z++) {
+                if (res[i].tag[z] !== '') {
+                    data.push(res[i].tag[z])
+                }
+            }
+            res[i].tag = data
+        }
+        state.community = res
     },
     GETTEAMDATA(state, res) {
       state.getTeamList = res
@@ -70,14 +92,46 @@ export default {
         console.log(res)
         router.push({ name: "ProjectDetail" })
     },
-    goTeam() {
-        // state.teamreg = res
-        router.push({name:'ProjectRegister'})
+    updateFeed(state, res) {
+        state.upFeed = res
+        router.push({name: "FeedUpdate"})
+    },
+    goTeam(state) {
+        if (state.email) {   
+            router.push({name:'ProjectRegister'})
+        } else {
+            alert('로그인이 필요한 서비스입니다!')
+        }
     },
     getAllContest(state, res) {
         state.allContest = res
     },
     chageIsFlag(state) {
         state.isFlag = !state.isFlag
-    } 
+    } ,
+    getPwdToken(state, res) {
+        state.pwdToken = res
+        router.push({name:'ChangePwd'})
+    },
+    updateProfile(state, res) {
+        state.updateProfile = res
+        router.push({name: "UpdateProfile"})
+    },
+    setTag(state, data) {
+        state.tagData = data.res
+        state.keyword = data.keyword
+        router.push({name: "searchTag"})
+    },
+    likeCnt(state, data) {
+      state.likeCntnum = data
+		},
+    likeUser(state, data) {
+        state.likeUserList = data
+    },
+    likeUser2(state, data) {
+        state.likeUserList2 = data
+    },
+    getNick(state, data) {
+        state.myNickname = data
+    }
 }

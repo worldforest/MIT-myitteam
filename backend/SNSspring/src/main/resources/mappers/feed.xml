@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectAll" resultType="feed">
 		select * from feed
+		order by no
 	</select>
 
 	<select id="Latestfeed" parameterType="String"
@@ -36,4 +37,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="feed">
 		select * from feed where no = #{no} and email = #{email}
 	</select>
+	
+	<update id="viewsplus" parameterType="String">
+		update feed set views = (views + 1) where no = #{no}
+	</update>
+	
+	<update id="update" parameterType="feed">
+		update feed
+		set description=#{description},tag=#{tag},src=#{src}
+		where no=#{no}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from feed
+		where no=#{no} and email=#{email}
+	</delete>
+	
+	<delete id="deletetags" parameterType="String">
+		delete from feedtag
+		where no=#{no}
+	</delete>
 </mapper>

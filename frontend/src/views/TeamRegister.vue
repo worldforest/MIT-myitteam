@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- {{ email }} -->
+    {{ applyData }}
     {{ applyData.no }}
     
     <br>
@@ -48,35 +49,42 @@
           <li class="itemLi" v-for="item in this.applyData.dataList" :key="item.id">
             <v-col class="mx-auto" cols="12" md="11">
               <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
-                <h3 class="mb-3">{{ item.part }}</h3>
+                <h3 class="mb-3 cardTitle">{{ item.part }}</h3>
                 <hr class="mb-3">
-
+                {{ item }}
                 <v-list-item>
                   <v-list-item-content>
-                    <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headCount }}</h4></v-list-item-title>
+                    <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2 cardTitle">인원 : {{ item.headCount }}</h4></v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
                 
                 <v-list-item>
                   <v-list-item-content>
-                    <h4 class="mb-2">담당 업무</h4>
+                    <h4 class="mb-2 cardTitle">담당 업무</h4>
                     <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-content>
-                    <h4 class="mb-2">필수 역량</h4>
+                    <h4 class="mb-2 cardTitle">필수 역량</h4>
                     <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-content>
-                    <h4 class="mb-2">우대 사항</h4>
+                    <h4 class="mb-2 cardTitle">우대 사항</h4>
                     <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
+                
+                <!-- 보류 !!!!!!! -->
+                <!-- <v-row>
+                  <v-spacer></v-spacer>
+                  <v-btn class="white--text mr-3" color="green" @click="updateCardSave(item); updateCard(updateData);"> 수정하기 </v-btn>
+                  <v-btn class="white--text mr-3" color="red" @click="deleteCardSave(item); deleteCard(deleteData);"> 삭제하기 </v-btn>
+                </v-row> -->
               </v-card>
             </v-col>
           </li>
@@ -179,7 +187,7 @@
   <!--400보다 작을 때-->
   <div v-if="windowWidth < 400">
     <div id="card-apply" class="py-5 px-3 my-8 cont730" outlined>
-      <h3 class="text-center mb-5 h1-apply">공모전 팀원을 구해보세요 :)</h3>
+      <h4 class="text-center mb-5 h1-apply">공모전 팀원을 구해보세요 :)</h4>
       <div>
         <h3 class="ml-4">지역 : </h3>
           <v-col class="d-flex mx-auto" cols="12" md="11">
@@ -296,6 +304,20 @@ export default {
       },
       show: false,
       windowWidth: window.innerWidth,
+      updateData: {
+        no: '',
+        leaderemail: '',
+        part: '',
+        headcount: '',
+        ability: '',
+        advantage: '',
+        task: '',
+      },
+      deleteData: {
+        no: '',
+        leaderemail: '',
+        part: '',
+      }
     }
   },
   watch: {
@@ -308,13 +330,30 @@ export default {
   },
 
   methods: {
-    ...mapActions(['teamregister']),
+    ...mapActions(['teamregister', 'updateCard', 'deleteCard', 'getTeamData']),
     addApply(Data){
       this.applyData.dataList = [...this.applyData.dataList, Data]
     },
     onResize() {
       this.windowWidth = window.innerWidth
     },
+    updateCardSave(item){
+      this.updateData.no = this.applyData.no
+      this.updateData.leaderemail = this.applyData.email
+      this.updateData.part = item.part
+      var temp = String(item.headCount)
+      this.updateData.headcount = temp
+      this.updateData.ability = item.ability
+      this.updateData.task = item.task
+      this.updateData.advantage = item.advantage
+
+      console.log(typeof(this.updateData.headcount))
+    },
+    deleteCardSave(item){
+      this.deleteData.no = this.applyData.no
+      this.deleteData.leaderemail = this.applyData.email
+      this.deleteData.part = item.part
+    }
   },
   mounted () {
       this.applyData.email = this.$store.state.email, 
@@ -323,13 +362,13 @@ export default {
     })
   },
   computed : {
-    ...mapState(['email']),
+    ...mapState(['email', 'getTeamList']),
   },
 
 }
 </script>
 
-<style>
+<style scoped>
   #card-apply {
     border:1px solid rgb(92, 107, 192);
   }
@@ -346,5 +385,9 @@ export default {
   
   .cont730 {
     margin: 0 3%;
+  }
+  
+  .cardTitle{
+    color: black;
   }
 </style>

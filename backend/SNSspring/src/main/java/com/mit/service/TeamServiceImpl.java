@@ -29,4 +29,19 @@ public class TeamServiceImpl implements TeamService {
 		return teamRepo.selectnoemail(no, leaderemail);
 	}
 
+	@Override
+	public boolean update(Team team) {
+		return teamRepo.update(team);
+	}
+
+	@Override
+	public boolean delete(String no, String leaderemail) {
+		return teamRepo.delete(no, leaderemail);
+	}
+
+	@Override
+	public boolean deleteNo(String no) {
+		return teamRepo.deleteNo(no);
+	}
+
 }

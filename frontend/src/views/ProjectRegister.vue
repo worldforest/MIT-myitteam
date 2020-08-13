@@ -1,5 +1,5 @@
 <template>
-	<v-card color="#FAFAFA">
+	<v-card>
     <v-container>
 			{{ teamreg }}
 			{{ windowWidth }}
@@ -11,11 +11,11 @@
 					
 					<h3 class="ml-4">제목 : </h3>
 					<v-col cols="12" md="11" class="mx-auto">
-						<v-textarea
+						<v-text-field
 							outlined
 							label="제목"
 							v-model="projectData.title"
-						></v-textarea>
+						></v-text-field>
 					</v-col>
 
 					<h3 class="ml-4">프로젝트 소개 : </h3>
@@ -160,7 +160,7 @@
 
 									<v-list-item>
 										<v-list-item-content>
-											<v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
+											<v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headCount }}</h4></v-list-item-title>
 										</v-list-item-content>
 									</v-list-item>
 									
@@ -247,7 +247,7 @@ export default {
     },
 	}, 
 	mounted () {
-			this.projectData.email = this.$store.state.email, 
+		this.projectData.email = this.$store.state.email, 
       this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
@@ -258,7 +258,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 	.v-expansion-panels{
 		max-width: 500px;
 	}

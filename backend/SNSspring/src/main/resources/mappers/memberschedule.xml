@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mit.repo.MemberScheduleRepo">
+
+	<insert id="insert" parameterType="memberschedule">
+		insert into memberschedule(no, leaderemail, memberemail, date)
+		values(#{no},#{leaderemail},#{memberemail},#{date})
+	</insert>
+	
+	<select id="selectAll" parameterType="String" resultType="memberschedule">
+		select memberemail, date
+		from memberschedule
+		where no=#{no} and leaderemail=#{leaderemail}
+	</select>
+	
+	<select id="selectMember" parameterType="String" resultType="String">
+		select date
+		from memberschedule
+		where no=#{no} and leaderemail=#{leaderemail} and memberemail=#{memberemail}
+	</select>
+	
+	<delete id="delete" parameterType="String">
+		delete from memberschedule
+		where date=#{date} and memberemail=#{memberemail}
+	</delete>
+	
+	
+</mapper>

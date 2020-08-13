@@ -3,12 +3,25 @@ import router from '@/router'
 import cookies from 'vue-cookies'
 import 'url-search-params-polyfill'
 // import { apply } from 'core-js/fn/reflect'
+import Swal from 'sweetalert2'
+
 
 const SERVER_URL = 'http://localhost:9999/mit'
 // const SERVER_URL = 'http:/i3b306.p.ssafy.io:9999/mit'
 
 export default {
-	postToken({ commit }, info) {
+	postToken2({ commit }, info) {
+		Swal.fire({
+			text: '회원가입을 축하합니다!',
+			width: 600,
+			padding: '3em',
+			backdrop: `
+				rgba(0,0,123,0.4)
+				url("https://pgnqdrjultom1827145.cdn.ntruss.com/img/d6/3f/d63fc54819cd3fb0c319021e2e7cd6bfee951e8ce2db9e948bd828f538272da6_v1.jpg")
+				left top
+				no-repeat
+			`
+		})
 		const params = new URLSearchParams();
 		params.append('email', info.data.email);
 		params.append('pwd', info.data.pwd);
@@ -19,15 +32,27 @@ export default {
 				cookies.set('auth-email', response.data.email)
 				router.go({ name: "Home" })
 			})
-			.catch(error => console.log(error.response.data))
 	},
 
-	login({ dispatch }, loginData) {
-		const info = {
-			data: loginData
-		}
-
-		dispatch('postToken', info)
+	login(context, loginData) {
+		const params = new URLSearchParams();
+		params.append('email', loginData.email);
+		params.append('pwd', loginData.pwd);
+		axios.post(`${SERVER_URL}/api/user/login/`, params)
+			.then(response => {
+				context.commit('SET_TOKEN', response.data.token)
+				// commit('GET_EMAIL', response.data.email)
+				cookies.set('auth-email', response.data.email)
+				router.go({ name: "Home" })
+			})
+			.catch(() => {
+				Swal.fire({
+					icon: 'error',
+					title: '로그인 실패',
+					text: '아이디 혹은 비밀번호를 확인해주세요.',
+					footer: '회원이 아니신가요?<a href="/signup">   가입하기   </a>'
+				})
+			})
 	},
 	logout() {
 		cookies.remove('auth-token')
@@ -49,23 +74,71 @@ export default {
 						pwd: signupInfo.data.pwd
 					}
 				}
-				dispatch("postToken", loginInfo)
+				dispatch("postToken2", loginInfo)
 			})
 			.catch(() => {
 				alert("사용중인 아이디가 존재합니다.");
 			})
 	},
 	signup({ dispatch }, signupData) {
-		const signupInfo = {
-			data: signupData
-		}
-		dispatch('postSignup', signupInfo)
+		if (signupData.email.length < 6) {
+			Swal.fire({
+				icon: 'error',
+				title: '이메일을 입력하지 않았습니다.',
+			})
+		} else if ((signupData.pwd !== signupData.pwd2) || signupData.pwd === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '비밀번호가 일치하지 않습니다.',
+			})
+		} else if (signupData.name === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '이름을 입력해주세요.',
+			})
+		} else if (signupData.nickname === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '닉네임을 입력해주세요.',
+			})
+		} else if (signupData.age === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '나이를 입력해주세요.',
+			})
+		} else if (signupData.gender === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '성별을 입력해주세요.',
+			})
+		} else if (signupData.major === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '전공을 입력해주세요.',
+			})
+		} else if (signupData.description === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '소개를 입력해주세요.',
+			})
+		} else if (signupData.address === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '주소를 입력해주세요.',
+			})
+		} else {
+			const signupInfo = {
+				data: signupData
+			}
+			dispatch('postSignup', signupInfo)
+		}		
 	},
-	checkNickname(context, signupData) {
-		console.log()
+	checkNickname(context, nickname) {
+		console.log(context)
+		console.log(nickname)
 		if (!context.state.isLoggedIn) {
 			const nick = {
-				data: signupData.nickname
+				data: nickname
 			}
 			axios.get(`http://localhost:9999/mit/api/user/checkNickname/${nick.data}`)
 				.then(() => {
@@ -73,7 +146,7 @@ export default {
 				})
 				.catch(() => {
 					alert('사용중인 별명입니다.')
-					signupData.nickname = ''
+					nickname = ''
 				})
 		}
 	},
@@ -86,19 +159,26 @@ export default {
 	},
 
 	feedCreate(context, feedData) {
-		const formdata = new FormData();
-		formdata.append('category', feedData.category)
-		formdata.append('description', feedData.description)
-		formdata.append('email', feedData.email) 
-		formdata.append('file', feedData.file)
-		formdata.append('tags', feedData.tags)
-		axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
-		.then(() => {
-				router.push({ name: "Profile"})
+		if (feedData.description === '' || feedData.file === '') {
+			Swal.fire({
+				icon: 'error',
+				title: '필수 항목들을 입력해주세요!(사진, 소개)',
+			})
+		} else {
+			const formdata = new FormData();
+			formdata.append('description', feedData.description)
+			formdata.append('email', feedData.email) 
+			formdata.append('file', feedData.file)
+			formdata.append('tags', feedData.tags)
+			axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
+			.then(() => {
+					router.push({ name: "Profile"})
+			})
+			.catch(error => {
+					console.log(error)
 		})
-		.catch(error => {
-				console.log(error)
-		})
+		}
+		
 	},
 	
 
@@ -107,18 +187,25 @@ export default {
 		console.log(applyData)
 		axios.post(`${SERVER_URL}/api/team/contestteam`, applyData)
 			.then(() => {
-				alert('성공적으로 등록하였습니다.')
+				Swal.fire({
+					icon: 'success',
+					title: '성공적으로 등록하였습니다.',
+					width: 600
+				})
 				router.push({ name: "GongmoDetail"})
 			})
 			.catch(error => console.log(error.response.data))
 	},
 	projectregister(context, projectData){
-		/// 아직 완료 아님  ///
 		console.log(context)
 		console.log(projectData)
 		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
 		.then(() => {
-			alert('성공적으로 등록하였습니다.')
+			Swal.fire({
+				icon: 'success',
+				title: '성공적으로 등록하였습니다.',
+				width: 600
+			})
 			router.push({ name: "ProjectList"})
 		})
 		.catch(err => {
@@ -138,6 +225,141 @@ export default {
 			console.log(err.response.data)
 		})
 	},
+	apply(context, sendData){
+		console.log(context)
+		console.log('Action')
+		console.log(sendData)
+
+		const params = new URLSearchParams();
+		params.append('no', sendData.no);
+		params.append('leaderemail', sendData.leaderemail);
+		params.append('email', sendData.email);
+		params.append('part', sendData.part);
+		axios.post(`${SERVER_URL}/api/team/applyTeam`, params)
+		.then(()=> {
+			console.log('팀장에게 보내기 완료 !! ')
+		})
+		.catch(err => {
+			console.log(err.response.data)
+		})
+	},
+	deleteTeam(context, deleteData){
+		console.log(context)
+		console.log(deleteData)
+
+		const params = new URLSearchParams();
+		params.append('no', deleteData.no);
+		params.append('leaderemail', deleteData.leaderemail);	
+		axios.post(`${SERVER_URL}/api/team/deleteTeam`, params)
+		.then(() => {
+			Swal.fire({
+				icon: 'info',
+				title: '등록한 팀이 삭제되었습니다.',
+				width: 600
+			})
+			router.push({ name: "AllContest" })
+		})
+		.catch( err => {
+			console.log(err.response.data)
+		})
+	},
+	updateCard(context, updateData){
+		console.log(context)
+		console.log(updateData)
+		const params = new URLSearchParams();
+		params.append('no', updateData.no);
+		params.append('leaderemail', updateData.leaderemail);
+		params.append('part', updateData.part);
+		params.append('headcount', updateData.headcount);
+		params.append('ability', updateData.ability);
+		params.append('task', updateData.task);
+		params.append('advantage', updateData.advantage);
+		axios.post(`${SERVER_URL}/api/team/updateTeaminfo`, params)
+		.then(() => {
+			console.log('성공')
+			Swal.fire({
+				icon: 'info',
+				title: '등록한 프로젝트가 삭제되었습니다.',
+				width: 600
+			})
+			router.push({ name: "ProjectList" })
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	like(context, likeData){
+		console.log(context)
+		console.log(likeData)
+		const params = new URLSearchParams();
+		params.append('no', likeData.no),
+		params.append('email', likeData.email)
+		axios.post(`${SERVER_URL}/api/feed/feedlike`, params)
+		.then(() => {
+			console.log('좋아요 성공')
+			context.dispatch('likeCnt', likeData)
+			context.dispatch('likeUser', likeData)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	unlike(context, likeData){
+    console.log(context)
+		console.log(likeData)
+		const params = new URLSearchParams();
+		params.append('no', likeData.no),
+		params.append('email', likeData.email)
+		axios.post(`${SERVER_URL}/api/feed/feedunlike`, params)
+		.then(() => {
+			console.log('좋아요 성공')
+			context.dispatch('likeCnt', likeData)
+			context.dispatch('likeUser', likeData)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	likeCnt(context, likeCntData){
+		// console.log(context)
+		// console.log(likeCntData)
+		const params = new URLSearchParams();
+		params.append('no', likeCntData.no)
+		axios.post(`${SERVER_URL}/api/feed/feedlikeCnt`, params)
+		.then( res => {
+			console.log(res)
+			context.commit('likeCnt', res.data)
+			
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	likeUser(context, likeCntData){
+		console.log('좋아요 명단')
+		console.log(context)
+		console.log(likeCntData)
+		const params = new URLSearchParams();
+		params.append('no', likeCntData.no)
+		axios.post(`${SERVER_URL}/api/feed/feedlikeUser`, params)
+		.then((response) => {
+			var data = []
+			for(var i=0; i<(response.data).length; i++) {
+				data.push(response.data[i])
+			}
+			var data2 = []
+			for (var z=0; z<data.length; z++) {
+				data2.push(data[z].email)
+			}
+			context.commit('likeUser', data)
+			context.commit('likeUser2', data2)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	getNickname(context, email){
+		console.log('닉네임을 받아와보자')
+		console.log(context)
+		console.log(email)
+		axios.get(`${SERVER_URL}/api/user/selectNickname/?email=${email}`)
+		.then(res => {
+			console.log('닉네임을 받아와보자2')
+			console.log(res.data)
+			context.commit('getNick', res.data)
+		})
+
+	},
 	//////////다인///////////////
 
 	/////////지훈////////////////
@@ -149,14 +371,15 @@ export default {
 				for(var i=0; i<(res.data).length; i++) {
 					if (res.data[i].category === 0) {
 						contest.push(res.data[i])
+						console.log(typeof(contest))
 					}
 					else {
 						project.push(res.data[i])
 					}
-				}
-			context.commit('contestData', contest)
-			context.commit('projectData', project)
-			})
+			}
+		context.commit('contestData', contest)
+		context.commit('projectData', project)
+		})
 	},
 
 	profile(context) {
@@ -171,13 +394,13 @@ export default {
 	},
 
 	userprofile(context, useremail) {
-        axios.get(`${SERVER_URL}/api/feed/${useremail}`)
-          .then(res => {
-              context.commit('USERINPUT', res.data)
-          })
-          .catch(err => {
-              console.log(err)
-          })
+		axios.get(`${SERVER_URL}/api/feed/${useremail}`)
+			.then(res => {
+					context.commit('USERINPUT', res.data)
+			})
+			.catch(err => {
+					console.log(err)
+			})
 	},
 	follow(context) {
 		var params = new URLSearchParams();
@@ -186,14 +409,17 @@ export default {
 		params.append('following', context.state.userprofiledata.feeds[0].email)
 		axios.post(`${SERVER_URL}/api/follow/follow`, params)
 				.then(() => {
-		context.commit('conffollowflag')
-		context.dispatch('follwerCnt', context.state.userprofiledata.feeds[0].email)
+		context.dispatch('followerCnt', context.state.userprofiledata.feeds[0].email)
 		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
 				})
 				.catch(error => console.log(error.response.data))
 		}
 		else {
-			alert('회원만 팔로우를 할 수 있습니다.')
+			Swal.fire({
+				icon: 'error',
+				text: '회원만 팔로우를 할 수 있습니다.',
+				footer: '회원이 아니신가요?<a href="/signup">   가입하기   </a>'
+			})
 		}
 	},
 
@@ -206,21 +432,27 @@ export default {
 				for(var i=0; i<(response.data).length; i++) {
 						data.push(response.data[i])
 			}
+			var data2 = []
+			for (var z=0; z<data.length; z++) {
+				data2.push(data[z].email)
+			}
 			context.commit('INPUTFOLLOWER', data)
+			context.commit('INPUTFOLLOWER2', data2)
 			})
 	},
 
 	myFollowList(context, res) {
 		var params = new URLSearchParams();
-		var data = []
+		// var data = []
 		params.append('email', res)
 		axios.post(`${SERVER_URL}/api/follow/followingList`, params)
-			.then((response) => {
-				for (var i=0; i<(response.data).length; i++) {
-					data.push(response.data[i])
-				}
-			context.commit('INPUTFOLLOW', data)
-			})
+		.then((response) => {
+			console.log(response)
+			// for (var i=0; i<(response.data).length; i++) {
+			// 	data.push(response.data[i])
+			// }
+			context.commit('INPUTFOLLOW', response.data)
+		})
 	},
 
 	unfollow(context, res) {
@@ -229,14 +461,13 @@ export default {
 		params.append('following', res)
 		axios.post(`${SERVER_URL}/api/follow/unfollow`, params)
 		.then(() => {
-			context.commit('conffollowflag')
 			context.dispatch('myFollowerList', res)
-			context.dispatch('follwerCnt', context.state.email)
-		})
+			context.dispatch('followerCnt', context.state.email)
+		})	
 		.catch(error => console.log(error.response.data))
 	},
 
-	follwerCnt(context, res) {
+	followerCnt(context, res) {
 		var params = new URLSearchParams();
 		params.append('email', res)
 		axios.post(`${SERVER_URL}/api/follow/followerCnt`, params)
@@ -260,15 +491,25 @@ export default {
 			})
 	},
 
+	searchTagFeed(context, res) {
+		var params = new URLSearchParams();
+		params.append('tag', res)
+		axios.post(`${SERVER_URL}/api/feed/search`, params)
+			.then((response) => {
+				const data = {
+					res: response.data,
+					keyword: res
+				}
+				context.commit('setTag', data)
+			})
+	},
+
 	subEmail(context, res) {
 		console.log(res)
 		var params = new URLSearchParams();
 		params.append('email', res)
+		context.commit('chageIsFlag')
 		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
-			.then((response) => {
-				context.commit('chageIsFlag')
-				console.log(response)
-			})
 			.catch(error => {
 				console.log(error.response.data)
 			});
@@ -278,15 +519,12 @@ export default {
 		console.log(res)
 		console.log(res.email)
 		console.log(res.code)
-		// var params = new URLSearchParams();
-		// params.append('code', res.code)
-		// params.append('email', res.email)
 		axios.post(`${SERVER_URL}/api/user/pwd?code=${res.code}&email=${res.email}`)
 			.then((response) => {
-				console.log(response)
+				context.commit('getPwdToken', response.data)
 			})
-			.catch(error => {
-				console.log(error.response.data)
+			.catch(() => {
+				alert('코드를 확인해주세요!')
 			});
 	},
 
@@ -303,14 +541,68 @@ export default {
 			})
 	},
 
+	deleteFeed(context, res) {
+		const params = new URLSearchParams();
+		params.append('email', res.email)
+		params.append('no', res.no)
+		axios.post(`${SERVER_URL}/api/feed/delete`, params)
+			.then(() => {
+				Swal.fire({
+					icon: 'success',
+					text: '성공적으로 삭제하였습니다.!',
+				})
+				router.push({ name: "Profile" })
+			})
+			.catch(() => {
+				console.log('삭제실패')
+			})
+	},
+
 	/////////지훈////////////////
 	getTeamInfo(context) {
 		const params = new URLSearchParams();
 		params.append('email', context.state.email)
 		axios.post(`${SERVER_URL}/api/team/myteamlist/`, params)
 		.then(response => {
+			sessionStorage.setItem('myTeam', JSON.stringify(response.data))
 			context.commit('myTeamInfo', response.data)
 		})
-	}
+	},
+	postDate (context, dateinfo) {
+		console.log(dateinfo)
+		axios.post(`${SERVER_URL}/api/team/insetSchedule`, dateinfo)
+		.then(response =>{
+			console.log(response)
+		})
+	},
+	selectMember ({dispatch}, apply) {
+		console.log(apply)
+		const params = new URLSearchParams();
+		params.append('leaderemail', apply.leaderemail)
+		params.append('no', apply.no)
+		params.append('part', apply.part)
+		params.append('teamemail', apply.teamemail)
+		axios.post(`${SERVER_URL}/api/team/selectMember`, params)
+		.then(() => {
+			dispatch('getTeamInfo')
+			setTimeout(() => {
+				router.go()
+			}, 200)
+		})
+	},
+	deleteMember ({dispatch}, apply) {
+		const params = new URLSearchParams();
+		params.append('leaderemail', apply.leaderemail)
+		params.append('no', apply.no)
+		params.append('part', apply.part)
+		params.append('teamemail', apply.teamemail)
+		axios.post(`${SERVER_URL}/api/team/deleteMember`, params)
+		.then(() => {
+			dispatch('getTeamInfo')
+			setTimeout(() => {
+				router.go()
+			}, 200)
+		})
+	},
 }
 

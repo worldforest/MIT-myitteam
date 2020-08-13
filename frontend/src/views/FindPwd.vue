@@ -1,7 +1,5 @@
 <template>
   <div>
-    {{pushData.email}}
-    {{pushData.code}}
     <div v-if="isFlag">
       <h2 class="text-center mt-2">비밀번호 찾기</h2>
       <v-form>
@@ -79,6 +77,9 @@ export default {
   },
   computed: {
     ...mapState(['isFlag'])
+  },
+  mounted() {
+    // this.isFlag = true
   }
 }
 </script>

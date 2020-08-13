@@ -23,4 +23,24 @@ public class TeaminfoServiceImpl implements TeaminfoService {
 		return teaminfoRepo.select(no, leaderemail);
 	}
 
+	@Override
+	public boolean update(String no, String leaderemail, String part, String headcount) {
+		return teaminfoRepo.update(no, leaderemail, part, headcount);
+	}
+
+	@Override
+	public boolean delete(Teaminfo teaminfo) {
+		return teaminfoRepo.delete(teaminfo);
+	}
+
+	@Override
+	public String selectHeadcount(String no, String leaderemail, String part) {
+		return teaminfoRepo.selectHeadcount(no, leaderemail, part);
+	}
+
+	@Override
+	public int countHead(String no, String leaderemail) {
+		return teaminfoRepo.countHead(no, leaderemail);
+	}
+
 }
