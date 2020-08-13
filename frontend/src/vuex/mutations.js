@@ -133,5 +133,8 @@ export default {
     },
     getNick(state, data) {
         state.myNickname = data
+    },
+    privateChatSave(state, data){
+        state.privateChatTitle = data
     }
 }

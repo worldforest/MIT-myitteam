@@ -43,6 +43,7 @@ const state = {
     followerList2: [],
     upFeed: [],
     myNickname: '',
+    privateChatTitle: '',
 }
 
 export default new Vuex.Store({

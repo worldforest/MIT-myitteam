@@ -244,8 +244,8 @@ export default {
 		})
 	},
 	deleteTeam(context, deleteData){
-		console.log(context)
-		console.log(deleteData)
+		// console.log(context)
+		// console.log(deleteData)
 
 		const params = new URLSearchParams();
 		params.append('no', deleteData.no);
@@ -264,8 +264,8 @@ export default {
 		})
 	},
 	updateCard(context, updateData){
-		console.log(context)
-		console.log(updateData)
+		// console.log(context)
+		// console.log(updateData)
 		const params = new URLSearchParams();
 		params.append('no', updateData.no);
 		params.append('leaderemail', updateData.leaderemail);
@@ -287,8 +287,8 @@ export default {
 		.catch( err => console.log(err.response.data))
 	},
 	like(context, likeData){
-		console.log(context)
-		console.log(likeData)
+		// console.log(context)
+		// console.log(likeData)
 		const params = new URLSearchParams();
 		params.append('no', likeData.no),
 		params.append('email', likeData.email)
@@ -301,14 +301,14 @@ export default {
 		.catch( err => console.log(err.response.data))
 	},
 	unlike(context, likeData){
-    console.log(context)
-		console.log(likeData)
+    // console.log(context)
+		// console.log(likeData)
 		const params = new URLSearchParams();
 		params.append('no', likeData.no),
 		params.append('email', likeData.email)
 		axios.post(`${SERVER_URL}/api/feed/feedunlike`, params)
 		.then(() => {
-			console.log('좋아요 성공')
+			// console.log('좋아요 성공')
 			context.dispatch('likeCnt', likeData)
 			context.dispatch('likeUser', likeData)
 		})
@@ -328,9 +328,9 @@ export default {
 		.catch( err => console.log(err.response.data))
 	},
 	likeUser(context, likeCntData){
-		console.log('좋아요 명단')
-		console.log(context)
-		console.log(likeCntData)
+		// console.log('좋아요 명단')
+		// console.log(context)
+		// console.log(likeCntData)
 		const params = new URLSearchParams();
 		params.append('no', likeCntData.no)
 		axios.post(`${SERVER_URL}/api/feed/feedlikeUser`, params)
@@ -358,7 +358,21 @@ export default {
 			console.log(res.data)
 			context.commit('getNick', res.data)
 		})
-
+	},
+	privateChat(context, privateData){
+		console.log('private 데이터를 보내보쟈아아아')
+		console.log(context)
+		console.log(privateData)
+		const params = new URLSearchParams();
+		params.append('mynickname', privateData.myNickname)
+		params.append('yournickname', privateData.yourNickname)
+		axios.post(`${SERVER_URL}/api/chat/privateChat`, params)
+		.then( res => {
+			console.log('애가 오는거다아아아')
+			console.log(res.data)
+			context.commit('privateChatSave', res.data)
+		})
+		.catch( err => console.log(err.response.data))
 	},
 	//////////다인///////////////
 
