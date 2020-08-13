@@ -152,6 +152,11 @@ export default {
   methods:{
     ...mapActions(['getNickname', 'privateChat']),
     saveMessage(sendnick){
+      var iterable = this.privateChatTitle
+
+      for(var i of iterable){
+        console.log(i)
+      }
       //save to message
       db.collection(this.privateChatTitle).add({
         senduser: sendnick,
