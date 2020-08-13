@@ -164,6 +164,14 @@ public class UserController {
 		}
 	}
 
+	@ApiOperation(value = "닉네임 알려주기", notes = "email 주면 nickname을 반환")
+	@GetMapping("selectNickname")
+	public ResponseEntity<String> selectNickname(@RequestParam("email") String email) {
+		String nickname = userService.selectNickname(email);
+		return new ResponseEntity<String>(nickname, HttpStatus.OK);
+
+	}
+
 	// userSrc 이미지 정보를 반환합니다
 	// feed image 반환하기
 	@ApiOperation(value = "user image 조회 ", notes = "user Image를 반환합니다. 못찾은경우 기본 image를 반환합니다.")

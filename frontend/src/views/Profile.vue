@@ -80,8 +80,6 @@
           
         </div>
         <div class="d-flex">
-          {{ profileData.nickname }}
-          <router-link :to="{name: 'Chat', params:{ nickname : profileData.nickname }}">채팅 하기</router-link>
           <div class="ml-auto TeamButton cursor" style="color:white" @click="updateProfile(profileData)">
             <img src="@/assets/edit.png" alt="" style="width:10px" class="mr-2" >프로필 수정
           </div>

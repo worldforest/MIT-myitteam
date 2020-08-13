@@ -3,7 +3,7 @@
       <h3 class=" text-center">Messaging {{ nickname }} </h3>
       <div class="messaging">
       <div class="inbox_msg">
-        <!-- <div class="inbox_people">
+        <div class="inbox_people">
           <div class="headind_srch">
             <div class="recent_heading">
               <h4>Recent</h4>
@@ -88,13 +88,14 @@
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
         <div class="mesgs">
           <div class="msg_history">
             <div v-for="message in messages" :key="message" class="incoming_msg">
               <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
+              <div class="received_msg mb-4">
                 <div class="received_withd_msg">
+                  {{ nickname }}
                   <p>{{message}}</p>
                   <span class="time_date"> {{createdAt}}</span>
                   </div>
