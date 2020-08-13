@@ -22,7 +22,7 @@
       </div>
       <hr>
       <!-- 좋아요를 시작해보지 -->
-      {{ likeUserList }}
+      <!-- {{ likeUserList }} -->
       <v-row>
         <v-spacer></v-spacer>
 
@@ -129,7 +129,7 @@
 
       <hr>
       <!-- 좋아요를 시작해보지 -->
-      {{ likeUserList }}
+      <!-- {{ likeUserList }} -->
       <v-row>
         <v-spacer></v-spacer>
 
@@ -184,7 +184,8 @@ export default {
       },
       likeCntData: {
         no: this.$store.state.detailFeed.no,
-      }
+      },
+      dialog:false,
     }
   },
   beforeDestroy() { 
