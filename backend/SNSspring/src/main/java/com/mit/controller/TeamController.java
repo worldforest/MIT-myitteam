@@ -225,7 +225,8 @@ public class TeamController {
 			teamDto.setRegemail(contents.getEmail());
 			teamDto.setReward(contents.getReward());
 			teamDto.setTitle(team.getTitle());
-
+			
+			
 			teamDto.setMembers(memberService.select(no, leaderemail));
 			teamDto.setApplymembers(applymemberService.select(no, leaderemail));
 
