@@ -53,7 +53,7 @@ public class FollowController {
 			String mynickname = userService.selectNickname(email);
 			alram.setSender(mynickname);
 			alram.setMessage(mynickname+"님이 팔로우 신청을 했습니다.");
-			alram.setCheck("0");
+			alram.setFlag("0");
 			alramService.insert(alram);
 			
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);

@@ -11,7 +11,7 @@ public interface AlramRepo {
 
 	public int count(String address);
 
-	public boolean update(Alram alram);
+	public boolean update(String no);
 
 	public boolean delete(String no);
 }

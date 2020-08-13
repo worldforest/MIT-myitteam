@@ -10,21 +10,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 수신인(내 닉네임)로 알림조회 -->
 	<select id="select" parameterType="String" resultType="alram">
-		select addressee, sender,message,date,check
+		select no, addressee, sender,message,date,flag
 		from alram
-		where address=#{address}
+		where addressee=#{addressee}
 	</select>
 
 	<!-- 수신인(내 닉네임)에게 온 알림 수 조회 -->
 	<select id="alramcount" parameterType="String">
 		select count(*)
 		from alram
-		where address=#{address}
+		where addressee=#{addressee}
 	</select>
 	
-	<update id="update" parameterType="alram">
-		update alram(addressee, sender,message,date)
-		set(#{addressee}, #{sender},#{message},now())
+	<update id="update" parameterType="String">
+		update alram(flag)
+		set(1)
+		where no = #{no}
 	</update>
 	
 	<delete id="delete" parameterType="String">
