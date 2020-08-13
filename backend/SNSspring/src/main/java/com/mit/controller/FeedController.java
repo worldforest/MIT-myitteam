@@ -32,16 +32,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mit.algorithm.Path;
 import com.mit.algorithm.Token;
+import com.mit.dto.Alram;
 import com.mit.dto.Feed;
 import com.mit.dto.Feedlike;
 import com.mit.dto.User;
 import com.mit.returnDto.FollowList;
 import com.mit.returnDto.PrivateFeed;
+import com.mit.service.AlramService;
 import com.mit.service.FeedService;
 import com.mit.service.FeedimageService;
 import com.mit.service.FeedlikeService;
-import com.mit.service.FeedreplyService;
-import com.mit.service.FeedscrapService;
 import com.mit.service.FeedtagService;
 import com.mit.service.FollowService;
 import com.mit.service.UserService;
@@ -75,6 +75,8 @@ public class FeedController {
 	SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private AlramService alramService;
 
 	@ApiOperation(value = "피드 등록 ", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
 	@PostMapping("create")
@@ -203,9 +205,9 @@ public class FeedController {
 
 	@ApiOperation(value = "피드 삭제 ", notes = "성공시 200, 실패시 에러를 반환합니다. \n ")
 	@PostMapping("delete")
-	public ResponseEntity<String> deleteFeed(@RequestParam("no") String no,@RequestParam("email") String email) {
+	public ResponseEntity<String> deleteFeed(@RequestParam("no") String no, @RequestParam("email") String email) {
 		feedService.deletetags(no);
-		feedService.delete(no,email);
+		feedService.delete(no, email);
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
@@ -322,6 +324,16 @@ public class FeedController {
 		feedlike.setNo(no);
 		feedlike.setEmail(email);
 		if (feedlikeService.insert(feedlike)) {
+			Alram alram = new Alram();
+			Feed feed = feedService.selectno(no);
+			String addressnickname = userService.selectNickname(feed.getEmail());
+			alram.setAddressee(addressnickname);
+			String sendernickname = userService.selectNickname(email);
+			alram.setSender(sendernickname);
+			alram.setMessage(sendernickname + "님이 피드에 좋아요를 눌렀습니다.");
+			alram.setCheck("0");
+			alramService.insert(alram);
+
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);

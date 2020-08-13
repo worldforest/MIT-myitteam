@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mit.dto.Alram;
 import com.mit.dto.Applymember;
 import com.mit.dto.Contents;
 import com.mit.dto.Member;
@@ -27,12 +28,14 @@ import com.mit.dto.Teaminfo;
 import com.mit.returnDto.RegTeam;
 import com.mit.returnDto.RegTeamInfo;
 import com.mit.returnDto.TeamDto;
+import com.mit.service.AlramService;
 import com.mit.service.ApplymemberService;
 import com.mit.service.ContentsService;
 import com.mit.service.MemberScheduleService;
 import com.mit.service.MemberService;
 import com.mit.service.TeamService;
 import com.mit.service.TeaminfoService;
+import com.mit.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -47,6 +50,8 @@ public class TeamController {
 	private static final String FAIL = "fail";
 
 	@Autowired
+	private UserService userService;
+	@Autowired
 	private TeamService teamService;
 	@Autowired
 	private TeaminfoService teaminfoService;
@@ -58,6 +63,8 @@ public class TeamController {
 	private ApplymemberService applymemberService;
 	@Autowired
 	private MemberScheduleService memberScheduleService;
+	@Autowired
+	private AlramService alramService;
 
 	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n" + "필요 데이터\n"
 			+ "description,email(프로젝트팀 생성자),title,start,end,info")
@@ -249,6 +256,14 @@ public class TeamController {
 		applymember.setPart(part);
 		applymember.setTeamemail(email);
 		applymemberService.insert(applymember);
+		Alram alram = new Alram();
+		String leadernickname = userService.selectNickname(leaderemail);
+		alram.setAddressee(leadernickname);// 팀장에게
+		String membernickname = userService.selectNickname(email);
+		alram.setSender(membernickname);// 내가
+		alram.setMessage(membernickname + "님이 팀에 지원했습니다.");
+		alram.setCheck("0");
+		alramService.insert(alram);
 
 		return null;
 	}
