@@ -19,9 +19,9 @@
                     <div class="pjtCard mx-auto mb-6">
                       <div class="mb-2 white--text partTitle" >
                         <v-row>
-                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                          <h3 class="ml-5 mt-2 cardModal">{{ item.part }}</h3>
                           <v-spacer></v-spacer>
-                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                          <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                         </v-row>
                       </div>
                       <h3 class="ml-3 mt-3">담당 업무</h3>
@@ -38,7 +38,7 @@
                       <v-card-text class="ml-2">
                         <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                       </v-card-text>
-                      <v-row justify="center">
+                      <v-row v-if="club2.email !== email" justify="center">
                         <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
                           지원하기
                         </v-btn>
@@ -49,7 +49,7 @@
               </div>
               <v-row>
                 <v-spacer></v-spacer>
-                <v-btn color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+                <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
                   삭제하기
                 </v-btn> 
               </v-row>
@@ -64,9 +64,9 @@
                     <div class=" pjtCard2 mx-auto mb-6">
                       <div class="headline mb-2 white--text partTitle" >
                         <v-row>
-                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                          <h3 class="ml-5 mt-2 cardModal">{{ item.part }}</h3>
                           <v-spacer></v-spacer>
-                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                          <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                         </v-row>
                       </div>
                       <h3 class="ml-3">담당 업무</h3>
@@ -83,7 +83,7 @@
                       <v-card-text class="ml-2">
                         <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                       </v-card-text>
-                      <v-row justify="center">
+                      <v-row v-if="club2.email !== email" justify="center">
                         <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
                           지원하기
                         </v-btn>
@@ -94,7 +94,7 @@
               </div>
               <v-row>
                 <v-spacer></v-spacer>
-                <v-btn color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+                <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
                   삭제하기
                 </v-btn> 
               </v-row>
@@ -118,9 +118,9 @@
                   <div class="pjtCard3 mx-auto mb-6">
                     <div class="headline mb-2 white--text partTitle" >
                       <v-row>
-                        <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                        <h3 class="ml-5 mt-2 cardModal">{{ item.part }}</h3>
                         <v-spacer></v-spacer>
-                        <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                        <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                       </v-row>
                     </div>
                     <h3 class="ml-3">담당 업무</h3>
@@ -137,7 +137,7 @@
                     <v-card-text class="ml-2">
                       <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                     </v-card-text>
-                    <v-row justify="center">
+                    <v-row v-if="club2.email !== email" justify="center">
                       <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
                         지원하기
                       </v-btn>
@@ -148,7 +148,7 @@
             </div>
             <v-row>
               <v-spacer></v-spacer>
-              <v-btn color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
                 삭제하기
               </v-btn> 
             </v-row>
@@ -164,9 +164,9 @@
                   <div class="pjtCard5 mx-auto mb-6">
                     <div class="headline mb-2 white--text partTitle" >
                       <v-row>
-                        <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                        <h3 class="ml-5 mt-2 cardModal">{{ item.part }}</h3>
                         <v-spacer></v-spacer>
-                        <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                        <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                       </v-row>
                     </div>
                     <h3 class="ml-3">담당 업무</h3>
@@ -183,7 +183,7 @@
                     <v-card-text class="ml-2">
                       <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                     </v-card-text>
-                    <v-row justify="center">
+                    <v-row v-if="club2.email !== email" justify="center">
                       <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
                         지원하기
                       </v-btn>
@@ -194,7 +194,7 @@
             </div>
             <v-row>
               <v-spacer></v-spacer>
-              <v-btn color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
                 삭제하기
               </v-btn> 
             </v-row>     
@@ -209,9 +209,9 @@
                   <div class="pjtCard4 mx-auto mb-6">
                     <div class="mb-2 white--text partTitle" >
                       <v-row>
-                        <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                        <h3 class="ml-5 mt-2 cardModal">{{ item.part }}</h3>
                         <v-spacer></v-spacer>
-                        <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                        <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                       </v-row>
                     </div>
                     <h4 class="ml-3">담당 업무</h4>
@@ -228,7 +228,7 @@
                     <v-card-text class="ml-2">
                       <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                     </v-card-text>
-                    <v-row justify="center">
+                    <v-row v-if="club2.email !== email" justify="center">
                       <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
                         지원하기
                       </v-btn>
@@ -239,7 +239,7 @@
             </div>
             <v-row>
               <v-spacer></v-spacer>
-              <v-btn color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
                 삭제하기
               </v-btn> 
             </v-row> 
@@ -318,6 +318,11 @@ export default {
 </script>
 
 <style scoped>
+  @font-face {
+    font-family: myFont;
+    src: url("/src/font/BMJUA_ttf.ttf");
+  }
+
   .pill {
     position: absolute;
     padding: 0 8px;
@@ -347,7 +352,7 @@ export default {
   }
   .pjtCard3 {
     border: 2px solid lightgrey;
-    width: 500px;
+    width: 400px;
   }
   .pjtCard4 {
     border: 2px solid lightgrey;
@@ -357,5 +362,7 @@ export default {
     border: 2px solid lightgrey;
     width: 330px;
   }
-
+  .cardModal{
+    font-family: myFont, sans-serif;
+  }
 </style>

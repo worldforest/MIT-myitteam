@@ -6,7 +6,7 @@ public class Path {
 
 	public Path() {
 //		배포시
-//		this.path = "http://i3b306.p.ssafy.io:9999";
+//		this.path = "https://i3b306.p.ssafy.io";
 //		this.im = "/home/ubuntu/";
 		
 //		배포안할시 개발

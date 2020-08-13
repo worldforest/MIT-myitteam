@@ -1,28 +1,52 @@
 <template>
   <div class="bg4">
     
+    
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767">
-      <v-card class="overflow-hidden">
-        <div class="v-toolbar__content" style="height: 90px;">
+      <ul>
+        <li>
           <router-link to="/">
             <img id="logo" src="./images/1.jpg" alt="logo">
           </router-link>
-          <div class="not-home">
-            <v-row>
-              <router-link class="ml-3 mr-4 nav_a" to="/AllContest"><h4>공모전</h4></router-link>
-              <router-link class="mr-5 nav_a" to="/projectlist"><h4>프로젝트</h4></router-link>
-            </v-row>
-          </div>
-          <div class="spacer"></div>
-          <!--로그인 안 된 상태-->
-          <div v-if="!isLoggedIn" class="not-home">
-            <router-link class="mr-3" to="/login">LOGIN</router-link>
-            <router-link class="mr-3" to="/signup">SIGNUP</router-link>
-          </div>
-          <!--로그인 된 상태-->
-          <span v-else>
-            <div class="text-center dkanrjsk">
+        </li>
+        <li>
+          <router-link to="/AllContest" class="mr-3"><h4>공모전</h4></router-link>
+        </li>
+        <li>
+          <router-link class="mr-5 nav_a" to="/projectlist"><h4>프로젝트</h4></router-link>
+        </li>
+        <li style="float:right" class="mr-3 not-home" v-if="!isLoggedIn">
+          <router-link class="mr-3" to="/signup">SIGNUP</router-link>
+        </li>
+        <li style="float:right" class="not-home" v-if="!isLoggedIn">
+          <router-link to="/login">LOGIN</router-link>
+        </li>
+        <span style="float:right" v-else class="mr-3">
+          <v-row>
+            <div class="text-center mr-4">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    x-large color="#5C6BC0"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="accountIcon"
+                  >
+                    mdi-bell
+                  </v-icon>
+                  <!-- <v-icon>mdi-bell-check</v-icon> -->
+                </template>
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
+
+            <!-- 계정 -->
+            <div class="text-center mr-4">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
@@ -47,9 +71,9 @@
                 </v-list>
               </v-menu>
             </div>
-          </span>
-        </div>
-      </v-card>
+          </v-row>
+        </span>
+      </ul>
     </div>
 
     <!-- 윈도우 브라우저가 767 미만일 때의 Navbar  && Home.vue에서 적용안됨 -->
@@ -134,7 +158,7 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   methods: {
-    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo', 'getContestData']),
+    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo', 'getContestData', 'getNickname']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -154,7 +178,7 @@ export default {
 
   },
   computed: {
-    ...mapState(['email']),
+    ...mapState(['email', 'myNick']),
     ...mapGetters(['isLoggedIn', 'isEmail'])
   },
   mounted() {
@@ -166,6 +190,7 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+    this.getNickname(this.email)
   },
   // created () { 
   //   if (document.location.pathname === '/') { 
@@ -187,10 +212,8 @@ export default {
   *{ font-family: myFont, sans-serif; }
 
   .not-home > a { 
-    position: relative;
     text-decoration: none;
     color: rgb(92, 107, 192);
-    margin-right: 2rem;
     font-size: 1.3rem;
     font-weight: bold;
   }
@@ -213,10 +236,6 @@ export default {
     height: 70px;
     width: 120px;
     margin: 10px 20px;
-  }
-
-  .dkanrjsk {
-    margin-right: 1rem;
   }
 
   .bg {
@@ -264,6 +283,40 @@ export default {
     display: flex;
     border-radius: 0.5rem;
     justify-content: space-around;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    line-height: 90px;
+  }
+
+  li {
+    float: left;
+  }
+
+  li a {
+    display: block;
+    color: rgb(92, 107, 192);
+    text-align: center;
+    padding: 0 5px;
+    text-decoration: none;
+  }
+
+  li > a > h4 {
+    line-height: 90px !important;
+    margin: 0 !important;
+  }
+
+  li a:hover:not(.active) {
+    background-color: white;
+  }
+
+  .active {
+    background-color: #4CAF50;
   }
 
 </style>

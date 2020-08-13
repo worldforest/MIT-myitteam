@@ -1,209 +1,212 @@
 <template>
     <div class="container">
-      {{ email }}
-      <h3 class=" text-center">Messaging {{ yournickname }} {{ myNickname }}</h3>
+      {{ privateChatTitle }}
+      {{ myNick }}
+      <h3 class=" text-center">Messaging</h3>
       <div class="messaging">
-      <div class="inbox_msg">
-        <div class="inbox_people">
-          <div class="headind_srch">
-            <div class="recent_heading">
-              <h4>Recent</h4>
-            </div>
-            <div class="srch_bar">
-              <div class="stylish-input-group">
-                <input type="text" class="search-bar"  placeholder="Search" >
-                <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span> </div>
-            </div>
-          </div>
-          <div class="inbox_chat">
-            <div class="chat_list active_chat">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
+        <div class="inbox_msg">
+          <!-- <div class="inbox_people">
+            <div class="headind_srch">
+              <div class="recent_heading">
+                <h4>Recent</h4>
+              </div>
+              <div class="srch_bar">
+                <div class="stylish-input-group">
+                  <input type="text" class="search-bar"  placeholder="Search" >
+                  <span class="input-group-addon">
+                  <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                  </span> </div>
               </div>
             </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="mesgs">
-          <div class="msg_history">
-            {{ messages }}
-            <div v-for="message in messages" :key="message" class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg mb-4">
-                <div class="received_withd_msg">
-                  {{ nickname }}
-                  <p>{{ message }}</p>
-                  <span class="time_date"> {{ createdAt }}</span>
+            <div class="inbox_chat">
+              <div class="chat_list active_chat">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
                   </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="type_msg">
-            <div class="input_msg_write">
-              <input @keyup.enter="saveMessage" v-model="message" type="text" class="write_msg" placeholder="Type a message" />
-              <button @click="saveMessage(myNickname)" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+          </div> -->
+              <!-- {{ Date(message.createdAt) }} -->
+          <div class="mesgs">
+            <div class="msg_history">
+              <div v-for="message in messages" :key="message" class="incoming_msg">
+                <div v-if="message.senduser !== myNick">
+                  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                    <div class="received_msg mb-4">
+                      <div class="received_withd_msg">
+                        {{ message.senduser }}
+                        <p>{{ message.message }}</p>
+                        <span class="time_date"> {{ Date(message.createdAt) }}</span>
+                      </div>
+                    </div>
+                </div>
+                <div v-if="message.senduser === myNick">
+                  <div class="outgoing_msg">
+                    <div class="sent_msg">
+                      <p>{{ message.message }}</p>
+                      <span class="time_date"> {{ Date(message.createdAt) }}</span>
+                    </div> 
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="type_msg">
+              <div class="input_msg_write">
+                <input @keyup.enter="saveMessage(myNick)" v-model="message" type="text" class="write_msg" placeholder="Type a message" />
+                <button @click="saveMessage(myNick)" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      
-    </div></div>
+    </div>
 </template>
-
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
-
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
-
 <script>
 import { mapState, mapActions } from 'vuex'
-
 export default {
   name: 'Chat',
   data(){
     return {
       message: null,
       messages: [],
-      createdAt:null,
-      email: this.$store.state.email,
-      myNickname : this.$store.state.myNickname,
+      createdAt: null,
+      // chatAt:null,
     }
   },
   props: {
-    nickname: String
+    nickname: String,
+    privateChatTitle: String, 
   },
   methods:{
-    ...mapActions(['getNickname']),
+    ...mapActions(['getNickname', 'privateChat']),
     saveMessage(sendnick){
       //save to message
-      db.collection('chat').add({
+      db.collection(this.privateChatTitle).add({
         senduser: sendnick,
         message:this.message,
         createdAt: new Date()
       })
+      input.reset()
     },
     fetchMessages(){
-      db.collection("chat")
-      .orderBy('createdAt')
-      .onSnapshot( querySnapshot =>{
+      db.collection(this.privateChatTitle)
+      .orderBy("createdAt")
+      .onSnapshot( querySnapshot => {
         let allMessages=[];
         querySnapshot.forEach( doc =>{
-          allMessages.push(doc.data().message)
-          this.createdAt=new Date()
+          allMessages.push(doc.data())
         });
           this.messages=allMessages
+          console.log(this.messages.createdAt)
       })
     }
   },
   computed:{
-    ...mapState(['email', 'myNickname']),
+    ...mapState(['email', 'myNick']),
   },
   created(){
     this.fetchMessages();
-    this.getNickname(this.email);
   }
 }
 </script>
-
 <style scoped>
   .container{max-width:1170px; margin:auto;}
   img{ max-width:100%;}
   .inbox_people {
-    background: #f8f8f8 none repeat scroll 0 0;
+    background: #F8F8F8 none repeat scroll 0 0;
     float: left;
     overflow: hidden;
-    width: 40%; border-right:1px solid #c4c4c4;
+    width: 40%; border-right:1px solid #C4C4C4;
   }
   .inbox_msg {
-    border: 1px solid #c4c4c4;
+    border: 1px solid #C4C4C4;
     clear: both;
     overflow: hidden;
   }
   .top_spac{ margin: 20px 0 0;}
-
-
   .recent_heading {float: left; width:40%;}
   .srch_bar {
     display: inline-block;
     text-align: right;
     width: 60%;
   }
-  .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
-
+  .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #C4C4C4;}
   .recent_heading h4 {
-    color: #05728f;
+    color: #05728F;
     font-size: 21px;
     margin: auto;
   }
-  .srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
+  .srch_bar input{ border:1px solid #CDCDCD; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
   .srch_bar .input-group-addon button {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
@@ -212,7 +215,6 @@ export default {
     font-size: 18px;
   }
   .srch_bar .input-group-addon { margin: 0 0 0 -27px;}
-
   .chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
   .chat_ib h5 span{ font-size:13px; float:right;}
   .chat_ib p{ font-size:14px; color:#989898; margin:auto}
@@ -225,17 +227,14 @@ export default {
     padding: 0 0 0 15px;
     width: 88%;
   }
-
   .chat_people{ overflow:hidden; clear:both;}
   .chat_list {
-    border-bottom: 1px solid #c4c4c4;
+    border-bottom: 1px solid #C4C4C4;
     margin: 0;
     padding: 18px 16px 10px;
   }
   .inbox_chat { height: 550px; overflow-y: scroll;}
-
   .active_chat{ background:#ebebeb;}
-
   .incoming_msg_img {
     display: inline-block;
     width: 6%;
@@ -247,7 +246,7 @@ export default {
     width: 92%;
   }
   .received_withd_msg p {
-    background: #ebebeb none repeat scroll 0 0;
+    background: #EBEBEB none repeat scroll 0 0;
     border-radius: 3px;
     color: #646464;
     font-size: 14px;
@@ -267,9 +266,8 @@ export default {
     padding: 30px 15px 0 25px;
     width: 60%;
   }
-
   .sent_msg p {
-    background: #05728f none repeat scroll 0 0;
+    background: #05728F none repeat scroll 0 0;
     border-radius: 3px;
     font-size: 14px;
     margin: 0; color:#fff;
@@ -284,15 +282,14 @@ export default {
   .input_msg_write input {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
-    color: #4c4c4c;
+    color: #4C4C4C;
     font-size: 15px;
     min-height: 48px;
     width: 100%;
   }
-
-  .type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+  .type_msg {border-top: 1px solid #C4C4C4;position: relative;}
   .msg_send_btn {
-    background: #05728f none repeat scroll 0 0;
+    background: #05728F none repeat scroll 0 0;
     border: medium none;
     border-radius: 50%;
     color: #fff;
