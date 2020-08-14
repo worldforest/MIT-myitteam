@@ -22,9 +22,9 @@
           </div>
           <!--로그인 된 상태-->
           <span v-else>
-            <!--알림-->
+            <!--알림을 시작하지-->
             <v-row>
-              <div class="text-center dkanrjsk">
+              <div class="text-center dkanrjsk ">
                 <v-menu offset-y>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon
