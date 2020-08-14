@@ -141,7 +141,6 @@ export default {
       messages: [],
       createdAt: null,
       // chatAt:null,
-      email: this.$store.state.email,
     }
   },
   props: {
