@@ -1,5 +1,7 @@
 package com.mit.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,7 @@ public class ChatmemberServiceImpl implements ChatmemberService {
 	}
 
 	@Override
-	public String selectAll(String nickname) {
+	public List<String> selectAll(String nickname) {
 		return chatmemberRepo.selectAll(nickname);
 	}
 

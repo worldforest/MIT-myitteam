@@ -1,5 +1,6 @@
 package com.mit.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,17 @@ public class ChatController {
 			chatmemberService.insert(roomnum, nickname);
 		}
 		return new ResponseEntity<String>(roomname, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "내가 속한 채팅방 이름 목록", notes = "nickname보내면 방 이름 목록")
+	@PostMapping("selectAll")
+	public ResponseEntity<List<String>> selectAll(@RequestParam String nickname) {
+		List<String> roomno = chatmemberService.selectAll(nickname);
+		List<String> roomname = new ArrayList<String>();
+		for (String no : roomno) {
+			roomname.add(chatlistService.select(no));
+		}
+		return new ResponseEntity<List<String>>(roomname, HttpStatus.OK);
 	}
 
 }
