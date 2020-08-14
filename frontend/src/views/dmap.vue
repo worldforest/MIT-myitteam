@@ -1,14 +1,46 @@
 <template>
 
   <div>
-    {{data_for}}
+    {{ windowWidth }}
     <div id="map"></div>
-    <span>모임장소 추천</span>
-    <!-- {{data_for}} -->
-    <div v-for="data in data_for" :key="data.i">
-        {{ data }}
-      <!-- <a :href="data.cafe_url">{{ data.cafe }}</a> -->
+    <div class="center-text">
+      <h4> 이러한 장소는 어떠세요? </h4>
     </div>
+    
+    <div v-if="windowWidth <= 600">
+      <table class="table">
+        <caption>카페</caption>
+        <tr><th>카페명</th></tr>
+        <tr v-for="data in cafe_data" :key="data.i">
+          <td><a :href="data.place_url" target="_blank" class="no-deco">{{ data.place_name }}</a></td>
+          <!-- <td>{{ data.road_address_name }}</td> -->
+        </tr>
+      </table> 
+    </div>
+
+    <div v-else-if="windowWidth > 600 && windowWidth <= 800">
+      <table class="table">
+        <caption>카페</caption>
+        <tr><th>카페명</th><th>주소</th></tr>
+        <tr v-for="data in cafe_data" :key="data.i">
+          <td><a :href="data.place_url" target="_blank" class="no-deco">{{ data.place_name }}</a></td>
+          <td class="center-text">{{ data.road_address_name }}</td>
+        </tr>
+      </table> 
+    </div>
+
+    <div v-else class="cont10">
+      <table class="table">
+        <caption>카페</caption>
+        <tr><th>카페명</th><th>주소</th></tr>
+        <tr v-for="data in cafe_data" :key="data.i">
+          <td><a :href="data.place_url" target="_blank" class="no-deco">{{ data.place_name }}</a></td>
+          <td class="center-text">{{ data.road_address_name }}</td>
+        </tr>
+      </table> 
+    </div>
+
+
   </div>
 </template>
 
@@ -18,22 +50,26 @@
 export default {
   data() {
     return {
-      data_for: {
-        cafe: [],
-        cafe_url: [],
-      }
+      cafe_data: [],
+      windowWidth: window.innerWidth,
     }
   },
-    mounted() {
-        if (window.kakao && window.kakao.maps) {
-            this.initMap();
-        } else {
-            const script = document.createElement('script');
-            /* global kakao */
-            script.onload = () => kakao.maps.load(this.initMap);
-            script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=dcbbf2565c8cbfbd6437c6bd4e215c3d';
-            document.head.appendChild(script);
-        }
+  beforeDestroy() { 
+    window.removeEventListener('resize', this.onResize); 
+  },
+  mounted() {
+      if (window.kakao && window.kakao.maps) {
+          this.initMap();
+      } else {
+          const script = document.createElement('script');
+          /* global kakao */
+          script.onload = () => kakao.maps.load(this.initMap);
+          script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=dcbbf2565c8cbfbd6437c6bd4e215c3d';
+          document.head.appendChild(script);
+      }
+      this.$nextTick(() => {
+        window.addEventListener('resize', this.onResize);
+      })
     },
     methods: {
         initMap() {
@@ -42,7 +78,7 @@ export default {
             // var geocoder = new kakao.maps.services.Geocoder();
 
             var options = {
-              center: new kakao.maps.LatLng(36.3494403, 127.2982799),
+              center: new kakao.maps.LatLng(37.50089523435603, 127.02581335135186),
               level: 4
             };
 
@@ -58,13 +94,13 @@ export default {
             ps.categorySearch('CE7', // 키워드 검색 완료 시 호출되는 콜백함수 입니다
             (data, status) => {
               if (status === kakao.maps.services.Status.OK) {
-                for (var i=0; i<3; i++) {
+                for (var i=0; i< data.length; i++) {
                   displayMarker(data[i]);
-                  this.data_for.cafe.push(data[i].place_name)
-                  this.data_for.cafe_url.push(data[i].place_url)
+                  this.cafe_data.push(data[i])
+                  // this.data_for.cafe_url.push(data[i].place_url)
                 }
-                this.data_for.cafe = { ...this.data_for.cafe }
-                this.data_for.cafe_url = { ...this.data_for.cafe_url }
+                // this.data_for.cafe = { ...this.data_for.cafe }
+                // this.data_for.cafe_url = { ...this.data_for.cafe_url }
               }
             }, {useMapBounds:true}); 
 
@@ -85,14 +121,65 @@ export default {
                     infowindow.open(map, marker);
                 });
             }
-        }
+      },
+      onResize() {
+        this.windowWidth = window.innerWidth
+      },
     }
 }
 </script>
 
-<style>
-#map {
-    width: 800px;
-    height: 500px;
-}
+<style scoped>
+  #map {
+      width: 100%;
+      height: 300px;
+  }
+
+  .center-text {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .no-deco {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+  }
+
+  .table {
+    border-collapse: collapse;
+    border-top: 3px solid #168;
+  }  
+
+  .table th {
+    color: #168;
+    background: #f0f6f9;
+    text-align: center;
+  }
+
+  .table th, .table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+
+  .table th:first-child, .table td:first-child {
+    border-left: 0;
+  }
+
+  .table th:last-child, .table td:last-child {
+    border-right: 0;
+  }
+
+  .table tr td:first-child {
+    text-align: center;
+  }
+
+  .table caption {
+    caption-side: bottom; 
+    display: none;
+  }
+
+  .cont10 {
+    margin: 0 15%;
+  }
 </style>

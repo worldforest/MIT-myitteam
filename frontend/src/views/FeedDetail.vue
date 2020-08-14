@@ -211,6 +211,7 @@ export default {
 </script>
 
 <style scoped>
+
   hr {
     height: 3px;
     background: #bbb;
@@ -219,6 +220,7 @@ export default {
     background-image: -ms-linear-gradient(left, #eee, #777, #eee);
     background-image: -o-linear-gradient(left, #eee, #777, #eee);
   }
+
   .cont15 {
     margin: 0 15%;
   }
@@ -245,4 +247,5 @@ export default {
   .cont2 {
     margin: 0 2%;
   }
+
 </style>
