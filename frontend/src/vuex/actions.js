@@ -402,7 +402,6 @@ export default {
 				for(var i=0; i<(res.data).length; i++) {
 					if (res.data[i].category === 0) {
 						contest.push(res.data[i])
-						console.log(typeof(contest))
 					}
 					else {
 						project.push(res.data[i])
