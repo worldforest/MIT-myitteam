@@ -139,5 +139,8 @@ export default {
     },
     getalarmList(state, data){
         state.alarmList = data
+    },
+    getallList(state, data){
+        state.allChat = data
     }
 }

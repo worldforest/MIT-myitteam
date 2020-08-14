@@ -2,13 +2,13 @@
     <div class="container">
       {{ privateChatTitle }}
       {{ myNick }}
+      {{ allChat }}
       <h3 class=" text-center">Message</h3>
       <div class="messaging">
         <div class="inbox_msg">
           <div class="inbox_people">
             <div class="headind_srch">
               <div class="recent_heading">
-                <h4>Recent</h4>
               </div>
               <div class="srch_bar">
                 <div class="stylish-input-group">
@@ -19,13 +19,11 @@
               </div>
             </div>
             <div class="inbox_chat">
-              <div class="chat_list active_chat">
+              <div class="chat_list active_chat" v-for="chat in allChat" :key="chat">
                 <div class="chat_people">
                   <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                   <div class="chat_ib">
-                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                    <p>Test, which is a new approach to have all solutions 
-                      astrology under one roof.</p>
+                    <h5 class="mt-3" @click="newChat(chat)"> {{ chat }} </h5>s
                   </div>
                 </div>
               </div>
@@ -88,7 +86,11 @@ export default {
     privateChatTitle: String, 
   },
   methods:{
-    ...mapActions(['getNickname', 'privateChat']),
+    ...mapActions(['getNickname', 'privateChat', 'getAllChat']),
+    newChat(chatTitle){
+      this.privateChatTitle = chatTitle
+      this.$router.push({name: 'Chat', params: { privateChatTitle : chatTitle }});
+    },
     saveMessage(sendnick){
       //save to message
       db.collection(this.privateChatTitle).add({
@@ -112,10 +114,11 @@ export default {
     }
   },
   computed:{
-    ...mapState(['email', 'myNick']),
+    ...mapState(['email', 'myNick', 'allChat']),
   },
   created(){
     this.fetchMessages();
+    this.getAllChat(this.myNick);
   }
 }
 </script>

@@ -157,7 +157,7 @@
     </div>
     <v-app color="#FAFAFA" class="container">
       <div>
-        <router-view :key="$route.fullPath"/>
+        <router-view :privateChatTitle="$route.fullPath"/>
       </div>
     </v-app>
   </div>

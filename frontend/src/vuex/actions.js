@@ -7,11 +7,7 @@ import Swal from 'sweetalert2'
 
 
 const SERVER_URL = 'http://localhost:9999/mit'
-<<<<<<< HEAD
 // const SERVER_URL = 'https:/i3b306.p.ssafy.io/mit'
-=======
-// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
->>>>>>> 23b3fc369d77a3187447ed6c60034153ee3a8064
 
 export default {
 	postToken2({ commit }, info) {
@@ -342,6 +338,15 @@ export default {
 		axios.post(`${SERVER_URL}/api/alram/delete`, params)
 		.then( () => {
 			context.dispatch('getalarm', alarm.addressee)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	getAllChat(context, mynick){
+		const params = new URLSearchParams();
+		params.append('nickname', mynick)
+		axios.post(`${SERVER_URL}/api/chat/selectAll`, params)
+		.then( res => {
+			context.commit('getallList', res.data)
 		})
 		.catch( err => console.log(err.response.data))
 	},
