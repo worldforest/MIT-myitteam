@@ -1,6 +1,7 @@
 <template>
   <div class="bg4">
-    
+    <!-- {{ myNick }}
+    {{ alarmList }} -->
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767">
       <v-card class="overflow-hidden">
@@ -37,10 +38,11 @@
                     </v-icon>
                     <!-- <v-icon>mdi-bell-check</v-icon> -->
                   </template>
-                  <v-list>
+                  <v-list v-for="alarm in alarmList" :key="alarm">
                     <v-list-item>
-                      <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
+                      <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
                     </v-list-item>
+                    <hr style="margin:0">
                   </v-list>
                 </v-menu>
               </div>
@@ -88,7 +90,32 @@
           <router-link to="/signup" class="test">SIGNUP</router-link>
          </div>
          <div v-else>
-          <div class="text-center test">
+           <v-row>
+             <!--알림이다-->
+            <div class="text-center dkanrjsk ">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    x-large color="#FFFFFF"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="accountIcon not-home mt-1"
+                  >
+                    mdi-bell
+                  </v-icon>
+                  <!-- <v-icon>mdi-bell-check</v-icon> -->
+                </template>
+                <v-list v-for="alarm in alarmList" :key="alarm">
+                  <v-list-item>
+                    <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
+                  </v-list-item>
+                  <hr style="margin:0">
+                </v-list>
+              </v-menu>
+            </div>
+
+            <!--계정이다-->
+            <div class="text-center test">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
@@ -106,8 +133,9 @@
                   </v-list-item>
                 </v-list>
               </v-menu>
-            </div>
-         </div>
+            </div>s
+           </v-row>
+        </div>
       </div>
       <div class="bg2 px-3" v-if="email">
         <div class="bg3 container" >
@@ -159,7 +187,7 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   methods: {
-    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo', 'getContestData', 'getNickname']),
+    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo', 'getContestData', 'getNickname', 'getalarm', 'deleteAlarm']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -179,7 +207,7 @@ export default {
 
   },
   computed: {
-    ...mapState(['email', 'myNick']),
+    ...mapState(['email', 'myNick', 'alarmList']),
     ...mapGetters(['isLoggedIn', 'isEmail'])
   },
   mounted() {
@@ -192,15 +220,10 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
     this.getNickname(this.email)
+    this.getalarm(this.myNick)
   },
-  // created () { 
-  //   if (document.location.pathname === '/') { 
-  //     this.isChecked = true; 
-  //   }
-  //   else {
-  //       this.isChecked = false;
-  //   }
-  // }
+  created () { 
+  }
 };
 </script>
 
@@ -290,6 +313,10 @@ export default {
     display: flex;
     border-radius: 0.5rem;
     justify-content: space-around;
+  }
+
+  .ppointer{
+    cursor: pointer;
   }
 
 </style>

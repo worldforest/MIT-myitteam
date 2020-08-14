@@ -136,5 +136,8 @@ export default {
     },
     privateChatSave(state, data){
         state.privateChatTitle = data
+    },
+    getalarmList(state, data){
+        state.alarmList = data
     }
 }
