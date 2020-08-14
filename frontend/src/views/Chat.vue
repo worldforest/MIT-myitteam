@@ -6,29 +6,6 @@
       <h3 class=" text-center">Message</h3>
       <div class="messaging">
         <div class="inbox_msg">
-          <div class="inbox_people">
-            <div class="headind_srch">
-              <div class="recent_heading">
-              </div>
-              <div class="srch_bar">
-                <div class="stylish-input-group">
-                  <input type="text" class="search-bar"  placeholder="Search" >
-                  <span class="input-group-addon">
-                  <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                  </span> </div>
-              </div>
-            </div>
-            <div class="inbox_chat">
-              <div class="chat_list active_chat" v-for="chat in allChat" :key="chat">
-                <div class="chat_people">
-                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="chat_ib">
-                    <h5 class="mt-3" @click="newChat(chat)"> {{ chat }} </h5>s
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
               <!-- {{ Date(message.createdAt) }} -->
           <div class="mesgs">
             <div class="msg_history">
@@ -87,9 +64,9 @@ export default {
   },
   methods:{
     ...mapActions(['getNickname', 'privateChat', 'getAllChat']),
-    newChat(chatTitle){
-      this.privateChatTitle = chatTitle
-      this.$router.push({name: 'Chat', params: { privateChatTitle : chatTitle }});
+    newChat(chat){
+      this.privateChatTitle = chat
+      this.$router.push({name:'Chat', params: { privateChatTitle : this.privateChatTitle  }});
     },
     saveMessage(sendnick){
       //save to message

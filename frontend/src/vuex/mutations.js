@@ -142,5 +142,8 @@ export default {
     },
     getallList(state, data){
         state.allChat = data
+    },
+    getteamChat(state, data){
+        state.teamchatTitle = data
     }
 }

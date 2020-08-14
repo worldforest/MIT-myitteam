@@ -1,82 +1,107 @@
 <template>
   <div class="bg4">
-    <!-- {{ myNick }}
-    {{ alarmList }} -->
+    {{ allChat }}
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767">
-      <v-card class="overflow-hidden">
-        <div class="v-toolbar__content" style="height: 90px;">
+      <ul>
+        <li>
           <router-link to="/">
             <img id="logo" src="./images/1.jpg" alt="logo">
           </router-link>
-          <div class="not-home">
-            <v-row>
-              <router-link class="ml-3 mr-4 nav_a" to="/AllContest"><h4>공모전</h4></router-link>
-              <router-link class="mr-5 nav_a" to="/projectlist"><h4>프로젝트</h4></router-link>
-            </v-row>
-          </div>
-          <div class="spacer"></div>
-          <!--로그인 안 된 상태-->
-          <div v-if="!isLoggedIn" class="not-home">
-            <router-link class="mr-3" to="/login">LOGIN</router-link>
-            <router-link class="mr-3" to="/signup">SIGNUP</router-link>
-          </div>
-          <!--로그인 된 상태-->
-          <span v-else>
-            <!--알림을 시작하지-->
-            <v-row>
-              <div class="text-center dkanrjsk ">
-                <v-menu offset-y>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon
-                      x-large color="#5C6BC0"
-                      v-bind="attrs"
-                      v-on="on"
-                      class="accountIcon"
-                    >
-                      mdi-bell
-                    </v-icon>
-                    <!-- <v-icon>mdi-bell-check</v-icon> -->
-                  </template>
-                  <v-list v-for="alarm in alarmList" :key="alarm">
-                    <v-list-item>
-                      <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
-                    </v-list-item>
-                    <hr style="margin:0">
-                  </v-list>
-                </v-menu>
-              </div>
+        </li>
+        <li>
+          <router-link to="/AllContest" class="mr-3"><h4>공모전</h4></router-link>
+        </li>
+        <li>
+          <router-link class="mr-5 nav_a" to="/projectlist"><h4>프로젝트</h4></router-link>
+        </li>
+        <li style="float:right" class="mr-3 not-home" v-if="!isLoggedIn">
+          <router-link class="mr-3" to="/signup">SIGNUP</router-link>
+        </li>
+        <li style="float:right" class="not-home" v-if="!isLoggedIn">
+          <router-link to="/login">LOGIN</router-link>
+        </li>
+        <span style="float:right" v-else class="mr-3">
+          <v-row>
 
-              <!-- 계정 -->
-              <div class="text-center dkanrjsk">
-                <v-menu offset-y>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon
-                      x-large color="#5C6BC0"
-                      v-bind="attrs"
-                      v-on="on"
-                      class="accountIcon"
-                    >
-                      mdi-account-circle
-                    </v-icon>
-                  </template>
-                  <v-list>
-                    <v-list-item>
-                      <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
-                    </v-list-item>
-                    <v-list-item >                    
-                      <v-list-item-title class="not-home"><router-link to="/myteam" @click="getTeamInfo">나의 팀 관리</router-link></v-list-item-title>
-                    </v-list-item>
-                    <v-list-item>
-                      <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/" @click.native="logout">LOGOUT</router-link></v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </div>
-            </v-row>
-          </span>
-        </div>
-      </v-card>
+            <!--채팅이다-->
+            <div class="text-center dkanrjsk ">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    x-large color="#5C6BC0"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="accountIcon not-home mt-1 mr-4"
+                  >
+                    mdi-comment-processing
+                  </v-icon>
+                  <!-- <v-icon>mdi-bell-check</v-icon> -->
+                </template>
+                <v-list v-for="chat in allChat" :key="chat">
+                  <v-list-item>
+                    <v-row>
+                      <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" class="chat_img mr-3">
+                      <span class="not-home ppointer" @click="goChat(chat)">{{ chat }}</span>
+                    </v-row>
+                  </v-list-item>
+                  <hr style="margin:0">
+                </v-list>
+              </v-menu>
+            </div>
+
+            <!--알람이다-->
+            <div class="text-center mr-4">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    x-large color="#5C6BC0"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="accountIcon"
+                  >
+                    mdi-bell
+                  </v-icon>
+                  <!-- <v-icon>mdi-bell-check</v-icon> -->
+                </template>
+                <v-list v-for="alarm in alarmList" :key="alarm">
+                  <v-list-item>
+                    <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
+                  </v-list-item>
+                  <hr style="margin:0">
+                </v-list>
+              </v-menu>
+            </div>
+
+            <!-- 계정 -->
+            <div class="text-center mr-4">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    x-large color="#5C6BC0"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="accountIcon"
+                  >
+                    mdi-account-circle
+                  </v-icon>
+                </template>
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
+                  </v-list-item>
+                  <v-list-item >                    
+                    <v-list-item-title class="not-home"><router-link to="/myteam" @click="getTeamInfo">나의 팀 관리</router-link></v-list-item-title>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/" @click.native="logout">LOGOUT</router-link></v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
+          </v-row>
+        </span>
+      </ul>
     </div>
 
     <!-- 윈도우 브라우저가 767 미만일 때의 Navbar  && Home.vue에서 적용안됨 -->
@@ -91,6 +116,30 @@
          </div>
          <div v-else>
            <v-row>
+
+             <!--채팅이다-->
+            <div class="text-center dkanrjsk ">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    x-large color="#FFFFFF"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="accountIcon not-home mt-1 mr-2"
+                  >
+                    mdi-comment-processing
+                  </v-icon>
+                  <!-- <v-icon>mdi-bell-check</v-icon> -->
+                </template>
+                <v-list v-for="alarm in alarmList" :key="alarm">
+                  <v-list-item>
+                    <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
+                  </v-list-item>
+                  <hr style="margin:0">
+                </v-list>
+              </v-menu>
+            </div>
+
              <!--알림이다-->
             <div class="text-center dkanrjsk ">
               <v-menu offset-y>
@@ -99,7 +148,7 @@
                     x-large color="#FFFFFF"
                     v-bind="attrs"
                     v-on="on"
-                    class="accountIcon not-home mt-1"
+                    class="accountIcon not-home mt-1 mr-2"
                   >
                     mdi-bell
                   </v-icon>
@@ -182,12 +231,11 @@ export default {
     this.txt = `it changed to ${newWidth} from ${oldWidth}`;
     }
   },
-
   beforeDestroy() { 
     window.removeEventListener('resize', this.onResize); 
   },
   methods: {
-    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo', 'getContestData', 'getNickname', 'getalarm', 'deleteAlarm']),
+    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo', 'getContestData', 'getNickname', 'getalarm', 'deleteAlarm', 'getAllChat']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -202,12 +250,14 @@ export default {
     },
     goPRO(){
       this.$router.push('/profile')
+    },
+    goChat(chat){
+      this.$router.push({name: 'Chat', params: { privateChatTitle : chat }});
     }
-
 
   },
   computed: {
-    ...mapState(['email', 'myNick', 'alarmList']),
+    ...mapState(['email', 'myNick', 'alarmList', 'allChat']),
     ...mapGetters(['isLoggedIn', 'isEmail'])
   },
   mounted() {
@@ -221,8 +271,10 @@ export default {
     })
     this.getNickname(this.email)
     this.getalarm(this.myNick)
+    this.getAllChat(this.myNick)
   },
-  created () { 
+  created () {
+    // this.getAllChat(this.myNick)
   }
 };
 </script>
@@ -236,10 +288,8 @@ export default {
   *{ font-family: myFont, sans-serif; }
 
   .not-home > a { 
-    position: relative;
     text-decoration: none;
     color: rgb(92, 107, 192);
-    margin-right: 2rem;
     font-size: 1.3rem;
     font-weight: bold;
   }
@@ -262,10 +312,6 @@ export default {
     height: 70px;
     width: 120px;
     margin: 10px 20px;
-  }
-
-  .dkanrjsk {
-    margin-right: 1rem;
   }
 
   .bg {
@@ -314,9 +360,48 @@ export default {
     border-radius: 0.5rem;
     justify-content: space-around;
   }
-
   .ppointer{
     cursor: pointer;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    line-height: 90px;
+  }
+
+  li {
+    float: left;
+  }
+
+  li a {
+    display: block;
+    color: rgb(92, 107, 192);
+    text-align: center;
+    padding: 0 5px;
+    text-decoration: none;
+  }
+
+  li > a > h4 {
+    line-height: 90px !important;
+    margin: 0 !important;
+  }
+
+  li a:hover:not(.active) {
+    background-color: white;
+  }
+
+  .active {
+    background-color: #4CAF50;
+  }
+
+  .chat_img {
+    float: left;
+    width: 30px;
+    height: 30px;
   }
 
 </style>
