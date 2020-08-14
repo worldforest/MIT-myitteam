@@ -7,7 +7,11 @@ import Swal from 'sweetalert2'
 
 
 const SERVER_URL = 'http://localhost:9999/mit'
+<<<<<<< HEAD
 // const SERVER_URL = 'https:/i3b306.p.ssafy.io/mit'
+=======
+// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
+>>>>>>> 23b3fc369d77a3187447ed6c60034153ee3a8064
 
 export default {
 	postToken2({ commit }, info) {
@@ -166,9 +170,6 @@ export default {
 			.then(() => {
 					router.push({ name: "Profile"})
 			})
-			.catch(error => {
-					console.log(error)
-		})
 		}		
 	},
 	
@@ -196,9 +197,6 @@ export default {
 			})
 			router.push({ name: "ProjectList"})
 		})
-		.catch(err => {
-			console.log(err.response.data)
-		})
 	},
 	getTeamData(context, no){
 		const params = new URLSearchParams();
@@ -206,9 +204,6 @@ export default {
 		axios.post(`${SERVER_URL}/api/team/contentsteamlist`, params)
 		.then(res => {
 			context.commit('GETTEAMDATA', res.data)
-		})
-		.catch(err => {
-			console.log(err.response.data)
 		})
 	},
 	apply(context, sendData){
@@ -237,9 +232,6 @@ export default {
 			})
 			router.push({ name: "AllContest" })
 		})
-		.catch( err => {
-			console.log(err.response.data)
-		})
 	},
 	updateCard(context, updateData){
 		const params = new URLSearchParams();
@@ -259,7 +251,6 @@ export default {
 			})
 			router.push({ name: "ProjectList" })
 		})
-		.catch( err => console.log(err.response.data))
 	},
 	like(context, likeData){
 		const params = new URLSearchParams();
@@ -270,7 +261,6 @@ export default {
 			context.dispatch('likeCnt', likeData)
 			context.dispatch('likeUser', likeData)
 		})
-		.catch( err => console.log(err.response.data))
 	},
 	unlike(context, likeData){
 		const params = new URLSearchParams();
@@ -281,7 +271,6 @@ export default {
 			context.dispatch('likeCnt', likeData)
 			context.dispatch('likeUser', likeData)
 		})
-		.catch( err => console.log(err.response.data))
 	},
 	likeCnt(context, likeCntData){
 		const params = new URLSearchParams();
@@ -290,7 +279,6 @@ export default {
 		.then( res => {
 			context.commit('likeCnt', res.data)
 		})
-		.catch( err => console.log(err.response.data))
 	},
 	likeUser(context, likeCntData){
 		const params = new URLSearchParams();
@@ -368,7 +356,6 @@ export default {
 				for(var i=0; i<(res.data).length; i++) {
 					if (res.data[i].category === 0) {
 						contest.push(res.data[i])
-						console.log(typeof(contest))
 					}
 					else {
 						project.push(res.data[i])
@@ -385,18 +372,12 @@ export default {
 			.then(response => {
 				context.commit('INPUTDATA', response.data)
 			})
-			.catch(error => {
-				console.log(error)
-			})
 	},
 
 	userprofile(context, useremail) {
 		axios.get(`${SERVER_URL}/api/feed/${useremail}`)
 			.then(res => {
 					context.commit('USERINPUT', res.data)
-			})
-			.catch(err => {
-					console.log(err)
 			})
 	},
 	follow(context) {
@@ -409,7 +390,6 @@ export default {
 		context.dispatch('followerCnt', context.state.userprofiledata.feeds[0].email)
 		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
 				})
-				.catch(error => console.log(error.response.data))
 		}
 		else {
 			Swal.fire({
@@ -444,10 +424,6 @@ export default {
 		params.append('email', res)
 		axios.post(`${SERVER_URL}/api/follow/followingList`, params)
 		.then((response) => {
-			console.log(response)
-			// for (var i=0; i<(response.data).length; i++) {
-			// 	data.push(response.data[i])
-			// }
 			context.commit('INPUTFOLLOW', response.data)
 		})
 	},
@@ -461,7 +437,6 @@ export default {
 			context.dispatch('myFollowerList', res)
 			context.dispatch('followerCnt', context.state.email)
 		})	
-		.catch(error => console.log(error.response.data))
 	},
 
 	followerCnt(context, res) {
@@ -507,9 +482,6 @@ export default {
 		params.append('email', res)
 		context.commit('chageIsFlag')
 		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
-			.catch(error => {
-				console.log(error.response.data)
-			});
 	},
 
 	pushCode(context, res) {
@@ -550,9 +522,6 @@ export default {
 				})
 				router.push({ name: "Profile" })
 			})
-			.catch(() => {
-				console.log('삭제실패')
-			})
 	},
 
 	feedUpdate(context, res) {
@@ -569,9 +538,6 @@ export default {
         })
         router.push({ name: "Profile" })
       })
-      .catch((err) => {
-        console.log(err.response.data)
-      })
     },
 
 	/////////지훈////////////////
@@ -587,9 +553,6 @@ export default {
 	postDate (context, dateinfo) {
 		console.log(dateinfo)
 		axios.post(`${SERVER_URL}/api/team/insetSchedule`, dateinfo)
-		.then(response =>{
-			console.log(response)
-		})
 	},
 	selectMember ({dispatch}, apply) {
 		console.log(apply)

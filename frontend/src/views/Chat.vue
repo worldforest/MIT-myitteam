@@ -81,7 +81,6 @@ export default {
       messages: [],
       createdAt: null,
       // chatAt:null,
-      email: this.$store.state.email,
     }
   },
   props: {
@@ -97,6 +96,7 @@ export default {
         message:this.message,
         createdAt: new Date()
       })
+      input.reset()
     },
     fetchMessages(){
       db.collection(this.privateChatTitle)
