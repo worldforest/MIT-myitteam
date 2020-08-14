@@ -156,6 +156,7 @@ export default {
         message:this.message,
         createdAt: new Date()
       })
+      input.reset()
     },
     fetchMessages(){
       db.collection(this.privateChatTitle)
