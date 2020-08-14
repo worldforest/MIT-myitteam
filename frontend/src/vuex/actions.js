@@ -177,8 +177,7 @@ export default {
 			.catch(error => {
 					console.log(error)
 		})
-		}
-		
+		}		
 	},
 	
 
@@ -589,6 +588,25 @@ export default {
 				console.log('삭제실패')
 			})
 	},
+
+	feedUpdate(context, res) {
+    const formdata = new FormData();
+    formdata.append('description', res.description)
+    formdata.append('file', res.src)
+    formdata.append('no',res.no)
+    formdata.append('tags', res.tag)
+    axios.post(`${SERVER_URL}/api/feed/update`, formdata)
+      .then(() => {
+        Swal.fire({
+					icon: 'success',
+					text: '성공적으로 삭제하였습니다.!',
+        })
+        router.push({ name: "Profile" })
+      })
+      .catch((err) => {
+        console.log(err.response.data)
+      })
+    },
 
 	/////////지훈////////////////
 	getTeamInfo(context) {

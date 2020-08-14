@@ -159,7 +159,7 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   methods: {
-    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo', 'getContestData']),
+    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo', 'getContestData', 'getNickname']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -179,7 +179,7 @@ export default {
 
   },
   computed: {
-    ...mapState(['email']),
+    ...mapState(['email', 'myNick']),
     ...mapGetters(['isLoggedIn', 'isEmail'])
   },
   mounted() {
@@ -191,6 +191,7 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+    this.getNickname(this.email)
   },
   // created () { 
   //   if (document.location.pathname === '/') { 
