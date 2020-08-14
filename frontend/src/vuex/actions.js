@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 
 
 const SERVER_URL = 'http://localhost:9999/mit'
-// const SERVER_URL = 'http:/i3b306.p.ssafy.io:9999/mit'
+// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
 
 export default {
 	postToken2({ commit }, info) {
@@ -66,7 +66,7 @@ export default {
 		router.go({ name: "Home" })
 	},
 	postSignup({ dispatch }, signupInfo) {
-		axios.post("http://localhost:9999/mit/api/user/join", signupInfo.data)
+		axios.post(`${SERVER_URL}/api/user/join`, signupInfo.data)
 			.then(() => {
 				const loginInfo = {
 					data: {
@@ -140,7 +140,7 @@ export default {
 			const nick = {
 				data: nickname
 			}
-			axios.get(`http://localhost:9999/mit/api/user/checkNickname/${nick.data}`)
+			axios.get(`${SERVER_URL}/api/user/checkNickname/${nick.data}`)
 				.then(() => {
 					alert('사용가능한 별명입니다')
 				})
@@ -358,8 +358,9 @@ export default {
 			console.log(res.data)
 			context.commit('getNick', res.data)
 		})
-
 	},
+
+
 	//////////다인///////////////
 
 	/////////지훈////////////////
