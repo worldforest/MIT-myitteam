@@ -137,7 +137,7 @@
       </div>
 
       <!-- //////////////////////// 게시글 조회 ////////////////////// -->
-      <h1 class="text-center"> 게시글 </h1>
+      <h1 class="text-center mt-9"> 게시글 </h1>
     <v-row class="d-flex justify-center"> 
       <v-col sm="4" >
         <v-text-field

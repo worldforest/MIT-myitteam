@@ -22,31 +22,56 @@
           </div>
           <!--로그인 된 상태-->
           <span v-else>
-            <div class="text-center dkanrjsk">
-              <v-menu offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    x-large color="#5C6BC0"
-                    v-bind="attrs"
-                    v-on="on"
-                    class="accountIcon"
-                  >
-                    mdi-account-circle
-                  </v-icon>
-                </template>
-                <v-list>
-                  <v-list-item>
-                    <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
-                  </v-list-item>
-                  <v-list-item >                    
-                    <v-list-item-title class="not-home"><router-link to="/myteam" @click="getTeamInfo">나의 팀 관리</router-link></v-list-item-title>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/" @click.native="logout">LOGOUT</router-link></v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </div>
+            <!--알림-->
+            <v-row>
+              <div class="text-center dkanrjsk">
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                      x-large color="#5C6BC0"
+                      v-bind="attrs"
+                      v-on="on"
+                      class="accountIcon"
+                    >
+                      mdi-bell
+                    </v-icon>
+                    <!-- <v-icon>mdi-bell-check</v-icon> -->
+                  </template>
+                  <v-list>
+                    <v-list-item>
+                      <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </div>
+
+              <!-- 계정 -->
+              <div class="text-center dkanrjsk">
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                      x-large color="#5C6BC0"
+                      v-bind="attrs"
+                      v-on="on"
+                      class="accountIcon"
+                    >
+                      mdi-account-circle
+                    </v-icon>
+                  </template>
+                  <v-list>
+                    <v-list-item>
+                      <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
+                    </v-list-item>
+                    <v-list-item >                    
+                      <v-list-item-title class="not-home"><router-link to="/myteam" @click="getTeamInfo">나의 팀 관리</router-link></v-list-item-title>
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/" @click.native="logout">LOGOUT</router-link></v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </div>
+            </v-row>
           </span>
         </div>
       </v-card>

@@ -3,7 +3,7 @@
     {{detailFeed}}
     <div v-if="windowWidth >= 767" class="cont15">
       {{ windowWidth }}
-      <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
+      <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3> {{ detailFeed.nickname }}</h3></router-link>
       <h3><router-link to='/profile' v-if="email === detailFeed.email"> {{ detailFeed.nickname }}</router-link></h3>
       <hr>
       <div class="d-flex justify-end mb-4">
