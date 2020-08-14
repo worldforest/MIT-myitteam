@@ -1,6 +1,5 @@
 <template>
   <v-card color="#FAFAFA">
-    {{ windowWidth }}
     <v-container>
       <div>
         <v-card id="card-signup" class="mx-auto py-5 px-2 my-8" max-width="800">

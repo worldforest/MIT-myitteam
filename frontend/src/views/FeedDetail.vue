@@ -1,6 +1,5 @@
 <template>
   <div class="mt-3">
-    {{detailFeed}}
     <div v-if="windowWidth >= 767" class="cont15">
       {{ windowWidth }}
       <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3> {{ detailFeed.nickname }}</h3></router-link>

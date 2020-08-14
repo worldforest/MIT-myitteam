@@ -176,7 +176,6 @@ export default {
   },
   created(){
     this.fetchMessages();
-    this.getNickname(this.$store.state.email)
   }
 }
 </script>
