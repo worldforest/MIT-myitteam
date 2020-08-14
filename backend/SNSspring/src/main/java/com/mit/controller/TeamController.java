@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mit.dto.Alram;
 import com.mit.dto.Applymember;
 import com.mit.dto.Contents;
 import com.mit.dto.Member;
@@ -27,12 +28,14 @@ import com.mit.dto.Teaminfo;
 import com.mit.returnDto.RegTeam;
 import com.mit.returnDto.RegTeamInfo;
 import com.mit.returnDto.TeamDto;
+import com.mit.service.AlramService;
 import com.mit.service.ApplymemberService;
 import com.mit.service.ContentsService;
 import com.mit.service.MemberScheduleService;
 import com.mit.service.MemberService;
 import com.mit.service.TeamService;
 import com.mit.service.TeaminfoService;
+import com.mit.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -47,6 +50,8 @@ public class TeamController {
 	private static final String FAIL = "fail";
 
 	@Autowired
+	private UserService userService;
+	@Autowired
 	private TeamService teamService;
 	@Autowired
 	private TeaminfoService teaminfoService;
@@ -58,6 +63,8 @@ public class TeamController {
 	private ApplymemberService applymemberService;
 	@Autowired
 	private MemberScheduleService memberScheduleService;
+	@Autowired
+	private AlramService alramService;
 
 	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n" + "필요 데이터\n"
 			+ "description,email(프로젝트팀 생성자),title,start,end,info")
@@ -76,7 +83,6 @@ public class TeamController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 		Team team = new Team();
 		String no = contentsService.LatestContents(regTeam.getEmail());
-		System.out.println(">>>>>>>>>>>>>>>>>>test");
 
 		team.setNo(no);
 		team.setLeaderemail(regTeam.getEmail());
@@ -206,15 +212,14 @@ public class TeamController {
 
 		// email이 속한 모든 멤버를 가져온다 여기서 no 와 leaderemail를 서치한다 이것을 기준으로 필요한 데이터를 만든다.
 		List<Member> members = memberService.selectEmail(email);
+
 		for (Member member : members) {
 			String no = member.getNo();
 			String leaderemail = member.getLeaderemail();
 			Team team = teamService.selectnoemail(no, leaderemail);
 			Contents contents = contentsService.selectOne(no);
-			int allCount = teaminfoService.countHead(no, leaderemail);
 
 			TeamDto teamDto = new TeamDto();
-			teamDto.setAllCnt(String.valueOf(allCount));
 			teamDto.setCategory(contents.getCategory() + "");
 			teamDto.setDescription(team.getDescription());
 			teamDto.setEnd(contents.getEnd());
@@ -227,6 +232,8 @@ public class TeamController {
 			teamDto.setRegemail(contents.getEmail());
 			teamDto.setReward(contents.getReward());
 			teamDto.setTitle(team.getTitle());
+
+			teamDto.setAllCnt(teaminfoService.countHead(no, leaderemail) + "");
 
 			teamDto.setMembers(memberService.select(no, leaderemail));
 			teamDto.setApplymembers(applymemberService.select(no, leaderemail));
@@ -249,6 +256,14 @@ public class TeamController {
 		applymember.setPart(part);
 		applymember.setTeamemail(email);
 		applymemberService.insert(applymember);
+		Alram alram = new Alram();
+		String leadernickname = userService.selectNickname(leaderemail);
+		alram.setAddressee(leadernickname);// 팀장에게
+		String membernickname = userService.selectNickname(email);
+		alram.setSender(membernickname);// 내가
+		alram.setMessage(membernickname + "님이 팀에 지원했습니다.");
+		alram.setFlag("0");
+		alramService.insert(alram);
 
 		return null;
 	}
@@ -269,6 +284,15 @@ public class TeamController {
 		member.setPart(part);
 		member.setMemberemail(teamemail);
 		memberService.insert(member);
+
+//		//teaminfo.setHeadcount(getHedcount()-1);
+//		//teaminfo에서 그 part의 headcount
+		String headcount = teaminfoService.selectHeadcount(no, leaderemail, part);
+		System.out.println(headcount);
+		int curr = Integer.parseInt(headcount) - 1;
+		System.out.println(curr);
+		teaminfoService.update(no, leaderemail, part, curr + "");
+
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
@@ -297,12 +321,18 @@ public class TeamController {
 
 	@ApiOperation(value = "팀원 일정 등록하기", notes = "팀원별 일정 등록")
 	@PostMapping("insetSchedule")
-	public ResponseEntity<String> insertSchedule(@RequestBody MemberSchedule memberschedule) {
+	public ResponseEntity<String> insertSchedule(@RequestBody List<MemberSchedule> memberschedules) {
 
-		if (memberScheduleService.insert(memberschedule)) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		if (!memberScheduleService.deleteMember(memberschedules.get(0)))
+			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+
+		for (MemberSchedule memberschedule : memberschedules) {
+			if (!memberScheduleService.insert(memberschedule)) {
+				return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+			}
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "팀원 일정 삭제하기", notes = "팀원별 일정 삭제(no, leaderemail로 팀 구분, memberemail로 팀원 구분, date로 원하는 날짜 선택")
@@ -342,8 +372,9 @@ public class TeamController {
 		// map-->iterator
 		// 확인하는 방법
 		Iterator<String> keys = selectSchedule.keySet().iterator();
-
 		int memberCnt = memberService.memberCnt(no, leaderemail);
+		System.out.println("Test<<<<<<<<<<<<<<<");
+		System.out.println(memberCnt);
 		List<String> selectDate = new ArrayList<>();
 		while (keys.hasNext()) {
 			String key = keys.next();
@@ -354,6 +385,14 @@ public class TeamController {
 			}
 		}
 		return new ResponseEntity<List<String>>(selectDate, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "팀원 일정 확인", notes = "no, leaderemail로 팀 구분하고 memberemail로 팀원 구분후 팀원별 일정 확인")
+	@PostMapping("memberSchedule")
+	public ResponseEntity<List<String>> memberSchedule(@RequestParam String no, @RequestParam String leaderemail,
+			@RequestParam String memberemail) {
+		List<String> memberSchedule = memberScheduleService.selectMember(no, leaderemail, memberemail);
+		return new ResponseEntity<List<String>>(memberSchedule, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "팀원 총인원 구하기", notes = "contents no 와 leaderemail을 등록하면 총 수를 반환합니다 리더수 포함.")

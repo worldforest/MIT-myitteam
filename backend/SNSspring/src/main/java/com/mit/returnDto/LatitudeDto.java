@@ -6,12 +6,20 @@ import java.util.List;
 import com.mit.algorithm.XY;
 
 public class LatitudeDto {
+	XY center;
 	List<XY> members;
-	List<XY> recomends;
+
+	public XY getCenter() {
+		return center;
+	}
+
+	public void setCenter(XY center) {
+		this.center = center;
+	}
 
 	public LatitudeDto() {
 		this.members = new ArrayList<XY>();
-		this.recomends = new ArrayList<>();
+		this.center = new XY();
 	}
 
 	public List<XY> getMembers() {
@@ -20,14 +28,6 @@ public class LatitudeDto {
 
 	public void setMembers(List<XY> members) {
 		this.members = members;
-	}
-
-	public List<XY> getRecomends() {
-		return recomends;
-	}
-
-	public void setRecomends(List<XY> recomends) {
-		this.recomends = recomends;
 	}
 
 }

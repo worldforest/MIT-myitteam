@@ -8,7 +8,10 @@ public interface MemberScheduleRepo {
 	public boolean insert(MemberSchedule memberschedule);
 
 	public boolean delete(MemberSchedule memberschedule);
+	public boolean deleteMember(MemberSchedule memberschedule);
 
 	public List<MemberSchedule> selectAll(String no, String leaderemail);
+	
+	public List<String> selectMember(String no, String leaderemail,String memberemail);	
 
 }

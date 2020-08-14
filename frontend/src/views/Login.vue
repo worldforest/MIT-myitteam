@@ -37,9 +37,8 @@
           color="#5C6BC0"
           @click="login(loginData)"
         >Login</v-btn>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
         <div class="d-flex mt-3">
-          <v-btn class="ml-auto" color="primary" @click="gotofind()">비밀번호 찾기</v-btn>
+          <v-btn class="ml-auto" text-color="#5C6BC0" @click="gotofind()">비밀번호 찾기</v-btn>
         </div>
       </v-container>
     </v-form>
@@ -48,6 +47,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import firebase from 'firebase';
 
 export default {
   name: "Loginfo",
@@ -88,6 +88,10 @@ export default {
       console.log("Name: " + profile.getName());
       console.log("Image URL: " + profile.getImageUrl());
       console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+    },
+    googlelogin(){
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     },
     ///소셜 로그인///
     /// 비밀번호 찾기 페이지//

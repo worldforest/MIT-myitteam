@@ -42,6 +42,8 @@ const state = {
     likeUserList2: [],
     followerList2: [],
     upFeed: [],
+    myNick: '',
+    privateChatTitle: '',
 }
 
 export default new Vuex.Store({

@@ -1,6 +1,11 @@
 <template>
 
   <div  class="cont10">
+    {{user}}
+    <!-- {{ email }} -->
+    {{ myNick }}
+    {{ privateData }}
+    {{ privateChatTitle }}
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
@@ -31,6 +36,7 @@
               팔로우 취소
             </v-btn>
           </span>
+          <router-link :to="{name: 'Chat', params:{ privateChatTitle : privateChatTitle }}" class="chatBtn">채팅 하기</router-link>
         </div>
         <div class="d-flex my-5 ml-5">
           <span><h4>팔로우| {{ userprofiledata.followingCnt }}명</h4></span>
@@ -39,7 +45,6 @@
         <div class="d-flex ml-5">
           <span> <h3>{{ userprofiledata.description }} 개발자</h3> </span>
           <br>
-          
         </div>
       </v-col>
     </v-row>
@@ -166,6 +171,11 @@ export default {
       windowWidth: window.innerWidth,
       followList : [],
       followconf: true,
+      email : this.$store.state.email, 
+      privateData: {
+        myNickname : this.$store.state.myNick,
+        yourNickname : this.$store.state.userprofiledata.nickname, 
+      }
     }
   },
   watch: {
@@ -183,16 +193,15 @@ export default {
       const file = e.target.files[0];
       this.profileData.src = URL.createObjectURL(file)
     },
-
     onResize() {
       this.windowWidth = window.innerWidth
     },
     ...mapMutations(['feedDetail', 'GET_EMAIL']),
-    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'follwerCnt'])
+    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'follwerCnt', 'getNickname', 'privateChat', 'findPrivate'])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
-    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2']),
+    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2', 'myNick', 'privateChatTitle']),
     ...mapGetters(['isLoggedIn',])
      
   },
@@ -202,6 +211,8 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
     this.follwerCnt(this.user)
+    this.getNickname(this.$store.state.email)
+    // this.findPrivate(this.privateData)
   },
 
   created () {
@@ -210,7 +221,9 @@ export default {
     this.userprofile(this.user)
     // 로그인한 유저의 정보를 확인
     this.profile()
-    },
+    this.getNickname(this.$store.state.email)
+    this.findPrivate(this.privateData)
+  },
   updated () {
     this.followerList
   }
@@ -282,5 +295,14 @@ export default {
     font-weight: bold;
     text-decoration: none;
     border-radius: 0.5rem;
+  }
+  
+  .chatBtn {
+    padding: 0.65rem;
+    background-color: rgb(92, 107, 192);
+    color: white;
+    border-radius: 0.3rem;
+    text-decoration: none;
+    margin-left: 2rem;
   }
 </style>

@@ -1,9 +1,8 @@
 <template>
   <div class="mt-3">
-    {{detailFeed}}
     <div v-if="windowWidth >= 767" class="cont15">
       {{ windowWidth }}
-      <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3>작성자: {{ detailFeed.nickname }}</h3></router-link>
+      <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3> {{ detailFeed.nickname }}</h3></router-link>
       <h3><router-link to='/profile' v-if="email === detailFeed.email"> {{ detailFeed.nickname }}</router-link></h3>
       <hr>
       <div class="d-flex justify-end mb-4">
@@ -22,7 +21,7 @@
       </div>
       <hr>
       <!-- 좋아요를 시작해보지 -->
-      {{ likeUserList }}
+      <!-- {{ likeUserList }} -->
       <v-row>
         <v-spacer></v-spacer>
 
@@ -129,7 +128,7 @@
 
       <hr>
       <!-- 좋아요를 시작해보지 -->
-      {{ likeUserList }}
+      <!-- {{ likeUserList }} -->
       <v-row>
         <v-spacer></v-spacer>
 
@@ -184,7 +183,8 @@ export default {
       },
       likeCntData: {
         no: this.$store.state.detailFeed.no,
-      }
+      },
+      dialog:false,
     }
   },
   beforeDestroy() { 
@@ -211,6 +211,7 @@ export default {
 </script>
 
 <style scoped>
+
   hr {
     height: 3px;
     background: #bbb;
@@ -219,6 +220,7 @@ export default {
     background-image: -ms-linear-gradient(left, #eee, #777, #eee);
     background-image: -o-linear-gradient(left, #eee, #777, #eee);
   }
+
   .cont15 {
     margin: 0 15%;
   }
@@ -245,4 +247,5 @@ export default {
   .cont2 {
     margin: 0 2%;
   }
+
 </style>
