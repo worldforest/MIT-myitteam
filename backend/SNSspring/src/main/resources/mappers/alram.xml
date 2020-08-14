@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mit.repo.AlramRepo">
+	<insert id="insert" parameterType="alram">
+		insert into alram(addressee, sender,message,date,flag)
+		values(#{addressee}, #{sender},#{message},now(),#{flag})
+	</insert>
+
+	<!-- 수신인(내 닉네임)로 알림조회 -->
+	<select id="select" parameterType="String" resultType="alram">
+		select no, addressee, sender,message,date,flag
+		from alram
+		where addressee=#{addressee}
+	</select>
+
+	<!-- 수신인(내 닉네임)에게 온 알림 수 조회 -->
+	<select id="alramcount" parameterType="String">
+		select count(*)
+		from alram
+		where addressee=#{addressee}
+	</select>
+	
+	<update id="update" parameterType="String">
+		update alram
+		set flag=1
+		where no = #{no}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from alram
+		where no=#{no}
+	</delete>
+
+</mapper>
