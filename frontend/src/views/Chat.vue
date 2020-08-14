@@ -1,119 +1,131 @@
 <template>
     <div class="container">
       {{ email }}
-      <h3 class=" text-center">Messaging {{ yournickname }} {{ myNickname }}</h3>
+      {{ privateData }}
+      <h3 class=" text-center">Messaging {{ nickname }} {{ myNickname }}</h3>
       <div class="messaging">
-      <div class="inbox_msg">
-        <div class="inbox_people">
-          <div class="headind_srch">
-            <div class="recent_heading">
-              <h4>Recent</h4>
-            </div>
-            <div class="srch_bar">
-              <div class="stylish-input-group">
-                <input type="text" class="search-bar"  placeholder="Search" >
-                <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span> </div>
-            </div>
-          </div>
-          <div class="inbox_chat">
-            <div class="chat_list active_chat">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
+        <div class="inbox_msg">
+          <!-- <div class="inbox_people">
+            <div class="headind_srch">
+              <div class="recent_heading">
+                <h4>Recent</h4>
+              </div>
+              <div class="srch_bar">
+                <div class="stylish-input-group">
+                  <input type="text" class="search-bar"  placeholder="Search" >
+                  <span class="input-group-addon">
+                  <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                  </span> </div>
               </div>
             </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="mesgs">
-          <div class="msg_history">
-            {{ messages }}
-            <div v-for="message in messages" :key="message" class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg mb-4">
-                <div class="received_withd_msg">
-                  {{ nickname }}
-                  <p>{{ message }}</p>
-                  <span class="time_date"> {{ createdAt }}</span>
+            <div class="inbox_chat">
+              <div class="chat_list active_chat">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
                   </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions 
+                      astrology under one roof.</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="type_msg">
-            <div class="input_msg_write">
-              <input @keyup.enter="saveMessage" v-model="message" type="text" class="write_msg" placeholder="Type a message" />
-              <button @click="saveMessage(myNickname)" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+          </div> -->
+              <!-- {{ Date(message.createdAt) }} -->
+          <div class="mesgs">
+            <div class="msg_history">
+              <div v-for="message in messages" :key="message" class="incoming_msg">
+                <div v-if="message.senduser !== myNickname">
+                  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                    <div class="received_msg mb-4">
+                      <div class="received_withd_msg">
+                        {{ message.senduser }}
+                        <p>{{ message.message }}</p>
+                        <span class="time_date"> {{ Date(message.createdAt) }}</span>
+                      </div>
+                    </div>
+                  
+                </div>
+                <div v-if="message.senduser === myNickname">
+                  <div class="outgoing_msg">
+                    <div class="sent_msg">
+                      <p>{{ message.message }}</p>
+                      <span class="time_date"> {{ Date(message.createdAt) }}</span>
+                    </div> 
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="type_msg">
+              <div class="input_msg_write">
+                <input @keyup.enter="saveMessage(myNickname)" v-model="message" type="text" class="write_msg" placeholder="Type a message" />
+                <button @click="saveMessage(myNickname)" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      
-    </div></div>
+    </div>
 </template>
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -132,16 +144,21 @@ export default {
     return {
       message: null,
       messages: [],
-      createdAt:null,
+      createdAt: null,
+      // chatAt:null,
       email: this.$store.state.email,
       myNickname : this.$store.state.myNickname,
+      privateData: {
+        myNickname : this.$store.state.myNickname,
+        yourNickname : this.nickname, 
+      }
     }
   },
   props: {
     nickname: String
   },
   methods:{
-    ...mapActions(['getNickname']),
+    ...mapActions(['getNickname', 'privateChat']),
     saveMessage(sendnick){
       //save to message
       db.collection('chat').add({
@@ -152,14 +169,14 @@ export default {
     },
     fetchMessages(){
       db.collection("chat")
-      .orderBy('createdAt')
-      .onSnapshot( querySnapshot =>{
+      .orderBy("createdAt")
+      .onSnapshot( querySnapshot => {
         let allMessages=[];
         querySnapshot.forEach( doc =>{
-          allMessages.push(doc.data().message)
-          this.createdAt=new Date()
+          allMessages.push(doc.data())
         });
           this.messages=allMessages
+          console.log(this.messages.createdAt)
       })
     }
   },
@@ -169,6 +186,7 @@ export default {
   created(){
     this.fetchMessages();
     this.getNickname(this.email);
+    this.privateChat(this.privateData);
   }
 }
 </script>

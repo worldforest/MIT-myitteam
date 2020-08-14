@@ -40,7 +40,7 @@
         <div class="d-flex ml-5">
           <span> <h3>{{ userprofiledata.description }} 개발자</h3> </span>
           <br>
-          <router-link :to="{name: 'Chat', params:{ yournickname : userprofiledata.nickname }}">채팅 하기</router-link>
+          <router-link :to="{name: 'Chat', params:{ nickname : userprofiledata.nickname }}">채팅 하기</router-link>
         </div>
       </v-col>
     </v-row>
@@ -189,7 +189,7 @@ export default {
       this.windowWidth = window.innerWidth
     },
     ...mapMutations(['feedDetail', 'GET_EMAIL']),
-    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'follwerCnt'])
+    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'follwerCnt', 'privateData'])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
