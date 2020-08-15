@@ -2,6 +2,7 @@
   <div>
     {{ id }}
     <span v-if="saveInfo.leaderemail === email">
+      {{ saveInfo }}
       {{ saveInfo.allCnt}}
       {{ saveInfo.members.length}}
       <span v-if="saveInfo.allCnt != saveInfo.members.length">
@@ -44,9 +45,10 @@
         
         <!-- 팀 채팅 하겠습니다 ~~ -->
         {{ teamchatTitle }}
-        <roter-link :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
+        {{ teamChatData }}
+        <router-link :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
           <v-btn>팀 채팅하기</v-btn>
-        </roter-link>
+        </router-link>
         <v-layout row wrap>
           <v-flex xs12 sm6>
             <v-date-picker
@@ -76,6 +78,7 @@
 
 
     <span v-else>
+      {{ saveInfo }}
         <b-card-group deck v-for="member in saveInfo.members" :key="member">
           <span v-if="member.memberemail !== email">
             <b-card
@@ -89,6 +92,13 @@
             </b-card>
           </span>
         </b-card-group>
+
+        {{ teamchatTitle }}
+        {{ teamChatData }}
+        <router-link :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
+          <v-btn>팀 채팅하기</v-btn>
+        </router-link>
+
         <v-layout row wrap>
           <v-flex xs12 sm6>
             <v-date-picker
@@ -137,7 +147,7 @@ export default {
       saveInfo : null,
       teamChatData: { 
         no : this.id,
-        leaderemail : this.$store.state.email,
+        leaderemail : '',
       }
     }
   },
@@ -149,11 +159,14 @@ export default {
   },
   methods : {
     ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'teamChat']),
+    leaderSave(){
+      this.teamChatData.leaderemail = this.saveInfo.leaderemail
+    },
   },
   mounted() {
     // this.dates = this.$store.state.dates
     this.getTeamInfo()
-    this.teamChat(this.teamChatData)
+    // this.teamChat(this.teamChatData)
     const infos = JSON.parse(sessionStorage.getItem('myTeam'))
     for (let i=0; i < infos.length; i++){
       if (this.$route.params.id === infos[i].no) {
@@ -163,8 +176,11 @@ export default {
         this.dateInfo.no = this.$route.params.id
       }
     }
+    this.leaderSave();
   },
-  
+  created() {
+    this.teamChat(this.teamChatData)
+  },
 }
 </script>
 

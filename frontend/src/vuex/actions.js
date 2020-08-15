@@ -356,13 +356,15 @@ export default {
 		const params = new URLSearchParams();
 		params.append('no', teamChatData.no)
 		params.append('leaderemail', teamChatData.leaderemail)
-		axios.post(`${SERVER_URL}/api/chat/creategroupChat`, params)
+		axios.post(`${SERVER_URL}/api/chat/groupChat`, params)
 		.then( res => {
 			console.log('타이틀 얻으러 가쟝')
 			context.commit('getteamChat', res.data)
 		})
-		.catch( err => console.log(err.response.data))
-	},
+		.catch( err => {
+			console.log('에러양아아아아ㅏ')		
+			console.log(err.response.data)})
+		},
 	//////////다인///////////////
 
 	/////////지훈////////////////
