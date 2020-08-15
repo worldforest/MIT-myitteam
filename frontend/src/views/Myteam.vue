@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ myTeamInfo }}
     <v-card v-for="info in this.$store.state.myTeamInfo" :key="info"  
     class="mx-auto"
     max-width="400"

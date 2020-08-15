@@ -20,8 +20,6 @@
         {{ detailFeed.tag }}
       </div>
       <hr>
-      <!-- 좋아요를 시작해보지 -->
-      <!-- {{ likeUserList }} -->
       <v-row>
         <v-spacer></v-spacer>
 
@@ -33,9 +31,7 @@
               </span>
             </template>
 
-            <!-- {{ i.datalist }} -->
             <v-card class="cardModal">
-              <!-- {{ followList }} -->
               <h3 class="modaltitle mb-3"> 좋아요 누른 사람</h3>
               
               <li v-for="item in likeUserList" :key="item">
@@ -85,12 +81,11 @@
         <v-chip-group
           v-model="selection"
           active-class="deep-purple accent-4 white--text"
-          column
-          
+          column   
         >
           <v-chip
             class="ma-2"
-            color="pink"
+            color="#FF6666"
             label
             text-color="white"
             v-for="(tag,z) in detailFeed.tag"
@@ -107,7 +102,7 @@
         <div class="ml-auto">
           <span class="mr-3">
             <v-chip
-              color="red"
+              color="#5C6BC0"
               text-color="white"
               @click="updateFeed(detailFeed)"
             >
@@ -116,8 +111,8 @@
           </span>
           <span>
             <v-chip
-              color="red"
-              text-color="white"
+              color="#CCCCFF"
+              text-color="black"
               @click="deleteFeed(detailFeed)"
             >
               삭제
@@ -127,8 +122,6 @@
       </div>
 
       <hr>
-      <!-- 좋아요를 시작해보지 -->
-      <!-- {{ likeUserList }} -->
       <v-row>
         <v-spacer></v-spacer>
 
@@ -140,11 +133,8 @@
               </span>
             </template>
 
-            <!-- {{ i.datalist }} -->
             <v-card class="cardModal">
-              <!-- {{ followList }} -->
               <h3 class="modaltitle mb-3"> 좋아요 누른 사람</h3>
-              
               <li v-for="item in likeUserList" :key="item">
                 <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                 <hr>

@@ -23,7 +23,7 @@
               :rules="[rules.required, rules.min]"
               :type="show2 ? 'text' : 'password'"
               name="input-10-2"
-              hint="At least 8 characters"
+              hint="비밀번호는 최소 4자리 이상입니다."
               class="input-group--focused passwordfont"
               @click:append="show2 = !show2"
               @keypress.enter="login(loginData)"
@@ -47,7 +47,6 @@
 
 <script>
 import { mapActions } from "vuex";
-import firebase from 'firebase';
 
 export default {
   name: "Loginfo",
@@ -61,15 +60,15 @@ export default {
       show2: false,
       password: "Password",
       rules: {
-        required: (value) => !!value || "Required.",
-        min: (v) => v.length >= 4 || "Min 4 characters",
-        emailMatch: () => "The email and password you entered don't match",
+        required: (value) => !!value || "비밀번호를 입력해주세요.",
+        min: (v) => v.length >= 4 || "비밀번호는 4자리 이상입니다.",
+        emailMatch: () => "이메일과 비밀번호가 일치하지 않습니다.",
       },
       emailRules: [
-        (v) => !!v || "E-mail is required",
+        (v) => !!v || "이메일을 입력해주세요.",
         (v) =>
           /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-          "E-mail must be valid",
+          "이메일 형식에 맞지 않습니다.",
       ],
     };
   },
@@ -81,19 +80,6 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth;
     },
-    ///소셜 로그인///
-    onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log("Name: " + profile.getName());
-      console.log("Image URL: " + profile.getImageUrl());
-      console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
-    },
-    googlelogin(){
-      var provider = new firebase.auth.GoogleAuthProvider();
-      provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-    },
-    ///소셜 로그인///
     /// 비밀번호 찾기 페이지//
     gotofind() {
       this.$router.push('/findpwd')
