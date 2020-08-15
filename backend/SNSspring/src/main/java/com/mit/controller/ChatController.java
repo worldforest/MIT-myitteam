@@ -70,30 +70,35 @@ public class ChatController {
 	}
 
 	@ApiOperation(value = "팀 채팅방 이름 설정", notes = "no,email보내면 팀멤버들이름으로  채팅방 이름 설정")
-	@PostMapping("creategroupChat")
+	@PostMapping("groupChat")
 	public ResponseEntity<String> groupChat(@RequestParam("no") String no,
 			@RequestParam("leaderemail") String leaderemail) {
 
-		teamService.selectnoemail(no, leaderemail);
-		List<Member> member = memberService.select(no, leaderemail);
+		// no, leaderemail, member 이메일, 닉네임, 파트
+		List<Member> memberlist = memberService.select(no, leaderemail);
 		String roomname = "";
-		int size = member.size();
-		for (Member mem : member) {
-			String nick = userService.selectNickname(mem.getMemberemail());
+		int size = memberlist.size();
+		// 멤버의 닉네임 가져와서 방 이름 만들기
+		for (Member member : memberlist) {
+			String membernickname = member.getMembernickname();
 			size--;
 			// 마지막에 , 안붙이려고
 			if (size != 0)
-				roomname = roomname.concat(nick).concat(",");
+				roomname = roomname.concat(membernickname).concat(",");
 			else
-				roomname = roomname.concat(nick);
+				roomname = roomname.concat(membernickname);
 		}
 
-		chatlistService.insert(roomname);
-		String roomnum = chatlistService.selectno(roomname);
-		for (Member mem : member) {
-			String nickname = userService.selectNickname(mem.getMemberemail());
-
-			chatmemberService.insert(roomnum, nickname);
+		// 방이 없었으면
+		if (chatlistService.selectno(roomname) == null) {
+			// chatlist에 방 만들고
+			chatlistService.insert(roomname);
+			// 채팅방 번호 가져와서
+			String roomnum = chatlistService.selectno(roomname);
+			for (Member member : memberlist) {
+				String nickname = member.getMembernickname();
+				chatmemberService.insert(roomnum, nickname);
+			}
 		}
 		return new ResponseEntity<String>(roomname, HttpStatus.OK);
 	}
