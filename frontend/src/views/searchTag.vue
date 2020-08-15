@@ -14,14 +14,14 @@
           <div class="mx-2 detail_hover">
             {{ i.nickname }}
             <img :src="i.src"
-              alt="안뜨는거야?"
+              alt="이미지를 찾을 수 없습니다."
               style="width:100%; height: 350px"
               :i="i"
               @click='feedDetail(i)'
               v-if="windowWidth >= 767"
             >
             <img :src="i.src"
-              alt="안뜨는거라고!"
+              alt="이미지를 찾지 못했습니다."
               style="width:100%; height: 150px;"
               :i="i"
               @click='feedDetail(i)'
@@ -61,8 +61,6 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
-    // this.searchTagFeed(this.keyword)
-    console.log(this.keyword)
   },
 
    beforeDestroy() { 

@@ -4,8 +4,6 @@
     <div class="cont" v-if="windowWidth >= 800">
       <div class="d-flex ma-2">
         <div class="ml-3">
-          <!-- {{ club2 }} -->
-          <!-- {{ getTeamList }} -->
           <h1 class="mb-3">{{ club2.title }}</h1>
           <h4>팀장 : {{ club2.nickname }}</h4>
           <h4 class="mt-3 mb-4 local"> <li v-for="i in getTeamList" :key="i">{{ i.local }}</li></h4>
@@ -20,8 +18,6 @@
     <div class="mx-7" v-if="windowWidth < 800">
       <div class="d-flex ma-2">
         <div class="">
-          <!-- {{ club2 }} -->
-          <!-- {{ getTeamList }} -->
           <h4 class="mb-3">{{ club2.title }}</h4>
           <h5>팀장 : {{ club2.nickname }}</h5>
           <h5 class="mt-4 mb-4 local"> <li v-for="i in getTeamList" :key="i">{{ i.local }}</li></h5>
@@ -37,7 +33,6 @@
 
 <script>
 import PjtIntro from '@/components/PjtIntro.vue'
-// import PjtTeam from '@/components/PjtTeam.vue'
 
 import { mapState, mapActions } from 'vuex'
 
@@ -45,7 +40,6 @@ export default {
   name: "ProjectDeetail",
   components: {
     PjtIntro,
-    // PjtTeam
   },
   data() {
     return {
