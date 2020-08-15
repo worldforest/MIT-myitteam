@@ -1,7 +1,5 @@
 <template>
   <div class="cont10">
-    {{ profileData }}
-    {{ windowWidth }}
     <!-- {{ email }} -->
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="3" class="fg1">

@@ -6,7 +6,7 @@
     <div v-if="windowWidth >= 1064">
       <div class="mt-6">
         <h1 @click="goContest" class="Pjt_h1 mb-4">공모전</h1>
-        <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" style="width:100%">
+        <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="true" style="width:100%">
           <slide v-for="club in clubs" :key="club.no">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
               <b-card-text @click="gongmoDetail(club)">
