@@ -1,8 +1,6 @@
 <template>
 	<v-card>
     <v-container>
-			{{ teamreg }}
-			{{ windowWidth }}
       <div>
 				<v-card id="card-apply" class="mx-auto py-5 px-3 my-8" outlined max-width="800">
 					<h1 v-if="windowWidth >= 730" class="text-center mb-8 h1-apply">프로젝트 팀원을 구해보세요 :)</h1>
@@ -203,7 +201,6 @@
 
 <script>
 import ProjectInput from '@/components/ProjectInput'
-// import ProjectPartDetail from '@/components/ProjectPartDetail'
 
 import { mapActions, mapState } from 'vuex'
 
@@ -211,7 +208,6 @@ export default {
 	name: "ProjectRegister",
 	components: {
 		ProjectInput,
-		// ProjectPartDetail,
 	},
 	data() {
 		return{

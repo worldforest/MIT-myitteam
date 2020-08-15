@@ -2,7 +2,6 @@
   <div>
 		<h1 v-if="windowWidth > 800" class="my-3 ml-3">프로젝트 목록</h1>
     <h3 v-if="windowWidth < 800" class="my-3 ml-3">프로젝트 목록</h3>
-    <!-- {{ windowWidth }} -->
     <div class="d-flex">
       <v-btn color="primary" class="ml-auto mb-3"  @click="goTeam"><v-icon  color="#FFFFFF" class="mr-2">mdi-pencil-box-multiple</v-icon>프로젝트 등록</v-btn>
     </div>

@@ -20,9 +20,7 @@
                 </span>
               </template>
 
-              <!-- {{ i.datalist }} -->
               <v-card class="cardModal">
-                <!-- {{ followList }} -->
                 <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
                 
                 <li v-for="item in followList" :key="item">
@@ -39,8 +37,6 @@
               </v-card>
             </v-dialog>
           </div>
-
-          
 
           <div class="text-center">
             <v-dialog v-model="dialog2" width="500">
@@ -102,9 +98,7 @@
                 </span>
               </template>
 
-              <!-- {{ i.datalist }} -->
               <v-card class="cardModal">
-                <!-- {{ followList }} -->
                 <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
                 
                 <li v-for="item in followList" :key="item">
@@ -190,9 +184,7 @@
               </span>
             </template>
 
-            <!-- {{ i.datalist }} -->
             <v-card class="cardModal">
-              <!-- {{ followList }} -->
               <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
               
               <li v-for="item in followList" :key="item">
@@ -220,9 +212,7 @@
                 </span>
               </template>
 
-              <!-- {{ i.datalist }} -->
               <v-card class="cardModal">
-                <!-- {{ followerList }} -->
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
                 <li v-for="item in followerList" :key="item">
@@ -345,7 +335,6 @@ export default {
     ...mapActions(['profile', 'myFollowList', 'myFollowerList','searchTagFeed'])
   },
   computed : {
-    // ...mapGetter s(['isLoggedIn'])
     ...mapState(['profileData', 'email', 'followList', 'followerList']),
     ...mapGetters(['isLoggedIn',])
   },
