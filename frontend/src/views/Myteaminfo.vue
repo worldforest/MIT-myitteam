@@ -98,7 +98,7 @@
                 <v-text-field
                   v-model="dateInfo.date"
                   label="Picker in menu"
-                  prepend-icon="event"
+                  prepend-icon
                   readonly
                   v-bind="attrs"
                   v-on="on"
@@ -152,7 +152,7 @@
                 <v-text-field
                   v-model="dateInfo.date"
                   label="Picker in menu"
-                  prepend-icon="event"
+                  prepend-icon
                   readonly
                   v-bind="attrs"
                   v-on="on"
@@ -184,7 +184,7 @@
                 <v-text-field
                   v-model="dateInfo.date"
                   label="Picker in menu"
-                  prepend-icon="event"
+                  prepend-icon
                   readonly
                   v-bind="attrs"
                   v-on="on"
@@ -263,10 +263,7 @@ export default {
     setTimeout(() => {
         this.can.dates = this.$store.state.myDay
 			}, 200)
-    
   }
-
-  
 }
 </script>
 

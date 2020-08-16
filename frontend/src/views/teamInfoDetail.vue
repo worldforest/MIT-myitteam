@@ -1,5 +1,5 @@
 <template>
-  <v-card class="container">
+  <v-card >
 		{{ dataList }}
 		{{ sendData }}
 		<li v-for="item in dataList.dataList" :key="item">
