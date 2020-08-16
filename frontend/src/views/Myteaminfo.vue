@@ -177,9 +177,9 @@ export default {
       }
     }
     this.leaderSave();
+    this.teamChat(this.teamChatData)
   },
   created() {
-    this.teamChat(this.teamChatData)
   },
 }
 </script>

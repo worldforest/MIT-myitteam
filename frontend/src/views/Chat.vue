@@ -3,7 +3,7 @@
       {{ privateChatTitle }}
       {{ myNick }}
       {{ allChat }}
-      <h3 class=" text-center">Message</h3>
+      <h3 class=" text-center">{{privateChatTitle}}Message</h3>
       <div class="messaging">
         <div class="inbox_msg">
               <!-- {{ Date(message.createdAt) }} -->

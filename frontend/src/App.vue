@@ -1,6 +1,8 @@
 <template>
   <div class="bg4">
-    {{ allChat }}
+    {{ myNick }}
+    <!-- {{ alarmList }} -->
+    <!-- {{ allChat }} -->
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767">
       <ul>
@@ -33,6 +35,7 @@
                     v-bind="attrs"
                     v-on="on"
                     class="accountIcon not-home mt-1 mr-4"
+                    @click="getAllChat(myNick)"
                   >
                     mdi-comment-processing
                   </v-icon>
@@ -125,14 +128,18 @@
                     v-bind="attrs"
                     v-on="on"
                     class="accountIcon not-home mt-1 mr-2"
+                    @click="getAllChat(myNick)"
                   >
                     mdi-comment-processing
                   </v-icon>
                   <!-- <v-icon>mdi-bell-check</v-icon> -->
                 </template>
-                <v-list v-for="alarm in alarmList" :key="alarm">
+                <v-list v-for="chat in allChat" :key="chat">
                   <v-list-item>
-                    <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
+                    <v-row>
+                      <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" class="chat_img mr-3">
+                      <span class="not-home ppointer" @click="goChat(chat)">{{ chat }}</span>
+                    </v-row>
                   </v-list-item>
                   <hr style="margin:0">
                 </v-list>
@@ -268,13 +275,15 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
-    this.getNickname(this.email)
+    // this.getNickname(this.email)
     this.getalarm(this.myNick)
     this.getAllChat(this.myNick)
   },
   created () {
+    this.getNickname(this.email)
     // this.getAllChat(this.myNick)
-  }
+  },
+
 };
 </script>
 

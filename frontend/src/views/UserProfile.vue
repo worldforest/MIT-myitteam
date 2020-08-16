@@ -36,6 +36,38 @@
               팔로우 취소
             </v-btn>
           </span>
+          
+          <!--채팅 좀 하겠습니다 ~~~~~~ -->
+          <!-- <v-row justify="center">
+            <v-btn
+              color="primary"
+              dark
+              @click.stop="dialog = true"
+            >
+              채팅 하자
+            </v-btn>
+
+            <v-dialog
+              v-model="dialog"
+              max-width="290"
+            >
+              <v-card>
+                <Chat :privatechatTitle="this.privateChatTitle"/>
+                <v-card-actions>  
+                  <v-spacer></v-spacer>
+
+                  <v-btn
+                    color="green darken-1"
+                    text
+                    @click="dialog = false"
+                  >
+                    Agree
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-row> -->
+
           <router-link :to="{name: 'Chat', params:{ privateChatTitle : privateChatTitle }}" class="chatBtn">채팅 하기</router-link>
         </div>
         <div class="d-flex my-5 ml-5">
@@ -151,17 +183,17 @@
         </div>
       </v-col>
     </v-row>
-
-
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
+// import Chatting from './Chat.vue'
 
 export default {
   name: 'Profile',
   components: {
+    // Chat: Chatting
   },
   props: {
     user: String
@@ -175,7 +207,8 @@ export default {
       privateData: {
         myNickname : this.$store.state.myNick,
         yourNickname : this.$store.state.userprofiledata.nickname, 
-      }
+      },
+      // dialog: false
     }
   },
   watch: {
@@ -222,10 +255,10 @@ export default {
     // 로그인한 유저의 정보를 확인
     this.profile()
     this.getNickname(this.$store.state.email)
+    console.log(this.privateData)
     this.findPrivate(this.privateData)
   },
   updated () {
-    this.followerList
   }
 }
 </script>

@@ -313,10 +313,14 @@ export default {
 	},
 	findPrivate(context, privateData){
 		const params = new URLSearchParams();
+		console.log('채팅창 ')
+		console.log(privateData)
 		params.append('mynickname', privateData.myNickname)
 		params.append('yournickname', privateData.yourNickname)
 		axios.post(`${SERVER_URL}/api/chat/findfrivate`, params)
 		.then( res => {
+			console.log('채팅방이 존재하나요 ?? ')
+			console.log(res.data)
 			context.commit('privateChatSave', res.data)
 		})
 		.catch(() => {
@@ -359,6 +363,7 @@ export default {
 		axios.post(`${SERVER_URL}/api/chat/groupChat`, params)
 		.then( res => {
 			console.log('타이틀 얻으러 가쟝')
+			console.log(res)
 			context.commit('getteamChat', res.data)
 		})
 		.catch( err => {
