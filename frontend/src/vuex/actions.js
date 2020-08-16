@@ -306,6 +306,7 @@ export default {
 		params.append('yournickname', privateData.yourNickname)
 		axios.post(`${SERVER_URL}/api/chat/privateCaht`, params)
 		.then( res => {
+			console.log('타이틀 저장 한다요')
 			context.commit('privateChatSave', res.data)
 		})
 		.catch( err => console.log(err.response.data))
