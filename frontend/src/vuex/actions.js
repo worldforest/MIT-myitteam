@@ -163,7 +163,12 @@ export default {
 			formdata.append('tags', feedData.tags)
 			axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
 			.then(() => {
-					router.push({ name: "Profile"})
+				Swal.fire({
+					icon: 'success',
+					title: '성공적으로 등록하였습니다.',
+					width: 600
+				})
+				router.push({ name: "Profile"})
 			})
 		}		
 	},
@@ -203,6 +208,8 @@ export default {
 		})
 	},
 	apply(context, sendData){
+		console.log('지원한다아아아아앙아')
+		console.log(sendData)
 		const params = new URLSearchParams();
 		params.append('no', sendData.no);
 		params.append('leaderemail', sendData.leaderemail);
@@ -210,6 +217,11 @@ export default {
 		params.append('part', sendData.part);
 		axios.post(`${SERVER_URL}/api/team/applyTeam`, params)
 		.then(()=> {
+			Swal.fire({
+				icon: 'success',
+				title: '팀장에게 프로필을 전달하였습니다.',
+				width: 600
+			})
 		})
 		.catch(err => {
 			console.log(err.response.data)
@@ -307,15 +319,19 @@ export default {
 		params.append('yournickname', privateData.yourNickname)
 		axios.post(`${SERVER_URL}/api/chat/privateCaht`, params)
 		.then( res => {
+			console.log('타이틀 저장 한다요')
 			context.commit('privateChatSave', res.data)
 		})
 		.catch( err => console.log(err.response.data))
 	},
 	getalarm(context, nickname){
+		console.log('알람시작')
+		console.log(nickname)
 		const params =  new URLSearchParams();
 		params.append('nickname', nickname)
-		axios.post(`${SERVER_URL}/api/alram/list`, params)
+		axios.post(`${SERVER_URL}/api/alarm/list`, params)
 		.then( res => {
+			console.log('알람 성공')
 			context.commit('getalarmList', res.data)
 		})
 		.catch( err => console.log(err.response.data))
@@ -323,7 +339,7 @@ export default {
 	deleteAlarm(context, alarm){
 		const params = new URLSearchParams();
 		params.append('no', alarm.no)
-		axios.post(`${SERVER_URL}/api/alram/delete`, params)
+		axios.post(`${SERVER_URL}/api/alarm/delete`, params)
 		.then( () => {
 			context.dispatch('getalarm', alarm.addressee)
 		})
@@ -371,7 +387,7 @@ export default {
 						project.push(res.data[i])
 					}
 			}
-		context.commit('contestData', contest)
+		context.commit('contestData', contest.slice(9))
 		context.commit('projectData', project)
 		})
 	},
@@ -390,15 +406,15 @@ export default {
 				context.commit('USERINPUT', res.data)
 			})
 	},
-	follow(context ,res) {
+	follow(context, res) {
 		var params = new URLSearchParams();
 		if (context.state.email !== null) {
-		params.append('email', context.state.email);
-		params.append('following', res)
-		axios.post(`${SERVER_URL}/api/follow/follow`, params)
+			params.append('email', context.state.email);
+			params.append('following', res)
+			axios.post(`${SERVER_URL}/api/follow/follow`, params)
 				.then(() => {
-		context.dispatch('followerCnt', res)
-		context.dispatch('myFollowerList', res)
+					context.dispatch('followerCnt', res)
+					context.dispatch('myFollowerList', res)
 				})
 		}
 		else {

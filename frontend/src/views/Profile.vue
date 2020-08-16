@@ -1,5 +1,6 @@
 <template>
   <div class="cont10">
+    <!-- {{ email }} -->
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="3" class="fg1">
         <div>
@@ -241,10 +242,10 @@
     </router-link>
     <v-row class="mt-4" v-if="windowWidth > 788">
       <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">
-        <div class="mx-2 detail_hover">         
+        <div class="mx-2 detail_hover">  
           <img :src="feed.src" 
           alt="" 
-          style="width:100%;" 
+          style="width:100%; height:20vw;" 
           :feed="feed" 
           @click="feedDetail(feed)" >
         </div>

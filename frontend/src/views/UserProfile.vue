@@ -1,12 +1,13 @@
 <template>
 
   <div  class="cont10">
+    {{email}}
     {{user}}
+    {{ followerList2 }}
     <!-- {{ email }} -->
-    {{ myNick }}
+    <!-- {{ myNick }}
     {{ privateData }}
-    {{ privateChatTitle }}
-    <!-- 1270 이상 //////////////////////////// -->
+    {{ privateChatTitle }} -->
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
@@ -210,17 +211,56 @@
     <router-link class="feed white--text"  to="/feedcreate" v-if="userprofiledata.nickname === profileData.nickname">
       피드등록
     </router-link>
-    <v-row class="my-4">
+    <v-row class="my-4" v-if="windowWidth > 788">
       <v-col cols="4" v-for="feed in userprofiledata.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
           <img :src="feed.src" 
           alt="안나오는겁니다!" 
-          style="width:100%;" 
+          style="width:100%; height: 20vw" 
           :feed="feed" 
           @click="feedDetail(feed)" >
         </div>
       </v-col>
     </v-row>
+    <v-row v-else class="bg-gray">
+      <v-col cols='12'  v-for="feed in userprofiledata.feeds" :key="feed.no">
+        <v-card
+          :loading="loading"
+          class="mx-auto my-3"
+        >
+          <v-img
+            height="300"
+            :src="feed.src"
+            @click="feedDetail(feed)"
+          ></v-img>
+
+          <v-card-text @click="feedDetail(feed)">
+            <v-row
+              align="center"
+              class="mx-0"
+            >
+            </v-row>
+
+            <div class="my-4 subtitle-1">
+              {{feed.description}}
+            </div>
+          </v-card-text>
+
+          <v-card-text>
+            <v-chip-group
+              v-model="selection"
+              active-class="deep-purple accent-4 white--text"
+              column
+            >
+              <v-chip v-for="(tag,i) in feed.tag" :key="i" @click="searchTagFeed(tag)">
+                #{{tag}}
+              </v-chip>
+            </v-chip-group>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
   </div>
 </template>
 
@@ -299,8 +339,6 @@ export default {
     console.log(this.privateData)
     this.privateChat(this.privateData)
   },
-  updated () {
-  }
 }
 </script>
 

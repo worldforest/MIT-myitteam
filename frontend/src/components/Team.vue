@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- {{ club.no }} -->
-    <!-- {{ getTeamList }} -->
+    {{ getTeamList }}
     {{ windowWidth }}
     <div class="container" v-if="windowWidth >= 900">
       <div>
@@ -15,7 +15,7 @@
       <!-- 웹 페이지 클 때-->
       <v-row v-if="windowWidth >= 1270">
         <v-col cols="6" v-for="i in getTeamList" :key="i">
-          <!-- {{ i }} -->
+          {{ i }}
           <div class="teamCard py-5 px-5">
             <div>
               <div>
@@ -25,67 +25,16 @@
 
                 <hr class="hrr">
 
-                <div class="text-center">
-                  <v-dialog v-model="dialog" width="500">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn v-bind="attrs" v-on="on" class="white--text mr-3" color="#5C6BC0" @click="emailSave(i)">
-                        상세보기
-                      </v-btn>
-                      <v-btn v-if="i.email == email" class="white--text" color="red" @click="deleteSave(i); deleteTeam(deleteData); getTeamData(i.no);">
-                        삭제하기
-                      </v-btn>
-                    </template>
-
-                    <!-- {{ i.datalist }} -->
-                    <v-card class="cardModal">
-                      <li v-for="item in i.dataList" :key="item">
-                        <div class="headline mb-2 white--text partTitle" >
-                          <v-row class="cardModal">
-                            <h3 class="ml-5 mt-2">{{ item.part }}</h3>
-                            <v-spacer></v-spacer>
-                            <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
-                          </v-row>
-                        </div>
-                        <h3 class="ml-3">담당 업무</h3>
-                        <v-card-text class="ml-2">
-                          <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
-                        </v-card-text>
-                        <hr class="mb-2">
-                        <h3 class="ml-3">필수 역량</h3>
-                        <v-card-text class="ml-2">
-                          <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
-                        </v-card-text>
-                        <hr class="mb-2">
-                        <h3 class="ml-3">우대 사항</h3>
-                        <v-card-text class="ml-2">
-                          <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
-                        </v-card-text>
-                        <v-row justify="center">
-                          <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true"  v-if="email" @click="applyLeader(item); apply(sendData); submitProfile();">
-                            지원하기
-                          </v-btn>
-                        </v-row>
-                      </li>
-
-                      <v-divider></v-divider>
-
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn class="local" color="primary" text @click="dialog = false">
-                          닫기
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </div>
+                <v-row justify="center">
+                  {{ i }}
+                  <router-link :to="{ name:'teamInfoDetail', params:{dataList : i}}"> 상세보기 </router-link>
+                </v-row>
               </div>
             </div>
           </div>      
         </v-col>
       </v-row>
       
-
-      <!-- 900이상 1270미만 -->
       <v-row v-if="windowWidth < 1270 && windowWidth >= 900 ">
         <v-col cols="6" class="px-6" v-for="i in getTeamList" :key="i">
           <div class="teamCard2 py-5 px-5">
@@ -95,57 +44,10 @@
                 <h4 class="mx-auto mt-3" v-if="i.description.length >= 15">{{ i.description.slice(0,8)}}...</h4>
                 <h4 class="mx-auto mt-3" v-else>{{ i.description }}</h4>
                 <hr class="hrr my-4">
-                <div class="text-center">
-                  <v-dialog v-model="dialog" width="500">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn v-bind="attrs" v-on="on" class="white--text mx-auto" color="#5C6BC0" @click="emailSave(i)">
-                        상세보기
-                      </v-btn>
-                      <v-btn v-if="i.email == email" class="ml-3 white--text" color="red" @click="deleteSave(i); deleteTeam(deleteData);">삭제하기</v-btn>
-                    </template>
-
-                    <!-- {{ i.datalist }} -->
-                    <v-card class="cardModal">
-                      <li v-for="item in i.dataList" :key="item">
-                        <div class="headline mb-2 white--text partTitle" >
-                          <v-row class="cardModal">
-                            <h3 class="ml-5 mt-2">{{ item.part }}</h3>
-                            <v-spacer></v-spacer>
-                            <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
-                          </v-row>
-                        </div>
-                        <h3 class="ml-3">담당 업무</h3>
-                        <v-card-text class="ml-2">
-                          <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
-                        </v-card-text>
-                        <hr class="mb-2">
-                        <h3 class="ml-3">필수 역량</h3>
-                        <v-card-text class="ml-2">
-                          <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
-                        </v-card-text>
-                        <hr class="mb-2">
-                        <h3 class="ml-3">우대 사항</h3>
-                        <v-card-text class="ml-2">
-                          <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
-                        </v-card-text>
-                        <v-row justify="center">
-                          <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData); submitProfile();">
-                            지원하기
-                          </v-btn>
-                        </v-row>
-                      </li>
-
-                      <v-divider></v-divider>
-
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn class="local" color="primary" text @click="dialog = false">
-                          닫기
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </div>
+                <v-row justify="center">
+                  {{ i }}
+                  <router-link :to="{ name:'teamInfoDetail', params:{dataList : i}}"> 상세보기 </router-link>
+                </v-row>
               </div>
             </div>
           </div>    
@@ -172,57 +74,10 @@
               <h4 class="mx-auto mt-3" v-if="i.description.length >= 15">{{ i.description.slice(0,8)}}...</h4>
                 <h4 class="mx-auto mt-3" v-else>{{ i.description }}</h4>
               <hr class="hrr my-4">
-              <div class="text-center">
-                <v-dialog v-model="dialog" width="500">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" v-on="on" class="white--text mx-auto" color="#5C6BC0" @click="emailSave(i)">
-                      상세보기
-                    </v-btn>
-                    <v-btn v-if="i.email == email" class="ml-3 white--text" color="red" @click="deleteSave(i); deleteTeam(deleteData);">삭제하기</v-btn>
-                  </template>
-
-                  <!-- {{ i.datalist }} -->
-                  <v-card class="cardModal">
-                    <li v-for="item in i.dataList" :key="item">
-                      <div class="headline mb-2 white--text partTitle" >
-                        <v-row class="cardModal">
-                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
-                          <v-spacer></v-spacer>
-                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
-                        </v-row>
-                      </div>
-                      <h3 class="ml-3">담당 업무</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
-                      </v-card-text>
-                      <hr class="mb-2">
-                      <h3 class="ml-3">필수 역량</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
-                      </v-card-text>
-                      <hr class="mb-2">
-                      <h3 class="ml-3">우대 사항</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
-                      </v-card-text>
-                      <v-row justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData); submitProfile();">
-                          지원하기
-                        </v-btn>
-                      </v-row>
-                    </li>
-
-                    <v-divider></v-divider>
-
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="local" color="primary" text @click="dialog = false">
-                        닫기
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </div>
+              <v-row justify="center">
+                {{ i }}
+                <router-link :to="{ name:'teamInfoDetail', params:{dataList : i}}"> 상세보기 </router-link>
+              </v-row>
             </div>
           </div>        
         </v-col>
@@ -237,56 +92,10 @@
               <h5 class="mx-auto mt-3" v-if="i.description.length >= 15">{{ i.description.slice(0,8)}}...</h5>
               <h5 class="mx-auto mt-3" v-else>{{ i.description }}</h5>
               <hr class="hrr my-4">
-              <div class="text-center">
-                <v-dialog v-model="dialog" width="500">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" v-on="on" class="white--text mx-auto" color="#5C6BC0" @click="emailSave(i)">
-                      상세보기
-                    </v-btn>
-                    <v-btn v-if="i.email == email" class="ml-3 white--text" color="red" @click="deleteSave(i); deleteTeam(deleteData);">삭제하기</v-btn>
-                  </template>
-
-                  <v-card class="cardModal">
-                    <li v-for="item in i.dataList" :key="item">
-                      <div class="headline mb-2 white--text partTitle" >
-                        <v-row class="cardModal">
-                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
-                          <v-spacer></v-spacer>
-                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
-                        </v-row>
-                      </div>
-                      <h3 class="ml-3">담당 업무</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
-                      </v-card-text>
-                      <hr class="mb-2">
-                      <h3 class="ml-3">필수 역량</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
-                      </v-card-text>
-                      <hr class="mb-2">
-                      <h3 class="ml-3">우대 사항</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
-                      </v-card-text>
-                      <v-row justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData); submitProfile();">
-                          지원하기
-                        </v-btn>
-                      </v-row>
-                    </li>
-
-                    <v-divider></v-divider>
-
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="local" color="primary" text @click="dialog = false">
-                        닫기
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </div>
+              <v-row justify="center">
+                {{ i }}
+                <router-link :to="{ name:'teamInfoDetail', params:{dataList : i}}"> 상세보기 </router-link>
+              </v-row>
             </div>
           </div>        
         </v-col>
@@ -301,57 +110,10 @@
               <h4 class="mx-auto mt-3" v-if="i.description.length >= 15">{{ i.description.slice(0,8)}}...</h4>
               <h4 class="mx-auto mt-3" v-else>{{ i.description }}</h4>
               <hr class="hrr my-4">
-              <div class="text-center">
-                <v-dialog v-model="dialog" width="500">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" v-on="on" class="white--text mx-auto" color="#5C6BC0" @click="emailSave(i)">
-                      상세보기
-                    </v-btn>
-                    <v-btn v-if="i.email == email" class="ml-3 white--text" color="red" @click="deleteSave(i); deleteTeam(deleteData);">삭제하기</v-btn>
-                  </template>
-
-                  <!-- {{ i.datalist }} -->
-                  <v-card class="cardModal">
-                    <li v-for="item in i.dataList" :key="item">
-                      <div class="headline mb-2 white--text partTitle" >
-                        <v-row class="cardModal">
-                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
-                          <v-spacer></v-spacer>
-                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
-                        </v-row>
-                      </div>
-                      <h3 class="ml-3">담당 업무</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
-                      </v-card-text>
-                      <hr class="mb-2">
-                      <h3 class="ml-3">필수 역량</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
-                      </v-card-text>
-                      <hr class="mb-2">
-                      <h3 class="ml-3">우대 사항</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
-                      </v-card-text>
-                      <v-row justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData); submitProfile();">
-                          지원하기
-                        </v-btn>
-                      </v-row>
-                    </li>
-
-                    <v-divider></v-divider>
-
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="local" color="primary" text @click="dialog = false">
-                        닫기
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </div>
+              <v-row justify="center">
+                {{ i }}
+                <router-link :to="{ name:'teamInfoDetail', params:{dataList : i}}"> 상세보기 </router-link>
+              </v-row>
             </div>
           </div>        
         </v-col>
@@ -366,57 +128,10 @@
               <h5 class="mx-auto mt-3" v-if="i.description.length >= 15">{{ i.description.slice(0,8)}}...</h5>
               <h5 class="mx-auto mt-3" v-else>{{ i.description }}</h5>
               <hr class="hrr my-4">
-              <div class="text-center">
-                <v-dialog v-model="dialog" width="500">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" v-on="on" class="white--text mx-auto" color="#5C6BC0" @click="emailSave(i)">
-                      상세보기
-                    </v-btn>
-                    <v-btn v-if="i.email == email" class="ml-3 white--text" color="red" @click="deleteSave(i); deleteTeam(deleteData);">삭제하기</v-btn>
-                  </template>
-
-                  <!-- {{ i.datalist }} -->
-                  <v-card class="cardModal">
-                    <li v-for="item in i.dataList" :key="item">
-                      <div class="headline mb-2 white--text partTitle" >
-                        <v-row class="cardModal">
-                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
-                          <v-spacer></v-spacer>
-                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
-                        </v-row>
-                      </div>
-                      <h3 class="ml-3">담당 업무</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
-                      </v-card-text>
-                      <hr class="mb-2">
-                      <h3 class="ml-3">필수 역량</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
-                      </v-card-text>
-                      <hr class="mb-2">
-                      <h3 class="ml-3">우대 사항</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
-                      </v-card-text>
-                      <v-row justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); apply(sendData); submitProfile();">
-                          지원하기
-                        </v-btn>
-                      </v-row>
-                    </li>
-
-                    <v-divider></v-divider>
-
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn class="local" color="primary" text @click="dialog = false">
-                        닫기
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </div>
+              <v-row justify="center">
+                {{ i }}
+                <router-link :to="{ name:'teamInfoDetail', params:{dataList : i}}"> 상세보기 </router-link>
+              </v-row>
             </div>
           </div>      
         </v-col>
@@ -469,7 +184,7 @@ export default {
       applyData: '',
       buttonvalue: '',
       dialog: false,
-      dialog2: false,
+      // dialog2: false,
       windowWidth: window.innerWidth,
       sendData: {
         no: '',
