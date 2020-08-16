@@ -44,29 +44,20 @@ public class ChatController {
 	private ChatlistService chatlistService;
 
 	// 닉네임으로 채팅방 만들기
-	@ApiOperation(value = "1:1방 이름 설정", notes = "1:1방 가져오기 했는데 '내 메일, 상대 메일'로 채팅방 이름 설정")
-	@PostMapping("createprivate")
-	public ResponseEntity<String> createprivate(@RequestParam("mynickname") String mynickname,
+	@ApiOperation(value = "1:1방 이름 설정", notes = "1:1방 가져오기 했는데 없으면 만들고 있으면 채팅방이름 반환")
+	@PostMapping("privateCaht")
+	public ResponseEntity<String> privateCaht(@RequestParam("mynickname") String mynickname,
 			@RequestParam("yournickname") String yournickname) {
 
 		String roomname = mynickname.concat(",").concat(yournickname);
-		chatlistService.insert(roomname);
-		String roomnum = chatlistService.selectno(roomname);
-		chatmemberService.insert(roomnum, mynickname);
-		chatmemberService.insert(roomnum, yournickname);
-		return new ResponseEntity<String>(roomname, HttpStatus.OK);
-	}
-
-	@ApiOperation(value = "나의 1:1방 가져오기", notes = "'내 메일, 상대 메일'로 채팅방 이름 가져오기")
-	@PostMapping("findfrivate")
-	public ResponseEntity<String> findfrivate(@RequestParam("mynickname") String mynickname,
-			@RequestParam("yournickname") String yournickname) {
-		String no = chatmemberService.select(mynickname, yournickname);
-		if (no != null) {
-			String roomname = chatlistService.select(no);
-			return new ResponseEntity<String>(roomname, HttpStatus.OK);
+		// 채팅방이 없으면
+		if (chatlistService.selectno(roomname) != null) {
+			chatlistService.insert(roomname);
+			String roomnum = chatlistService.selectno(roomname);
+			chatmemberService.insert(roomnum, mynickname);
+			chatmemberService.insert(roomnum, yournickname);
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+		return new ResponseEntity<String>(roomname, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "팀 채팅방 이름 설정", notes = "no,email보내면 팀멤버들이름으로  채팅방 이름 설정")
