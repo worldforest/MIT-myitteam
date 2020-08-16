@@ -46,6 +46,16 @@ export default {
         // sessionStorage.setItem('project', JSON.stringify(res))
     },
     USERINPUT(state, res) {
+        for (let i=0; i<res.feeds.length; i++) {
+            res.feeds[i].tag = res.feeds[i].tag.split('#');
+            let data = [];
+            for (let z=0; z<res.feeds[i].tag.length; z++) {
+                if (res.feeds[i].tag[z] !== '') {
+                    data.push(res.feeds[i].tag[z])
+                }
+            }
+            res.feeds[i].tag = data
+        }
         sessionStorage.setItem('userprofileinfo', JSON.stringify(res))
         state.userprofiledata = res
     },
@@ -121,6 +131,16 @@ export default {
         router.push({name: "UpdateProfile"})
     },
     setTag(state, data) {
+        for (let i=0; i<data.res.length; i++) {
+            data.res[i].tag = data.res[i].tag.split('#');
+            let data2 = [];
+            for (let z=0; z<data.res[i].tag.length; z++) {
+                if (data.res[i].tag[z] !== '') {
+                    data2.push(data.res[i].tag[z])
+                }
+            }
+            data.res[i].tag = data2
+        }
         state.tagData = data.res
         state.keyword = data.keyword
         router.push({name: "searchTag"})

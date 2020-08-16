@@ -8,7 +8,6 @@ import BootstrapVue from 'bootstrap-vue'
 import VueDaumPostcode from "vue-daum-postcode"
 import VueCarousel from 'vue-carousel'
 
-
 // firebase 설정------------------------------------------
 import firebase from 'firebase'
 
@@ -39,6 +38,8 @@ db.settings({
 });
 //--------------------------------------------------------
 
+var infiniteScroll =  require('vue-infinite-scroll');
+
 
 // Install BootstrapVue
 Vue.use(BootstrapVue)
@@ -46,6 +47,7 @@ Vue.use(VueDaumPostcode)
 Vue.use(VueCookies)
 Vue.use(VueCarousel)
 Vue.config.productionTip = false
+Vue.use(infiniteScroll)
 
 new Vue({
   router,

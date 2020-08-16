@@ -23,6 +23,7 @@ import searchTag from '@/views/searchTag.vue'
 import dmap from '@/views/dmap.vue'
 import FeedUpdate from '@/views/FeedUpdate.vue'
 import teamInfoDetail from '@/views/teamInfoDetail.vue'
+import PageNotFound from '@/views/PageNotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -150,6 +151,15 @@ Vue.use(VueRouter)
     path: '/feedupdate',
     name: 'FeedUpdate',
     component: FeedUpdate,
+  },
+  {
+    path: '*',
+    redirect: '/404'
+  },
+  {
+    path: '/404',
+    name: 'PageNotFound',
+    component: PageNotFound
   },
   //////////지훈////////////
   {

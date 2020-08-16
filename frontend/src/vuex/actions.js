@@ -163,7 +163,12 @@ export default {
 			formdata.append('tags', feedData.tags)
 			axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
 			.then(() => {
-					router.push({ name: "Profile"})
+				Swal.fire({
+					icon: 'success',
+					title: '성공적으로 등록하였습니다.',
+					width: 600
+				})
+				router.push({ name: "Profile"})
 			})
 		}		
 	},
@@ -382,7 +387,7 @@ export default {
 						project.push(res.data[i])
 					}
 			}
-		context.commit('contestData', contest)
+		context.commit('contestData', contest.slice(9))
 		context.commit('projectData', project)
 		})
 	},
@@ -401,15 +406,15 @@ export default {
 				context.commit('USERINPUT', res.data)
 			})
 	},
-	follow(context ,res) {
+	follow(context, res) {
 		var params = new URLSearchParams();
 		if (context.state.email !== null) {
-		params.append('email', context.state.email);
-		params.append('following', res)
-		axios.post(`${SERVER_URL}/api/follow/follow`, params)
+			params.append('email', context.state.email);
+			params.append('following', res)
+			axios.post(`${SERVER_URL}/api/follow/follow`, params)
 				.then(() => {
-		context.dispatch('followerCnt', res)
-		context.dispatch('myFollowerList', res)
+					context.dispatch('followerCnt', res)
+					context.dispatch('myFollowerList', res)
 				})
 		}
 		else {

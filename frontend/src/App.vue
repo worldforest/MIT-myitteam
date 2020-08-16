@@ -3,6 +3,7 @@
     {{ myNick }}
     {{ alarmList }}
     {{ allChat }}
+  
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767">
       <ul>
@@ -281,7 +282,6 @@ export default {
     this.getNickname(this.email)
     // this.getAllChat(this.myNick)
   },
-
 };
 </script>
 
@@ -377,6 +377,8 @@ export default {
     overflow: hidden;
     background-color: white;
     line-height: 90px;
+    box-shadow: 0 0 5px 5px;
+    margin-bottom: 5px;
   }
 
   li {
