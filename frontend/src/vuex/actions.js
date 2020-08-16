@@ -304,27 +304,11 @@ export default {
 		const params = new URLSearchParams();
 		params.append('mynickname', privateData.myNickname)
 		params.append('yournickname', privateData.yourNickname)
-		axios.post(`${SERVER_URL}/api/chat/createprivate`, params)
+		axios.post(`${SERVER_URL}/api/chat/privateCaht`, params)
 		.then( res => {
 			context.commit('privateChatSave', res.data)
 		})
 		.catch( err => console.log(err.response.data))
-	},
-	findPrivate(context, privateData){
-		const params = new URLSearchParams();
-		console.log('채팅창 ')
-		console.log(privateData)
-		params.append('mynickname', privateData.myNickname)
-		params.append('yournickname', privateData.yourNickname)
-		axios.post(`${SERVER_URL}/api/chat/findfrivate`, params)
-		.then( res => {
-			console.log('채팅방이 존재하나요 ?? ')
-			console.log(res.data)
-			context.commit('privateChatSave', res.data)
-		})
-		.catch(() => {
-			context.dispatch('privateChat', privateData) 
-		})
 	},
 	getalarm(context, nickname){
 		const params =  new URLSearchParams();

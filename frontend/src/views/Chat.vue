@@ -1,13 +1,8 @@
 <template>
-    <div class="container">
-      {{ privateChatTitle }}
-      {{ myNick }}
-      {{ allChat }}
-      <h3 class=" text-center">{{privateChatTitle}}Message</h3>
+    <div >
+      <h3 class=" text-center mb-3">{{privateChatTitle}}Message</h3>
       <div class="messaging">
         <div class="inbox_msg">
-              <!-- {{ Date(message.createdAt) }} -->
-          <div class="mesgs">
             <div class="msg_history">
               <div v-for="message in messages" :key="message" class="incoming_msg">
                 <div v-if="message.senduser !== myNick">
@@ -36,7 +31,6 @@
                 <button @click="saveMessage(myNick)" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -63,7 +57,8 @@ export default {
     privateChatTitle: String, 
   },
   methods:{
-    ...mapActions(['getNickname', 'privateChat', 'getAllChat']),
+    ...mapActions(['getNickname', 'privateChat']),
+    // document.querySelector('.message-content-wrap').scrollTop = document.querySelector('.message-content-wrap').scrollHeight;
     newChat(chat){
       this.privateChatTitle = chat
       this.$router.push({name:'Chat', params: { privateChatTitle : this.privateChatTitle  }});
@@ -91,15 +86,18 @@ export default {
     }
   },
   computed:{
-    ...mapState(['email', 'myNick', 'allChat']),
+    ...mapState(['email', 'myNick']),
   },
   created(){
     this.fetchMessages();
-    this.getAllChat(this.myNick);
   }
 }
 </script>
 <style scoped>
+  @font-face {
+    font-family: myFont;
+    src: url("/src/font/BMJUA_ttf.ttf");
+  }
   .container{max-width:1170px; margin:auto;}
   img{ max-width:100%;}
   .inbox_people {
@@ -221,9 +219,9 @@ export default {
     top: 11px;
     width: 33px;
   }
-  .messaging { padding: 0 0 50px 0;}
   .msg_history {
-    height: 516px;
+    margin-top: 1rem;
+    height: 550px;
     overflow-y: auto;
   }
 </style>
