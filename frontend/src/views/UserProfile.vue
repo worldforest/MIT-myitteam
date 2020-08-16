@@ -282,8 +282,6 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
     this.follwerCnt(this.user)
-    // this.getNickname(this.$store.state.email)
-    // this.findPrivate(this.privateData)
   },
 
   created () {
