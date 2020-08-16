@@ -51,7 +51,7 @@ public class ChatController {
 
 		String roomname = mynickname.concat(",").concat(yournickname);
 		// 채팅방이 없으면
-		if (chatlistService.selectno(roomname) != null) {
+		if (chatmemberService.select(mynickname, yournickname)==null) {
 			chatlistService.insert(roomname);
 			String roomnum = chatlistService.selectno(roomname);
 			chatmemberService.insert(roomnum, mynickname);
