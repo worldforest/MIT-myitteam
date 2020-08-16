@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mit.repo.ContentsRepo">
+	<insert id="insert" parameterType="contents">
+		<!-- category가 0이면 공모전 1이면 프로젝트 -->
+		insert into contents(email, nickname, title, category, description,
+		start, end, reward, host, imagesrc, url, views)
+		values(#{email},
+		(select nickname from user where email=#{email}), #{title},
+		#{category}, #{description}, #{start}, #{end}, #{reward}, #{host},
+		#{imagesrc}, #{url}, #{views})
+	</insert>
+
+	<select id="selectAll" parameterType="map" resultType="contents">
+		select no,
+		email, nickname, title, category, description, start, end, reward,
+		host, imagesrc, url, views
+		from contents
+		order by no desc;
+	</select>
+	<select id="selectOne" parameterType="contents"
+		resultType="contents">
+		select no, email, nickname, title, category, description,
+		start, end, reward, host, imagesrc, url, views
+		from contents
+		where no =
+		#{no};
+	</select>
+	<select id="LatestContents" parameterType="String"
+		resultType="String">
+		select no from contents where email = #{email} order by no
+		desc limit 1
+	</select>
+
+	<delete id="delete" parameterType="String">
+		delete from contents
+		where
+		no=#{no}
+	</delete>
+	
+	<update id="viewsplus" parameterType="String">
+		update contents set views = views + 1 where no = #{no}
+	</update>
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mit.repo.FeedRepo">
+	<insert id="insert" parameterType="feed">
+		insert into
+		feed(email,nickname,description,tag,src)
+		values(#{email},(select
+		nickname from user where email
+		=#{email}),
+		#{description},#{tag},#{src});
+	</insert>
+
+	<select id="selectAll" resultType="feed">
+		select * from feed
+		order by no
+	</select>
+
+	<select id="Latestfeed" parameterType="String"
+		resultType="String">
+		select no from feed where email = #{email} order by no desc
+		limit 1;
+	</select>
+
+	<select id="selectEmail" parameterType="String"
+		resultType="feed">
+		select * from feed where email = #{email}
+	</select>
+
+	<select id="selectno" parameterType="String" resultType="feed">
+		select *
+		from feed where no = #{no}
+	</select>
+
+	<select id="slectnoemail" parameterType="String"
+		resultType="feed">
+		select * from feed where no = #{no} and email = #{email}
+	</select>
+	
+	<update id="viewsplus" parameterType="String">
+		update feed set views = (views + 1) where no = #{no}
+	</update>
+	
+	<update id="update" parameterType="feed">
+		update feed
+		set description=#{description},tag=#{tag},src=#{src}
+		where no=#{no}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from feed
+		where no=#{no} and email=#{email}
+	</delete>
+	
+	<delete id="deletetags" parameterType="String">
+		delete from feedtag
+		where no=#{no}
+	</delete>
+</mapper>

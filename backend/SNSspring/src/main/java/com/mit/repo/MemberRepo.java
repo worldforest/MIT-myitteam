@@ -1,0 +1,20 @@
+package com.mit.repo;
+
+import java.util.List;
+
+import com.mit.dto.Member;
+
+public interface MemberRepo {
+	public String countMember(String no, String leaderemail);
+
+	public List<Member> select(String no, String leaderemail);
+
+	public int memberCnt(String no, String leaderemail);
+
+	public boolean delete(String no, String leaderemail, String teamemail);
+
+	public boolean insert(Member member);
+
+	public List<Member> selectEmail(String email);
+
+}

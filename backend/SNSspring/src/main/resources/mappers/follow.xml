@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mit.repo.FollowRepo">
+
+	<insert id="follow" parameterType="follow">
+		insert into
+		follow(email,following)
+		values(#{email}, #{following})
+	</insert>
+
+	<delete id="unfollow" parameterType="follow">
+		delete from follow
+		where
+		email=#{email} and following=#{following}
+	</delete>
+
+	<!-- 내(email)가 팔로우한(following) -->
+	<select id="followingList" parameterType="string"
+		resultType="com.mit.returnDto.FollowList">
+		select a.nickname as nickname, a.email as email
+		from user a
+		join follow b
+		on a.email=b.following
+		where b.email=#{email}
+	</select>
+
+	<select id="followerList" parameterType="string"
+		resultType="com.mit.returnDto.FollowList">
+		select a.nickname as nickname, a.email as email
+		from user a
+		join follow b
+		on a.email=b.email
+		where b.following=#{email}
+	</select>
+
+	<select id="followingCnt" parameterType="string"
+		resultType="int">
+		select count(*) from
+		follow where email=#{email}
+	</select>
+
+	<select id="followerCnt" parameterType="string" resultType="int">
+		select count(*) from
+		follow where following=#{email}
+	</select>
+
+</mapper>

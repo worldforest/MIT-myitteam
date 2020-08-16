@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mit.repo.FeedlikeRepo">
+	<insert id="insert" parameterType="feedlike">
+		insert into feedlike(no,email)
+		values(#{no},#{email})
+	</insert>
+
+	<delete id="delete" parameterType="feedlike">
+		delete from feedlike
+		where
+		no=#{no} and email=#{email}
+	</delete>
+
+	<select id="select" parameterType="String" resultType="int">
+		select
+		count(*)
+		from feedlike
+		where no=#{no}
+	</select>
+
+	<select id="selectAll" parameterType="String"
+		resultType="com.mit.returnDto.FollowList">
+		select a.nickname as nickname, a.email as email
+		from user a
+		join feedlike b
+		on a.email=b.email
+		where no=#{no}
+	</select>
+
+</mapper>

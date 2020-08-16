@@ -1,0 +1,6 @@
+backend/.gitignore
+backend/Servers/
+backend/.metadata/
+backend/SNSspring/log/log.log
+backend/SNSspring/**.log
+/.metadata/
