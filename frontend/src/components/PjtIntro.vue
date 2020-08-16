@@ -8,7 +8,8 @@
       <v-card class="mt-3 px-3 py-3" color="#FAFAFA" style="white-space:pre-line;">{{ club2.description }}</v-card>
     
       <div>
-        <!-- {{ club2 }} -->
+        {{ club2 }}
+        {{ sendData }}
         <!-- {{ getTeamList }} -->
         <h4 class="mt-8 mb-4">팀원 모집 : </h4>
         <v-row v-if="windowWidth >= 1270">
@@ -39,7 +40,7 @@
                         <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                       </v-card-text>
                       <v-row v-if="club2.email !== email" justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
                           지원하기
                         </v-btn>
                       </v-row>
@@ -84,7 +85,7 @@
                         <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                       </v-card-text>
                       <v-row v-if="club2.email !== email" justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
                           지원하기
                         </v-btn>
                       </v-row>
@@ -138,7 +139,7 @@
                       <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                     </v-card-text>
                     <v-row v-if="club2.email !== email" justify="center">
-                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
+                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
                         지원하기
                       </v-btn>
                     </v-row>
@@ -184,7 +185,7 @@
                       <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                     </v-card-text>
                     <v-row v-if="club2.email !== email" justify="center">
-                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
+                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
                         지원하기
                       </v-btn>
                     </v-row>
@@ -229,7 +230,7 @@
                       <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                     </v-card-text>
                     <v-row v-if="club2.email !== email" justify="center">
-                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
+                      <v-btn class="mb-3 local" color="primary" v-if="email" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
                         지원하기
                       </v-btn>
                     </v-row>
@@ -251,7 +252,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Swal from 'sweetalert2'
 
 export default {
   name: 'Intro',
@@ -267,8 +267,8 @@ export default {
       dialog2: false,
       applyData: '',
       sendData: {
-        no: this.club2.no,
-        leaderemail: this.club2.email,
+        no: '',
+        leaderemail: '',
         email: '',
         part: '',
       },
@@ -291,29 +291,23 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   computed : {
-    ...mapState(['email']),
+    ...mapState(['email', ]),
   },
   methods: {
     ...mapActions(['apply', 'deletePjt']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
-    submitProfile(){
-			Swal.fire({
-        text: '팀장에게 프로필을 전달하였습니다.',
-			})
-    },
     applyLeader(item){
       this.sendData.part = item.part
       this.sendData.email = this.$store.state.email
       console.log(this.sendData)
     },
-    // emailSave(i){
-    //   this.sendData.leaderemail = i.email
-    //   this.sendData.no = i.no
-    // }
+    emailSave(i){
+      this.sendData.leaderemail = i.email
+      this.sendData.no = i.no
+    }
   },
-
 }
 </script>
 

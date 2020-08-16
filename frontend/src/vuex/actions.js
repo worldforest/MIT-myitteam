@@ -208,8 +208,6 @@ export default {
 		})
 	},
 	apply(context, sendData){
-		console.log('지원한다아아아아앙아')
-		console.log(sendData)
 		const params = new URLSearchParams();
 		params.append('no', sendData.no);
 		params.append('leaderemail', sendData.leaderemail);
@@ -319,19 +317,15 @@ export default {
 		params.append('yournickname', privateData.yourNickname)
 		axios.post(`${SERVER_URL}/api/chat/privateCaht`, params)
 		.then( res => {
-			console.log('타이틀 저장 한다요')
 			context.commit('privateChatSave', res.data)
 		})
 		.catch( err => console.log(err.response.data))
 	},
 	getalarm(context, nickname){
-		console.log('알람시작')
-		console.log(nickname)
 		const params =  new URLSearchParams();
 		params.append('nickname', nickname)
 		axios.post(`${SERVER_URL}/api/alarm/list`, params)
 		.then( res => {
-			console.log('알람 성공')
 			context.commit('getalarmList', res.data)
 		})
 		.catch( err => console.log(err.response.data))

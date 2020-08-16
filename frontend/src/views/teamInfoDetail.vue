@@ -1,36 +1,70 @@
 <template>
-  <v-card >
-		{{ dataList }}
-		{{ sendData }}
-		<li v-for="item in dataList.dataList" :key="item">
-			<div class="headline mb-2 white--text partTitle" >
-				<v-row class="cardModal">
-					<h3 class="ml-5 mt-2">{{ item.part }}</h3>
-					<v-spacer></v-spacer>
-					<h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
-				</v-row>
-			</div>
-			<h3 class="ml-3">담당 업무</h3>
-			<v-card-text class="ml-2">
-				<v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
-			</v-card-text>
-			<hr class="mb-2">
-			<h3 class="ml-3">필수 역량</h3>
-			<v-card-text class="ml-2">
-				<v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
-			</v-card-text>
-			<hr class="mb-2">
-			<h3 class="ml-3">우대 사항</h3>
-			<v-card-text class="ml-2">
-				<v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
-			</v-card-text>
-			<v-row justify="center">
-				<v-btn class="mb-3 local" color="primary" dark v-if="email" @click="applyLeader(item); apply(sendData); submitProfile();">
-						지원하기
-				</v-btn>
-			</v-row>
-		</li>
-  </v-card>
+  <div>
+    <div class="cont" v-if="windowWidth >= 900">
+      <!-- {{ dataList }}
+      {{ sendData }}
+      {{ windowWidth }} -->
+      <li v-for="item in dataList.dataList" :key="item" class="bord">
+        <!-- {{ item }} -->
+        <div class="headline mb-2 white--text partTitle" >
+          <v-row class="cardModal">
+            <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+            <v-spacer></v-spacer>
+            <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+          </v-row>
+        </div>
+        <h3 class="ml-3">담당 업무</h3>
+        <v-card-text class="ml-2">
+          <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+        </v-card-text>
+        <hr class="mb-2">
+        <h3 class="ml-3">필수 역량</h3>
+        <v-card-text class="ml-2">
+          <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+        </v-card-text>
+        <hr class="mb-2">
+        <h3 class="ml-3">우대 사항</h3>
+        <v-card-text class="ml-2">
+          <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+        </v-card-text>
+        <v-row justify="center">
+          <v-btn class="mb-3 local" color="primary" dark v-if="email && email !== dataList.email" @click="applyLeader(item); apply(sendData); submitProfile();">
+              지원하기
+          </v-btn>
+        </v-row>
+      </li>
+    </div>
+    <div class="cont2" v-if="windowWidth < 900">
+      <li v-for="item in dataList.dataList" :key="item" class="bord">
+        <div class="headline mb-2 white--text partTitle" >
+          <v-row class="cardModal">
+            <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+            <v-spacer></v-spacer>
+            <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+          </v-row>
+        </div>
+        <h3 class="ml-3">담당 업무</h3>
+        <v-card-text class="ml-2">
+          <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+        </v-card-text>
+        <hr class="mb-2">
+        <h3 class="ml-3">필수 역량</h3>
+        <v-card-text class="ml-2">
+          <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+        </v-card-text>
+        <hr class="mb-2">
+        <h3 class="ml-3">우대 사항</h3>
+        <v-card-text class="ml-2">
+          <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+        </v-card-text>
+        <v-row justify="center">
+          <v-btn class="mb-3 local" color="primary" dark v-if="email && email !== dataList.email" @click="applyLeader(item); apply(sendData); submitProfile();">
+              지원하기
+          </v-btn>
+        </v-row>
+      </li>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -45,6 +79,7 @@ export default {
         email: '',
         part: '',
       },
+      windowWidth: window.innerWidth,
 		}
 	},
 	methods: {
@@ -60,7 +95,10 @@ export default {
     deleteSave(i){
       this.deleteData.no = i.no
       this.deleteData.leaderemail = i.email
-    }
+    },
+    onResize() {
+    this.windowWidth = window.innerWidth
+    },
 	},
 	computed : {
     ...mapState(['email']),
@@ -70,7 +108,20 @@ export default {
 	},
 	created() {
 		this.emailSave(this.dataList);
-	},
+  },
+  watch: {
+    windowWidth(newWidth, oldWidth) {
+      this.txt = `it changed to ${newWidth} from ${oldWidth}`;
+    }
+  },
+  beforeDestroy() { 
+    window.removeEventListener('resize', this.onResize); 
+  },
+  mounted () {
+    this.$nextTick(() => {
+    window.addEventListener('resize', this.onResize);
+    })
+  },
 }
 </script>
 
@@ -105,5 +156,15 @@ export default {
   }
   .cardModal{
     font-family: myFont, sans-serif;
+  }
+  .cont{
+    margin: 1rem 15%;
+  }
+  .cont2 {
+    margin: 0 0;
+  }
+  .bord {
+    border: 2px solid rgb(92, 107, 192);
+    margin-bottom: 1rem;
   }
 </style>
