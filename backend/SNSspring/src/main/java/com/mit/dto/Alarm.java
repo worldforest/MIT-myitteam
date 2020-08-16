@@ -1,6 +1,6 @@
 package com.mit.dto;
 
-public class Alram {
+public class Alarm {
 	private String no;
 	private String addressee;
 	private String sender;

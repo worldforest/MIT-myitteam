@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mit.dto.Alram;
+import com.mit.dto.Alarm;
 import com.mit.dto.Applymember;
 import com.mit.dto.Contents;
 import com.mit.dto.Member;
@@ -28,7 +28,7 @@ import com.mit.dto.Teaminfo;
 import com.mit.returnDto.RegTeam;
 import com.mit.returnDto.RegTeamInfo;
 import com.mit.returnDto.TeamDto;
-import com.mit.service.AlramService;
+import com.mit.service.AlarmService;
 import com.mit.service.ApplymemberService;
 import com.mit.service.ContentsService;
 import com.mit.service.MemberScheduleService;
@@ -64,7 +64,7 @@ public class TeamController {
 	@Autowired
 	private MemberScheduleService memberScheduleService;
 	@Autowired
-	private AlramService alramService;
+	private AlarmService alramService;
 
 	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n" + "필요 데이터\n"
 			+ "description,email(프로젝트팀 생성자),title,start,end,info")
@@ -261,7 +261,7 @@ public class TeamController {
 			applymember.setPart(part);
 			applymember.setTeamemail(email);
 			applymemberService.insert(applymember);
-			Alram alram = new Alram();
+			Alarm alram = new Alarm();
 			String leadernickname = userService.selectNickname(leaderemail);
 			alram.setAddressee(leadernickname);// 팀장에게
 			String membernickname = userService.selectNickname(email);
