@@ -164,7 +164,12 @@ export default {
 			formdata.append('tags', feedData.tags)
 			axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
 			.then(() => {
-					router.push({ name: "Profile"})
+				Swal.fire({
+					icon: 'success',
+					title: '성공적으로 등록하였습니다.',
+					width: 600
+				})
+				router.push({ name: "Profile"})
 			})
 		}		
 	},
@@ -356,15 +361,15 @@ export default {
 					context.commit('USERINPUT', res.data)
 			})
 	},
-	follow(context) {
+	follow(context, res) {
 		var params = new URLSearchParams();
 		if (context.state.email !== null) {
-		params.append('email', context.state.email);
-		params.append('following', context.state.userprofiledata.feeds[0].email)
-		axios.post(`${SERVER_URL}/api/follow/follow`, params)
+			params.append('email', context.state.email);
+			params.append('following', res)
+			axios.post(`${SERVER_URL}/api/follow/follow`, params)
 				.then(() => {
-		context.dispatch('followerCnt', context.state.userprofiledata.feeds[0].email)
-		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
+					context.dispatch('followerCnt', res)
+					context.dispatch('myFollowerList', res)
 				})
 		}
 		else {

@@ -190,12 +190,6 @@ export default {
     this.getNickname(this.email)
   },
   created () { 
-    if (document.location.pathname === '/404') { 
-      this.isChecked = true; 
-    }
-    else {
-        this.isChecked = false;
-    }
   }
 };
 </script>
