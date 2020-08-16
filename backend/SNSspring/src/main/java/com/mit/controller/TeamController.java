@@ -250,8 +250,8 @@ public class TeamController {
 			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
 			@RequestParam("email") String email) {
 
-		int currmember = Integer.parseInt(memberService.countMember(no, leaderemail));// 현재 팀원
-		int wantmember = Integer.parseInt(teaminfoService.countHead(no, leaderemail));// 구하는 팀원
+		int currmember = Integer.valueOf(memberService.countMember(no, leaderemail));// 현재 팀원
+		int wantmember = Integer.valueOf(teaminfoService.countHead(no, leaderemail));// 구하는 팀원
 
 		// 아직 다 안구해졌을 때만
 		if (currmember != wantmember) {
@@ -294,8 +294,8 @@ public class TeamController {
 		member.setMemberemail(teamemail);
 		memberService.insert(member);
 
-		int currmember = Integer.parseInt(memberService.countMember(no, leaderemail));
-		int wantmember = Integer.parseInt(teaminfoService.countHead(no, leaderemail));
+		int currmember = memberService.countMember(no, leaderemail);
+		int wantmember = teaminfoService.countHead(no, leaderemail);
 
 		if (currmember == wantmember) {
 			applymemberService.deleteAll(no, leaderemail);
@@ -376,7 +376,7 @@ public class TeamController {
 		Iterator<String> keys = selectSchedule.keySet().iterator();
 
 		System.out.println();
-		int memberCnt = Integer.parseInt(memberService.countMember(no, leaderemail));
+		int memberCnt = memberService.countMember(no, leaderemail);
 		System.out.println(memberCnt);
 		List<String> selectDate = new ArrayList<>();
 		while (keys.hasNext()) {
@@ -400,8 +400,8 @@ public class TeamController {
 
 	@ApiOperation(value = "팀원 총인원 구하기", notes = "contents no 와 leaderemail을 등록하면 총 수를 반환합니다 리더수 포함.")
 	@PostMapping("countTeam")
-	public ResponseEntity<String> contTeam(@RequestParam String no, @RequestParam String leaderemail) {
-		return new ResponseEntity<String>(memberService.countMember(no, leaderemail), HttpStatus.OK);
+	public ResponseEntity<Integer> contTeam(@RequestParam String no, @RequestParam String leaderemail) {
+		return new ResponseEntity<Integer>(memberService.countMember(no, leaderemail), HttpStatus.OK);
 	}
 
 }
