@@ -146,4 +146,13 @@ export default {
     selectDay(state, res) {
         state.meetDay = res
     },
+    getalarmList(state, data){
+        state.alarmList = data
+    },
+    getallList(state, data){
+        state.allChat = data
+    },
+    getteamChat(state, data){
+        state.teamchatTitle = data
+    }
 }

@@ -39,7 +39,7 @@ public class TeaminfoServiceImpl implements TeaminfoService {
 	}
 
 	@Override
-	public int countHead(String no, String leaderemail) {
+	public String countHead(String no, String leaderemail) {
 		return teaminfoRepo.countHead(no, leaderemail);
 	}
 

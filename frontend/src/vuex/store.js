@@ -48,6 +48,9 @@ const state = {
     myDay:[],
     myNick: '',
     privateChatTitle: '',
+    alarmList : [],
+    allChat : [],
+    teamchatTitle: '',
 }
 
 export default new Vuex.Store({
