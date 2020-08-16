@@ -1,7 +1,7 @@
 <template>
   <div class="bg4">
     {{ myNick }}
-    <!-- {{ alarmList }} -->
+    {{ alarmList }}
     {{ allChat }}
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767">
@@ -62,6 +62,7 @@
                     v-bind="attrs"
                     v-on="on"
                     class="accountIcon"
+                    @click="getalarm(myNick)"
                   >
                     mdi-bell
                   </v-icon>
@@ -275,9 +276,6 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
-    // this.getNickname(this.email)
-    this.getalarm(this.myNick)
-    this.getAllChat(this.myNick)
   },
   created () {
     this.getNickname(this.email)

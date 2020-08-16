@@ -203,6 +203,8 @@ export default {
 		})
 	},
 	apply(context, sendData){
+		console.log('지원한다아아아아앙아')
+		console.log(sendData)
 		const params = new URLSearchParams();
 		params.append('no', sendData.no);
 		params.append('leaderemail', sendData.leaderemail);
@@ -210,6 +212,11 @@ export default {
 		params.append('part', sendData.part);
 		axios.post(`${SERVER_URL}/api/team/applyTeam`, params)
 		.then(()=> {
+			Swal.fire({
+				icon: 'success',
+				title: '팀장에게 프로필을 전달하였습니다.',
+				width: 600
+			})
 		})
 		.catch(err => {
 			console.log(err.response.data)
@@ -313,10 +320,13 @@ export default {
 		.catch( err => console.log(err.response.data))
 	},
 	getalarm(context, nickname){
+		console.log('알람시작')
+		console.log(nickname)
 		const params =  new URLSearchParams();
 		params.append('nickname', nickname)
-		axios.post(`${SERVER_URL}/api/alram/list`, params)
+		axios.post(`${SERVER_URL}/api/alarm/list`, params)
 		.then( res => {
+			console.log('알람 성공')
 			context.commit('getalarmList', res.data)
 		})
 		.catch( err => console.log(err.response.data))
@@ -324,7 +334,7 @@ export default {
 	deleteAlarm(context, alarm){
 		const params = new URLSearchParams();
 		params.append('no', alarm.no)
-		axios.post(`${SERVER_URL}/api/alram/delete`, params)
+		axios.post(`${SERVER_URL}/api/alarm/delete`, params)
 		.then( () => {
 			context.dispatch('getalarm', alarm.addressee)
 		})
