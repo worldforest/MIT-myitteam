@@ -376,7 +376,7 @@ export default {
 						project.push(res.data[i])
 					}
 			}
-		context.commit('contestData', contest.slice(10))
+		context.commit('contestData', contest.slice(9))
 		context.commit('projectData', project)
 		})
 	},

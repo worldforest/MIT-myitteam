@@ -90,7 +90,13 @@
     <!-- /////////////////////////////    화면이 중간(작은)일 때     //////////////////////////////////////// -->
 
     <div v-else-if="windowWidth < 960 && windowWidth >=500">
-      <v-row> 
+      <div class="d-flex">
+        <h3 class="ml-auto cursor" @click="Tflag()">공모전</h3>
+        <h3 class="mx-3 cursor" @click="Fflag()">프로젝트</h3>
+      </div>
+      <h3 v-if="flag">공모전</h3>
+      <h3 v-if="!flag">프로젝트</h3>
+      <v-row class="mt-0" v-if="flag">
         <v-col cols="6" v-for="club in clubs" :key="club.no">
           <v-card      
             class="mx-auto my-1 homeCard"
@@ -126,6 +132,28 @@
           </v-card>
         </v-col>
       </v-row>
+      <v-row class="mt-0" v-if="!flag">
+        <v-col cols="6" v-for="club in clubs2" :key="club.no">
+          <v-card      
+            class="mx-auto my-1 homeCard"
+            max-width="344"
+            outlined            
+          >
+            <v-list-item three-line>
+              <v-list-item-content>
+                <v-list-item-title class=" mb-1 font">{{ club.title }}</v-list-item-title>
+                <v-list-item-subtitle>{{ club.start }} ~ {{ club.end }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-card-actions>
+              <v-btn color="orange" text class="mx-auto" @click="projectDetail(club); getTeamData(club.no)">
+                자세히보기
+              </v-btn>  
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
     </div>
 
     <!-- /////////////////////////////    화면이 중간(큰)일 때     //////////////////////////////////////// -->
@@ -154,7 +182,7 @@
     <!-- /////////////////////////////    화면이 클 때     //////////////////////////////////////// -->
 
     <div class="mt-9">
-      <h1 @click="goPJT" class="Pjt_h1 mb-4" v-if="windowWidth > 400">프로젝트</h1>
+      <h1 @click="goPJT" class="Pjt_h1 mb-4" v-if="windowWidth > 960">프로젝트</h1>
       <div v-if="windowWidth >= 1266">      
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
@@ -178,7 +206,7 @@
 
       <!-- /////////////////////////////    화면이 중간일 때     //////////////////////////////////////// -->
 
-      <div v-else-if="500 < windowWidth && 1266 > windowWidth">
+      <div v-else-if="960 < windowWidth && 1266 > windowWidth">
         <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club2 in clubs2" :key="club2.no">
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">

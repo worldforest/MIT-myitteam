@@ -7,12 +7,7 @@
     <!-- {{ email }} -->
     <!-- {{ myNick }}
     {{ privateData }}
-<<<<<<< HEAD
     {{ privateChatTitle }} -->
-=======
-    {{ privateChatTitle }}
-    <!-- 1270 이상 //////////////////////////// -->
->>>>>>> 203a9222dd9523858369ee20600fb6a6dcbd5871
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
