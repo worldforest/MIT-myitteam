@@ -28,7 +28,7 @@
     <div v-else-if="400 > windowWidth">
       <div class="mt-6">
         <h1 class="Pjt_h1 mb-4">공모전</h1>
-        <carousel :per-page="1.5" :navigate-to="someLocalProperty" :mouse-drag="false" >
+        <carousel :per-page="1" :navigate-to="someLocalProperty" :mouse-drag="false" >
           <slide v-for="club in clubs" :key="club.no">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
               <b-card-text @click="gongmoDetail(club)">

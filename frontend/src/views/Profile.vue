@@ -21,9 +21,7 @@
                 </span>
               </template>
 
-              <!-- {{ i.datalist }} -->
               <v-card class="cardModal">
-                <!-- {{ followList }} -->
                 <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
                 
                 <li v-for="item in followList" :key="item">
@@ -41,8 +39,6 @@
             </v-dialog>
           </div>
 
-          
-
           <div class="text-center">
             <v-dialog v-model="dialog2" width="500">
               <template v-slot:activator="{ on, attrs }">
@@ -51,9 +47,7 @@
                 </span>
               </template>
 
-              <!-- {{ i.datalist }} -->
               <v-card class="cardModal">
-                <!-- {{ followerList }} -->
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
                 <li v-for="item in followerList" :key="item">
@@ -70,8 +64,6 @@
               </v-card>
             </v-dialog>
           </div>
-          <!-- <span class="cursor" @click="myFollowList(email);"><h3>팔로우| {{ profileData.followingCnt }}명</h3></span> -->
-          <!-- <span class="mx-auto"><h3>팔로워| {{ profileData.followerCnt }}명</h3></span> -->
         </div>
         <div class="d-flex ml-5">
           <span> <h3>{{ profileData.description }} 개발자</h3> </span>
@@ -107,9 +99,7 @@
                 </span>
               </template>
 
-              <!-- {{ i.datalist }} -->
               <v-card class="cardModal">
-                <!-- {{ followList }} -->
                 <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
                 
                 <li v-for="item in followList" :key="item">
@@ -135,9 +125,7 @@
                 </span>
               </template>
 
-              <!-- {{ i.datalist }} -->
               <v-card class="cardModal">
-                <!-- {{ followerList }} -->
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
                 <li v-for="item in followerList" :key="item">
@@ -197,9 +185,7 @@
               </span>
             </template>
 
-            <!-- {{ i.datalist }} -->
             <v-card class="cardModal">
-              <!-- {{ followList }} -->
               <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
               
               <li v-for="item in followList" :key="item">
@@ -227,9 +213,7 @@
                 </span>
               </template>
 
-              <!-- {{ i.datalist }} -->
               <v-card class="cardModal">
-                <!-- {{ followerList }} -->
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
                 <li v-for="item in followerList" :key="item">
@@ -352,7 +336,6 @@ export default {
     ...mapActions(['profile', 'myFollowList', 'myFollowerList','searchTagFeed'])
   },
   computed : {
-    // ...mapGetter s(['isLoggedIn'])
     ...mapState(['profileData', 'email', 'followList', 'followerList']),
     ...mapGetters(['isLoggedIn',])
   },

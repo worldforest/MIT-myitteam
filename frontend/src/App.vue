@@ -1,7 +1,5 @@
 <template>
-  <div class="bg4">
-    
-    
+  <div class="bg4">    
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767">
       <ul>
@@ -35,7 +33,6 @@
                   >
                     mdi-bell
                   </v-icon>
-                  <!-- <v-icon>mdi-bell-check</v-icon> -->
                 </template>
                 <v-list>
                   <v-list-item>
@@ -80,7 +77,7 @@
     <div v-if="windowWidth <767">
       <div class="bg">
          <div>
-           <router-link to="/"><img src="@/images/logo2.png" alt="MIT Logo" style="height:30px" class="logo2"></router-link>
+           <router-link to="/"><img src="../src/images/logo2.png" alt="MIT Logo" style="height:30px" class="logo2"></router-link>
          </div>
          <div  v-if="!isLoggedIn">
           <router-link to="/login" class="test">LOGIN</router-link>
@@ -110,19 +107,19 @@
       </div>
       <div class="bg2 px-3" v-if="email">
         <div class="bg3 container" >
-          <img src="@/images/project.png" alt="" style="height:100%;" class="ml-2" @click="goPJT">
-          <img src="@/images/contest.png" alt="" style="height:100%;" @click="goCON">
-          <img src="@/images/Team.png" alt="" style="height:100%;" @click="goTEAM" v-if="email">
-          <img src="@/images/profile.png" alt="" style="height:100%;" class="mr-2" @click="goPRO" v-if="email">          
+          <img src="../src/images/project.png" alt="" style="height:100%;" class="ml-2" @click="goPJT">
+          <img src="../src/images/contest.png" alt="" style="height:100%;" @click="goCON">
+          <img src="../src/images/Team.png" alt="" style="height:100%;" @click="goTEAM" v-if="email">
+          <img src="../src/images/profile.png" alt="" style="height:100%;" class="mr-2" @click="goPRO" v-if="email">          
         </div>
       </div>
 
       <div class="bg2 px-3" v-else>
         <div class="bg5 container" >
-          <img src="@/images/project.png" alt="" style="height:100%;" class="ml-2" @click="goPJT">
-          <img src="@/images/contest.png" alt="" style="height:100%;" @click="goCON">
-          <img src="@/images/Team.png" alt="" style="height:100%;" @click="goTEAM" v-if="email">
-          <img src="@/images/profile.png" alt="" style="height:100%;" class="mr-2" @click="goPRO" v-if="email">          
+          <img src="../src/images/project.png" alt="" style="height:100%;" class="ml-2" @click="goPJT">
+          <img src="../src/images/contest.png" alt="" style="height:100%;" @click="goCON">
+          <img src="../src/images/Team.png" alt="" style="height:100%;" @click="goTEAM" v-if="email">
+          <img src="../src/images/profile.png" alt="" style="height:100%;" class="mr-2" @click="goPRO" v-if="email">          
         </div>
       </div>
     </div>
@@ -192,14 +189,14 @@ export default {
     })
     this.getNickname(this.email)
   },
-  // created () { 
-  //   if (document.location.pathname === '/') { 
-  //     this.isChecked = true; 
-  //   }
-  //   else {
-  //       this.isChecked = false;
-  //   }
-  // }
+  created () { 
+    if (document.location.pathname === '/404') { 
+      this.isChecked = true; 
+    }
+    else {
+        this.isChecked = false;
+    }
+  }
 };
 </script>
 
@@ -292,6 +289,8 @@ export default {
     overflow: hidden;
     background-color: white;
     line-height: 90px;
+    box-shadow: 0 0 5px 5px;
+    margin-bottom: 5px;
   }
 
   li {
