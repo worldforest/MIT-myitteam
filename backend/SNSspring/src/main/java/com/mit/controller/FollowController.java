@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mit.algorithm.Path;
-import com.mit.dto.Alram;
+import com.mit.dto.Alarm;
 import com.mit.dto.Follow;
 import com.mit.returnDto.FollowList;
-import com.mit.service.AlramService;
+import com.mit.service.AlarmService;
 import com.mit.service.FollowService;
 import com.mit.service.UserService;
 
@@ -28,7 +28,7 @@ public class FollowController {
 	@Autowired
 	private FollowService followService;
 	@Autowired
-	private AlramService alramService;
+	private AlarmService alramService;
 	@Autowired
 	private UserService userService;
 	
@@ -47,7 +47,7 @@ public class FollowController {
 			follow.setEmail(email);
 			follow.setFollowing(following);
 			
-			Alram alram = new Alram();
+			Alarm alram = new Alarm();
 			String followingnickname=userService.selectNickname(following);			
 			alram.setAddressee(followingnickname);
 			String mynickname = userService.selectNickname(email);
