@@ -1,98 +1,8 @@
 <template>
-    <div class="container">
-      {{ privateChatTitle }}
-      {{ myNick }}
-      <h3 class=" text-center">Messaging</h3>
+    <div >
+      <h3 class=" text-center mb-3">{{privateChatTitle}}Message</h3>
       <div class="messaging">
         <div class="inbox_msg">
-          <!-- <div class="inbox_people">
-            <div class="headind_srch">
-              <div class="recent_heading">
-                <h4>Recent</h4>
-              </div>
-              <div class="srch_bar">
-                <div class="stylish-input-group">
-                  <input type="text" class="search-bar"  placeholder="Search" >
-                  <span class="input-group-addon">
-                  <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                  </span> </div>
-              </div>
-            </div>
-            <div class="inbox_chat">
-              <div class="chat_list active_chat">
-                <div class="chat_people">
-                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="chat_ib">
-                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                    <p>Test, which is a new approach to have all solutions 
-                      astrology under one roof.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="chat_list">
-                <div class="chat_people">
-                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="chat_ib">
-                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                    <p>Test, which is a new approach to have all solutions 
-                      astrology under one roof.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="chat_list">
-                <div class="chat_people">
-                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="chat_ib">
-                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                    <p>Test, which is a new approach to have all solutions 
-                      astrology under one roof.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="chat_list">
-                <div class="chat_people">
-                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="chat_ib">
-                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                    <p>Test, which is a new approach to have all solutions 
-                      astrology under one roof.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="chat_list">
-                <div class="chat_people">
-                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="chat_ib">
-                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                    <p>Test, which is a new approach to have all solutions 
-                      astrology under one roof.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="chat_list">
-                <div class="chat_people">
-                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="chat_ib">
-                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                    <p>Test, which is a new approach to have all solutions 
-                      astrology under one roof.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="chat_list">
-                <div class="chat_people">
-                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                  <div class="chat_ib">
-                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                    <p>Test, which is a new approach to have all solutions 
-                      astrology under one roof.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-              <!-- {{ Date(message.createdAt) }} -->
-          <div class="mesgs">
             <div class="msg_history">
               <div v-for="message in messages" :key="message" class="incoming_msg">
                 <div v-if="message.senduser !== myNick">
@@ -121,7 +31,6 @@
                 <button @click="saveMessage(myNick)" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -149,6 +58,11 @@ export default {
   },
   methods:{
     ...mapActions(['getNickname', 'privateChat']),
+    // document.querySelector('.message-content-wrap').scrollTop = document.querySelector('.message-content-wrap').scrollHeight;
+    newChat(chat){
+      this.privateChatTitle = chat
+      this.$router.push({name:'Chat', params: { privateChatTitle : this.privateChatTitle  }});
+    },
     saveMessage(sendnick){
       //save to message
       db.collection(this.privateChatTitle).add({
@@ -180,6 +94,10 @@ export default {
 }
 </script>
 <style scoped>
+  @font-face {
+    font-family: myFont;
+    src: url("/src/font/BMJUA_ttf.ttf");
+  }
   .container{max-width:1170px; margin:auto;}
   img{ max-width:100%;}
   .inbox_people {
@@ -301,9 +219,9 @@ export default {
     top: 11px;
     width: 33px;
   }
-  .messaging { padding: 0 0 50px 0;}
   .msg_history {
-    height: 516px;
+    margin-top: 1rem;
+    height: 550px;
     overflow-y: auto;
   }
 </style>

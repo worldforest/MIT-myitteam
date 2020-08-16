@@ -1,7 +1,8 @@
 <template>
   <div class="bg4">
-    
-    
+    {{ myNick }}
+    <!-- {{ alarmList }} -->
+    {{ allChat }}
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767">
       <ul>
@@ -24,6 +25,35 @@
         </li>
         <span style="float:right" v-else class="mr-3">
           <v-row>
+
+            <!--채팅이다-->
+            <div class="text-center dkanrjsk ">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    x-large color="#5C6BC0"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="accountIcon not-home mt-1 mr-4"
+                    @click="getAllChat(myNick)"
+                  >
+                    mdi-comment-processing
+                  </v-icon>
+                  <!-- <v-icon>mdi-bell-check</v-icon> -->
+                </template>
+                <v-list v-for="chat in allChat" :key="chat">
+                  <v-list-item>
+                    <v-row>
+                      <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" class="chat_img mr-3">
+                      <span class="not-home ppointer" @click="goChat(chat)">{{ chat }}</span>
+                    </v-row>
+                  </v-list-item>
+                  <hr style="margin:0">
+                </v-list>
+              </v-menu>
+            </div>
+
+            <!--알람이다-->
             <div class="text-center mr-4">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
@@ -36,10 +66,11 @@
                     mdi-bell
                   </v-icon>
                 </template>
-                <v-list>
+                <v-list v-for="alarm in alarmList" :key="alarm">
                   <v-list-item>
-                    <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
+                    <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
                   </v-list-item>
+                  <hr style="margin:0">
                 </v-list>
               </v-menu>
             </div>
@@ -86,7 +117,60 @@
           <router-link to="/signup" class="test">SIGNUP</router-link>
          </div>
          <div v-else>
-          <div class="text-center test">
+           <v-row>
+
+             <!--채팅이다-->
+            <div class="text-center dkanrjsk ">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    x-large color="#FFFFFF"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="accountIcon not-home mt-1 mr-2"
+                    @click="getAllChat(myNick)"
+                  >
+                    mdi-comment-processing
+                  </v-icon>
+                  <!-- <v-icon>mdi-bell-check</v-icon> -->
+                </template>
+                <v-list v-for="chat in allChat" :key="chat">
+                  <v-list-item>
+                    <v-row>
+                      <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" class="chat_img mr-3">
+                      <span class="not-home ppointer" @click="goChat(chat)">{{ chat }}</span>
+                    </v-row>
+                  </v-list-item>
+                  <hr style="margin:0">
+                </v-list>
+              </v-menu>
+            </div>
+
+             <!--알림이다-->
+            <div class="text-center dkanrjsk ">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    x-large color="#FFFFFF"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="accountIcon not-home mt-1 mr-2"
+                  >
+                    mdi-bell
+                  </v-icon>
+                  <!-- <v-icon>mdi-bell-check</v-icon> -->
+                </template>
+                <v-list v-for="alarm in alarmList" :key="alarm">
+                  <v-list-item>
+                    <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
+                  </v-list-item>
+                  <hr style="margin:0">
+                </v-list>
+              </v-menu>
+            </div>
+
+            <!--계정이다-->
+            <div class="text-center test">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
@@ -104,8 +188,9 @@
                   </v-list-item>
                 </v-list>
               </v-menu>
-            </div>
-         </div>
+            </div>s
+           </v-row>
+        </div>
       </div>
       <div class="bg2 px-3" v-if="email">
         <div class="bg3 container" >
@@ -127,7 +212,7 @@
     </div>
     <v-app color="#FAFAFA" class="container">
       <div>
-        <router-view :key="$route.fullPath"/>
+        <router-view :privateChatTitle="$route.fullPath"/>
       </div>
     </v-app>
   </div>
@@ -152,12 +237,11 @@ export default {
     this.txt = `it changed to ${newWidth} from ${oldWidth}`;
     }
   },
-
   beforeDestroy() { 
     window.removeEventListener('resize', this.onResize); 
   },
   methods: {
-    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo', 'getContestData', 'getNickname']),
+    ...mapActions(['logout', 'profile', 'postEmailToken', 'getTeamInfo', 'getContestData', 'getNickname', 'getalarm', 'deleteAlarm', 'getAllChat']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -172,12 +256,14 @@ export default {
     },
     goPRO(){
       this.$router.push('/profile')
+    },
+    goChat(chat){
+      this.$router.push({name: 'Chat', params: { privateChatTitle : chat }});
     }
-
 
   },
   computed: {
-    ...mapState(['email', 'myNick']),
+    ...mapState(['email', 'myNick', 'alarmList', 'allChat']),
     ...mapGetters(['isLoggedIn', 'isEmail'])
   },
   mounted() {
@@ -189,16 +275,15 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
-    this.getNickname(this.email)
+    // this.getNickname(this.email)
+    this.getalarm(this.myNick)
+    this.getAllChat(this.myNick)
   },
-  // created () { 
-  //   if (document.location.pathname === '/') { 
-  //     this.isChecked = true; 
-  //   }
-  //   else {
-  //       this.isChecked = false;
-  //   }
-  // }
+  created () {
+    this.getNickname(this.email)
+    // this.getAllChat(this.myNick)
+  },
+
 };
 </script>
 
@@ -283,6 +368,9 @@ export default {
     border-radius: 0.5rem;
     justify-content: space-around;
   }
+  .ppointer{
+    cursor: pointer;
+  }
 
   ul {
     list-style-type: none;
@@ -316,6 +404,12 @@ export default {
 
   .active {
     background-color: #4CAF50;
+  }
+
+  .chat_img {
+    float: left;
+    width: 30px;
+    height: 30px;
   }
 
 </style>
