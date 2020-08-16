@@ -2,12 +2,12 @@ package com.mit.repo;
 
 import java.util.List;
 
-import com.mit.dto.Alram;
+import com.mit.dto.Alarm;
 
-public interface AlramRepo {
-	public boolean insert(Alram alram);
+public interface AlarmRepo {
+	public boolean insert(Alarm alarm);
 
-	public List<Alram> select(String address);
+	public List<Alarm> select(String address);
 
 	public int count(String address);
 

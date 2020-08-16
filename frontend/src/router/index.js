@@ -26,7 +26,6 @@ import PageNotFound from '@/views/PageNotFound.vue'
 
 Vue.use(VueRouter)
 
-
   const routes = [
     {
     path: '/',
@@ -179,6 +178,6 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
+});
 
-export default router
+export default router;

@@ -18,6 +18,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="String">
 		delete from applymember where
 		no = #{no} and leaderemail = #{leaderemail} and teamemail =
-		#{teamemail}
+		#{teamemail} and part = #{part}
+	</delete>
+	
+	<delete id="deleteALl" parameterType="String">
+		delete from applymember
+		where no=#{no} and leaderemail=#{laedermail}
 	</delete>
 </mapper>

@@ -46,9 +46,12 @@ export default {
       isIntro: true,
       isTeam: false,
       windowWidth: window.innerWidth,
+      club2:[],
     }
   },
   mounted() {
+    this.club2 = JSON.parse(sessionStorage.getItem('projectinfo'))
+    
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })

@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mit.dto.Alram;
-import com.mit.service.AlramService;
+import com.mit.dto.Alarm;
+import com.mit.service.AlarmService;
 
 import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
-@RequestMapping("/api/alram")
-public class AlramController {
+@RequestMapping("/api/alarm")
+public class AlarmController {
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
 	@Autowired
-	private AlramService alramService;
+	private AlarmService alrmService;
 
 	@ApiOperation(value = "알람 목록 보여주기", notes = "nickname을 보내면 목록보여주기, 성공하면 list로 보내줘")
 	@PostMapping("list")
-	public ResponseEntity<List<Alram>> list(@RequestParam String nickname) {
+	public ResponseEntity<List<Alarm>> list(@RequestParam String nickname) {
 
-		List<Alram> alramlist = alramService.select(nickname);
-		return new ResponseEntity<List<Alram>>(alramlist, HttpStatus.OK);
+		List<Alarm> alarmlist = alrmService.select(nickname);
+		return new ResponseEntity<List<Alarm>>(alarmlist, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "알람 읽음 표시", notes = "no 읽음표시 원하는 알림 번호, 성공하면 SUCCESS, 실패하면 FAIL")
 	@PostMapping("update")
 	public ResponseEntity<String> update(@RequestParam String no) {
 		// 선택한 알람 번호로 flag를 업데이트 flag=1(읽음표시)
-		if (alramService.update(no)) {
+		if (alrmService.update(no)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
@@ -47,7 +47,7 @@ public class AlramController {
 	@ApiOperation(value = "알람 삭제하기", notes = "no 삭제 원하는 알림 번호, 성공하면 SUCCESS, 실패하면 FAIL")
 	@PostMapping("delete")
 	public ResponseEntity<String> delete(@RequestParam String no) {
-		if (alramService.delete(no)) {
+		if (alrmService.delete(no)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
