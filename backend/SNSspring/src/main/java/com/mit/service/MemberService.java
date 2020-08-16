@@ -14,5 +14,5 @@ public interface MemberService {
 
 	public List<Member> selectEmail(String email);
 
-	public String countMember(String no, String leaderemail);
+	public int countMember(String no, String leaderemail);
 }
