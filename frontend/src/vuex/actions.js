@@ -6,8 +6,8 @@ import 'url-search-params-polyfill'
 import Swal from 'sweetalert2'
 
 
-// const SERVER_URL = 'http://localhost:9999/mit'
-const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
+const SERVER_URL = 'http://localhost:9999/mit'
+// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
 
 export default {
 	postToken2({ commit }, info) {
@@ -208,6 +208,11 @@ export default {
 		params.append('email', sendData.email);
 		params.append('part', sendData.part);
 		axios.post(`${SERVER_URL}/api/team/applyTeam`, params)
+		.then(()=> {
+		})
+		.catch(err => {
+			console.log(err.response.data)
+		})
 	},
 	deleteTeam(context, deleteData){
 		const params = new URLSearchParams();
@@ -248,7 +253,6 @@ export default {
 		params.append('email', likeData.email)
 		axios.post(`${SERVER_URL}/api/feed/feedlike`, params)
 		.then(() => {
-			console.log('좋아요 성공')
 			context.dispatch('likeCnt', likeData)
 			context.dispatch('likeUser', likeData)
 		})
@@ -269,7 +273,6 @@ export default {
 		axios.post(`${SERVER_URL}/api/feed/feedlikeCnt`, params)
 		.then( res => {
 			context.commit('likeCnt', res.data)
-			
 		})
 	},
 	likeUser(context, likeCntData){
@@ -294,32 +297,62 @@ export default {
 		axios.get(`${SERVER_URL}/api/user/selectNickname?email=${email}`)
 		.then(res => {
 			context.commit('getNick', res.data)
+			context.dispatch('getalarm', res.data)
 		})
 	},
 	privateChat(context, privateData){
 		const params = new URLSearchParams();
 		params.append('mynickname', privateData.myNickname)
 		params.append('yournickname', privateData.yourNickname)
-		axios.post(`${SERVER_URL}/api/chat/createprivate`, params)
+		axios.post(`${SERVER_URL}/api/chat/privateCaht`, params)
 		.then( res => {
 			context.commit('privateChatSave', res.data)
 		})
 		.catch( err => console.log(err.response.data))
 	},
-	findPrivate(context, privateData){
-		const params = new URLSearchParams();
-		params.append('mynickname', privateData.myNickname)
-		params.append('yournickname', privateData.yourNickname)
-		axios.post(`${SERVER_URL}/api/chat/findfrivate`, params)
+	getalarm(context, nickname){
+		const params =  new URLSearchParams();
+		params.append('nickname', nickname)
+		axios.post(`${SERVER_URL}/api/alram/list`, params)
 		.then( res => {
-			context.commit('privateChatSave', res.data)
+			context.commit('getalarmList', res.data)
 		})
-		.catch(() => {
-			context.dispatch('privateChat', privateData) 
-		})
+		.catch( err => console.log(err.response.data))
 	},
-
-
+	deleteAlarm(context, alarm){
+		const params = new URLSearchParams();
+		params.append('no', alarm.no)
+		axios.post(`${SERVER_URL}/api/alram/delete`, params)
+		.then( () => {
+			context.dispatch('getalarm', alarm.addressee)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	getAllChat(context, mynick){
+		const params = new URLSearchParams();
+		params.append('nickname', mynick)
+		axios.post(`${SERVER_URL}/api/chat/selectAll`, params)
+		.then( res => {
+			context.commit('getallList', res.data)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	teamChat(context, teamChatData){
+		console.log(context)
+		console.log(teamChatData)
+		const params = new URLSearchParams();
+		params.append('no', teamChatData.no)
+		params.append('leaderemail', teamChatData.leaderemail)
+		axios.post(`${SERVER_URL}/api/chat/groupChat`, params)
+		.then( res => {
+			console.log('타이틀 얻으러 가쟝')
+			console.log(res)
+			context.commit('getteamChat', res.data)
+		})
+		.catch( err => {
+			console.log('에러양아아아아ㅏ')		
+			console.log(err.response.data)})
+		},
 	//////////다인///////////////
 
 	/////////지훈////////////////

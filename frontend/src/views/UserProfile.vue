@@ -6,6 +6,7 @@
     {{ myNick }}
     {{ privateData }}
     {{ privateChatTitle }}
+    <!-- 1270 이상 //////////////////////////// -->
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
@@ -13,30 +14,51 @@
         </div>
       </v-col>
       
-      <v-col col="10" sm="10" class="fg2">
+      <v-col col="12" sm="10" class="fg2">
         <div class="ml-5">
           <span ><h3 class="my-3">{{ userprofiledata.nickname }}</h3></span>
             <!-- 현재 사용중인 유저 닉네임과 프로필 유저 닉네임이 같지 않고, 팔로우리스트안에 이메일이 없을 경우 -->
-          <span v-if="user !== email">
-            <v-btn
-              v-if="!followerList2.includes(email)"
-              class="ml-3"
-              color="primary"
-              @click="follow(user)"
-            >
-              팔로우
-            </v-btn>
+            <v-row>
+              <span v-if="user !== email">
+                <v-btn
+                  v-if="!followerList2.includes(email)"
+                  class="ml-3"
+                  color="primary"
+                  @click="follow(user)"
+                >
+                  팔로우
+                </v-btn>
 
-            <v-btn
-              v-else
-              class="ml-3"
-              color="primary"
-              @click="unfollow(user)"
-            >
-              팔로우 취소
-            </v-btn>
-          </span>
-          <router-link :to="{name: 'Chat', params:{ privateChatTitle : privateChatTitle }}" class="chatBtn">채팅 하기</router-link>
+                <v-btn
+                  v-else
+                  class="ml-3"
+                  color="primary"
+                  @click="unfollow(user)"
+                >
+                  팔로우 취소
+                </v-btn>
+              </span>
+              
+              <!-- 채팅 좀 하겠습니다 ~~~~~~ -->
+              <v-row justify="center" class="chatmodal">
+                <v-btn color="primary" dark @click.stop="dialog = true">
+                  채팅 하기
+                </v-btn>
+
+                <v-dialog v-model="dialog" max-width="550">
+                  <v-card class="py-5 px-5 chatmodal">
+                    <Chat :privateChatTitle="this.privateChatTitle"/>
+                    <v-card-actions>  
+                      <v-spacer></v-spacer>
+
+                      <v-btn color="green darken-1" class="" text @click="dialog = false">
+                        닫기
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-row>
+            </v-row>
         </div>
         <div class="d-flex my-5 ml-5">
           <span><h4>팔로우| {{ userprofiledata.followingCnt }}명</h4></span>
@@ -49,6 +71,7 @@
       </v-col>
     </v-row>
 
+    <!-- 788 이상 /////////////////////////////////////// -->
     <v-row v-else-if="windowWidth >= 788">
       <v-col col="2" sm="2" class="fg1 mr-6">
         <div class="pf-box">
@@ -59,25 +82,47 @@
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
           <span>{{ userprofiledata.nickname }}</span>
-          <span v-if="user !== email">
-            <v-btn
-              v-if="!followerList2.includes(email)"
-              class="ml-3"
-              color="primary"
-              @click="follow(user)"
-            >
-              팔로우
-            </v-btn>
+          <v-row>
+            <span v-if="user !== email">
+              <v-btn
+                v-if="!followerList2.includes(email)"
+                class="ml-3"
+                color="primary"
+                @click="follow(user)"
+              >
+                팔로우
+              </v-btn>
 
-            <v-btn
-              v-else
-              class="ml-3"
-              color="primary"
-              @click="unfollow(user)"
-            >
-              팔로우 취소
-            </v-btn>
-          </span>
+              <v-btn
+                v-else
+                class="ml-3"
+                color="primary"
+                @click="unfollow(user)"
+              >
+                팔로우 취소
+              </v-btn>
+            </span>
+
+            <!-- 채팅 좀 하겠습니다 ~~~~~~ -->
+            <v-row justify="center" class="chatmodal">
+              <v-btn color="primary" dark @click.stop="dialog = true">
+                채팅 하기
+              </v-btn>
+
+              <v-dialog v-model="dialog" max-width="550">
+                <v-card class="py-5 px-5 chatmodal">
+                  <Chat :privateChatTitle="this.privateChatTitle"/>
+                  <v-card-actions>  
+                    <v-spacer></v-spacer>
+
+                    <v-btn color="green darken-1" class="" text @click="dialog = false">
+                      닫기
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-row>
+          </v-row>
         </div>
         <div class="d-flex my-5 ml-5">
           <span>팔로우| {{ userprofiledata.followingCnt }}명</span>
@@ -91,6 +136,7 @@
       </v-col>
     </v-row>
     
+    <!-- 작을 때 ///////////////////////////////////////////// -->
     <v-row v-else>
       <v-col col="2" sm="2" class="fg1 mr-6">
         <div class="pf-box">
@@ -101,25 +147,49 @@
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
           <h3 class="ml-5 mb-3">{{ userprofiledata.nickname }}</h3>
-          <span v-if="user.email !== email">
-            <v-btn
-              v-if="!followerList2.includes(email)"
-              class="ml-3"
-              color="primary"
-              @click="follow(user)"
-            >
-              팔로우
-            </v-btn>
+          <v-row>
+            <span v-if="user.email !== email">
+              <v-btn
+                v-if="!followerList2.includes(email)"
+                class="ml-3"
+                color="primary"
+                @click="follow(user)"
+              >
+                팔로우
+              </v-btn>
 
-            <v-btn
-              v-else
-              class="ml-3"
-              color="primary"
-              @click="unfollow(user)"
-            >
-              팔로우 취소
-            </v-btn>
-          </span>
+              <v-btn
+                v-else
+                class="ml-3"
+                color="primary"
+                @click="unfollow(user)"
+              >
+                팔로우 취소
+              </v-btn>
+            </span>
+
+            <!-- 채팅 좀 하겠습니다 ~~~~~~ -->
+            <v-row justify="center" class="chatmodal">
+              <span>
+                <v-btn color="primary" dark @click.stop="dialog = true">
+                  채팅 하기
+                </v-btn>
+              </span>
+
+              <v-dialog v-model="dialog" max-width="550">
+                <v-card class="py-5 px-5 chatmodal">
+                  <Chat :privateChatTitle="this.privateChatTitle"/>
+                  <v-card-actions>  
+                    <v-spacer></v-spacer>
+
+                    <v-btn color="green darken-1" class="" text @click="dialog = false">
+                      닫기
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-row>
+          </v-row>
         </div>
       </v-col>
     </v-row>
@@ -151,17 +221,17 @@
         </div>
       </v-col>
     </v-row>
-
-
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
+import Chatting from './Chat.vue'
 
 export default {
   name: 'Profile',
   components: {
+    Chat: Chatting
   },
   props: {
     user: String
@@ -175,7 +245,8 @@ export default {
       privateData: {
         myNickname : this.$store.state.myNick,
         yourNickname : this.$store.state.userprofiledata.nickname, 
-      }
+      },
+      dialog: false
     }
   },
   watch: {
@@ -197,7 +268,7 @@ export default {
       this.windowWidth = window.innerWidth
     },
     ...mapMutations(['feedDetail', 'GET_EMAIL']),
-    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'follwerCnt', 'getNickname', 'privateChat', 'findPrivate'])
+    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'follwerCnt', 'getNickname', 'privateChat',])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
@@ -211,8 +282,6 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
     this.follwerCnt(this.user)
-    this.getNickname(this.$store.state.email)
-    // this.findPrivate(this.privateData)
   },
 
   created () {
@@ -222,15 +291,21 @@ export default {
     // 로그인한 유저의 정보를 확인
     this.profile()
     this.getNickname(this.$store.state.email)
-    this.findPrivate(this.privateData)
+    console.log('여기야 여기.....................')
+    console.log(this.privateData)
+    this.privateChat(this.privateData)
   },
   updated () {
-    this.followerList
   }
 }
 </script>
 
 <style scoped>
+  @font-face {
+    font-family: myFont;
+    src: url("/src/font/BMJUA_ttf.ttf");
+  }
+
   .h1 {
     font-size: 30px;
   }
@@ -304,5 +379,9 @@ export default {
     border-radius: 0.3rem;
     text-decoration: none;
     margin-left: 2rem;
+  }
+
+  .chatmodal{
+    font-family: myFont, sans-serif;
   }
 </style>

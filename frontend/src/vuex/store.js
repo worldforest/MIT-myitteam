@@ -44,6 +44,9 @@ const state = {
     upFeed: [],
     myNick: '',
     privateChatTitle: '',
+    alarmList : [],
+    allChat : [],
+    teamchatTitle: '',
 }
 
 export default new Vuex.Store({

@@ -136,5 +136,14 @@ export default {
     },
     privateChatSave(state, data){
         state.privateChatTitle = data
+    },
+    getalarmList(state, data){
+        state.alarmList = data
+    },
+    getallList(state, data){
+        state.allChat = data
+    },
+    getteamChat(state, data){
+        state.teamchatTitle = data
     }
 }

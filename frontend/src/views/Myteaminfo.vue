@@ -1,6 +1,8 @@
 <template>
   <div>
+    {{ id }}
     <span v-if="saveInfo.leaderemail === email">
+      {{ saveInfo }}
       {{ saveInfo.allCnt}}
       {{ saveInfo.members.length}}
       <span v-if="saveInfo.allCnt != saveInfo.members.length">
@@ -15,19 +17,11 @@
           </v-card-text>
 
           <v-card-actions>
-            <v-btn
-              color="orange"
-              text
-              @click="selectMember(apply)"
-            >
+            <v-btn color="orange" text @click="selectMember(apply)">
               수락
             </v-btn>
 
-            <v-btn
-              color="orange"
-              text
-              @click="deleteMember(apply)"
-            >
+            <v-btn color="orange" text @click="deleteMember(apply)">
               거절
             </v-btn>
           </v-card-actions>
@@ -43,10 +37,18 @@
               header-text-variant="white"
               align="center"
             >
+            <!-- {{ member }} -->
             <router-link :to="{name: 'UserProfile', params:{user:member.memberemail}}"><b-card-text>{{ member.memberemail }}</b-card-text></router-link>
             </b-card>
           </span>
         </b-card-group>
+        
+        <!-- 팀 채팅 하겠습니다 ~~ -->
+        {{ teamchatTitle }}
+        {{ teamChatData }}
+        <router-link :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
+          <v-btn>팀 채팅하기</v-btn>
+        </router-link>
         <v-layout row wrap>
           <v-flex xs12 sm6>
             <v-date-picker
@@ -73,7 +75,10 @@
         <v-btn class="blue darken-1" @click.native="postDate(dateInfo)">확정</v-btn>
       </span>
     </span>
+
+
     <span v-else>
+      {{ saveInfo }}
         <b-card-group deck v-for="member in saveInfo.members" :key="member">
           <span v-if="member.memberemail !== email">
             <b-card
@@ -87,6 +92,13 @@
             </b-card>
           </span>
         </b-card-group>
+
+        {{ teamchatTitle }}
+        {{ teamChatData }}
+        <router-link :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
+          <v-btn>팀 채팅하기</v-btn>
+        </router-link>
+
         <v-layout row wrap>
           <v-flex xs12 sm6>
             <v-date-picker
@@ -133,17 +145,28 @@ export default {
       },
       menu: false,
       saveInfo : null,
+      teamChatData: { 
+        no : this.id,
+        leaderemail : '',
+      }
     }
   },
+  props: {
+    id : String
+  },
   computed: {
-    ...mapState(['myTeamInfo', 'dates', 'email']),
+    ...mapState(['myTeamInfo', 'dates', 'email', 'teamchatTitle']),
   },
   methods : {
-    ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember']),
+    ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'teamChat']),
+    leaderSave(){
+      this.teamChatData.leaderemail = this.saveInfo.leaderemail
+    },
   },
   mounted() {
     // this.dates = this.$store.state.dates
     this.getTeamInfo()
+    // this.teamChat(this.teamChatData)
     const infos = JSON.parse(sessionStorage.getItem('myTeam'))
     for (let i=0; i < infos.length; i++){
       if (this.$route.params.id === infos[i].no) {
@@ -153,8 +176,11 @@ export default {
         this.dateInfo.no = this.$route.params.id
       }
     }
+    this.leaderSave();
+    this.teamChat(this.teamChatData)
   },
-  
+  created() {
+  },
 }
 </script>
 
