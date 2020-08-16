@@ -9,34 +9,34 @@ import com.mit.dto.Alarm;
 import com.mit.repo.AlarmRepo;
 
 @Service
-public class AlramServiceImpl implements AlarmService {
+public class AlarmServiceImpl implements AlarmService {
 
 	@Autowired
-	private AlarmRepo alramRepo;
+	private AlarmRepo alarmRepo;
 
 	@Override
 	public boolean insert(Alarm alram) {
-		return alramRepo.insert(alram);
+		return alarmRepo.insert(alram);
 	}
 
 	@Override
 	public List<Alarm> select(String address) {
-		return alramRepo.select(address);
+		return alarmRepo.select(address);
 	}
 
 	@Override
 	public int count(String address) {
-		return alramRepo.count(address);
+		return alarmRepo.count(address);
 	}
 
 	@Override
 	public boolean update(String no) {
-		return alramRepo.update(no);
+		return alarmRepo.update(no);
 	}
 
 	@Override
 	public boolean delete(String no) {
-		return alramRepo.delete(no);
+		return alarmRepo.delete(no);
 	}
 
 }
