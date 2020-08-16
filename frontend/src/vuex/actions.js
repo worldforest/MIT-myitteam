@@ -199,6 +199,7 @@ export default {
 		axios.post(`${SERVER_URL}/api/team/contentsteamlist`, params)
 		.then(res => {
 			context.commit('GETTEAMDATA', res.data)
+			sessionStorage.setItem('pjtteaminfo', JSON.stringify(res.data))
 		})
 	},
 	apply(context, sendData){
@@ -364,6 +365,7 @@ export default {
 				for(var i=0; i<(res.data).length; i++) {
 					if (res.data[i].category === 0) {
 						contest.push(res.data[i])
+
 					}
 					else {
 						project.push(res.data[i])
@@ -385,18 +387,18 @@ export default {
 	userprofile(context, useremail) {
 		axios.get(`${SERVER_URL}/api/feed/${useremail}`)
 			.then(res => {
-					context.commit('USERINPUT', res.data)
+				context.commit('USERINPUT', res.data)
 			})
 	},
-	follow(context) {
+	follow(context ,res) {
 		var params = new URLSearchParams();
 		if (context.state.email !== null) {
 		params.append('email', context.state.email);
-		params.append('following', context.state.userprofiledata.feeds[0].email)
+		params.append('following', res)
 		axios.post(`${SERVER_URL}/api/follow/follow`, params)
 				.then(() => {
-		context.dispatch('followerCnt', context.state.userprofiledata.feeds[0].email)
-		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
+		context.dispatch('followerCnt', res)
+		context.dispatch('myFollowerList', res)
 				})
 		}
 		else {
@@ -561,6 +563,20 @@ export default {
 	postDate (context, dateinfo) {
 		console.log(dateinfo)
 		axios.post(`${SERVER_URL}/api/team/insetSchedule`, dateinfo)
+		.then(() =>{
+			setTimeout(() => {
+				router.go()
+			}, 100)
+		})
+	},
+	deleteDate (context, dateinfo) {
+		console.log(dateinfo)
+		axios.post(`${SERVER_URL}/api/team/deleteSchedule`, dateinfo)
+		.then(() =>{
+			setTimeout(() => {
+				router.go()
+			}, 100)
+		})
 	},
 	selectMember ({dispatch}, apply) {
 		console.log(apply)
@@ -570,11 +586,15 @@ export default {
 		params.append('part', apply.part)
 		params.append('teamemail', apply.teamemail)
 		axios.post(`${SERVER_URL}/api/team/selectMember`, params)
-		.then(() => {
+		.then((response) => {
+			console.log(response)
 			dispatch('getTeamInfo')
 			setTimeout(() => {
 				router.go()
 			}, 200)
+		})
+		.catch(err => {
+			console.log(err)
 		})
 	},
 	deleteMember ({dispatch}, apply) {
@@ -591,5 +611,30 @@ export default {
 			}, 200)
 		})
 	},
+	selectDay(context, info) {
+		const params = new URLSearchParams();
+		params.append('leaderemail', info.leaderemail)
+		params.append('no', info.no)
+		axios.post(`${SERVER_URL}/api/team/selectSchedule/`, params)
+		.then(response => {
+			context.commit('selectDay', response.data)
+		})
+		.catch(error => {
+			console.log(error)
+		})
+	},
+	getMyday(context, info) {
+		const params = new URLSearchParams();
+		params.append('leaderemail', info.leaderemail)
+		params.append('memberemail', context.state.email)
+		params.append('no', info.no)
+		axios.post(`${SERVER_URL}/api/team/memberSchedule/`, params)
+		.then(response => {
+			context.commit('getDay', response.data)
+		})
+		.catch(error => {
+			console.log(error)
+		})
+	}
 }
 
