@@ -175,7 +175,8 @@ export default {
       privateData: {
         myNickname : this.$store.state.myNick,
         yourNickname : this.$store.state.userprofiledata.nickname, 
-      }
+      },
+      userprofiledata: '',
     }
   },
   watch: {
@@ -206,6 +207,10 @@ export default {
      
   },
   mounted() {
+    setTimeout(() => {
+        this.userprofiledata = JSON.parse(sessionStorage.getItem('userprofileinfo'))
+        this.privateData.yourNickname = this.userprofiledata.nickname
+			}, 100)
     this.followList = this.$store.state.followerList
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
