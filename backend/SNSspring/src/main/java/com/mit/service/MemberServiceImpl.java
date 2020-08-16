@@ -35,12 +35,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int memberCnt(String no, String leaderemail) {
-		return memberRepo.memberCnt(no, leaderemail);
-	}
-
-	@Override
-	public String countMember(String no, String leaderemail) {
+	public int countMember(String no, String leaderemail) {
 		return memberRepo.countMember(no, leaderemail);
 	}
 

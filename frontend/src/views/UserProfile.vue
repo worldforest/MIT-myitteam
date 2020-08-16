@@ -277,6 +277,10 @@ export default {
      
   },
   mounted() {
+    setTimeout(() => {
+        this.userprofiledata = JSON.parse(sessionStorage.getItem('userprofileinfo'))
+        this.privateData.yourNickname = this.userprofiledata.nickname
+			}, 100)
     this.followList = this.$store.state.followerList
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);

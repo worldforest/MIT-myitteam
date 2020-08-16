@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mit.dto.Alram;
+import com.mit.dto.Alarm;
 import com.mit.dto.Applymember;
 import com.mit.dto.Contents;
 import com.mit.dto.Member;
@@ -28,7 +28,7 @@ import com.mit.dto.Teaminfo;
 import com.mit.returnDto.RegTeam;
 import com.mit.returnDto.RegTeamInfo;
 import com.mit.returnDto.TeamDto;
-import com.mit.service.AlramService;
+import com.mit.service.AlarmService;
 import com.mit.service.ApplymemberService;
 import com.mit.service.ContentsService;
 import com.mit.service.MemberScheduleService;
@@ -64,7 +64,7 @@ public class TeamController {
 	@Autowired
 	private MemberScheduleService memberScheduleService;
 	@Autowired
-	private AlramService alramService;
+	private AlarmService alramService;
 
 	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n" + "필요 데이터\n"
 			+ "description,email(프로젝트팀 생성자),title,start,end,info")
@@ -246,26 +246,33 @@ public class TeamController {
 
 	@ApiOperation(value = "팀 지원하기", notes = "팀 정보(번호, 리더메일)과 나의 이메일과 지원파트를 applymember에 저장")
 	@PostMapping("applyTeam")
-	public ResponseEntity<List<TeamDto>> applyTeam(@RequestParam("no") String no,
+	public ResponseEntity<String> applyTeam(@RequestParam("no") String no,
 			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
 			@RequestParam("email") String email) {
 
-		Applymember applymember = new Applymember();
-		applymember.setNo(no);
-		applymember.setLeaderemail(leaderemail);
-		applymember.setPart(part);
-		applymember.setTeamemail(email);
-		applymemberService.insert(applymember);
-		Alram alram = new Alram();
-		String leadernickname = userService.selectNickname(leaderemail);
-		alram.setAddressee(leadernickname);// 팀장에게
-		String membernickname = userService.selectNickname(email);
-		alram.setSender(membernickname);// 내가
-		alram.setMessage(membernickname + "님이 팀에 지원했습니다.");
-		alram.setFlag("0");
-		alramService.insert(alram);
+		int currmember = Integer.valueOf(memberService.countMember(no, leaderemail));// 현재 팀원
+		int wantmember = Integer.valueOf(teaminfoService.countHead(no, leaderemail));// 구하는 팀원
 
-		return null;
+		// 아직 다 안구해졌을 때만
+		if (currmember != wantmember) {
+			Applymember applymember = new Applymember();
+			applymember.setNo(no);
+			applymember.setLeaderemail(leaderemail);
+			applymember.setPart(part);
+			applymember.setTeamemail(email);
+			applymemberService.insert(applymember);
+			Alarm alram = new Alarm();
+			String leadernickname = userService.selectNickname(leaderemail);
+			alram.setAddressee(leadernickname);// 팀장에게
+			String membernickname = userService.selectNickname(email);
+			alram.setSender(membernickname);// 내가
+			alram.setMessage(membernickname + "님이 팀에 지원했습니다.");
+			alram.setFlag("0");
+			alramService.insert(alram);
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+
+		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 	}
 
 	@ApiOperation(value = "팀원 확정하기", notes = "no, leaderemail(팀 구분), part(팀원 파트), teamemail(팀원 메일)")
@@ -274,9 +281,11 @@ public class TeamController {
 			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
 			@RequestParam("teamemail") String teamemail) {
 
-		// 그 팀의
-		// applymember에서 삭제
-		applymemberService.delete(no, leaderemail, teamemail);
+		// applymember에 없으면fail
+		if (!applymemberService.delete(no, leaderemail, teamemail, part)) {
+			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+		}
+		// 있으면
 		// member에 등록
 		Member member = new Member();
 		member.setNo(no);
@@ -285,13 +294,12 @@ public class TeamController {
 		member.setMemberemail(teamemail);
 		memberService.insert(member);
 
-//		//teaminfo.setHeadcount(getHedcount()-1);
-//		//teaminfo에서 그 part의 headcount
-		String headcount = teaminfoService.selectHeadcount(no, leaderemail, part);
-		System.out.println(headcount);
-		int curr = Integer.parseInt(headcount) - 1;
-		System.out.println(curr);
-		teaminfoService.update(no, leaderemail, part, curr + "");
+		int currmember = memberService.countMember(no, leaderemail);
+		int wantmember = teaminfoService.countHead(no, leaderemail);
+
+		if (currmember == wantmember) {
+			applymemberService.deleteAll(no, leaderemail);
+		}
 
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
@@ -302,7 +310,7 @@ public class TeamController {
 			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
 			@RequestParam("teamemail") String teamemail) {
 
-		if (applymemberService.delete(no, leaderemail, teamemail)) {
+		if (applymemberService.delete(no, leaderemail, teamemail, part)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
@@ -368,7 +376,7 @@ public class TeamController {
 		Iterator<String> keys = selectSchedule.keySet().iterator();
 
 		System.out.println();
-		int memberCnt = memberService.memberCnt(no, leaderemail);
+		int memberCnt = memberService.countMember(no, leaderemail);
 		System.out.println(memberCnt);
 		List<String> selectDate = new ArrayList<>();
 		while (keys.hasNext()) {
@@ -392,8 +400,8 @@ public class TeamController {
 
 	@ApiOperation(value = "팀원 총인원 구하기", notes = "contents no 와 leaderemail을 등록하면 총 수를 반환합니다 리더수 포함.")
 	@PostMapping("countTeam")
-	public ResponseEntity<String> contTeam(@RequestParam String no, @RequestParam String leaderemail) {
-		return new ResponseEntity<String>(memberService.countMember(no, leaderemail), HttpStatus.OK);
+	public ResponseEntity<Integer> contTeam(@RequestParam String no, @RequestParam String leaderemail) {
+		return new ResponseEntity<Integer>(memberService.countMember(no, leaderemail), HttpStatus.OK);
 	}
 
 }
