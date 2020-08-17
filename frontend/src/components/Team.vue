@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- {{ club.no }} -->
-    {{ getTeamList }}
+    <!-- {{ getTeamList }} -->
     {{ windowWidth }}
     <div class="container" v-if="windowWidth >= 900">
       <div>
@@ -15,7 +15,6 @@
       <!-- 웹 페이지 클 때-->
       <v-row v-if="windowWidth >= 1270">
         <v-col cols="6" v-for="i in getTeamList" :key="i">
-          {{ i }}
           <div class="teamCard py-5 px-5">
             <div>
               <div>
@@ -26,8 +25,11 @@
                 <hr class="hrr">
 
                 <v-row justify="center">
-                  {{ i }}
-                  <router-link :to="{ name:'teamInfoDetail', params:{dataList : i}}"> 상세보기 </router-link>
+                  <!-- {{ i }} -->
+                  <router-link class="TeamButton white--text mr-5" color="#5C6BC0" :to="{ name:'teamInfoDetail', params:{dataList : i}}">상세보기 </router-link>
+                  <v-btn v-if="i.email === email" color="red" class="white--text button" right @click="deleteSave(i); deleteTeam(deleteData);">
+                    삭제하기
+                  </v-btn> 
                 </v-row>
               </div>
             </div>
@@ -38,15 +40,17 @@
       <v-row v-if="windowWidth < 1270 && windowWidth >= 900 ">
         <v-col cols="6" class="px-6" v-for="i in getTeamList" :key="i">
           <div class="teamCard2 py-5 px-5">
-            <div class="d-flex">
+            <div >
               <div>
                 <h6><span class="local">{{ i.local }}</span></h6>
                 <h4 class="mx-auto mt-3" v-if="i.description.length >= 15">{{ i.description.slice(0,8)}}...</h4>
                 <h4 class="mx-auto mt-3" v-else>{{ i.description }}</h4>
                 <hr class="hrr my-4">
                 <v-row justify="center">
-                  {{ i }}
-                  <router-link :to="{ name:'teamInfoDetail', params:{dataList : i}}"> 상세보기 </router-link>
+                  <router-link class="TeamButton white--text mr-5" color="#5C6BC0" :to="{ name:'teamInfoDetail', params:{dataList : i}}">상세보기 </router-link>
+                  <v-btn v-if="i.email === email" color="red" class="white--text button" right @click="deleteSave(i); deleteTeam(deleteData);">
+                    삭제하기
+                  </v-btn> 
                 </v-row>
               </div>
             </div>
@@ -57,7 +61,7 @@
 
     <!-- 900보다 작을때 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! --> 
     <div v-if="windowWidth < 900">
-      <div class="ma-2">
+      <div>
         <v-row v-if="email">
           <v-spacer></v-spacer>
           <router-link class="TeamButton mr-4" style="color:white" :to="{name: 'TeamRegister', params:{no:club.no}}">
@@ -72,11 +76,13 @@
             <div>
               <h6><span class="local">{{ i.local }}</span></h6>
               <h4 class="mx-auto mt-3" v-if="i.description.length >= 15">{{ i.description.slice(0,8)}}...</h4>
-                <h4 class="mx-auto mt-3" v-else>{{ i.description }}</h4>
+              <h4 class="mx-auto mt-3" v-else>{{ i.description }}</h4>
               <hr class="hrr my-4">
               <v-row justify="center">
-                {{ i }}
-                <router-link :to="{ name:'teamInfoDetail', params:{dataList : i}}"> 상세보기 </router-link>
+                <router-link class="TeamButton white--text mr-5" color="#5C6BC0" :to="{ name:'teamInfoDetail', params:{dataList : i}}">상세보기 </router-link>
+                <v-btn v-if="i.email === email" color="red" class="white--text button" right @click="deleteSave(i); deleteTeam(deleteData);">
+                  삭제하기
+                </v-btn> 
               </v-row>
             </div>
           </div>        
@@ -93,8 +99,10 @@
               <h5 class="mx-auto mt-3" v-else>{{ i.description }}</h5>
               <hr class="hrr my-4">
               <v-row justify="center">
-                {{ i }}
-                <router-link :to="{ name:'teamInfoDetail', params:{dataList : i}}"> 상세보기 </router-link>
+                <router-link class="TeamButton white--text mr-5" color="#5C6BC0" :to="{ name:'teamInfoDetail', params:{dataList : i}}">상세보기 </router-link>
+                <v-btn v-if="i.email === email" color="red" class="white--text button" right @click="deleteSave(i); deleteTeam(deleteData);">
+                  삭제하기
+                </v-btn> 
               </v-row>
             </div>
           </div>        
@@ -111,8 +119,10 @@
               <h4 class="mx-auto mt-3" v-else>{{ i.description }}</h4>
               <hr class="hrr my-4">
               <v-row justify="center">
-                {{ i }}
-                <router-link :to="{ name:'teamInfoDetail', params:{dataList : i}}"> 상세보기 </router-link>
+                <router-link class="TeamButton white--text mr-5" color="#5C6BC0" :to="{ name:'teamInfoDetail', params:{dataList : i}}">상세보기 </router-link>
+                <v-btn v-if="i.email === email" color="red" class="white--text button" right @click="deleteSave(i); deleteTeam(deleteData);">
+                  삭제하기
+                </v-btn> 
               </v-row>
             </div>
           </div>        
@@ -129,8 +139,10 @@
               <h5 class="mx-auto mt-3" v-else>{{ i.description }}</h5>
               <hr class="hrr my-4">
               <v-row justify="center">
-                {{ i }}
-                <router-link :to="{ name:'teamInfoDetail', params:{dataList : i}}"> 상세보기 </router-link>
+                <router-link class="TeamButton white--text mr-5" color="#5C6BC0" :to="{ name:'teamInfoDetail', params:{dataList : i}}">상세보기 </router-link>
+                <v-btn v-if="i.email === email" color="red" class="white--text button" right @click="deleteSave(i); deleteTeam(deleteData);">
+                  삭제하기
+                </v-btn> 
               </v-row>
             </div>
           </div>      
@@ -142,8 +154,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-// import IntroVue from './Intro.vue';
-import Swal from 'sweetalert2'
 
 export default {
   name: 'Team',
@@ -157,11 +167,6 @@ export default {
     ...mapActions(['apply', 'deleteTeam']),
     gotoTeam() {
       this.$router.push('/teamregister')
-    },
-		submitProfile(){
-			Swal.fire({
-				text: '팀장에게 성공적으로 전달하였습니다.',
-			})
     },
     onResize() {
       this.windowWidth = window.innerWidth
@@ -229,12 +234,12 @@ export default {
   }
   .teamCard2 {
     border: 2px solid rgb(92, 107, 192);
-    width: 265px;
+    width: 340px;
     text-align: center;
   }
   .teamCard3 {
     border: 2px solid rgb(92, 107, 192);
-    width: 330px;
+    width: 270px;
     text-align: center;
   }
   .teamCard4 {
@@ -267,7 +272,7 @@ export default {
     background-color: rgb(92, 107, 192);
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: bold;
   }
   li {
@@ -288,5 +293,8 @@ export default {
   }
   .cardModal{
     font-family: myFont, sans-serif;
+  }
+  .button {
+    border-radius: 0.5rem;
   }
 </style>
