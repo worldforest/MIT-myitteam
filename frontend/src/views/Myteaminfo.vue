@@ -244,8 +244,10 @@ export default {
     ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'selectDay', 'getNickname', 'getMyday', 'deleteDate']),
   },
   created() {
+    // setTimeout(() => {
+    //   this.getTeamInfo()
+		// 	}, 200)
     // this.dates = this.$store.state.dates
-    this.getTeamInfo()
     const infos = JSON.parse(sessionStorage.getItem('myTeam'))
     for (let i=0; i < infos.length; i++) {
       if (this.$route.params.id === infos[i].no) {

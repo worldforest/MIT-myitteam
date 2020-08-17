@@ -594,7 +594,7 @@ export default {
 		.then((response) => {
 			console.log(response)
 			dispatch('getTeamInfo')
-			setTimeout(() => {
+			setTimeout(() => {		
 				router.go()
 			}, 200)
 		})
