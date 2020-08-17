@@ -244,27 +244,28 @@ export default {
     ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'selectDay', 'getNickname', 'getMyday', 'deleteDate']),
   },
   created() {
-    // setTimeout(() => {
-    //   this.getTeamInfo()
-		// 	}, 200)
+  this.getTeamInfo()
     // this.dates = this.$store.state.dates
-    const infos = JSON.parse(sessionStorage.getItem('myTeam'))
-    for (let i=0; i < infos.length; i++) {
-      if (this.$route.params.id === infos[i].no) {
-        this.saveInfo = infos[i]
-        this.dateInfo.leaderemail = infos[i].leaderemail
-        this.dateInfo.memberemail = this.$store.state.email
-        this.dateInfo.no = this.$route.params.id
-        this.selectDay(this.dateInfo)
-        this.getMyday(this.dateInfo)
-      }
-    }
+
   },
   mounted () {
+    setTimeout(() => { 
+      this.can.dates = this.$store.state.myDay
+      }, 200),
+    setTimeout(()=>{
+      const infos = JSON.parse(sessionStorage.getItem('myTeam'))
+      for (let i=0; i < infos.length; i++) {
+        if (this.$route.params.id === infos[i].no) {
+          this.saveInfo = infos[i]
+          this.dateInfo.leaderemail = infos[i].leaderemail
+          this.dateInfo.memberemail = this.$store.state.email
+          this.dateInfo.no = this.$route.params.id
+          this.selectDay(this.dateInfo)
+          this.getMyday(this.dateInfo)
+        }
+      }
+    }, 350)
     // console.log(this.$store.state.myDay)
-    setTimeout(() => {
-        this.can.dates = this.$store.state.myDay
-			}, 200)
     
   }
 
