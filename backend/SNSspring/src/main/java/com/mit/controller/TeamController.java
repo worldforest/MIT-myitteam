@@ -95,9 +95,7 @@ public class TeamController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 
 		// 방금 등록한 contents 번호 얻어오기
-		System.out.println(no + "제발");
 		for (RegTeamInfo regTeamInfo : regTeam.getDataList()) {
-			System.out.println("gogo");
 			Teaminfo teaminfo = new Teaminfo();
 			teaminfo.setNo(no);
 			teaminfo.setLeaderemail(regTeam.getEmail());
@@ -106,7 +104,6 @@ public class TeamController {
 			teaminfo.setTask(regTeamInfo.getTask());
 			teaminfo.setAdvantage(regTeamInfo.getAdvantage());
 			teaminfo.setHeadcount(regTeamInfo.getHeadCount());
-			System.out.println(teaminfo);
 			// DB 에 등록하기
 			if (!teaminfoService.insert(teaminfo))
 				return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
@@ -254,25 +251,21 @@ public class TeamController {
 		int wantmember = Integer.valueOf(teaminfoService.countHead(no, leaderemail));// 구하는 팀원
 
 		// 아직 다 안구해졌을 때만
-		if (currmember != wantmember) {
-			Applymember applymember = new Applymember();
-			applymember.setNo(no);
-			applymember.setLeaderemail(leaderemail);
-			applymember.setPart(part);
-			applymember.setTeamemail(email);
-			applymemberService.insert(applymember);
-			Alarm alram = new Alarm();
-			String leadernickname = userService.selectNickname(leaderemail);
-			alram.setAddressee(leadernickname);// 팀장에게
-			String membernickname = userService.selectNickname(email);
-			alram.setSender(membernickname);// 내가
-			alram.setMessage(membernickname + "님이 팀에 지원했습니다.");
-			alram.setFlag("0");
-			alramService.insert(alram);
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-		}
-
-		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+		Applymember applymember = new Applymember();
+		applymember.setNo(no);
+		applymember.setLeaderemail(leaderemail);
+		applymember.setPart(part);
+		applymember.setTeamemail(email);
+		applymemberService.insert(applymember);
+		Alarm alram = new Alarm();
+		String leadernickname = userService.selectNickname(leaderemail);
+		alram.setAddressee(leadernickname);// 팀장에게
+		String membernickname = userService.selectNickname(email);
+		alram.setSender(membernickname);// 내가
+		alram.setMessage(membernickname + "님이 팀에 지원했습니다.");
+		alram.setFlag("0");
+		alramService.insert(alram);
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "팀원 확정하기", notes = "no, leaderemail(팀 구분), part(팀원 파트), teamemail(팀원 메일)")
@@ -281,27 +274,26 @@ public class TeamController {
 			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
 			@RequestParam("teamemail") String teamemail) {
 
-		// applymember에 없으면fail
-		if (!applymemberService.delete(no, leaderemail, teamemail, part)) {
+		// applymember에 없으면 fail
+		if ((applymemberService.selectOne(no, leaderemail, teamemail)) != 1) {
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 		}
-		// 있으면
-		// member에 등록
-		Member member = new Member();
-		member.setNo(no);
-		member.setLeaderemail(leaderemail);
-		member.setPart(part);
-		member.setMemberemail(teamemail);
-		memberService.insert(member);
+		// applymember에 등록되어있으면
+		else {
+			// applymember에서 지우고
+			applymemberService.delete(no, leaderemail, teamemail, part);
+			// member에 등록하고
+			Member member = new Member();
+			member.setNo(no);
+			member.setLeaderemail(leaderemail);
+			member.setPart(part);
+			member.setMemberemail(teamemail);
+			if (memberService.insert(member)) {
+			}
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 
-		int currmember = memberService.countMember(no, leaderemail);
-		int wantmember = teaminfoService.countHead(no, leaderemail);
-
-		if (currmember == wantmember) {
-			applymemberService.deleteAll(no, leaderemail);
 		}
 
-		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "팀원 거절하기", notes = "no, leaderemail(팀 구분), part(팀원 파트), teamemail(팀원 메일)")
@@ -375,7 +367,6 @@ public class TeamController {
 		// 확인하는 방법
 		Iterator<String> keys = selectSchedule.keySet().iterator();
 
-		System.out.println();
 		int memberCnt = memberService.countMember(no, leaderemail);
 		System.out.println(memberCnt);
 		List<String> selectDate = new ArrayList<>();
