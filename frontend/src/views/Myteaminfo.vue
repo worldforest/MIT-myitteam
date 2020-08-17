@@ -273,8 +273,12 @@ export default {
 
   },
   mounted () {
+<<<<<<< HEAD
     this.can.dates = this.$store.state.myDay
   
+=======
+    
+>>>>>>> bfeb31ba904e437d950070fe50b9c2297a449a39
     setTimeout(()=>{
       const infos = JSON.parse(sessionStorage.getItem('myTeam'))
       for (let i=0; i < infos.length; i++) {
@@ -290,10 +294,12 @@ export default {
       this.teamDataSave();
       this.teamChat(this.teamChatData);
     }, 350)
-    // console.log(this.$store.state.myDay)
-    // this.teamDataSave();
-    // this.teamChat(this.teamChatData);
-    // console.log(this.$store.state.myDay)
+    setTimeout(() => {
+      console.log(this.$store.state.myDay)
+      this.can.dates = this.$store.state.myDay
+    
+    }, 450)
+    // console.log(this.can.dates)
   }
 }
 </script>
