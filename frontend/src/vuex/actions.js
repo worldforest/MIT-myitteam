@@ -6,8 +6,8 @@ import 'url-search-params-polyfill'
 import Swal from 'sweetalert2'
 
 
-// const SERVER_URL = 'http://localhost:9999/mit'
-const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
+const SERVER_URL = 'http://localhost:9999/mit'
+// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
 
 export default {
 	postToken2({ commit }, info) {
@@ -180,7 +180,6 @@ export default {
 				})
 				router.push({ name: "GongmoDetail"})
 			})
-			.catch(error => console.log(error.response.data))
 	},
 	projectregister(context, projectData){
 		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
@@ -248,7 +247,6 @@ export default {
 		params.append('email', likeData.email)
 		axios.post(`${SERVER_URL}/api/feed/feedlike`, params)
 		.then(() => {
-			console.log('좋아요 성공')
 			context.dispatch('likeCnt', likeData)
 			context.dispatch('likeUser', likeData)
 		})
@@ -288,7 +286,6 @@ export default {
 			context.commit('likeUser', data)
 			context.commit('likeUser2', data2)
 		})
-		.catch( err => console.log(err.response.data))
 	},
 	getNickname(context, email){
 		axios.get(`${SERVER_URL}/api/user/selectNickname?email=${email}`)
@@ -304,7 +301,6 @@ export default {
 		.then( res => {
 			context.commit('privateChatSave', res.data)
 		})
-		.catch( err => console.log(err.response.data))
 	},
 	findPrivate(context, privateData){
 		const params = new URLSearchParams();
@@ -318,8 +314,6 @@ export default {
 			context.dispatch('privateChat', privateData) 
 		})
 	},
-
-
 	//////////다인///////////////
 
 	/////////지훈////////////////
@@ -340,7 +334,6 @@ export default {
 		context.commit('projectData', project)
 		})
 	},
-
 	profile(context) {
 		const email = cookies.get('auth-email')
 		axios.get(`${SERVER_URL}/api/feed/${email}`)
@@ -452,7 +445,6 @@ export default {
 	},
 
 	subEmail(context, res) {
-		console.log(res)
 		var params = new URLSearchParams();
 		params.append('email', res)
 		context.commit('chageIsFlag')
@@ -460,9 +452,6 @@ export default {
 	},
 
 	pushCode(context, res) {
-		console.log(res)
-		console.log(res.email)
-		console.log(res.code)
 		axios.post(`${SERVER_URL}/api/user/pwd?code=${res.code}&email=${res.email}`)
 			.then((response) => {
 				context.commit('getPwdToken', response.data)
@@ -526,11 +515,9 @@ export default {
 		})
 	},
 	postDate (context, dateinfo) {
-		console.log(dateinfo)
 		axios.post(`${SERVER_URL}/api/team/insetSchedule`, dateinfo)
 	},
 	selectMember ({dispatch}, apply) {
-		console.log(apply)
 		const params = new URLSearchParams();
 		params.append('leaderemail', apply.leaderemail)
 		params.append('no', apply.no)
