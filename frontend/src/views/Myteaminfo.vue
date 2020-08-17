@@ -289,10 +289,12 @@ export default {
           this.getMyday(this.dateInfo)
         }
       }
+      this.teamDataSave();
+      this.teamChat(this.teamChatData);
     }, 350)
     // console.log(this.$store.state.myDay)
-    this.teamDataSave();
-    this.teamChat(this.teamChatData);
+    // this.teamDataSave();
+    // this.teamChat(this.teamChatData);
     // console.log(this.$store.state.myDay)
   }
 }
