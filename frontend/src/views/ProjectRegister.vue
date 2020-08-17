@@ -150,7 +150,7 @@
 					<ProjectInput @add-project="addProject"/>
 
 					<div>
-						<li class="itemLi" v-for="item in this.projectData.dataList" :key="item.id">
+						<li class="itemLi" v-for="(item, index) in this.projectData.dataList" :key="index">
 							<v-col class="mx-auto" cols="12" md="11">
 								<v-card color="#FAFAFA" class="mb-3 py-4 px-3">
 									<h3 class="mb-3">{{ item.part }}</h3>

@@ -211,7 +211,7 @@
       피드등록
     </router-link>
     <v-row class="my-4" v-if="windowWidth > 788">
-      <v-col cols="4" v-for="feed in userprofiledata.feeds" :key="feed.no">
+      <v-col cols="4" v-for="(feed, index) in userprofiledata.feeds" :key="index">
         <div class="mx-2 detail_hover">         
           <img :src="feed.src" 
           alt="안나오는겁니다!" 
@@ -222,7 +222,7 @@
       </v-col>
     </v-row>
     <v-row v-else class="bg-gray">
-      <v-col cols='12'  v-for="feed in userprofiledata.feeds" :key="feed.no">
+      <v-col cols='12'  v-for="(feed, index) in userprofiledata.feeds" :key="index">
         <v-card
           :loading="loading"
           class="mx-auto my-3"
@@ -285,7 +285,8 @@ export default {
         myNickname : this.$store.state.myNick,
         yourNickname : this.$store.state.userprofiledata.nickname, 
       },
-      dialog: false
+      dialog: false,
+      userprofiledata: '',
     }
   },
   watch: {
@@ -307,11 +308,11 @@ export default {
       this.windowWidth = window.innerWidth
     },
     ...mapMutations(['feedDetail', 'GET_EMAIL']),
-    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'follwerCnt', 'getNickname', 'privateChat',])
+    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'getNickname', 'privateChat',])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
-    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2', 'myNick', 'privateChatTitle']),
+    ...mapState([ 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2', 'myNick', 'privateChatTitle']),
     ...mapGetters(['isLoggedIn',])
      
   },
@@ -324,7 +325,6 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
-    this.follwerCnt(this.user)
   },
 
   created () {

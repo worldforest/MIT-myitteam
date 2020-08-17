@@ -11,7 +11,7 @@
 		</div>
 
 		<div>	
-			<li class="detailLi" v-for="item in pojectSetData.dataList" :key="item.id">
+			<li class="detailLi" v-for="(item, index) in pojectSetData.dataList" :key="index">
 				<v-card class="mx-auto py-5 px-5" max-width="800" v-if="item.part == buttonvalue">
 					<h1 class="mb-4 text-center">{{ pojectSetData.title }}</h1>
 					<h2 class="mb-2">{{ item.part }}</h2>

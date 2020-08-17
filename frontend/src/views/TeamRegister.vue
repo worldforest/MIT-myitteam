@@ -46,7 +46,7 @@
         <TeamInput @add-apply="addApply"/>
 
         <div>
-          <li class="itemLi" v-for="item in this.applyData.dataList" :key="item.id">
+          <li class="itemLi" v-for="(item, index) in this.applyData.dataList" :key="index">
             <v-col class="mx-auto" cols="12" md="11">
               <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
                 <h3 class="mb-3 cardTitle">{{ item.part }}</h3>
@@ -139,7 +139,7 @@
       <TeamInput @add-apply="addApply"/>
 
       <div>
-        <li class="itemLi" v-for="item in this.applyData.datalist" :key="item.id">
+        <li class="itemLi" v-for="(item, index) in this.applyData.datalist" :key="index">
           <v-col class="mx-auto" cols="12" md="11">
             <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
               <h3 class="mb-3">{{ item.part }}</h3>
@@ -225,7 +225,7 @@
       <TeamInput @add-apply="addApply"/>
 
       <div>
-        <li class="itemLi" v-for="item in this.applyData.dataList" :key="item.id">
+        <li class="itemLi" v-for="(item, index) in this.applyData.dataList" :key="index">
           <v-col class="mx-auto" cols="12" md="11">
             <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
               <h3 class="mb-3">{{ item.part }}</h3>

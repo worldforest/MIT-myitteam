@@ -13,10 +13,10 @@
         <!-- {{ getTeamList }} -->
         <h4 class="mt-8 mb-4">팀원 모집 : </h4>
         <v-row v-if="windowWidth >= 1270">
-          <v-col v-for="i in getTeamList" :key="i">
+          <v-col v-for="(i, index) in getTeamList" :key="index">
               <div class="d-flex mx-auto">
                 <div>
-                  <li v-for="item in i.dataList" :key="item">
+                  <li v-for="(item, index) in i.dataList" :key="index">
                     <div class="pjtCard mx-auto mb-6">
                       <div class="mb-2 white--text partTitle" >
                         <v-row>
@@ -58,10 +58,10 @@
         </v-row>
 
         <v-row v-if="windowWidth < 1270 && windowWidth >= 800">
-          <v-col v-for="i in getTeamList" :key="i">
+          <v-col v-for="(i, index) in getTeamList" :key="index">
               <div class="d-flex mx-auto">
                 <div>
-                  <li v-for="item in i.dataList" :key="item">
+                  <li v-for="(item, index) in i.dataList" :key="index">
                     <div class=" pjtCard2 mx-auto mb-6">
                       <div class="headline mb-2 white--text partTitle" >
                         <v-row>
@@ -111,11 +111,11 @@
       <v-card class="mt-3 px-3 py-3" color="#FAFAFA" style="white-space:pre-line;">{{ club2.description }}</v-card>
       <h5 class="mt-8 mb-4">팀원 모집 : </h5>
       <v-row class="mx-auto" v-if="windowWidth < 800 && windowWidth >= 600">
-        <v-col v-for="i in getTeamList" :key="i">
+        <v-col v-for="(i, index) in getTeamList" :key="index">
           <!-- {{ i }} -->
             <div class="d-flex mx-auto">
               <div>
-                <li v-for="item in i.dataList" :key="item">
+                <li v-for="(item, index) in i.dataList" :key="index">
                   <div class="pjtCard3 mx-auto mb-6">
                     <div class="headline mb-2 white--text partTitle" >
                       <v-row>
@@ -157,11 +157,11 @@
       </v-row>
 
       <v-row class="mx-auto" v-if="windowWidth < 600 && windowWidth >= 430">
-        <v-col v-for="i in getTeamList" :key="i">
+        <v-col v-for="(i, index) in getTeamList" :key="index">
           <!-- {{ i }} -->
             <div class="d-flex mx-auto">
               <div>
-                <li v-for="item in i.dataList" :key="item">
+                <li v-for="(item, index) in i.dataList" :key="index">
                   <div class="pjtCard5 mx-auto mb-6">
                     <div class="headline mb-2 white--text partTitle" >
                       <v-row>
@@ -203,10 +203,10 @@
       </v-row>
 
       <v-row v-if="windowWidth < 430">
-        <v-col v-for="i in getTeamList" :key="i">
+        <v-col v-for="(i, index) in getTeamList" :key="index">
             <div class="d-flex mx-auto">
               <div>
-                <li v-for="item in i.dataList" :key="item">
+                <li v-for="(item, index) in i.dataList" :key="index">
                   <div class="pjtCard4 mx-auto mb-6">
                     <div class="mb-2 white--text partTitle" >
                       <v-row>
@@ -257,7 +257,7 @@ export default {
   name: 'Intro',
   props: {
     club2: Object,
-    getTeamList: Object,
+    getTeamList: Array,
   },
   data() {
     return {

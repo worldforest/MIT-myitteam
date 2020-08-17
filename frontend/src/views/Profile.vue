@@ -24,7 +24,7 @@
               <v-card class="cardModal">
                 <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
                 
-                <li v-for="item in followList" :key="item">
+                <li v-for="(item, index) in followList" :key="index">
                   <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                   <hr>
                 </li>
@@ -50,7 +50,7 @@
               <v-card class="cardModal">
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
-                <li v-for="item in followerList" :key="item">
+                <li v-for="(item, index) in followerList" :key="index">
                   <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                   <hr>
                 </li>
@@ -102,7 +102,7 @@
               <v-card class="cardModal">
                 <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
                 
-                <li v-for="item in followList" :key="item">
+                <li v-for="(item, index) in followList" :key="index">
                   <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                   <hr>
                 </li>
@@ -128,7 +128,7 @@
               <v-card class="cardModal">
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
-                <li v-for="item in followerList" :key="item">
+                <li v-for="(item, index) in followerList" :key="index">
                   <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                   <hr>
                 </li>
@@ -188,7 +188,7 @@
             <v-card class="cardModal">
               <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
               
-              <li v-for="item in followList" :key="item">
+              <li v-for="(item, index) in followList" :key="index">
                 <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                 <hr>
               </li>
@@ -216,7 +216,7 @@
               <v-card class="cardModal">
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
-                <li v-for="item in followerList" :key="item">
+                <li v-for="(item, index) in followerList" :key="index">
                   <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                   <hr>
                 </li>
@@ -241,7 +241,7 @@
       피드등록
     </router-link>
     <v-row class="mt-4" v-if="windowWidth > 788">
-      <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">
+      <v-col cols="4" v-for="(feed, index) in profileData.feeds" :key="index">
         <div class="mx-2 detail_hover">  
           <img :src="feed.src" 
           alt="" 
@@ -252,7 +252,7 @@
       </v-col>
     </v-row>
     <v-row v-else class="bg-gray">
-      <v-col cols='12'  v-for="feed in profileData.feeds" :key="feed.no">
+      <v-col cols='12'  v-for="(feed, index) in profileData.feeds" :key="index">
         <v-card
           :loading="loading"
           class="mx-auto my-3"
@@ -306,7 +306,6 @@ export default {
   data() {
     return {
       windowWidth: window.innerWidth,
-      email: this.$store.state.email,
       dialog: false,
       dialog2: false,
       

@@ -4,7 +4,7 @@
       <div class="messaging">
         <div class="inbox_msg">
             <div class="msg_history">
-              <div v-for="message in messages" :key="message" class="incoming_msg">
+              <div v-for="(message, index) in messages" :key="index" class="incoming_msg">
                 <div v-if="message.senduser !== myNick">
                   <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                     <div class="received_msg mb-4">

@@ -14,7 +14,7 @@
 
       <!-- 웹 페이지 클 때-->
       <v-row v-if="windowWidth >= 1270">
-        <v-col cols="6" v-for="i in getTeamList" :key="i">
+        <v-col cols="6" v-for="(i, index) in getTeamList" :key="index">
           <div class="teamCard py-5 px-5">
             <div>
               <div>
@@ -38,7 +38,7 @@
       </v-row>
       
       <v-row v-if="windowWidth < 1270 && windowWidth >= 900 ">
-        <v-col cols="6" class="px-6" v-for="i in getTeamList" :key="i">
+        <v-col cols="6" class="px-6" v-for="(i, index) in getTeamList" :key="index">
           <div class="teamCard2 py-5 px-5">
             <div >
               <div>
@@ -71,7 +71,7 @@
 
       <!-- 700이상 900미만 -->
       <v-row v-if="windowWidth < 900 && windowWidth >= 700 ">
-        <v-col cols="6" class="px-6" v-for="i in getTeamList" :key="i">
+        <v-col cols="6" class="px-6" v-for="(i, index) in getTeamList" :key="index">
           <div class="teamCard3 py-5 px-5">
             <div>
               <h6><span class="local">{{ i.local }}</span></h6>
@@ -91,7 +91,7 @@
 
       <!-- 550이상 700미만 -->
       <v-row v-if="windowWidth < 700 && windowWidth >= 550 ">
-        <v-col cols="6" class="px-6" v-for="i in getTeamList" :key="i">
+        <v-col cols="6" class="px-6" v-for="(i, index) in getTeamList" :key="index">
           <div class="teamCard4 py-5 px-5">
             <div>
               <h6><span class="local">{{ i.local }}</span></h6>
@@ -111,7 +111,7 @@
 
       <!-- 380이상 550미만 -->
       <v-row v-if="windowWidth < 550 && windowWidth > 380">
-        <v-col cols="8" class="px-6" v-for="i in getTeamList" :key="i">
+        <v-col cols="8" class="px-6" v-for="(i, index) in getTeamList" :key="index">
           <div class="teamCard5 py-5 px-5">
             <div>
               <h6><span class="local">{{ i.local }}</span></h6>
@@ -131,7 +131,7 @@
 
       <!-- 380미만 -->
       <v-row v-if="windowWidth <= 380">
-        <v-col cols="8" v-for="i in getTeamList" :key="i">
+        <v-col cols="8" v-for="(i, index) in getTeamList" :key="index">
           <div class="teamCard6 py-5 px-5">
             <div>
               <h6><span class="local">{{ i.local }}</span></h6>
@@ -159,7 +159,7 @@ export default {
   name: 'Team',
   props: {
     club: Object,
-    getTeamList: Object,
+    getTeamList: Array,
   },
   components: {
   },

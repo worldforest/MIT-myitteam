@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card v-for="info in this.$store.state.myTeamInfo" :key="info"  
+    <v-card v-for="(info, index) in this.$store.state.myTeamInfo" :key="index"  
     class="mx-auto"
     max-width="400"
     >
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { mapState, mapActions, } from 'vuex'
 
 export default {
   name: 'Myteam',
@@ -48,10 +48,9 @@ export default {
   },
   methods :{
     ...mapActions(['getTeamInfo']),
-    ...mapMutations(['myTeamInfo'])
   },
   computed : {
-    ...mapState(['myTeamInfo', 'saveInfo'])
+    ...mapState(['saveInfo'])
   },
   mounted () {
     this.getTeamInfo()

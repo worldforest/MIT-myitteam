@@ -42,7 +42,7 @@
                   </v-icon>
                   <!-- <v-icon>mdi-bell-check</v-icon> -->
                 </template>
-                <v-list v-for="chat in allChat" :key="chat">
+                <v-list v-for="(chat, index) in allChat" :key="index">
                   <v-list-item>
                     <v-row>
                       <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" class="chat_img mr-3">
@@ -76,7 +76,7 @@
                     class="accountIcon"
                     @click="getalarm(myNick)">mdi-bell-check</v-icon>
                 </template>
-                <v-list v-for="alarm in alarmList" :key="alarm">
+                <v-list v-for="(alarm, index) in alarmList" :key="index">
                   <v-list-item>
                     <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
                   </v-list-item>
@@ -144,7 +144,7 @@
                   </v-icon>
                   <!-- <v-icon>mdi-bell-check</v-icon> -->
                 </template>
-                <v-list v-for="chat in allChat" :key="chat">
+                <v-list v-for="(chat, index) in allChat" :key="index">
                   <v-list-item>
                     <v-row>
                       <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" class="chat_img mr-3">
@@ -170,7 +170,7 @@
                   </v-icon>
                   <!-- <v-icon>mdi-bell-check</v-icon> -->
                 </template>
-                <v-list v-for="alarm in alarmList" :key="alarm">
+                <v-list v-for="(alarm, index) in alarmList" :key="index">
                   <v-list-item>
                     <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
                   </v-list-item>
