@@ -6,8 +6,8 @@ import 'url-search-params-polyfill'
 import Swal from 'sweetalert2'
 
 
-const SERVER_URL = 'http://localhost:9999/mit'
-// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
+// const SERVER_URL = 'http://localhost:9999/mit'
+const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
 
 export default {
 	postToken2({ commit }, info) {
@@ -163,7 +163,12 @@ export default {
 			formdata.append('tags', feedData.tags)
 			axios.post(`${SERVER_URL}/api/feed/create/`, formdata)
 			.then(() => {
-					router.push({ name: "Profile"})
+				Swal.fire({
+					icon: 'success',
+					title: '성공적으로 등록하였습니다.',
+					width: 600
+				})
+				router.push({ name: "Profile"})
 			})
 		}		
 	},
@@ -198,6 +203,7 @@ export default {
 		axios.post(`${SERVER_URL}/api/team/contentsteamlist`, params)
 		.then(res => {
 			context.commit('GETTEAMDATA', res.data)
+			sessionStorage.setItem('pjtteaminfo', JSON.stringify(res.data))
 		})
 	},
 	apply(context, sendData){
@@ -207,6 +213,16 @@ export default {
 		params.append('email', sendData.email);
 		params.append('part', sendData.part);
 		axios.post(`${SERVER_URL}/api/team/applyTeam`, params)
+		.then(()=> {
+			Swal.fire({
+				icon: 'success',
+				title: '팀장에게 프로필을 전달하였습니다.',
+				width: 600
+			})
+		})
+		.catch(err => {
+			console.log(err.response.data)
+		})
 	},
 	deleteTeam(context, deleteData){
 		const params = new URLSearchParams();
@@ -267,7 +283,6 @@ export default {
 		axios.post(`${SERVER_URL}/api/feed/feedlikeCnt`, params)
 		.then( res => {
 			context.commit('likeCnt', res.data)
-			
 		})
 	},
 	likeUser(context, likeCntData){
@@ -291,29 +306,61 @@ export default {
 		axios.get(`${SERVER_URL}/api/user/selectNickname?email=${email}`)
 		.then(res => {
 			context.commit('getNick', res.data)
+			context.dispatch('getalarm', res.data)
 		})
 	},
 	privateChat(context, privateData){
 		const params = new URLSearchParams();
 		params.append('mynickname', privateData.myNickname)
 		params.append('yournickname', privateData.yourNickname)
-		axios.post(`${SERVER_URL}/api/chat/createprivate`, params)
+		axios.post(`${SERVER_URL}/api/chat/privateCaht`, params)
 		.then( res => {
 			context.commit('privateChatSave', res.data)
 		})
 	},
-	findPrivate(context, privateData){
+	getalarm(context, nickname){
+		const params =  new URLSearchParams();
+		params.append('nickname', nickname)
+		axios.post(`${SERVER_URL}/api/alarm/list`, params)
+		.then( res => {
+			context.commit('getalarmList', res.data)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	deleteAlarm(context, alarm){
 		const params = new URLSearchParams();
-		params.append('mynickname', privateData.myNickname)
-		params.append('yournickname', privateData.yourNickname)
-		axios.post(`${SERVER_URL}/api/chat/findfrivate`, params)
-		.then( res => {
-			context.commit('privateChatSave', res.data)
+		params.append('no', alarm.no)
+		axios.post(`${SERVER_URL}/api/alarm/delete`, params)
+		.then( () => {
+			context.dispatch('getalarm', alarm.addressee)
 		})
-		.catch(() => {
-			context.dispatch('privateChat', privateData) 
-		})
+		.catch( err => console.log(err.response.data))
 	},
+	getAllChat(context, mynick){
+		const params = new URLSearchParams();
+		params.append('nickname', mynick)
+		axios.post(`${SERVER_URL}/api/chat/selectAll`, params)
+		.then( res => {
+			context.commit('getallList', res.data)
+		})
+		.catch( err => console.log(err.response.data))
+	},
+	teamChat(context, teamChatData){
+		console.log(context)
+		console.log(teamChatData)
+		const params = new URLSearchParams();
+		params.append('no', teamChatData.no)
+		params.append('leaderemail', teamChatData.leaderemail)
+		axios.post(`${SERVER_URL}/api/chat/groupChat`, params)
+		.then( res => {
+			console.log('타이틀 얻으러 가쟝')
+			console.log(res)
+			context.commit('getteamChat', res.data)
+		})
+		.catch( err => {
+			console.log('에러양아아아아ㅏ')		
+			console.log(err.response.data)})
+		},
 	//////////다인///////////////
 
 	/////////지훈////////////////
@@ -325,12 +372,13 @@ export default {
 				for(var i=0; i<(res.data).length; i++) {
 					if (res.data[i].category === 0) {
 						contest.push(res.data[i])
+
 					}
 					else {
 						project.push(res.data[i])
 					}
 			}
-		context.commit('contestData', contest)
+		context.commit('contestData', contest.slice(9))
 		context.commit('projectData', project)
 		})
 	},
@@ -345,18 +393,18 @@ export default {
 	userprofile(context, useremail) {
 		axios.get(`${SERVER_URL}/api/feed/${useremail}`)
 			.then(res => {
-					context.commit('USERINPUT', res.data)
+				context.commit('USERINPUT', res.data)
 			})
 	},
-	follow(context) {
+	follow(context, res) {
 		var params = new URLSearchParams();
 		if (context.state.email !== null) {
-		params.append('email', context.state.email);
-		params.append('following', context.state.userprofiledata.feeds[0].email)
-		axios.post(`${SERVER_URL}/api/follow/follow`, params)
+			params.append('email', context.state.email);
+			params.append('following', res)
+			axios.post(`${SERVER_URL}/api/follow/follow`, params)
 				.then(() => {
-		context.dispatch('followerCnt', context.state.userprofiledata.feeds[0].email)
-		context.dispatch('myFollowerList', context.state.userprofiledata.feeds[0].email)
+					context.dispatch('followerCnt', res)
+					context.dispatch('myFollowerList', res)
 				})
 		}
 		else {
@@ -502,7 +550,14 @@ export default {
         })
         router.push({ name: "Profile" })
       })
-    },
+	},
+	
+	gotoMap(context, res) {
+		axios.get(`${SERVER_URL}/api/teammanagement?leaderemail=${res.leaderemail}&no=${res.no}`)
+			.then((response) => {
+				context.commit('setMapInfo', response.data.center)
+			})
+	},
 
 	/////////지훈////////////////
 	getTeamInfo(context) {
@@ -516,6 +571,20 @@ export default {
 	},
 	postDate (context, dateinfo) {
 		axios.post(`${SERVER_URL}/api/team/insetSchedule`, dateinfo)
+		.then(() =>{
+			setTimeout(() => {
+				router.go()
+			}, 100)
+		})
+	},
+	deleteDate (context, dateinfo) {
+		console.log(dateinfo)
+		axios.post(`${SERVER_URL}/api/team/deleteSchedule`, dateinfo)
+		.then(() =>{
+			setTimeout(() => {
+				router.go()
+			}, 100)
+		})
 	},
 	selectMember ({dispatch}, apply) {
 		const params = new URLSearchParams();
@@ -524,11 +593,15 @@ export default {
 		params.append('part', apply.part)
 		params.append('teamemail', apply.teamemail)
 		axios.post(`${SERVER_URL}/api/team/selectMember`, params)
-		.then(() => {
+		.then((response) => {
+			console.log(response)
 			dispatch('getTeamInfo')
-			setTimeout(() => {
+			setTimeout(() => {		
 				router.go()
-			}, 200)
+			}, 250)
+		})
+		.catch(err => {
+			console.log(err)
 		})
 	},
 	deleteMember ({dispatch}, apply) {
@@ -542,8 +615,33 @@ export default {
 			dispatch('getTeamInfo')
 			setTimeout(() => {
 				router.go()
-			}, 200)
+			}, 250)
 		})
 	},
+	selectDay(context, info) {
+		const params = new URLSearchParams();
+		params.append('leaderemail', info.leaderemail)
+		params.append('no', info.no)
+		axios.post(`${SERVER_URL}/api/team/selectSchedule/`, params)
+		.then(response => {
+			context.commit('selectDay', response.data)
+		})
+		.catch(error => {
+			console.log(error)
+		})
+	},
+	getMyday(context, info) {
+		const params = new URLSearchParams();
+		params.append('leaderemail', info.leaderemail)
+		params.append('memberemail', context.state.email)
+		params.append('no', info.no)
+		axios.post(`${SERVER_URL}/api/team/memberSchedule/`, params)
+		.then(response => {
+			context.commit('getDay', response.data)
+		})
+		.catch(error => {
+			console.log(error)
+		})
+	}
 }
 

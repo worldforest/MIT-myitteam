@@ -1,8 +1,16 @@
 <template>
   <div class="mt-3">
     <div v-if="windowWidth >= 767" class="cont15">
-      <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email"><h3> {{ detailFeed.nickname }}</h3></router-link>
-      <h3><router-link to='/profile' v-if="email === detailFeed.email"> {{ detailFeed.nickname }}</router-link></h3>
+      <div class="d-flex">
+        <v-avatar size="72">
+          <img
+            :src="userprofiledata.src"
+            alt="프로필사진"
+          >
+        </v-avatar>
+        <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email" class="mt-4 ml-2"><h2 style="color:black">{{ detailFeed.nickname }}</h2></router-link>
+        <router-link to='/profile' v-else><h2 style="color:black" class="mt-4 ml-2">{{ detailFeed.nickname }}</h2></router-link>
+      </div>
       <hr>
       <div class="d-flex justify-end mb-4">
         <h4>작성일자: {{ detailFeed.writedate.slice(0,10) }}</h4>
@@ -10,13 +18,53 @@
       </div>
 
       <div>      
-        <img :src="detailFeed.src" alt="" class="mx-auto" style="width:100%">
+        <img :src="detailFeed.src" alt="" class="mx-auto" style="width:100%; height:50vw">
       </div>
-      <div>
-        {{ detailFeed.description}}
+      <div class="cont2 mt-3">
+        <h5>{{ detailFeed.description}}</h5>
       </div>
-      <div>
-        {{ detailFeed.tag }}
+      <div class="cont2">
+        <v-chip-group
+          v-model="selection"
+          active-class="deep-purple accent-4 white--text"
+          column   
+        >
+          <v-chip
+            class="ma-2"
+            color="#FF6666"
+            label
+            text-color="white"
+            v-for="(tag,z) in detailFeed.tag"
+            @click="searchTagFeed(tag)"
+            :key="z"
+          >
+            <v-icon left>mdi-label</v-icon>
+            {{tag}}
+          </v-chip>
+        </v-chip-group>
+      </div>
+
+      <div class="d-flex cont2" v-if=" detailFeed.email === email">
+        <div class="ml-auto">
+          <span class="mr-3">
+            <v-chip
+              color="#5C6BC0"
+              text-color="white"
+              @click="updateFeed(detailFeed)"
+            >
+              수정
+            </v-chip>
+          </span>
+          <span>
+            <v-chip
+              color="#CCCCFF"
+              text-color="black"
+              @click="deleteFeed(detailFeed)"
+            >
+              삭제
+            </v-chip>
+          </span>
+        </div>
       </div>
       <hr>
       <v-row>
@@ -47,9 +95,9 @@
             </v-card>
           </v-dialog>
         </div>
-
+        
+        {{ likeUserList }}
         <v-icon v-if="!likeUserList2.includes(email)" large class="mr-4 likebtn" @click="like(likeData);">mdi-heart-multiple-outline</v-icon>
-        <!-- <h5 v-if="likeUserList.includes(email)" class="mr-4">본인을 포함한 외 {{ likeCntnum }}명이 좋아합니다. </h5> -->
         <v-icon v-if="likeUserList2.includes(email)" large class="mr-4 likebtn" color="red" @click="unlike(likeData);">mdi-heart-multiple</v-icon>
       </v-row>
     </div>

@@ -1,13 +1,11 @@
 <template>
   <div>
-
     <!-- /////////////////////////////    화면이 가장 클 때    //////////////////////////////////////// -->
-
-    <div v-if="windowWidth >= 1064">
+    <div v-if="windowWidth >= 1266">
       <div class="mt-6">
         <h1 @click="goContest" class="Pjt_h1 mb-4">공모전</h1>
-        <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" style="width:100%">
-          <slide v-for="club in clubs" :key="club.no">
+        <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="true" style="width:100%">
+          <slide v-for="(club, index) in clubs" :key="index">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
@@ -23,35 +21,148 @@
       </div>
     </div>
 
-    <!-- /////////////////////////////    화면이 작을 때     //////////////////////////////////////// -->
+    <!-- /////////////////////////////    화면이 작을 때(공모전 & 프로젝트)     //////////////////////////////////////// -->
 
-    <div v-else-if="400 > windowWidth">
-      <div class="mt-6">
-        <h1 class="Pjt_h1 mb-4">공모전</h1>
-        <carousel :per-page="1.5" :navigate-to="someLocalProperty" :mouse-drag="false" >
-          <slide v-for="club in clubs" :key="club.no">
-            <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
-              <b-card-text @click="gongmoDetail(club)">
-                <div v-if="club.title.length >= 15" >
-                    <h6>{{ club.title.slice(0,15)}}...</h6>
-                </div>
-                <div v-else>
-                    <h6>{{ club.title }}</h6>
-                </div>
-              </b-card-text>
-            </b-card>
-          </slide>
-        </carousel>
+    <div v-else-if="500 > windowWidth">
+      <div class="d-flex">
+        <span class="ml-auto cursor" @click="Tflag()">공모전</span>
+        <span class="mx-3 cursor" @click="Fflag()">프로젝트</span>
+      </div>
+      <div v-if="flag">
+        <v-card      
+          class="mx-auto my-1 homeCard"
+          max-width="344"
+          outlined
+          v-for="(club, index) in clubs" :key="index"
+        >
+          <v-list-item three-line>
+            <v-list-item-content>
+              <v-list-item-title class=" mb-1 font">{{ club.title }}</v-list-item-title>
+              <v-list-item-subtitle>{{ club.start }} ~ {{ club.end }}</v-list-item-subtitle>
+              <v-list-item-subtitle v-if="club.host.length <= 15">{{ club.host }}</v-list-item-subtitle>
+              <v-list-item-subtitle v-else>{{ club.host.slice(0,15) }}...</v-list-item-subtitle>
+            </v-list-item-content>
+
+            <v-list-item-avatar
+              tile
+              size="90"
+              color="grey"
+              
+            >
+              <img
+                :src="club.imagesrc"
+                alt="프로필사진"
+              >
+            </v-list-item-avatar>
+          </v-list-item>
+
+          <v-card-actions>
+            <v-btn color="orange" text class="mx-auto" @click="gongmoDetail(club)">
+              자세히보기
+            </v-btn>  
+          </v-card-actions>
+        </v-card>
+      </div>
+      <div v-if="!flag">
+        <v-card      
+          class="mx-auto my-1 homeCard"
+          max-width="344"
+          outlined
+          v-for="(club2, index) in clubs2" :key="index"
+        >
+          <v-list-item three-line>
+            <v-list-item-content>
+              <v-list-item-title class="text-center mb-1 font">{{ club2.title }}</v-list-item-title>              
+              <hr class="cont15 my-3 mx-5">
+              <v-list-item-subtitle class="text-center">{{ club2.start }} ~ {{ club2.end }}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-card-actions>
+            <v-btn color="orange" text class="mx-auto" @click="projectDetail(club2); getTeamData(club2.no)">
+              자세히보기
+            </v-btn>  
+          </v-card-actions>
+        </v-card>
       </div>
     </div>
 
-    <!-- /////////////////////////////    화면이 중간일 때     //////////////////////////////////////// -->
+    <!-- /////////////////////////////    화면이 중간(작은)일 때     //////////////////////////////////////// -->
+
+    <div v-else-if="windowWidth < 960 && windowWidth >=500">
+      <div class="d-flex">
+        <h3 class="ml-auto cursor" @click="Tflag()">공모전</h3>
+        <h3 class="mx-3 cursor" @click="Fflag()">프로젝트</h3>
+      </div>
+      <h3 v-if="flag">공모전</h3>
+      <h3 v-if="!flag">프로젝트</h3>
+      <v-row class="mt-0" v-if="flag">
+        <v-col cols="6" v-for="(club,index) in clubs" :key="index">
+          <v-card      
+            class="mx-auto my-1 homeCard"
+            max-width="344"
+            outlined            
+          >
+            <v-list-item three-line>
+              <v-list-item-content>
+                <v-list-item-title class=" mb-1 font">{{ club.title }}</v-list-item-title>
+                <v-list-item-subtitle>{{ club.start }} ~ {{ club.end }}</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="club.host.length <= 15">{{ club.host }}</v-list-item-subtitle>
+                <v-list-item-subtitle v-else>{{ club.host.slice(0,15) }}...</v-list-item-subtitle>
+              </v-list-item-content>
+
+              <v-list-item-avatar
+                tile
+                size="90"
+                color="grey"
+                
+              >
+                <img
+                  :src="club.imagesrc"
+                  alt="프로필사진"
+                >
+              </v-list-item-avatar>
+            </v-list-item>
+
+            <v-card-actions>
+              <v-btn color="orange" text class="mx-auto" @click="gongmoDetail(club)">
+                자세히보기
+              </v-btn>  
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row class="mt-0" v-if="!flag">
+        <v-col cols="6" v-for="(club,index) in clubs2" :key="index">
+          <v-card      
+            class="mx-auto my-1 homeCard"
+            max-width="344"
+            outlined            
+          >
+            <v-list-item three-line>
+              <v-list-item-content>
+                <v-list-item-title class=" mb-1 font">{{ club.title }}</v-list-item-title>
+                <v-list-item-subtitle>{{ club.start }} ~ {{ club.end }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-card-actions>
+              <v-btn color="orange" text class="mx-auto" @click="projectDetail(club); getTeamData(club.no)">
+                자세히보기
+              </v-btn>  
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </div>
+
+    <!-- /////////////////////////////    화면이 중간(큰)일 때     //////////////////////////////////////// -->
 
     <div v-else>
       <div class="mt-6">
         <h1 class="Pjt_h1 mb-4">공모전</h1>
         <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
-          <slide v-for="club in clubs" :key="club.no">
+          <slide v-for="(club,index) in clubs" :key="index">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 75%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
@@ -71,10 +182,10 @@
     <!-- /////////////////////////////    화면이 클 때     //////////////////////////////////////// -->
 
     <div class="mt-9">
-      <h1 @click="goPJT" class="Pjt_h1 mb-4">프로젝트</h1>
-      <div v-if="windowWidth >= 1064">      
+      <h1 @click="goPJT" class="Pjt_h1 mb-4" v-if="windowWidth > 960">프로젝트</h1>
+      <div v-if="windowWidth >= 1266">      
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
-          <slide v-for="club2 in clubs2" :key="club2.no">
+          <slide v-for="(club2,index) in clubs2" :key="index">
             <!-- {{ club2 }} -->
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
@@ -93,33 +204,11 @@
         <hr class="mt-2">
       </div>
 
-      <!-- /////////////////////////////    화면이 작을 때     //////////////////////////////////////// -->
-
-      <div v-else-if="400 > windowWidth">
-        <carousel :per-page="1.5" :navigate-to="someLocalProperty" :mouse-drag="false" >
-          <slide v-for="club2 in clubs2" :key="club2.no">
-            <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
-              <b-card-text @click="projectDetail(club2)">
-                <div v-if="club2.title.length >= 15" >
-                    <h4 class="title mt-3">{{ club2.title.slice(0,8)}}...</h4>
-                </div>
-                <div v-else>
-                  <h4 class="title mt-3">{{ club2.title }}</h4>
-                </div>
-                <hr class="hrr">
-                <p class="date"> {{ club2.start }} ~ {{ club2.end }} </p>
-              </b-card-text>
-            </b-card>
-          </slide>
-        </carousel>
-        <hr class="mt-2">
-      </div>
-     
       <!-- /////////////////////////////    화면이 중간일 때     //////////////////////////////////////// -->
 
-      <div v-else>
+      <div v-else-if="960 < windowWidth && 1266 > windowWidth">
         <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
-          <slide v-for="club2 in clubs2" :key="club2.no">
+          <slide v-for="(club2, index) in clubs2" :key="index">
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
@@ -165,7 +254,7 @@
               {{ i.nickname }}
               <img :src="i.src"
                 alt="안뜨는거야?"
-                style="width:100%; height: 350px"
+                style="width:100%; height: 20vw;"
                 :i="i"
                 @click='feedDetail(i)'
               >
@@ -173,7 +262,7 @@
           </v-col>
         </v-row>
         <v-row v-else class="bg-gray">
-          <v-col cols='12'  v-for="i in community" :key="i.no">
+          <v-col cols='12'  v-for="(i, index) in community" :key="index">
             <v-card
               :loading="loading"
               class="mx-auto my-3"
@@ -220,6 +309,7 @@ export default {
       searchData: {
         search:'',
       },
+      flag: true,
     }
   },
 
@@ -253,6 +343,12 @@ export default {
     },
     goContest(){
       this.$router.push('/allcontest')
+    },
+    Tflag() {
+      this.flag = true
+    },
+    Fflag() {
+      this.flag = false
     }
   },
 
@@ -263,6 +359,10 @@ export default {
 </script>
 
 <style scoped>
+  @font-face {
+    font-family: myFont;
+    src: url("/src/font/BMJUA_ttf.ttf");
+  }
 
   .active{
     width:20px;
@@ -325,7 +425,6 @@ export default {
   }
 
   .homeCard{
-    height: 200px;
     text-align: center;
     margin: auto ;
     border-top: thick solid rgb(92, 107, 192);
@@ -348,4 +447,9 @@ export default {
   .Pjt_h1{
     cursor: pointer;
   }
+  .font{
+    font-family: myFont, sans-serif;
+    font-size: 1.3rem;
+  }
+
 </style>

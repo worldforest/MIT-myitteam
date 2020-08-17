@@ -1,5 +1,6 @@
 <template>
   <div class="cont10">
+    <!-- {{ email }} -->
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="3" class="fg1">
         <div>
@@ -239,12 +240,12 @@
     <router-link class="feed white--text mb-3" to="/feedcreate">
       피드등록
     </router-link>
-    <v-row class="mt-4" v-if="windowWidth > 788">
+    <v-row class="mt-4 bg-gray" v-if="windowWidth > 788">
       <v-col cols="4" v-for="feed in profileData.feeds" :key="feed.no">
-        <div class="mx-2 detail_hover">         
+        <div class="mx-0.5 detail_hover">  
           <img :src="feed.src" 
           alt="" 
-          style="width:100%;" 
+          style="width:100%; height:20vw;" 
           :feed="feed" 
           @click="feedDetail(feed)" >
         </div>
@@ -444,7 +445,7 @@ export default {
   }
 
   .bg-gray {
-    background-color: #e9e9e9;
+    background-color: #FAFAFA;
   }
 
   .cardModal{

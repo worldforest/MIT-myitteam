@@ -1,7 +1,6 @@
 <template>
   <div >
-    {{ clubinfo }}
-    <div class="cont" v-if="windowWidth >= 900">
+    <div class="cont" v-if="windowWidth >= 1270">
       <div class="d-flex ma-2">
         <div>
           <img :src="club.imagesrc" alt="제목부분 포스터" class="title-img">
@@ -32,6 +31,7 @@
         <Team :club="club" :getTeamList="getTeamList"/>
       </div>
     </div>
+
     <div v-else>
       <div class="d-flex ma-2">
         <div>
@@ -72,10 +72,6 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
   name: "GongmoDetail",
-  props: {
-    club: Object,
-  },
-
   components: {
     Intro,
     Team,
@@ -86,6 +82,7 @@ export default {
       isIntro: true,
       isTeam: false,
       windowWidth: window.innerWidth,
+      club: [],
     }
   },
   watch: {
@@ -98,6 +95,7 @@ export default {
   },
   mounted() {
     this.info = this.$store.state.club
+    this.club = JSON.parse(sessionStorage.getItem('contestinfo'))
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
