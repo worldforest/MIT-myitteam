@@ -1,6 +1,7 @@
 <template>
   <div>
-    {{ saveInfo }}
+    {{ saveInfo.no }}
+    {{ saveInfo.leaderemail }}
     <span v-if="saveInfo.leaderemail === email">
       {{ saveInfo.allCnt}}
       {{ saveInfo.members.length}}
@@ -223,6 +224,8 @@
         {{ day }}
       </div>
     </span>
+
+    <v-btn text color="primary" @click="gotoMap(saveInfo)">장소 추천보기!</v-btn>
   </div>
 </template>
 
@@ -259,7 +262,7 @@ export default {
 
   },
   methods : {
-    ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'selectDay', 'getNickname', 'getMyday', 'deleteDate', 'teamChat']),
+    ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'selectDay', 'getNickname', 'getMyday', 'deleteDate', 'teamChat', 'gotoMap']),
     teamDataSave(){
       this.teamChatData.no = this.saveInfo.no,
       this.teamChatData.leaderemail = this.saveInfo.leaderemail
@@ -271,9 +274,6 @@ export default {
 
   },
   mounted () {
-    // setTimeout(() => { 
-    //   this.can.dates = this.$store.state.myDay
-    //   }, 400),
     setTimeout(()=>{
       const infos = JSON.parse(sessionStorage.getItem('myTeam'))
       for (let i=0; i < infos.length; i++) {
@@ -290,10 +290,12 @@ export default {
       this.teamChat(this.teamChatData);   
       this.teamDataSave();
     }, 350)
-    // console.log(this.$store.state.myDay)
-    // this.teamDataSave();
-    // this.teamChat(this.teamChatData);
-    // console.log(this.$store.state.myDay)
+    setTimeout(() => {
+      console.log(this.$store.state.myDay)
+      this.can.dates = this.$store.state.myDay
+    
+    }, 450)
+    // console.log(this.can.dates)
   }
 }
 </script>

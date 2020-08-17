@@ -558,7 +558,14 @@ export default {
         })
         router.push({ name: "Profile" })
       })
-    },
+	},
+	
+	gotoMap(context, res) {
+		axios.get(`${SERVER_URL}/api/teammanagement?leaderemail=${res.leaderemail}&no=${res.no}`)
+			.then((response) => {
+				context.commit('setMapInfo', response.data.center)
+			})
+	},
 
 	/////////지훈////////////////
 	getTeamInfo(context) {
@@ -601,7 +608,7 @@ export default {
 			dispatch('getTeamInfo')
 			setTimeout(() => {		
 				router.go()
-			}, 200)
+			}, 250)
 		})
 		.catch(err => {
 			console.log(err)
@@ -618,7 +625,7 @@ export default {
 			dispatch('getTeamInfo')
 			setTimeout(() => {
 				router.go()
-			}, 200)
+			}, 250)
 		})
 	},
 	selectDay(context, info) {

@@ -44,7 +44,7 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   data() {
@@ -57,6 +57,7 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   mounted() {
+      console.log(this.mapX, this.mapY)
       if (window.kakao && window.kakao.maps) {
           this.initMap();
       } else {
@@ -77,7 +78,7 @@ export default {
           // var geocoder = new kakao.maps.services.Geocoder();
 
           var options = {
-            center: new kakao.maps.LatLng(37.50089523435603, 127.02581335135186),
+            center: new kakao.maps.LatLng(this.mapY, this.mapX),
             level: 4
           };
 
@@ -124,6 +125,9 @@ export default {
       onResize() {
         this.windowWidth = window.innerWidth
       },
+    },
+    computed: {
+      ...mapState(['mapY', 'mapX'])
     }
 }
 </script>

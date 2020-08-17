@@ -1,11 +1,7 @@
 <template>
   <div  class="cont10">
-    {{email}}
-    {{user}}
-    {{ followerList2 }}
     <!-- {{ email }} -->
     <!-- {{ myNick }} -->
-    {{ privateData }}
     {{ privateChatTitle }}
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
@@ -282,8 +278,8 @@ export default {
       followconf: true,
       email : this.$store.state.email, 
       privateData: {
-        myNickname : this.$store.state.myNick,
-        yourNickname : this.$store.state.userprofiledata.nickname, 
+        myNickname : '',
+        yourNickname : JSON.parse(sessionStorage.getItem('userprofileinfo')).nickname,
       },
       dialog: false,
       userprofiledata: '',
@@ -319,8 +315,9 @@ export default {
   mounted() {
     setTimeout(() => {
         this.userprofiledata = JSON.parse(sessionStorage.getItem('userprofileinfo'))
-        this.privateData.yourNickname = this.userprofiledata.nickname
-			}, 100)
+        this.privateData.myNickname = this.$store.state.myNick
+        this.privateChat(this.privateData)
+			}, 200)
     this.followList = this.$store.state.followerList
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
@@ -334,9 +331,7 @@ export default {
     // 로그인한 유저의 정보를 확인
     this.profile()
     this.getNickname(this.$store.state.email)
-    console.log('여기야 여기.....................')
-    console.log(this.privateData)
-    this.privateChat(this.privateData)
+    
   },
 }
 </script>

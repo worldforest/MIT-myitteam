@@ -1,6 +1,5 @@
 <template>
   <div >
-    <!-- {{ club }} -->
     <div class="cont" v-if="windowWidth >= 1270">
       <div class="d-flex ma-2">
         <div>
@@ -33,7 +32,7 @@
       </div>
     </div>
 
-    <div v-if="windowWidth < 1270">
+    <div v-else>
       <div class="d-flex ma-2">
         <div>
           <img :src="club.imagesrc" alt="제목부분 포스터" class="title-img">
