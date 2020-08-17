@@ -558,7 +558,14 @@ export default {
         })
         router.push({ name: "Profile" })
       })
-    },
+	},
+	
+	gotoMap(context, res) {
+		axios.get(`${SERVER_URL}/api/teammanagement?leaderemail=${res.leaderemail}&no=${res.no}`)
+			.then((response) => {
+				context.commit('setMapInfo', response.data.center)
+			})
+	},
 
 	/////////지훈////////////////
 	getTeamInfo(context) {
