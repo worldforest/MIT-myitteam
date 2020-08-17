@@ -1,7 +1,8 @@
 <template>
-  <div  class="cont10">
+  <div class="cont10">
     <!-- {{ email }} -->
     <!-- {{ myNick }} -->
+    {{ privateData }}
     {{ privateChatTitle }}
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
@@ -331,7 +332,6 @@ export default {
     // 로그인한 유저의 정보를 확인
     this.profile()
     this.getNickname(this.$store.state.email)
-    
   },
 }
 </script>
