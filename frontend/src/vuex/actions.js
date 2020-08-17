@@ -215,6 +215,11 @@ export default {
 		params.append('part', sendData.part);
 		axios.post(`${SERVER_URL}/api/team/applyTeam`, params)
 		.then(()=> {
+			Swal.fire({
+				icon: 'success',
+				title: '팀장에게 프로필을 전달하였습니다.',
+				width: 600
+			})
 		})
 		.catch(err => {
 			console.log(err.response.data)
@@ -319,7 +324,7 @@ export default {
 	getalarm(context, nickname){
 		const params =  new URLSearchParams();
 		params.append('nickname', nickname)
-		axios.post(`${SERVER_URL}/api/alram/list`, params)
+		axios.post(`${SERVER_URL}/api/alarm/list`, params)
 		.then( res => {
 			context.commit('getalarmList', res.data)
 		})
@@ -328,7 +333,7 @@ export default {
 	deleteAlarm(context, alarm){
 		const params = new URLSearchParams();
 		params.append('no', alarm.no)
-		axios.post(`${SERVER_URL}/api/alram/delete`, params)
+		axios.post(`${SERVER_URL}/api/alarm/delete`, params)
 		.then( () => {
 			context.dispatch('getalarm', alarm.addressee)
 		})
@@ -594,7 +599,7 @@ export default {
 		.then((response) => {
 			console.log(response)
 			dispatch('getTeamInfo')
-			setTimeout(() => {
+			setTimeout(() => {		
 				router.go()
 			}, 200)
 		})

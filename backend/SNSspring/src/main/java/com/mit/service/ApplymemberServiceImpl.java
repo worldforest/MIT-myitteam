@@ -19,6 +19,11 @@ public class ApplymemberServiceImpl implements ApplymemberService {
 	}
 
 	@Override
+	public int selectOne(String no, String leaderemail, String teamemail) {
+		return applymemberRepo.selectOne(no, leaderemail, teamemail);
+	}
+
+	@Override
 	public boolean delete(String no, String leaderemail, String teamemail, String part) {
 		return applymemberRepo.delete(no, leaderemail, teamemail, part);
 	}

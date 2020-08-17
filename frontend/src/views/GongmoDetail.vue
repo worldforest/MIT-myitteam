@@ -1,6 +1,11 @@
 <template>
   <div >
+<<<<<<< HEAD
     <div class="cont" v-if="windowWidth >= 900">
+=======
+    <!-- {{ club }} -->
+    <div class="cont" v-if="windowWidth >= 1270">
+>>>>>>> 037323956345e65ad83f460bc5018c0e9418bab2
       <div class="d-flex ma-2">
         <div>
           <img :src="club.imagesrc" alt="제목부분 포스터" class="title-img">
@@ -31,7 +36,8 @@
         <Team :club="club" :getTeamList="getTeamList"/>
       </div>
     </div>
-    <div v-else>
+
+    <div v-if="windowWidth < 1270">
       <div class="d-flex ma-2">
         <div>
           <img :src="club.imagesrc" alt="제목부분 포스터" class="title-img">

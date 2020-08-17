@@ -24,13 +24,13 @@ public class AlarmController {
 	private static final String FAIL = "fail";
 
 	@Autowired
-	private AlarmService alrmService;
+	private AlarmService alarmService;
 
 	@ApiOperation(value = "알람 목록 보여주기", notes = "nickname을 보내면 목록보여주기, 성공하면 list로 보내줘")
 	@PostMapping("list")
 	public ResponseEntity<List<Alarm>> list(@RequestParam String nickname) {
 
-		List<Alarm> alarmlist = alrmService.select(nickname);
+		List<Alarm> alarmlist = alarmService.select(nickname);
 		return new ResponseEntity<List<Alarm>>(alarmlist, HttpStatus.OK);
 	}
 
@@ -38,7 +38,7 @@ public class AlarmController {
 	@PostMapping("update")
 	public ResponseEntity<String> update(@RequestParam String no) {
 		// 선택한 알람 번호로 flag를 업데이트 flag=1(읽음표시)
-		if (alrmService.update(no)) {
+		if (alarmService.update(no)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
@@ -47,7 +47,7 @@ public class AlarmController {
 	@ApiOperation(value = "알람 삭제하기", notes = "no 삭제 원하는 알림 번호, 성공하면 SUCCESS, 실패하면 FAIL")
 	@PostMapping("delete")
 	public ResponseEntity<String> delete(@RequestParam String no) {
-		if (alrmService.delete(no)) {
+		if (alarmService.delete(no)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);

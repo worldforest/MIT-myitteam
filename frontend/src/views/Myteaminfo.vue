@@ -34,7 +34,13 @@
           </v-card-actions>
         </v-card>
       </span>
+
       <span v-else>
+        <hr>
+        {{ teamchatTitle }}
+        <router-link :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
+          <v-btn>팀 채팅하기</v-btn>
+        </router-link>
         <b-card-group deck v-for="member in saveInfo.members" :key="member">
           <span v-if="member.memberemail !== email">
             <b-card
@@ -48,6 +54,8 @@
             </b-card>
           </span>
         </b-card-group>
+
+        <hr>
         <v-row>
           <div>
             날짜 추가
@@ -98,7 +106,7 @@
                 <v-text-field
                   v-model="dateInfo.date"
                   label="Picker in menu"
-                  prepend-icon="event"
+                  prepend-icon
                   readonly
                   v-bind="attrs"
                   v-on="on"
@@ -120,105 +128,115 @@
         </div>
       </span>
     </span>
+
+
+    <!-- 내가 팀장이 아닐 때 -->
     <span v-else>
-        <b-card-group deck v-for="member in saveInfo.members" :key="member">
-          <span v-if="member.memberemail !== email">
-            <b-card
-              border-variant="primary"
-              header
-              header-bg-variant="primary"
-              header-text-variant="white"
-              align="center"
-            >
-            <router-link :to="{name: 'UserProfile', params:{user:member.memberemail}}"><b-card-text>{{ member.memberemail }}</b-card-text></router-link>
-            </b-card>
-          </span>
-        </b-card-group>
-        <v-row>
-          <div>
-            날짜 추가
-          </div>
-          <v-col cols="12" sm="6" md="4">
-            <v-menu
-              ref="menu"
-              v-model="menu"
-              :close-on-content-click="false"
-              :return-value.sync="date"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="dateInfo.date"
-                  label="Picker in menu"
-                  prepend-icon="event"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker v-model="dateInfo.date" no-title scrollable>
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                <v-btn text color="primary" @click.native="$refs.menu.save(date); postDate(dateInfo)">OK</v-btn>
-              </v-date-picker>
-            </v-menu>
-          </v-col>
-        </v-row>
-        <v-row>
-          <div>
-            날짜 빼기
-          </div>
-          <v-col cols="12" sm="6" md="4">
-            <v-menu
-              ref="menu2"
-              v-model="menu2"
-              :close-on-content-click="false"
-              :return-value.sync="date"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="dateInfo.date"
-                  label="Picker in menu"
-                  prepend-icon="event"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker v-model="dateInfo.date" no-title scrollable>
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="menu2 = false">Cancel</v-btn>
-                <v-btn text color="primary" @click.native="$refs.menu2.save(date); deleteDate(dateInfo)">OK</v-btn>
-              </v-date-picker>
-            </v-menu>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-date-picker v-model="can.dates" readonly multiple></v-date-picker>
-        </v-row>
-        <div v-for="day in meetDay" :key="day">
-          {{ day }}
+      {{ '나 팀장 아님' }}
+      {{ teamChatData }}
+      <hr>
+      {{ teamchatTitle }}
+      <router-link :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
+        <v-btn>팀 채팅하기</v-btn>
+      </router-link>
+      <b-card-group deck v-for="member in saveInfo.members" :key="member">
+        <span v-if="member.memberemail !== email">
+          <b-card
+            border-variant="primary"
+            header
+            header-bg-variant="primary"
+            header-text-variant="white"
+            align="center"
+          >
+          <router-link :to="{name: 'UserProfile', params:{user:member.memberemail}}"><b-card-text>{{ member.memberemail }}</b-card-text></router-link>
+          </b-card>
+        </span>
+      </b-card-group>
+      <v-row>
+        <div>
+          날짜 추가
         </div>
+        <v-col cols="12" sm="6" md="4">
+          <v-menu
+            ref="menu"
+            v-model="menu"
+            :close-on-content-click="false"
+            :return-value.sync="date"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="dateInfo.date"
+                label="Picker in menu"
+                prepend-icon
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="dateInfo.date" no-title scrollable>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+              <v-btn text color="primary" @click.native="$refs.menu.save(date); postDate(dateInfo)">OK</v-btn>
+            </v-date-picker>
+          </v-menu>
+        </v-col>
+      </v-row>
+      <v-row>
+        <div>
+          날짜 빼기
+        </div>
+        <v-col cols="12" sm="6" md="4">
+          <v-menu
+            ref="menu2"
+            v-model="menu2"
+            :close-on-content-click="false"
+            :return-value.sync="date"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="dateInfo.date"
+                label="Picker in menu"
+                prepend-icon
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="dateInfo.date" no-title scrollable>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="menu2 = false">Cancel</v-btn>
+              <v-btn text color="primary" @click.native="$refs.menu2.save(date); deleteDate(dateInfo)">OK</v-btn>
+            </v-date-picker>
+          </v-menu>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-date-picker v-model="can.dates" readonly multiple></v-date-picker>
+      </v-row>
+      <div v-for="day in meetDay" :key="day">
+        {{ day }}
+      </div>
     </span>
   </div>
-  
-  
-  
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 
-
 export default {
   name: 'Myteaminfo',
   data () {
     return {
+      teamChatData: {
+        no: '',
+        leaderemail: '',
+      },
       dateInfo : {
         date: new Date().toISOString().substr(0, 10),
         leaderemail: '',
@@ -233,40 +251,47 @@ export default {
       can : {
         dates: [],
         menu: false
-      }
+      },
     }
   },
   computed: {
-    ...mapState(['myTeamInfo', 'dates', 'email', 'memberNickname', 'meetDay', 'myDay']),
+    ...mapState(['myTeamInfo', 'dates', 'email', 'memberNickname', 'meetDay', 'myDay','teamchatTitle']),
 
   },
   methods : {
-    ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'selectDay', 'getNickname', 'getMyday', 'deleteDate']),
-  },
-  created() {
-    // this.dates = this.$store.state.dates
-    this.getTeamInfo()
-    const infos = JSON.parse(sessionStorage.getItem('myTeam'))
-    for (let i=0; i < infos.length; i++) {
-      if (this.$route.params.id === infos[i].no) {
-        this.saveInfo = infos[i]
-        this.dateInfo.leaderemail = infos[i].leaderemail
-        this.dateInfo.memberemail = this.$store.state.email
-        this.dateInfo.no = this.$route.params.id
-        this.selectDay(this.dateInfo)
-        this.getMyday(this.dateInfo)
-      }
+    ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'selectDay', 'getNickname', 'getMyday', 'deleteDate', 'teamChat']),
+    teamDataSave(){
+      this.teamChatData.no = this.saveInfo.no,
+      this.teamChatData.leaderemail = this.saveInfo.leaderemail
     }
   },
-  mounted () {
-    // console.log(this.$store.state.myDay)
-    setTimeout(() => {
-        this.can.dates = this.$store.state.myDay
-			}, 200)
-    
-  }
+  created() {
+  // this.getTeamInfo()
+    // this.dates = this.$store.state.dates
 
-  
+  },
+  mounted () {
+    setTimeout(() => { 
+      this.can.dates = this.$store.state.myDay
+      }, 200),
+    setTimeout(()=>{
+      const infos = JSON.parse(sessionStorage.getItem('myTeam'))
+      for (let i=0; i < infos.length; i++) {
+        if (this.$route.params.id === infos[i].no) {
+          this.saveInfo = infos[i]
+          this.dateInfo.leaderemail = infos[i].leaderemail
+          this.dateInfo.memberemail = this.$store.state.email
+          this.dateInfo.no = this.$route.params.id
+          this.selectDay(this.dateInfo)
+          this.getMyday(this.dateInfo)
+        }
+      }
+    }, 350)
+    // console.log(this.$store.state.myDay)
+    this.teamDataSave();
+    this.teamChat(this.teamChatData);
+    // console.log(this.$store.state.myDay)
+  }
 }
 </script>
 

@@ -22,6 +22,7 @@ import UpdateProfile from '@/views/UpdateProfile.vue'
 import searchTag from '@/views/searchTag.vue'
 import dmap from '@/views/dmap.vue'
 import FeedUpdate from '@/views/FeedUpdate.vue'
+import teamInfoDetail from '@/views/teamInfoDetail.vue'
 import PageNotFound from '@/views/PageNotFound.vue'
 import RealHome from '@/views/RealHome.vue'
 
@@ -98,6 +99,12 @@ Vue.use(VueRouter)
     path: '/projectlist',
     name: 'ProjectList',
     component: ProjectList
+  },
+  {
+    path: '/teamInfoDetail',
+    name: 'teamInfoDetail',
+    component: teamInfoDetail,
+    props: true
   },
   //////////다인////////////
   //////////지훈////////////
