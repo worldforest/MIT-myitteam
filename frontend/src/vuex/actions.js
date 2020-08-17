@@ -558,7 +558,19 @@ export default {
         })
         router.push({ name: "Profile" })
       })
-    },
+	},
+	
+	gotoMap(context, res) {
+		console.log(res.no)
+		console.log(res.leaderemail)
+		// const params = new URLSearchParams();
+		// params.append('leaderemail', res.leaderemail)
+		// params.append('no', res.no)
+		axios.get(`${SERVER_URL}/api/teammanagement?leaderemail=${res.leaderemail}&no=${res.no}`)
+			// .then((response) => {
+			// 	console.log(response)
+			// })
+	},
 
 	/////////지훈////////////////
 	getTeamInfo(context) {

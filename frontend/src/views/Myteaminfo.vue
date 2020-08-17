@@ -1,6 +1,7 @@
 <template>
   <div>
-    {{ saveInfo }}
+    {{ saveInfo.no }}
+    {{ saveInfo.leaderemail }}
     <span v-if="saveInfo.leaderemail === email">
       {{ saveInfo.allCnt}}
       {{ saveInfo.members.length}}
@@ -223,6 +224,8 @@
         {{ day }}
       </div>
     </span>
+
+    <v-btn text color="primary" @click="gotoMap(saveInfo)">장소 추천보기!</v-btn>
   </div>
 </template>
 
@@ -259,7 +262,7 @@ export default {
 
   },
   methods : {
-    ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'selectDay', 'getNickname', 'getMyday', 'deleteDate', 'teamChat']),
+    ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'selectDay', 'getNickname', 'getMyday', 'deleteDate', 'teamChat', 'gotoMap']),
     teamDataSave(){
       this.teamChatData.no = this.saveInfo.no,
       this.teamChatData.leaderemail = this.saveInfo.leaderemail
