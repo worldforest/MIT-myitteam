@@ -8,7 +8,7 @@
     <div v-if="windowWidth >=767">
       <ul>
         <li>
-          <router-link to="/">
+          <router-link to="/home">
             <img id="logo" src="./images/1.jpg" alt="logo">
           </router-link>
         </li>
@@ -59,6 +59,7 @@
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
+                    v-if="alarmList.length === 0"
                     x-large color="#5C6BC0"
                     v-bind="attrs"
                     v-on="on"
@@ -67,6 +68,13 @@
                   >
                     mdi-bell
                   </v-icon>
+                  <v-icon
+                    v-else
+                    x-large color="#5C6BC0"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="accountIcon"
+                    @click="getalarm(myNick)">mdi-bell-check</v-icon>
                 </template>
                 <v-list v-for="alarm in alarmList" :key="alarm">
                   <v-list-item>
@@ -98,7 +106,7 @@
                     <v-list-item-title class="not-home"><router-link to="/myteam" @click="getTeamInfo">나의 팀 관리</router-link></v-list-item-title>
                   </v-list-item>
                   <v-list-item>
-                    <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/" @click.native="logout">LOGOUT</router-link></v-list-item-title>
+                    <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/home" @click.native="logout">LOGOUT</router-link></v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -112,7 +120,7 @@
     <div v-if="windowWidth <767">
       <div class="bg">
          <div>
-           <router-link to="/"><img src="../src/images/logo2.png" alt="MIT Logo" style="height:30px" class="logo2"></router-link>
+           <router-link to="/home"><img src="../src/images/logo2.png" alt="MIT Logo" style="height:30px" class="logo2"></router-link>
          </div>
          <div  v-if="!isLoggedIn">
           <router-link to="/login" class="test">LOGIN</router-link>
@@ -186,11 +194,11 @@
                 </template>
                 <v-list>
                   <v-list-item>
-                    <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/" @click.native="logout">LOGOUT</router-link></v-list-item-title>
+                    <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/home" @click.native="logout">LOGOUT</router-link></v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
-            </div>s
+            </div>
            </v-row>
         </div>
       </div>
@@ -212,7 +220,7 @@
         </div>
       </div>
     </div>
-    <v-app color="#FAFAFA" class="container">
+    <v-app color="#FAFAFA" :class="[ {'container': currentRouteName !== 'RealHome' } ]">
       <div>
         <router-view :privateChatTitle="$route.fullPath"/>
       </div>
@@ -266,7 +274,10 @@ export default {
   },
   computed: {
     ...mapState(['email', 'myNick', 'alarmList', 'allChat']),
-    ...mapGetters(['isLoggedIn', 'isEmail'])
+    ...mapGetters(['isLoggedIn', 'isEmail']),
+    currentRouteName() {
+        return this.$route.name;
+    }
   },
   mounted() {
     this.getContestData()
@@ -280,6 +291,7 @@ export default {
   },
   created () {
     this.getNickname(this.email)
+    this.currentRouteName()
     // this.getAllChat(this.myNick)
   },
 };
@@ -300,9 +312,6 @@ export default {
     font-weight: bold;
   }
 
-  .cont5 {
-    margin: 0 5%;
-  }
   .nav_a{
     position: relative;
     text-decoration: none;
@@ -311,9 +320,11 @@ export default {
     font-size: 1.3rem;
     font-weight: bold;
   }
+  
   a:hover{
     color: blue;
   }
+
   #logo{
     height: 70px;
     width: 120px;
@@ -375,10 +386,10 @@ export default {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: white;
+    /* background-color: orange; */
     line-height: 90px;
-    box-shadow: 0 0 5px 5px;
-    margin-bottom: 5px;
+    /* border-bottom: thick solid rgb(92, 107, 192); */
+    /* margin-bottom: 5px; */
   }
 
   li {

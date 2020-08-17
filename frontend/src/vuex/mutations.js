@@ -175,5 +175,10 @@ export default {
     },
     getteamChat(state, data){
         state.teamchatTitle = data
+    },
+    setMapInfo(state, data) {
+        state.mapX = data.x
+        state.mapY = data.y
+        router.push({name:'dmap'})
     }
 }

@@ -5,7 +5,7 @@
       <div class="mt-6">
         <h1 @click="goContest" class="Pjt_h1 mb-4">공모전</h1>
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="true" style="width:100%">
-          <slide v-for="club in clubs" :key="club.no">
+          <slide v-for="(club, index) in clubs" :key="index">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
@@ -33,7 +33,7 @@
           class="mx-auto my-1 homeCard"
           max-width="344"
           outlined
-          v-for="club in clubs" :key="club.no"
+          v-for="(club, index) in clubs" :key="index"
         >
           <v-list-item three-line>
             <v-list-item-content>
@@ -68,7 +68,7 @@
           class="mx-auto my-1 homeCard"
           max-width="344"
           outlined
-          v-for="club2 in clubs2" :key="club2.no"
+          v-for="(club2, index) in clubs2" :key="index"
         >
           <v-list-item three-line>
             <v-list-item-content>
@@ -89,7 +89,7 @@
 
     <!-- /////////////////////////////    화면이 중간(작은)일 때     //////////////////////////////////////// -->
 
-    <div v-else-if="windowWidth < 960 && windowWidth >=500">
+    <div v-else-if="windowWidth < 960 && windowWidth >=510">
       <div class="d-flex">
         <h3 class="ml-auto cursor" @click="Tflag()">공모전</h3>
         <h3 class="mx-3 cursor" @click="Fflag()">프로젝트</h3>
@@ -97,7 +97,7 @@
       <h3 v-if="flag">공모전</h3>
       <h3 v-if="!flag">프로젝트</h3>
       <v-row class="mt-0" v-if="flag">
-        <v-col cols="6" v-for="club in clubs" :key="club.no">
+        <v-col cols="6" v-for="(club,index) in clubs" :key="index">
           <v-card      
             class="mx-auto my-1 homeCard"
             max-width="344"
@@ -133,7 +133,7 @@
         </v-col>
       </v-row>
       <v-row class="mt-0" v-if="!flag">
-        <v-col cols="6" v-for="club in clubs2" :key="club.no">
+        <v-col cols="6" v-for="(club,index) in clubs2" :key="index">
           <v-card      
             class="mx-auto my-1 homeCard"
             max-width="344"
@@ -162,7 +162,7 @@
       <div class="mt-6">
         <h1 class="Pjt_h1 mb-4">공모전</h1>
         <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
-          <slide v-for="club in clubs" :key="club.no">
+          <slide v-for="(club,index) in clubs" :key="index">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 75%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
@@ -185,7 +185,7 @@
       <h1 @click="goPJT" class="Pjt_h1 mb-4" v-if="windowWidth > 960">프로젝트</h1>
       <div v-if="windowWidth >= 1266">      
         <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
-          <slide v-for="club2 in clubs2" :key="club2.no">
+          <slide v-for="(club2,index) in clubs2" :key="index">
             <!-- {{ club2 }} -->
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
@@ -208,7 +208,7 @@
 
       <div v-else-if="960 < windowWidth && 1266 > windowWidth">
         <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
-          <slide v-for="club2 in clubs2" :key="club2.no">
+          <slide v-for="(club2, index) in clubs2" :key="index">
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
@@ -262,7 +262,7 @@
           </v-col>
         </v-row>
         <v-row v-else class="bg-gray">
-          <v-col cols='12'  v-for="i in community" :key="i.no">
+          <v-col cols='12'  v-for="(i, index) in community" :key="index">
             <v-card
               :loading="loading"
               class="mx-auto my-3"
