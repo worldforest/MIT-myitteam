@@ -161,6 +161,7 @@ export default {
         state.privateChatTitle = data
     },
     getDay(state, res) {
+        console.log(res)
         state.myDay = res
     },
     selectDay(state, res) {
