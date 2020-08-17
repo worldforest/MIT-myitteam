@@ -59,6 +59,7 @@
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
+                    v-if="alarmList.length === 0"
                     x-large color="#5C6BC0"
                     v-bind="attrs"
                     v-on="on"
@@ -67,6 +68,13 @@
                   >
                     mdi-bell
                   </v-icon>
+                  <v-icon
+                    v-else
+                    x-large color="#5C6BC0"
+                    v-bind="attrs"
+                    v-on="on"
+                    class="accountIcon"
+                    @click="getalarm(myNick)">mdi-bell-check</v-icon>
                 </template>
                 <v-list v-for="alarm in alarmList" :key="alarm">
                   <v-list-item>
