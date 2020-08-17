@@ -601,7 +601,7 @@ export default {
 			dispatch('getTeamInfo')
 			setTimeout(() => {		
 				router.go()
-			}, 200)
+			}, 250)
 		})
 		.catch(err => {
 			console.log(err)
@@ -618,7 +618,7 @@ export default {
 			dispatch('getTeamInfo')
 			setTimeout(() => {
 				router.go()
-			}, 200)
+			}, 250)
 		})
 	},
 	selectDay(context, info) {

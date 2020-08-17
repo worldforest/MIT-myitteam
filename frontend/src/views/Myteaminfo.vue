@@ -271,9 +271,7 @@ export default {
 
   },
   mounted () {
-    setTimeout(() => { 
-      this.can.dates = this.$store.state.myDay
-      }, 200),
+    
     setTimeout(()=>{
       const infos = JSON.parse(sessionStorage.getItem('myTeam'))
       for (let i=0; i < infos.length; i++) {
@@ -286,11 +284,15 @@ export default {
           this.getMyday(this.dateInfo)
         }
       }
+      this.teamDataSave();
+      this.teamChat(this.teamChatData);
     }, 350)
-    // console.log(this.$store.state.myDay)
-    this.teamDataSave();
-    this.teamChat(this.teamChatData);
-    // console.log(this.$store.state.myDay)
+    setTimeout(() => {
+      console.log(this.$store.state.myDay)
+      this.can.dates = this.$store.state.myDay
+    
+    }, 450)
+    // console.log(this.can.dates)
   }
 }
 </script>
