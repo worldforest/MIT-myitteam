@@ -23,14 +23,20 @@ import searchTag from '@/views/searchTag.vue'
 import dmap from '@/views/dmap.vue'
 import FeedUpdate from '@/views/FeedUpdate.vue'
 import PageNotFound from '@/views/PageNotFound.vue'
+import RealHome from '@/views/RealHome.vue'
 
 Vue.use(VueRouter)
 
   const routes = [
-    {
-    path: '/',
+  {
+    path: '/home',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/',
+    name: 'RealHome',
+    component: RealHome
   },
   {
     path: '/feedcreate',
@@ -43,7 +49,7 @@ Vue.use(VueRouter)
     component: Login,
     beforeEnter(to, from, next) {
       if (Vue.$cookies.isKey('auth-token')) {
-        next('/')
+        next('/home')
       }
       else {
         next()
@@ -56,7 +62,7 @@ Vue.use(VueRouter)
     component: Signup,
     beforeEnter(to, from, next) {
       if (Vue.$cookies.isKey('auth-token')) {
-        next('/')
+        next('/home')
       }
       else {
         next()
@@ -66,7 +72,15 @@ Vue.use(VueRouter)
   {
     path: '/profile',
     name: "Profile",
-    component: Profile
+    component: Profile,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   //////////다인////////////
   {

@@ -1,6 +1,5 @@
 <template>
   <div >
-    {{ club }}
     <div class="cont" v-if="windowWidth >= 900">
       <div class="d-flex ma-2">
         <div>

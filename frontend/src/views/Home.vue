@@ -89,7 +89,7 @@
 
     <!-- /////////////////////////////    화면이 중간(작은)일 때     //////////////////////////////////////// -->
 
-    <div v-else-if="windowWidth < 960 && windowWidth >=500">
+    <div v-else-if="windowWidth < 960 && windowWidth >=510">
       <div class="d-flex">
         <h3 class="ml-auto cursor" @click="Tflag()">공모전</h3>
         <h3 class="mx-3 cursor" @click="Fflag()">프로젝트</h3>
