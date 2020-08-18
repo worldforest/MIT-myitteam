@@ -12,7 +12,7 @@
           </ul>
         </nav>
       </div>
-      <div v-if="isLoggedIn">A
+      <div v-if="isLoggedIn">
         <nav role="navigation" class="primary-navigation">
           <ul class="right-nav">
             <li class="left-nav"><router-link to="/home"><span>Home</span></router-link></li>
