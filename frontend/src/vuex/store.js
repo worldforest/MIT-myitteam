@@ -17,6 +17,7 @@ const state = {
     clubs: [],
     clubs2: [],
     clubinfo: {},
+    user: JSON.parse(sessionStorage.getItem('user')),
     detailFeed: JSON.parse(sessionStorage.getItem('feedinfo')),
     userprofiledata: JSON.parse(sessionStorage.getItem('userprofileinfo')),
     followerList: [],
