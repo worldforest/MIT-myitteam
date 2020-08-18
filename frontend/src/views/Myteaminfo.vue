@@ -287,8 +287,8 @@ export default {
         }
       }
       this.can.dates = this.$store.state.myDay
-      this.teamChat(this.teamChatData);   
       this.teamDataSave();
+      this.teamChat(this.teamChatData);   
     }, 350)
     setTimeout(() => {
       console.log(this.$store.state.myDay)

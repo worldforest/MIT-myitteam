@@ -1,8 +1,7 @@
 <template>
-  <div class="cont10">
+  <div  class="cont10">
     <!-- {{ email }} -->
     <!-- {{ myNick }} -->
-    {{ privateData }}
     {{ privateChatTitle }}
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
@@ -208,7 +207,7 @@
       피드등록
     </router-link>
     <v-row class="my-4" v-if="windowWidth > 788">
-      <v-col cols="4" v-for="(feed, index) in userprofiledata.feeds" :key="index">
+      <v-col cols="4" v-for="feed in userprofiledata.feeds" :key="feed.no">
         <div class="mx-2 detail_hover">         
           <img :src="feed.src" 
           alt="안나오는겁니다!" 
@@ -219,7 +218,7 @@
       </v-col>
     </v-row>
     <v-row v-else class="bg-gray">
-      <v-col cols='12'  v-for="(feed, index) in userprofiledata.feeds" :key="index">
+      <v-col cols='12'  v-for="feed in userprofiledata.feeds" :key="feed.no">
         <v-card
           :loading="loading"
           class="mx-auto my-3"
@@ -282,8 +281,7 @@ export default {
         myNickname : '',
         yourNickname : JSON.parse(sessionStorage.getItem('userprofileinfo')).nickname,
       },
-      dialog: false,
-      userprofiledata: '',
+      dialog: false
     }
   },
   watch: {
@@ -305,11 +303,11 @@ export default {
       this.windowWidth = window.innerWidth
     },
     ...mapMutations(['feedDetail', 'GET_EMAIL']),
-    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'getNickname', 'privateChat',])
+    ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'follwerCnt', 'getNickname', 'privateChat',])
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
-    ...mapState([ 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2', 'myNick', 'privateChatTitle']),
+    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2', 'myNick', 'privateChatTitle']),
     ...mapGetters(['isLoggedIn',])
      
   },
@@ -323,6 +321,7 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+    this.follwerCnt(this.user)
   },
 
   created () {
@@ -332,6 +331,7 @@ export default {
     // 로그인한 유저의 정보를 확인
     this.profile()
     this.getNickname(this.$store.state.email)
+    
   },
 }
 </script>
