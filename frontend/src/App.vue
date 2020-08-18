@@ -2,12 +2,7 @@
   <div class="bg4">
     <!-- {{ myNick }}
     {{ alarmList }}
-<<<<<<< HEAD
     {{ allChat }}   -->
-=======
-    {{ allChat }} -->
-  
->>>>>>> bfeb31ba904e437d950070fe50b9c2297a449a39
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767 && currentRouteName !== 'RealHome'" >
       <ul>
