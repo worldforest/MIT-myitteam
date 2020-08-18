@@ -286,19 +286,13 @@ export default {
   },
   created () {
     this.getNickname(this.email)
-    this.currentRouteName()
+    this.currentRouteName
     // this.getAllChat(this.myNick)
   },
 };
 </script>
-
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("./font/BMJUA_ttf.ttf");
-  }
-
-  *{ font-family: myFont, sans-serif; }
+ *{ font-family: 'Jua', sans-serif;}
 
   .not-home > a { 
     text-decoration: none;
