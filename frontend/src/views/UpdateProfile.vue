@@ -89,8 +89,8 @@
 import { mapState } from 'vuex'
 import axios from 'axios'
 
-// const SERVER_URL = 'http://localhost:9999/mit'
-const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
+const SERVER_URL = 'http://localhost:9999/mit'
+// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
 
 export default {
   data () {
