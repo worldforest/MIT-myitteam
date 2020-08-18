@@ -4,6 +4,7 @@
     {{ allChat }} 
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767 && currentRouteName !== 'RealHome'" >
+      
       <ul>
         <li>
           <router-link to="/home">
@@ -43,6 +44,7 @@
                 <v-list v-for="(chat, index) in allChat" :key="index">
                   <v-list-item>
                     <v-row>
+                      {{ chat }}
                       <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" class="chat_img mr-3">
                       <span class="not-home ppointer" @click="goChat(chat)">{{ chat }}</span>
                     </v-row>

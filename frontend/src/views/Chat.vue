@@ -70,6 +70,7 @@ export default {
         message:this.message,
         createdAt: new Date()
       })
+      this.message=null
       input.reset()
     },
     fetchMessages(){
