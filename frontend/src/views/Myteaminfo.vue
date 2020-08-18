@@ -273,12 +273,6 @@ export default {
 
   },
   mounted () {
-<<<<<<< HEAD
-    this.can.dates = this.$store.state.myDay
-  
-=======
-    
->>>>>>> bfeb31ba904e437d950070fe50b9c2297a449a39
     setTimeout(()=>{
       const infos = JSON.parse(sessionStorage.getItem('myTeam'))
       for (let i=0; i < infos.length; i++) {
