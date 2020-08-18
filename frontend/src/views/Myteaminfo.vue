@@ -2,6 +2,7 @@
   <div>
     {{ saveInfo.no }}
     {{ saveInfo.leaderemail }}
+    
     <span v-if="saveInfo.leaderemail === email">
       {{ saveInfo.allCnt}}
       {{ saveInfo.members.length}}

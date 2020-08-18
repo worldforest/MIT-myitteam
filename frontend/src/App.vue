@@ -290,7 +290,7 @@ export default {
   created () {
     this.getNickname(this.email)
     this.currentRouteName()
-    // this.getAllChat(this.myNick)
+    this.getAllChat(this.myNick)
   },
 };
 </script>
