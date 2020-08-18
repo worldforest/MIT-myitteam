@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ windowWidth }}
     <div class="cont" v-if="windowWidth >= 800">
       <div class="d-flex ma-2">
         <div class="ml-3">
