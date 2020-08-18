@@ -11,7 +11,7 @@
         {{ pjt }}
         <v-col v-for="n in 1" :key="n" cols="sm"> 
           <div
-            class="mx-auto projectCard"
+            class="mx-auto projectCard cursor"
             max-width="500"
             v-on:click="projectDetail(i)">
             <div class="cardBar"> </div>
@@ -21,11 +21,6 @@
             </v-card-title>
             <hr class="hrr">
             <v-card-text class="text--primary mb-3">{{ i.start }} ~ {{ i.end }}
-               <v-card-actions>
-                  <v-btn color="orange" text class="ml-auto" @click="projectDetail(i); getTeamData(i.no)">
-                    자세히보기
-                  </v-btn>  
-                </v-card-actions>
             </v-card-text>
           </div>
         </v-col>
@@ -93,6 +88,10 @@ export default {
   }
   li {
     list-style: none;
+  }
+  .cursor {
+    cursor: pointer;
+    font-weight: bold;
   }
 
 </style>

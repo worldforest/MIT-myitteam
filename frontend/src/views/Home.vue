@@ -80,12 +80,12 @@
     <!-- /////////////////////////////    화면이 중간(작은)일 때     //////////////////////////////////////// -->
 
     <div v-else-if="windowWidth < 960 && windowWidth >=500">
-      <div class="d-flex">
+      <div class="choice">
         <h3 class="ml-auto cursor" @click="Tflag()">공모전</h3>
         <h3 class="mx-3 cursor" @click="Fflag()">프로젝트</h3>
       </div>
-      <h3 v-if="flag">공모전</h3>
-      <h3 v-if="!flag">프로젝트</h3>
+      <!-- <h3 v-if="flag">공모전</h3>
+      <h3 v-if="!flag">프로젝트</h3> -->
       <v-row class="mt-0" v-if="flag">
         <v-col cols="6" v-for="(club,index) in clubs" :key="index">
           <v-card      
@@ -428,7 +428,15 @@ export default {
   .font{
     font-family: myFont, sans-serif;
     font-size: 1.3rem;
-    /* font-size: 30px; */
+  }
+  /* serim */
+  div.choice{
+    /* text-align-last: center; */
+    display: inline-block;
+    
+  }
+  span.center{
+    text-align: center;
   }
 
 </style>

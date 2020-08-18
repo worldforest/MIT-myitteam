@@ -103,7 +103,7 @@
 										</template>
 									
 										<v-flex>
-											<v-date-picker v-model="projectData.start" color="green lighten-1"></v-date-picker>
+											<v-date-picker v-model="projectData" color="green lighten-1"></v-date-picker>
 										</v-flex>
 									</v-menu>
 								</template>
@@ -121,9 +121,10 @@
 													width="300px"
 												>
 													<v-text-field label="종료"
-															outlined
-															cols="6"
-															v-model="projectData.end"></v-text-field>
+														outlined
+														cols="6"
+														v-model="projectData.end">
+													</v-text-field>
 												</v-btn>
 											</template>
 											
@@ -198,14 +199,16 @@
 						</div>
 					</v-col>
 
-							<v-date-picker
-							mode="range"
+						<v-date-picker
+							v-model=projectData.term
+							range=true
 							:value="null"
 							is-dark
 							is-inline
-							/>
+						/>
 
-					
+					{{projectData.term[0]}}
+					{{projectData.term[1]}}
 				</v-card>
       </div>
     </v-container>
@@ -227,10 +230,10 @@ export default {
 	},
 	data() {
 		return{
-			range:{
-				start: "",
-				end: ""
-			},
+			// range:{
+			// 	start: "2020-08-19",
+			// 	end: ""
+			// },
 			selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
 			projectData: {
 				title: "",
@@ -238,6 +241,7 @@ export default {
 				description: "",
 				start: "",
 				end: "",
+				term:"",
 				local: "",
 				dataList: [],
 			},
