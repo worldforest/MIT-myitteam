@@ -14,9 +14,10 @@ export default {
     //     state.email = res.data
     // },
     feedDetail(state, feed) {
-        state.detailFeed = feed
+        sessionStorage.setItem('feedinfo', JSON.stringify(feed))
+        state.detailFeed = JSON.parse(sessionStorage.getItem('feedinfo'))
         router.push({ name: "FeedDetail" })
-    },
+    },  
     gongmoDetail(state, res) {
         console.log('공모')
         console.log(res)
