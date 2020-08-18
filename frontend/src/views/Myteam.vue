@@ -1,18 +1,5 @@
 <template>
   <div>
-<<<<<<< HEAD
-    <v-card v-for="(info, index) in this.$store.state.myTeamInfo" :key="index"  
-    class="mx-auto"
-    max-width="400"
-    >
-    <v-img
-      class="white--text align-end"
-      height="200px"
-      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-    >
-      <v-card-title>{{ info.title }}</v-card-title>
-    </v-img>
-=======
     <v-row class="d-flex justify-center">
       <v-col cols='6'  v-for="(info, index) in this.$store.state.myTeamInfo" :key="index">
         <v-card
@@ -26,7 +13,6 @@
               <span v-if="info.category === '0'"> 공모전</span>
               <span v-else-if="info.category === '1'"> 프로젝트</span>
             </div>
->>>>>>> c1e231f7535e1af4e8cf1f2eda95832d88813b6c
 
             <div>{{ info.description }}</div>
           </v-card-text>

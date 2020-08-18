@@ -1,7 +1,8 @@
 <template>
   <div  class="cont10">
     <!-- {{ myNick }} -->
-    <!-- {{ privateChatTitle }} -->
+    {{ privateData }}
+    {{ privateChatTitle }}
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
@@ -316,6 +317,7 @@ export default {
         console.log(this.privateData.yourNickname)
         this.privateData.myNickname = this.$store.state.myNick
         this.privateChat(this.privateData)
+        console.log(this.userprofiledata)
 			}, 200)
     this.followList = this.$store.state.followerList
     this.$nextTick(() => {

@@ -50,7 +50,7 @@
               </div>
               <v-row>
                 <v-spacer></v-spacer>
-                <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+                <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                   삭제하기
                 </v-btn> 
               </v-row>
@@ -95,7 +95,7 @@
               </div>
               <v-row>
                 <v-spacer></v-spacer>
-                <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+                <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                   삭제하기
                 </v-btn> 
               </v-row>
@@ -149,7 +149,7 @@
             </div>
             <v-row>
               <v-spacer></v-spacer>
-              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                 삭제하기
               </v-btn> 
             </v-row>
@@ -195,7 +195,7 @@
             </div>
             <v-row>
               <v-spacer></v-spacer>
-              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                 삭제하기
               </v-btn> 
             </v-row>     
@@ -240,7 +240,7 @@
             </div>
             <v-row>
               <v-spacer></v-spacer>
-              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                 삭제하기
               </v-btn> 
             </v-row> 
@@ -273,7 +273,7 @@ export default {
         part: '',
       },
       deletePjtData: {
-        no : this.club2.no
+        no : '',
       },
     }
   },
@@ -306,6 +306,10 @@ export default {
     emailSave(i){
       this.sendData.leaderemail = i.email
       this.sendData.no = i.no
+    },
+    noSave(club2){
+      console.log(club2)
+      this.deletePjtData.no = club2.no
     }
   },
 }
