@@ -263,7 +263,6 @@ export default {
     ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'followerCnt', 'getNickname', 'privateChat',])
   },
   computed : {
-    // ...mapGetter s(['isLoggedIn'])
     ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2', 'myNick', 'privateChatTitle', 'user']),
     ...mapGetters(['isLoggedIn',])
      
@@ -296,10 +295,7 @@ export default {
 </script>
 
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("/src/font/BMJUA_ttf.ttf");
-  }
+ *{ font-family: 'Jua', sans-serif;}
 
   .h1 {
     font-size: 30px;

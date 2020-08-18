@@ -103,7 +103,7 @@ export default {
       dialog: false,
       rules: {
         required: value => !!value || '필수 값 입니다.',
-        min: v => v.length >= 4 || '비밀번호는 최소 8자리 이상 적어주세요.' ,
+        min: v => v.length >= 4 || '비밀번호는 최소 8s자리 이상 적어주세요.' ,
         emailMatch: () => ('The email and password you entered don\'t match'),
         pwdcheck: v => v == this.updateData.pwd || '비밀번호가 일치하지 않습니다',
       },
