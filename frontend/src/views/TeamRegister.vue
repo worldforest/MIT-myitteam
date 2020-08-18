@@ -5,7 +5,6 @@
     {{ applyData.no }}
     
     <br>
-    <!-- {{ windowWidth }} -->
     <div v-if="windowWidth >= 730">
       <v-card id="card-apply" class="py-5 px-3 my-8 mx-auto" outlined max-width="900px">
         <h1 class="text-center mb-5 h1-apply">공모전 팀원을 구해보세요 :)</h1>
