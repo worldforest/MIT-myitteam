@@ -4,7 +4,7 @@
     <div v-if="windowWidth >= 1266">
       <div class="mt-6">
         <h1 @click="goContest" class="Pjt_h1 mb-4">공모전</h1>
-        <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="true" style="width:100%">
+        <carousel :per-page="4" :mouse-drag="true" style="width:100%">
           <slide v-for="(club, index) in clubs" :key="index">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
               <b-card-text @click="gongmoDetail(club)">
@@ -161,7 +161,7 @@
     <div v-else>
       <div class="mt-6">
         <h1 class="Pjt_h1 mb-4">공모전</h1>
-        <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
+        <carousel :per-page="3" :mouse-drag="false" >
           <slide v-for="(club,index) in clubs" :key="index">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 75%;">
               <b-card-text @click="gongmoDetail(club)">
@@ -184,7 +184,7 @@
     <div class="mt-9">
       <h1 @click="goPJT" class="Pjt_h1 mb-4" v-if="windowWidth > 960">프로젝트</h1>
       <div v-if="windowWidth >= 1266">      
-        <carousel :per-page="4" :navigate-to="someLocalProperty" :mouse-drag="false" >
+        <carousel :per-page="4" :mouse-drag="false" >
           <slide v-for="(club2,index) in clubs2" :key="index">
             <!-- {{ club2 }} -->
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
@@ -207,7 +207,7 @@
       <!-- /////////////////////////////    화면이 중간일 때     //////////////////////////////////////// -->
 
       <div v-else-if="960 < windowWidth && 1266 > windowWidth">
-        <carousel :per-page="3" :navigate-to="someLocalProperty" :mouse-drag="false" >
+        <carousel :per-page="3" :mouse-drag="false" >
           <slide v-for="(club2, index) in clubs2" :key="index">
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
@@ -233,7 +233,6 @@
           v-model="searchData.search"
           append-icon="mdi-magnify"
           label="Search"
-          single-line="true"
           hide-details
           @keypress.enter="searchTagFeed(searchData.search)"           
         ></v-text-field>
@@ -249,7 +248,7 @@
       </div>
       <div>
         <v-row class="cont10" v-if="windowWidth > 760">
-          <v-col cols="4" v-for="i in community" :key="i.no">
+          <v-col cols="4" v-for="(i, index) in community" :key="index">
             <div class="mx-2 detail_hover">
               {{ i.nickname }}
               <img :src="i.src"
@@ -264,7 +263,6 @@
         <v-row v-else class="bg-gray">
           <v-col cols='12'  v-for="(i, index) in community" :key="index">
             <v-card
-              :loading="loading"
               class="mx-auto my-3"
             >
               <v-img
@@ -275,7 +273,6 @@
 
               <v-card-text>
                <v-chip-group
-                  v-model="selection"
                   active-class="deep-purple accent-4 white--text"
                   column
                 >
