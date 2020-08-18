@@ -17,7 +17,12 @@ export default {
         sessionStorage.setItem('feedinfo', JSON.stringify(feed))
         state.detailFeed = JSON.parse(sessionStorage.getItem('feedinfo'))
         router.push({ name: "FeedDetail" })
-    },  
+    },
+    goUserProfile(state, res) {
+        sessionStorage.setItem('user', JSON.stringify(res))
+        state.user = JSON.parse(sessionStorage.getItem('user'))
+        router.push({name: 'UserProfile'})
+    },
     gongmoDetail(state, res) {
         console.log('공모')
         console.log(res)

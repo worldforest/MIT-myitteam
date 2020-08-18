@@ -27,7 +27,7 @@
             </div>
             <div class="type_msg">
               <div class="input_msg_write">
-                <input @keyup.enter="saveMessage(myNick)" v-model="message" type="text" class="write_msg" placeholder="Type a message" />
+                <input @keypress.enter="saveMessage(myNick)" v-model="message" type="text" class="write_msg" placeholder="Type a message" />
                 <button @click="saveMessage(myNick)" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
               </div>
             </div>
@@ -58,7 +58,6 @@ export default {
   },
   methods:{
     ...mapActions(['getNickname', 'privateChat']),
-    // document.querySelector('.message-content-wrap').scrollTop = document.querySelector('.message-content-wrap').scrollHeight;
     newChat(chat){
       this.privateChatTitle = chat
       this.$router.push({name:'Chat', params: { privateChatTitle : this.privateChatTitle  }});
@@ -70,8 +69,10 @@ export default {
         message:this.message,
         createdAt: new Date()
       })
-      this.message=null
-      input.reset()
+      this.message = null
+      setTimeout(()=> {
+        document.querySelector('.msg_history').scrollTop = document.querySelector('.msg_history').scrollHeight
+      }, 100)  
     },
     fetchMessages(){
       db.collection(this.privateChatTitle)
@@ -82,16 +83,15 @@ export default {
           allMessages.push(doc.data())
         });
           this.messages=allMessages
-          console.log(this.messages.createdAt)
       })
-    }
+    },
   },
   computed:{
     ...mapState(['email', 'myNick']),
   },
   created(){
     this.fetchMessages();
-  }
+  },
 }
 </script>
 <style scoped>

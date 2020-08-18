@@ -1,9 +1,7 @@
 <template>
   <div  class="cont10">
-    <!-- {{ email }} -->
     <!-- {{ myNick }} -->
-    {{ privateData }}
-    {{ privateChatTitle }}
+    <!-- {{ privateChatTitle }} -->
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
@@ -270,7 +268,7 @@ export default {
     Chat: Chatting
   },
   props: {
-    user: String
+
   },
   data() {
     return {
@@ -282,7 +280,7 @@ export default {
         myNickname : '',
         yourNickname : '',
       },
-      dialog: false
+      dialog: false,
     }
   },
   watch: {
@@ -308,7 +306,7 @@ export default {
   },
   computed : {
     // ...mapGetter s(['isLoggedIn'])
-    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2', 'myNick', 'privateChatTitle']),
+    ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2', 'myNick', 'privateChatTitle', 'user']),
     ...mapGetters(['isLoggedIn',])
      
   },

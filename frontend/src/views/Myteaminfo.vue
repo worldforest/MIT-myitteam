@@ -11,7 +11,9 @@
           class="mx-auto"
           max-width="400"
         >
-          <router-link :to="{name: 'UserProfile', params:{user:apply.teamemail}}">{{ apply.teamemail }}</router-link>
+          {{ apply }}
+          {{ apply.teameamil }}
+          <p @click="goUserProfile(apply.teamemail)">{{ apply.teamemail }} ???</p>
 
           <v-card-text class="text--primary">
             <div>{{ apply.part }}</div>
@@ -52,7 +54,8 @@
               header-text-variant="white"
               align="center"
             >
-            <router-link :to="{name: 'UserProfile', params:{user:member.memberemail}}"><b-card-text>{{ member.membernickname }}</b-card-text></router-link>
+
+            <b-card-text @click="goUserProfile(member.memberemail)">{{ member.membernickname }}</b-card-text>
             </b-card>
           </span>
         </b-card-group>
@@ -150,7 +153,7 @@
             header-text-variant="white"
             align="center"
           >
-          <router-link :to="{name: 'UserProfile', params:{user:member.memberemail}}"><b-card-text>{{ member.memberemail }}</b-card-text></router-link>
+          <b-card-text @click="goUserProfile(member.memberemail)">{{ member.memberemail }}</b-card-text>
           </b-card>
         </span>
       </b-card-group>
@@ -231,7 +234,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'Myteaminfo',
@@ -264,6 +267,7 @@ export default {
   },
   methods : {
     ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'selectDay', 'getNickname', 'getMyday', 'deleteDate', 'teamChat', 'gotoMap']),
+    ...mapMutations(['goUserProfile']),
     teamDataSave(){
       this.teamChatData.no = this.saveInfo.no,
       this.teamChatData.leaderemail = this.saveInfo.leaderemail
@@ -274,8 +278,6 @@ export default {
 
   },
   mounted () {
-    this.can.dates = this.$store.state.myDay
-  
     setTimeout(()=>{
       const infos = JSON.parse(sessionStorage.getItem('myTeam'))
       for (let i=0; i < infos.length; i++) {
