@@ -1,43 +1,37 @@
 <template>
   <div class="bg4">
     <div v-if="windowWidth >=767 && currentRouteName !== 'RealHome'" >
-      <ul>
-        <li>
-          <router-link to="/home">
-            <img id="logo" src="./images/1.jpg" alt="logo">
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/AllContest" class="mr-3"><h4>공모전</h4></router-link>
-        </li>
-        <li>
-          <router-link class="mr-5 nav_a" to="/projectlist"><h4>프로젝트</h4></router-link>
-        </li>
-        <li style="float:right" class="mr-3 not-home" v-if="!isLoggedIn">
-          <router-link class="mr-3" to="/signup">SIGNUP</router-link>
-        </li>
-        <li style="float:right" class="not-home" v-if="!isLoggedIn">
-          <router-link to="/login">LOGIN</router-link>
-        </li>
-        <span style="float:right" v-else class="mr-3">
-          <v-row>
-
-            <!--채팅이다-->
-            <div class="text-center dkanrjsk ">
+      <div v-if="!isLoggedIn">
+        <nav role="navigation" class="primary-navigation">
+          <ul>
+            <li><router-link to="/home"><span>Home</span></router-link></li>
+            <li><router-link to="/AllContest"><span>공모전</span></router-link></li>
+            <li><router-link to="/projectlist"><span>프로젝트</span></router-link></li>
+            <li><router-link to="/signup"><span>회원가입</span></router-link></li>
+            <li><router-link to="/login"><span>로그인</span></router-link></li>
+          </ul>
+        </nav>
+      </div>
+      <div v-if="isLoggedIn">
+        <nav role="navigation" class="primary-navigation">
+          <ul>
+            <li><router-link to="/home"><span>Home</span></router-link></li>
+            <li><router-link to="/AllContest"><span>공모전</span></router-link></li>
+            <li><router-link to="/projectlist"><span>프로젝트</span></router-link></li>
+            <li><div class="text-center ">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
-                    x-large color="#5C6BC0"
+                    middle
                     v-bind="attrs"
                     v-on="on"
-                    class="accountIcon not-home mt-1 mr-4"
                     @click="getAllChat(myNick)"
                   >
                     mdi-comment-processing
                   </v-icon>
-                  <!-- <v-icon>mdi-bell-check</v-icon> -->
+
                 </template>
-                <v-list v-for="chat in allChat" :key="chat">
+                <v-list v-for="(chat, index) in allChat" :key="index">
                   <v-list-item>
                     <v-row>
                       <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" class="chat_img mr-3">
@@ -47,68 +41,66 @@
                   <hr style="margin:0">
                 </v-list>
               </v-menu>
-            </div>
-
-            <!--알람이다-->
-            <div class="text-center mr-4">
-              <v-menu offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    v-if="alarmList.length === 0"
-                    x-large color="#5C6BC0"
-                    v-bind="attrs"
-                    v-on="on"
-                    class="accountIcon"
-                    @click="getalarm(myNick)"
-                  >
-                    mdi-bell
-                  </v-icon>
-                  <v-icon
-                    v-else
-                    x-large color="#5C6BC0"
-                    v-bind="attrs"
-                    v-on="on"
-                    class="accountIcon"
-                    @click="getalarm(myNick)">mdi-bell-check</v-icon>
-                </template>
-                <v-list v-for="alarm in alarmList" :key="alarm">
-                  <v-list-item>
-                    <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
-                  </v-list-item>
-                  <hr style="margin:0">
-                </v-list>
-              </v-menu>
-            </div>
-
-            <!-- 계정 -->
-            <div class="text-center mr-4">
-              <v-menu offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    x-large color="#5C6BC0"
-                    v-bind="attrs"
-                    v-on="on"
-                    class="accountIcon"
-                  >
-                    mdi-account-circle
-                  </v-icon>
-                </template>
-                <v-list>
-                  <v-list-item>
-                    <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
-                  </v-list-item>
-                  <v-list-item >                    
-                    <v-list-item-title class="not-home"><router-link to="/myteam" @click="getTeamInfo">나의 팀 관리</router-link></v-list-item-title>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/home" @click.native="logout">LOGOUT</router-link></v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </div>
-          </v-row>
-        </span>
-      </ul>
+            </div></li>
+            <li>
+              <div>
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                      v-if="alarmList.length === 0"
+                      middle
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="getalarm(myNick)"
+                    >
+                      mdi-bell
+                    </v-icon>
+                    <v-icon
+                      v-else
+                      middle
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="getalarm(myNick)">mdi-bell-check</v-icon>
+                  </template>
+                  <v-list v-for="(alarm, index) in alarmList" :key="index">
+                    <v-list-item>
+                      <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
+                    </v-list-item>
+                    <hr style="margin:0">
+                  </v-list>
+                </v-menu>
+              </div>
+            </li>
+            <li>
+              <div>
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                      middle
+                      v-bind="attrs"
+                      v-on="on"
+                      class="accountIcon"
+                    >
+                      mdi-account-circle
+                    </v-icon>
+                  </template>
+                  <v-list>
+                    <v-list-item>
+                      <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
+                    </v-list-item>
+                    <v-list-item >                    
+                      <v-list-item-title class="not-home"><router-link to="/myteam" @click="getTeamInfo">나의 팀 관리</router-link></v-list-item-title>
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/home" @click.native="logout">LOGOUT</router-link></v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
 
     <!-- 윈도우 브라우저가 767 미만일 때의 Navbar  && Home.vue에서 적용안됨 -->
@@ -139,7 +131,7 @@
                   </v-icon>
                   <!-- <v-icon>mdi-bell-check</v-icon> -->
                 </template>
-                <v-list v-for="chat in allChat" :key="chat">
+                <v-list v-for="(chat, index) in allChat" :key="index">
                   <v-list-item>
                     <v-row>
                       <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" class="chat_img mr-3">
@@ -165,7 +157,7 @@
                   </v-icon>
                   <!-- <v-icon>mdi-bell-check</v-icon> -->
                 </template>
-                <v-list v-for="alarm in alarmList" :key="alarm">
+                <v-list v-for="(alarm, index) in alarmList" :key="index">
                   <v-list-item>
                     <v-list-item-title class="not-home ppointer" @click="deleteAlarm(alarm)">{{ alarm.message }}</v-list-item-title>
                   </v-list-item>
@@ -370,46 +362,80 @@ export default {
     cursor: pointer;
   }
 
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    /* background-color: orange; */
-    line-height: 90px;
-    /* border-bottom: thick solid rgb(92, 107, 192); */
-    /* margin-bottom: 5px; */
-  }
-
-  li {
-    float: left;
-  }
-
-  li a {
+  nav.primary-navigation {
+    margin: 0 auto;
     display: block;
-    color: rgb(92, 107, 192);
+    padding: 27px 0 0 0;
     text-align: center;
-    padding: 0 5px;
+    font-size: 16px;
+  }
+  nav.primary-navigation ul li {
+    list-style: none;
+    margin: 0 auto;
+    border-left: 2px solid #3ca0e7;
+    display: inline-block;
+    padding: 0 30px;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+    font-family: arvo;
+  }
+  nav.primary-navigation li a {
+    color: black;
+  }
+  nav.primary-navigation li a:hover {
+    color: #3ca0e7;
+  }
+  nav.primary-navigation li:hover {
+    cursor: pointer;
+  }
+  nav.primary-navigation ul li ul {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    padding-left: 0;
+    left: 0;
+    display: none;
+    background: white;
+  }
+  nav.primary-navigation ul li:hover > ul,
+  nav.primary-navigation ul li ul:hover {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    min-width: 250px;
+    text-align: left;
+    padding-top: 20px;
+    box-shadow: 0px 3px 5px -1px #ccc;
+  }
+  nav.primary-navigation ul li ul li {
+    clear: both;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+    border-style: none;
+  }
+  nav.primary-navigation ul li ul li a:hover {
+    padding-left: 10px;
+    border-left: 2px solid #3ca0e7;
+    transition: all 0.3s ease;
+  }
+
+  a {
     text-decoration: none;
   }
-
-  li > a > h4 {
-    line-height: 90px !important;
-    margin: 0 !important;
+  a:hover {
+    color: #3ca0e7;
   }
 
-  li a:hover:not(.active) {
-    background-color: white;
+  ul li ul li a {
+    transition: all 0.5s ease;
   }
 
-  .active {
-    background-color: #4CAF50;
-  }
 
   .chat_img {
     float: left;
     width: 30px;
     height: 30px;
   }
-
 </style>
