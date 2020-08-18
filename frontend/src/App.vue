@@ -4,27 +4,29 @@
       <div v-if="!isLoggedIn">
         <nav role="navigation" class="primary-navigation">
           <ul>
-            <li><router-link to="/home"><span>Home</span></router-link></li>
-            <li><router-link to="/AllContest"><span>공모전</span></router-link></li>
-            <li><router-link to="/projectlist"><span>프로젝트</span></router-link></li>
-            <li><router-link to="/signup"><span>회원가입</span></router-link></li>
-            <li><router-link to="/login"><span>로그인</span></router-link></li>
+            <li class="home left-nav" ><router-link to="/home"><span>MIT</span></router-link></li>
+            <li class="left-nav"><router-link to="/AllContest"><span>공모전</span></router-link></li>
+            <li class="left-nav"><router-link to="/projectlist"><span>프로젝트</span></router-link></li>
+            <li class="right-nav"><router-link to="/login"><span>로그인</span></router-link></li>
+            <li class="right-nav"><router-link to="/signup"><span>회원가입</span></router-link></li>
           </ul>
         </nav>
       </div>
-      <div v-if="isLoggedIn">
+      <div v-if="isLoggedIn">A
         <nav role="navigation" class="primary-navigation">
-          <ul>
-            <li><router-link to="/home"><span>Home</span></router-link></li>
-            <li><router-link to="/AllContest"><span>공모전</span></router-link></li>
-            <li><router-link to="/projectlist"><span>프로젝트</span></router-link></li>
-            <li><div class="text-center ">
+          <ul class="right-nav">
+            <li class="left-nav"><router-link to="/home"><span>Home</span></router-link></li>
+            <li class="left-nav"><router-link to="/AllContest"><span>공모전</span></router-link></li>
+            <li class="left-nav"><router-link to="/projectlist"><span>프로젝트</span></router-link></li>
+            <li class="right-nav"><div class="text-center ">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
                     middle
                     v-bind="attrs"
                     v-on="on"
+                    color="rgb(92, 107, 192)"
+                    size="35px"
                     @click="getAllChat(myNick)"
                   >
                     mdi-comment-processing
@@ -42,7 +44,7 @@
                 </v-list>
               </v-menu>
             </div></li>
-            <li>
+            <li class="right-nav">
               <div>
                 <v-menu offset-y>
                   <template v-slot:activator="{ on, attrs }">
@@ -51,7 +53,9 @@
                       middle
                       v-bind="attrs"
                       v-on="on"
+                      color="rgb(92, 107, 192)"
                       @click="getalarm(myNick)"
+                      size="35px"
                     >
                       mdi-bell
                     </v-icon>
@@ -60,7 +64,10 @@
                       middle
                       v-bind="attrs"
                       v-on="on"
-                      @click="getalarm(myNick)">mdi-bell-check</v-icon>
+                      color="rgb(92, 107, 192)"
+                      @click="getalarm(myNick)"
+                      size="35px"
+                      >mdi-bell-check</v-icon>
                   </template>
                   <v-list v-for="(alarm, index) in alarmList" :key="index">
                     <v-list-item>
@@ -71,7 +78,7 @@
                 </v-menu>
               </div>
             </li>
-            <li>
+            <li class="right-nav">
               <div>
                 <v-menu offset-y>
                   <template v-slot:activator="{ on, attrs }">
@@ -79,9 +86,10 @@
                       middle
                       v-bind="attrs"
                       v-on="on"
+                      color="rgb(92, 107, 192)"
                       class="accountIcon"
-                    >
-                      mdi-account-circle
+                      size="35px"
+                    > mdi-account-circle
                     </v-icon>
                   </template>
                   <v-list>
@@ -369,13 +377,34 @@ export default {
     text-align: center;
     font-size: 16px;
   }
+
+ /* serim */
+  li.left-nav{
+    /* display: inline-block; */
+    float: left;
+    font-size: 30px;
+  }
+   li.right-nav{
+    font-size: 25px;
+  }
+
+  li.home{
+    font-style: oblique;
+    color: rgb(100, 107, 192);
+  }
+
+   nav.primary-navigation ul{
+     padding: 0 0 0 150px;
+   }
+
+  /* serim */
   nav.primary-navigation ul li {
-    list-style: none;
-    margin: 0 auto;
-    border-left: 2px solid #3ca0e7;
+    /* list-style: none; */
+    /* margin: 0 auto; */
     display: inline-block;
-    padding: 0 30px;
+    padding: 0 20px;
     position: relative;
+    text-align: justify;
     text-decoration: none;
     text-align: center;
     font-family: arvo;
@@ -384,7 +413,7 @@ export default {
     color: black;
   }
   nav.primary-navigation li a:hover {
-    color: #3ca0e7;
+    color: rgb(92, 107, 192);
   }
   nav.primary-navigation li:hover {
     cursor: pointer;
