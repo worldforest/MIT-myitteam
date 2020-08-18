@@ -279,7 +279,7 @@ export default {
       email : this.$store.state.email, 
       privateData: {
         myNickname : '',
-        yourNickname : JSON.parse(sessionStorage.getItem('userprofileinfo')).nickname,
+        yourNickname : '',
       },
       dialog: false
     }
@@ -313,9 +313,11 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-        this.userprofiledata = JSON.parse(sessionStorage.getItem('userprofileinfo'))
+        this.privateData.yourNickname = JSON.parse(sessionStorage.getItem('userprofileinfo')).nickname
+        console.log(this.privateData.yourNickname)
         this.privateData.myNickname = this.$store.state.myNick
         this.privateChat(this.privateData)
+        console.log(this.userprofiledata)
 			}, 200)
     this.followList = this.$store.state.followerList
     this.$nextTick(() => {

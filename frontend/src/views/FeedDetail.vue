@@ -1,5 +1,6 @@
 <template>
   <div class="mt-3">
+    {{ detailFeed }}
     <div v-if="windowWidth >= 767" class="cont15">
       <div class="d-flex">
         <v-avatar size="72">
@@ -235,6 +236,10 @@ export default {
     ...mapActions(['like', 'likeCnt', 'likeUser', 'unlike','userprofile', 'searchTagFeed', 'deleteFeed']),
   },
   mounted() {
+    console.log(JSON.parse(sessionStorage.getItem('feedinfo')))
+    setTimeout(() => {
+      
+      }, 200)  
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
