@@ -17,7 +17,7 @@
             <v-dialog v-model="dialog" width="500">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowList(email);">
-                  <h3>팔로잉| {{ profileData.followingCnt }}명</h3>
+                  <h5>팔로잉| {{ profileData.followingCnt }}</h5>
                 </span>
               </template>
 
@@ -43,7 +43,7 @@
             <v-dialog v-model="dialog2" width="500">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowerList(email);">
-                  <h3>팔로워| {{ profileData.followerCnt }}명</h3>
+                  <h5>팔로워| {{ profileData.followerCnt }}</h5>
                 </span>
               </template>
 
