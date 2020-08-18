@@ -444,7 +444,7 @@ export default {
   }
 
   .bg-gray {
-    background-color: #e9e9e9;
+    background-color: #FAFAFA;
   }
 
   .cardModal{

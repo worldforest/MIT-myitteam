@@ -12,7 +12,8 @@
         <v-col v-for="n in 1" :key="n" cols="sm"> 
           <div
             class="mx-auto projectCard"
-            max-width="500">
+            max-width="500"
+            v-on:click="projectDetail(i)">
             <div class="cardBar"> </div>
             <v-card-title>
               <h4 class="mx-auto mt-3" v-if="i.title.length >= 15">{{ i.title.slice(0,8)}}...</h4>

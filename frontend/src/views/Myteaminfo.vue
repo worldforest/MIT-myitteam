@@ -6,7 +6,7 @@
       {{ saveInfo.allCnt}}
       {{ saveInfo.members.length}}
       <span v-if="saveInfo.allCnt != saveInfo.members.length">
-        <v-card v-for="(apply, index) in saveInfo.applymembers" :key="index"
+        <v-card v-for="apply in saveInfo.applymembers" :key="apply"
           class="mx-auto"
           max-width="400"
         >
@@ -42,7 +42,7 @@
         <router-link :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
           <v-btn>팀 채팅하기</v-btn>
         </router-link>
-        <b-card-group deck v-for="(member, index) in saveInfo.members" :key="index">
+        <b-card-group deck v-for="member in saveInfo.members" :key="member">
           <span v-if="member.memberemail !== email">
             <b-card
               border-variant="primary"
@@ -83,7 +83,7 @@
               </template>
               <v-date-picker v-model="dateInfo.date" no-title scrollable>
                 <v-spacer></v-spacer>
-                <v-btn text color="primary" @click.native="menu = false">Cancel</v-btn>
+                <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
                 <v-btn text color="primary" @click.native="$refs.menu.save(date); postDate(dateInfo)">OK</v-btn>
               </v-date-picker>
             </v-menu>
@@ -116,7 +116,7 @@
               <v-date-picker v-model="dateInfo.date" no-title scrollable>
                 <v-spacer></v-spacer>
                 <v-btn text color="primary" @click="menu2 = false">Cancel</v-btn>
-                <v-btn text color="primary" @click="$refs.menu2.save(date); deleteDate(dateInfo)">OK</v-btn>
+                <v-btn text color="primary" @click.native="$refs.menu2.save(date); deleteDate(dateInfo)">OK</v-btn>
               </v-date-picker>
             </v-menu>
           </v-col>
@@ -124,7 +124,7 @@
         <v-row justify="center">
           <v-date-picker v-model="can.dates" readonly multiple></v-date-picker>
         </v-row>
-        <div v-for="(day, index) in meetDay" :key="index">
+        <div v-for="day in meetDay" :key="day">
           {{ day }}
         </div>
       </span>
@@ -140,7 +140,7 @@
       <router-link :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
         <v-btn>팀 채팅하기</v-btn>
       </router-link>
-      <b-card-group deck v-for="(member, index) in saveInfo.members" :key="index">
+      <b-card-group deck v-for="member in saveInfo.members" :key="member">
         <span v-if="member.memberemail !== email">
           <b-card
             border-variant="primary"
@@ -220,7 +220,7 @@
       <v-row justify="center">
         <v-date-picker v-model="can.dates" readonly multiple></v-date-picker>
       </v-row>
-      <div v-for="(day, index) in meetDay" :key="index">
+      <div v-for="day in meetDay" :key="day">
         {{ day }}
       </div>
     </span>
@@ -269,11 +269,12 @@ export default {
     }
   },
   created() {
-  // this.getTeamInfo()
     // this.dates = this.$store.state.dates
 
   },
   mounted () {
+    this.can.dates = this.$store.state.myDay
+  
     setTimeout(()=>{
       const infos = JSON.parse(sessionStorage.getItem('myTeam'))
       for (let i=0; i < infos.length; i++) {
@@ -286,9 +287,8 @@ export default {
           this.getMyday(this.dateInfo)
         }
       }
-      this.can.dates = this.$store.state.myDay
       this.teamDataSave();
-      this.teamChat(this.teamChatData);   
+      this.teamChat(this.teamChatData);
     }, 350)
     setTimeout(() => {
       console.log(this.$store.state.myDay)

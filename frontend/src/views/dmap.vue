@@ -57,14 +57,13 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   mounted() {
-      console.log(this.mapX, this.mapY)
       if (window.kakao && window.kakao.maps) {
           this.initMap();
       } else {
           const script = document.createElement('script');
           /* global kakao */
           script.onload = () => kakao.maps.load(this.initMap);
-          script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=dcbbf2565c8cbfbd6437c6bd4e215c3d';
+          script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=';
           document.head.appendChild(script);
       }
       this.$nextTick(() => {

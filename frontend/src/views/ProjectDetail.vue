@@ -1,7 +1,6 @@
 <template>
   <div>
     {{ windowWidth }}
-    <!-- {{ getTeamList }} -->
     {{ club2 }}
     <div class="cont" v-if="windowWidth >= 800">
       <div class="d-flex ma-2">

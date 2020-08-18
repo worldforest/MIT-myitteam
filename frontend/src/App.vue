@@ -1,8 +1,9 @@
 <template>
   <div class="bg4">
     {{ myNick }}
+    {{ allChat }} 
     <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
-    <div v-if="windowWidth >=767">
+    <div v-if="windowWidth >=767 && currentRouteName !== 'RealHome'" >
       <ul>
         <li>
           <router-link to="/home">
@@ -114,7 +115,7 @@
     </div>
 
     <!-- 윈도우 브라우저가 767 미만일 때의 Navbar  && Home.vue에서 적용안됨 -->
-    <div v-if="windowWidth <767">
+    <div v-if="windowWidth <767 && currentRouteName !== 'RealHome'">
       <div class="bg">
          <div>
            <router-link to="/home"><img src="../src/images/logo2.png" alt="MIT Logo" style="height:30px" class="logo2"></router-link>
