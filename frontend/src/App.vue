@@ -1,7 +1,5 @@
 <template>
   <div class="bg4">
-
-    <!-- 윈도우 브라우저가 767 이상일 때의 Navbar -->
     <div v-if="windowWidth >=767 && currentRouteName !== 'RealHome'" >
       <ul>
         <li>

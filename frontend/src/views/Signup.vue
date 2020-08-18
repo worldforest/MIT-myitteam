@@ -73,13 +73,10 @@
         </div>
 
         <div>
-          <h3 class="ml-4">자신을 한마디로 표현한다면? : </h3>
-           xs="5" md="8" class="mx-auto"
+          <h3 class="ml-4">자신을 한마디로 표현한다면?</h3>
+
           <v-col md="11" class="mx-auto">
             <v-text-field v-model="signupData.description" label="ex) 유쾌한, 고독한, 행복한 등등의 형용사" outlined id="description"></v-text-field>
-          </v-col>
-          <v-col xs="1" md="2" class="mx-auto">
-            <h3 class="ml-4">개발자</h3>
           </v-col>
         </div>
 

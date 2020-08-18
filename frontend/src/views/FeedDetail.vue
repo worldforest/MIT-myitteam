@@ -9,7 +9,7 @@
             alt="프로필사진"
           >
         </v-avatar>
-        <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email" class="mt-4 ml-2"><h2 style="color:black">{{ detailFeed.nickname }}</h2></router-link>
+        <h2 v-if="email !== detailFeed.email"  class="mt-4 ml-2" style="color:black" @click="goUserProfile(detailFeed.email)">{{ detailFeed.nickname }}</h2>
         <router-link to='/profile' v-else><h2 style="color:black" class="mt-4 ml-2">{{ detailFeed.nickname }}</h2></router-link>
       </div>
       <hr>
@@ -83,7 +83,7 @@
               <h3 class="modaltitle mb-3"> 좋아요 누른 사람</h3>
               
               <li v-for="item in likeUserList" :key="item">
-                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                <h4 class="ml-3 followa" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                 <hr>
               </li>
 
@@ -110,7 +110,7 @@
             alt="프로필사진"
           >
         </v-avatar>
-        <router-link :to="{name: 'UserProfile', params:{user:detailFeed.email}}" v-if="email !== detailFeed.email" class="mt-3 ml-2"><h5 style="color:black">{{ detailFeed.nickname }}</h5></router-link>
+        <h5 style="color:black" class="mt-3 ml-2" v-if="email !== detailFeed.email" @click="goUserProfile(detailFeed.email)">{{ detailFeed.nickname }}</h5>
         <router-link to='/profile' v-else><h5 style="color:black" class="mt-3 ml-2">{{ detailFeed.nickname }}</h5></router-link>
       </div>      
       <hr>
@@ -184,7 +184,7 @@
             <v-card class="cardModal">
               <h3 class="modaltitle mb-3"> 좋아요 누른 사람</h3>
               <li v-for="item in likeUserList" :key="item">
-                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                <h4 class="ml-3 followa" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                 <hr>
               </li>
 
@@ -232,7 +232,7 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
-    ...mapMutations(['getuseremail', 'updateFeed']),
+    ...mapMutations(['getuseremail', 'updateFeed', 'goUserProfile']),
     ...mapActions(['like', 'likeCnt', 'likeUser', 'unlike','userprofile', 'searchTagFeed', 'deleteFeed']),
   },
   mounted() {
