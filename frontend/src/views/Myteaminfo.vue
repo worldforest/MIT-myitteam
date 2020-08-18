@@ -269,12 +269,12 @@ export default {
     }
   },
   created() {
-  // this.getTeamInfo()
     // this.dates = this.$store.state.dates
 
   },
   mounted () {
-    
+    this.can.dates = this.$store.state.myDay
+  
     setTimeout(()=>{
       const infos = JSON.parse(sessionStorage.getItem('myTeam'))
       for (let i=0; i < infos.length; i++) {
