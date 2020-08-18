@@ -49,14 +49,20 @@ public class ChatController {
 	public ResponseEntity<String> privateCaht(@RequestParam("mynickname") String mynickname,
 			@RequestParam("yournickname") String yournickname) {
 
-		String roomname = mynickname.concat(",").concat(yournickname);
+		String roomname = null;
 		// 채팅방이 없으면
-		if (chatmemberService.select(mynickname, yournickname)==null) {
+		// mynickname인 사람이 있는 방에서 상대가 yournickname인 방번호가 없으면
+		if (chatmemberService.select(mynickname, yournickname) == null) {
+			// 새로 만들기
+			roomname = mynickname.concat(",").concat(yournickname);
 			chatlistService.insert(roomname);
 			String roomnum = chatlistService.selectno(roomname);
 			chatmemberService.insert(roomnum, mynickname);
 			chatmemberService.insert(roomnum, yournickname);
 		}
+		// 있으면
+		String roomno = chatmemberService.select(mynickname, yournickname);
+		roomname = chatlistService.select(roomno);
 		return new ResponseEntity<String>(roomname, HttpStatus.OK);
 	}
 
@@ -86,6 +92,7 @@ public class ChatController {
 			chatlistService.insert(roomname);
 			// 채팅방 번호 가져와서
 			String roomnum = chatlistService.selectno(roomname);
+			// 채팅방 멤버 등록
 			for (Member member : memberlist) {
 				String nickname = member.getMembernickname();
 				chatmemberService.insert(roomnum, nickname);
