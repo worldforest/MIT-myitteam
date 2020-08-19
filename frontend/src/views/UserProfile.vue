@@ -5,7 +5,7 @@
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
-          <img  v-if="userprofiledata.src" :src="userprofiledata.src" class="box" style="width:150px; height:150px;">
+          <img v-if="userprofiledata.src" :src="userprofiledata.src" class="box" style="width:150px; height:150px;">
         </div>
       </v-col>
       
