@@ -34,6 +34,7 @@
           max-width="344"
           outlined
           v-for="(club, index) in clubs" :key="index"
+          @click="gongmoDetail(club)"
         >
           <v-list-item three-line>
             <v-list-item-content>
@@ -55,12 +56,6 @@
               >
             </v-list-item-avatar>
           </v-list-item>
-
-          <v-card-actions>
-            <v-btn color="orange" text class="mx-auto" @click="gongmoDetail(club)">
-              자세히보기
-            </v-btn>  
-          </v-card-actions>
         </v-card>
       </div>
       <div v-if="!flag">
@@ -69,6 +64,7 @@
           max-width="344"
           outlined
           v-for="(club2, index) in clubs2" :key="index"
+          @click="projectDetail(club); getTeamData(club.no)"
         >
           <v-list-item three-line>
             <v-list-item-content>
@@ -77,12 +73,6 @@
               <v-list-item-subtitle class="text-center">{{ club2.start }} ~ {{ club2.end }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
-
-          <v-card-actions>
-            <v-btn color="orange" text class="mx-auto" @click="projectDetail(club2); getTeamData(club2.no)">
-              자세히보기
-            </v-btn>  
-          </v-card-actions>
         </v-card>
       </div>
     </div>
@@ -90,18 +80,19 @@
     <!-- /////////////////////////////    화면이 중간(작은)일 때     //////////////////////////////////////// -->
 
     <div v-else-if="windowWidth < 960 && windowWidth >=500">
-      <div class="d-flex">
+      <div class="choice">
         <h3 class="ml-auto cursor" @click="Tflag()">공모전</h3>
         <h3 class="mx-3 cursor" @click="Fflag()">프로젝트</h3>
       </div>
-      <h3 v-if="flag">공모전</h3>
-      <h3 v-if="!flag">프로젝트</h3>
+      <!-- <h3 v-if="flag">공모전</h3>
+      <h3 v-if="!flag">프로젝트</h3> -->
       <v-row class="mt-0" v-if="flag">
         <v-col cols="6" v-for="(club, index) in clubs" :key="index">
           <v-card      
             class="mx-auto my-1 homeCard"
             max-width="344"
-            outlined            
+            outlined
+           @click="gongmoDetail(club)"
           >
             <v-list-item three-line>
               <v-list-item-content>
@@ -115,7 +106,6 @@
                 tile
                 size="90"
                 color="grey"
-                
               >
                 <img
                   :src="club.imagesrc"
@@ -123,12 +113,6 @@
                 >
               </v-list-item-avatar>
             </v-list-item>
-
-            <v-card-actions>
-              <v-btn color="orange" text class="mx-auto" @click="gongmoDetail(club)">
-                자세히보기
-              </v-btn>  
-            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -137,7 +121,8 @@
           <v-card      
             class="mx-auto my-1 homeCard"
             max-width="344"
-            outlined            
+            outlined
+            @click="projectDetail(club); getTeamData(club.no)"     
           >
             <v-list-item three-line>
               <v-list-item-content>
@@ -438,6 +423,19 @@ export default {
     font-family: myFont, sans-serif;
     font-size: 1.3rem;
   }
+  /* serim */
+  div.choice{
+    /* text-align-last: center; */
+    display: inline-block;
+    
+  }
+  span.center{
+    text-align: center;
+  }
+  h1{
+    font-size: 30px;
+  }
+
   .margin0{
     margin: 5% 0;
   }
