@@ -80,7 +80,7 @@
     <!-- /////////////////////////////    화면이 중간(작은)일 때     //////////////////////////////////////// -->
 
     <div v-else-if="windowWidth < 960 && windowWidth >=500">
-      <div class="choice">
+      <div class="d-flex">
         <h3 class="ml-auto cursor" @click="Tflag()">공모전</h3>
         <h3 class="mx-3 cursor" @click="Fflag()">프로젝트</h3>
       </div>
@@ -96,7 +96,7 @@
           >
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class=" mb-1 font">{{ club.title }}</v-list-item-title>
+                <v-list-item-title class="mb-1font">{{ club.title }}</v-list-item-title>
                 <v-list-item-subtitle>{{ club.start }} ~ {{ club.end }}</v-list-item-subtitle>
                 <v-list-item-subtitle v-if="club.host.length <= 15">{{ club.host }}</v-list-item-subtitle>
                 <v-list-item-subtitle v-else>{{ club.host.slice(0,15) }}...</v-list-item-subtitle>
@@ -344,11 +344,8 @@ export default {
 </script>
 
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("/src/font/BMJUA_ttf.ttf");
-  }
  *{ font-family: 'Jua', sans-serif;}
+
   .active{
     width:20px;
     height:20px;
@@ -420,15 +417,9 @@ export default {
     cursor: pointer;
   }
   .font{
-    font-family: myFont, sans-serif;
     font-size: 1.3rem;
   }
   /* serim */
-  div.choice{
-    /* text-align-last: center; */
-    display: inline-block;
-    
-  }
   span.center{
     text-align: center;
   }

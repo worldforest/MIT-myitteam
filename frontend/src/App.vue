@@ -91,13 +91,13 @@
                   </template>
                   <v-list>
                     <v-list-item>
-                      <v-list-item-title class="not-home"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
+                      <v-list-item-title class="not-home drop"><router-link to="/profile">마이페이지</router-link></v-list-item-title>
                     </v-list-item>
                     <v-list-item >                    
-                      <v-list-item-title class="not-home"><router-link to="/myteam" @click="getTeamInfo">나의 팀 관리</router-link></v-list-item-title>
+                      <v-list-item-title class="not-home drop"><router-link to="/myteam" @click="getTeamInfo">나의 팀 관리</router-link></v-list-item-title>
                     </v-list-item>
                     <v-list-item>
-                      <v-list-item-title class="not-home"><router-link id="tokenTrue" to="/home" @click.native="logout">LOGOUT</router-link></v-list-item-title>
+                      <v-list-item-title class="not-home drop"><router-link id="tokenTrue" to="/home" @click.native="logout">LOGOUT</router-link></v-list-item-title>
                     </v-list-item>
                   </v-list>
                 </v-menu>
@@ -457,17 +457,23 @@ export default {
     text-decoration: none;
   }
   a:hover {
-    color: #3ca0e7;
+    color: rgb(92, 107, 192);
   }
 
   ul li ul li a {
     transition: all 0.5s ease;
   }
 
-
   .chat_img {
     float: left;
     width: 30px;
     height: 30px;
+  }
+
+  .drop a{
+    color: gray;
+  }
+   .drop a:hover{
+    color: rgb(92, 107, 192);
   }
 </style>
