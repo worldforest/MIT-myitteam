@@ -130,12 +130,6 @@
                 <v-list-item-subtitle>{{ club.start }} ~ {{ club.end }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-
-            <v-card-actions>
-              <v-btn color="orange" text class="mx-auto" @click="projectDetail(club); getTeamData(club.no)">
-                자세히보기
-              </v-btn>  
-            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
