@@ -80,7 +80,7 @@
     <!-- /////////////////////////////    화면이 중간(작은)일 때     //////////////////////////////////////// -->
 
     <div v-else-if="windowWidth < 960 && windowWidth >=500">
-      <div class="choice">
+      <div class="d-flex">
         <h3 class="ml-auto cursor" @click="Tflag()">공모전</h3>
         <h3 class="mx-3 cursor" @click="Fflag()">프로젝트</h3>
       </div>
@@ -96,7 +96,7 @@
           >
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class=" mb-1 font">{{ club.title }}</v-list-item-title>
+                <v-list-item-title class="mb-1font">{{ club.title }}</v-list-item-title>
                 <v-list-item-subtitle>{{ club.start }} ~ {{ club.end }}</v-list-item-subtitle>
                 <v-list-item-subtitle v-if="club.host.length <= 15">{{ club.host }}</v-list-item-subtitle>
                 <v-list-item-subtitle v-else>{{ club.host.slice(0,15) }}...</v-list-item-subtitle>
@@ -130,12 +130,6 @@
                 <v-list-item-subtitle>{{ club.start }} ~ {{ club.end }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-
-            <v-card-actions>
-              <v-btn color="orange" text class="mx-auto" @click="projectDetail(club); getTeamData(club.no)">
-                자세히보기
-              </v-btn>  
-            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -151,7 +145,7 @@
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 75%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
-                    <h4>{{ club.title.slice(0,15)}}...</h4>
+                    <h5>{{ club.title.slice(0,15)}}...</h5>
                 </div>
                 <div v-else>
                     <h4>{{ club.title }}</h4>
@@ -210,10 +204,9 @@
         </carousel>
       </div>
 
-    <!-- //////////////////////// 게시글 조회 ////////////////////// -->
-    <h1 class="text-center mt-9"> 게시글 </h1>
-    <v-row class="d-flex justify-center margin0"> 
-      <v-col sm="4">
+      <!-- //////////////////////// 게시글 조회 ////////////////////// -->
+    <v-row class="d-flex justify-center"> 
+      <v-col sm="4" >
         <v-text-field
           v-model="searchData.search"
           append-icon="mdi-magnify"
@@ -235,19 +228,19 @@
         <hr class="hr2">
       </div>
       <div>
-        <v-row class="cont10" v-if="windowWidth > 760">
-          <v-col cols="4" v-for="(i, index) in community" :key="index">
-            <div class="mx-2 detail_hover">
-              {{ i.nickname }}
-              <img :src="i.src"
-                alt="안뜨는거야?"
-                style="width:100%; height: 20vw;"
-                :i="i"
-                @click='feedDetail(i)'
-              >
-            </div>       
-          </v-col>
-        </v-row>
+        <div v-if="windowWidth > 760">
+          <main>
+            <h1>Other people's day</h1>
+            <div class="flex-container">
+              <figure v-for="(i, index) in community" :key="index">
+                <img :src="i.src" alt="피드 이미지" @click='feedDetail(i)'/>
+                <figcaption>
+                  <div class="fig-author">by {{ i.nickname }}</div>
+                </figcaption>
+              </figure>
+            </div>            
+          </main>
+        </div>
         <v-row v-else class="bg-gray">
           <v-col cols='12'  v-for="(i, index) in community" :key="index">
             <v-card
@@ -280,6 +273,14 @@
 <script>
 import { mapActions, mapState, mapMutations } from 'vuex'
 import { Carousel, Slide } from 'vue-carousel'
+
+var searchBox = document.querySelectorAll('.search-box input[type="text"] + span');
+
+searchBox.forEach(elm => {
+  elm.addEventListener('click', () => {
+    elm.previousElementSibling.value = '';
+  });
+});
 
 export default {
   name: 'Home',
@@ -344,13 +345,8 @@ export default {
 </script>
 
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("/src/font/BMJUA_ttf.ttf");
-  }
-
  *{ font-family: 'Jua', sans-serif;}
- 
+
   .active{
     width:20px;
     height:20px;
@@ -422,15 +418,9 @@ export default {
     cursor: pointer;
   }
   .font{
-    font-family: myFont, sans-serif;
     font-size: 1.3rem;
   }
   /* serim */
-  div.choice{
-    /* text-align-last: center; */
-    display: inline-block;
-    
-  }
   span.center{
     text-align: center;
   }
@@ -438,10 +428,119 @@ export default {
     font-size: 30px;
   }
 
-  .margin0{
-    margin: 5% 0;
+  /* 여기서 부터는 피드 */
+  @import url("https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,700");
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
-  .hr2{
-    height: 5px;
+
+  a {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
   }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: #262626;
+    font-size: 16px;
+  }
+
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  main h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    margin: 0;
+    text-align: center;
+    padding: 2rem 5% 1rem 5%;
+  }
+  main h2 {
+    font-size: 1.3rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin: 0;
+    text-align: center;
+    padding: 0 5% 3rem 5%;
+  }
+  main .flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 5% 5% 5%;
+  }
+  main .flex-container figure {
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  main .flex-container figure img {
+    width: 100%;
+    height: 25vw;
+    opacity: 1;
+    -webkit-transition: opacity 0.5s;
+    /* For Safari 3.1 to 6.0 */
+    transition: opacity 0.5s;
+  }
+  main .flex-container figure img:hover {
+    opacity: 0.9;
+  }
+  main .flex-container figure figcaption {
+    padding: 10px;
+    line-height: 1.5;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    color: #fff;
+    opacity: 0.7;
+  }
+  main .flex-container figure figcaption .fig-title {
+    font-weight: 700;
+  }
+  main .flex-container figure figcaption .fig-author {
+    font-weight: 300;
+    font-size: 0.8rem;
+  }
+  main .more-container {
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 5%;
+    margin-bottom: 5%;
+  }
+  main .more, main .more:link, main more:visited {
+    color: #262626;
+    font-weight: 700;
+    padding: 10px;
+    opacity: 0.5;
+    -webkit-transition: opacity 0.5s;
+    /* For Safari 3.1 to 6.0 */
+    transition: opacity 0.5s;
+  }
+  main .more:hover {
+    opacity: 1;
+  }
+
+  /* Media queries*/
+  @media screen and (min-width: 701px) {
+    figure {
+      width: calc(33% - 0.5rem);
+    }
+  }
+  @media screen and (max-width: 700px) {
+    figure {
+      width: calc(50% - 0.5rem);
+    }
+  }
+  @media screen and (max-width: 550px) {
+    figure {
+      width: 100%;
+    }
+  }
+
 </style>

@@ -15,7 +15,7 @@
 export default {
   name: 'Intro',
   props: {
-    club: Object,
+    club: Array,
   },
   data() {
     return {
@@ -59,10 +59,6 @@ export default {
     font-size: 14px;
     font-weight: bold;
     background-color: #a6a6a6;
-  }
-
-  .container {
-    /* max-width: 50%; */
   }
 
 </style>

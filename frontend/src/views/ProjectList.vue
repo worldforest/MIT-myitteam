@@ -7,9 +7,8 @@
     </div>
 
     <v-row no-gutters>
-      <li v-for="(i, index) in clubs2" :key="index" class="mx-auto">
-
-        <v-col v-for="n in 1" :key="n" cols="sm"> 
+      <li v-for="(i,index) in clubs2" :key="index" class="mx-auto">
+        <v-col v-for="(n,index) in 1" :key="index" cols="sm"> 
           <div
             class="mx-auto projectCard cursor"
             max-width="500"
@@ -20,7 +19,7 @@
               <h4 class="mx-auto mt-3" v-else>{{ i.title }}</h4>
             </v-card-title>
             <hr class="hrr">
-            <v-card-text class="text--primary mb-3">{{ i.start }} ~ {{ i.end }}
+            <v-card-text class="text--primary mb-3"><h5>{{ i.start }} ~ {{ i.end }}</h5>
             </v-card-text>
           </div>
         </v-col>
@@ -81,10 +80,15 @@ export default {
   .hrr{
     width: 200px;
     margin: 0 auto;
+    height: 5px;
   }
   h4 {
+    font-family: 'Do Hyeon', sans-serif;
     color: rgb(92, 107, 192);
-    font-weight: bold;
+  }
+  h5 {
+    font-family: 'Do Hyeon', sans-serif;
+    color: black;
   }
   li {
     list-style: none;
