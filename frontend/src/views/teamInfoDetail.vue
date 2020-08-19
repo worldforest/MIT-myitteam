@@ -1,11 +1,7 @@
 <template>
   <div>
     <div class="cont" v-if="windowWidth >= 900">
-      <!-- {{ dataList }}
-      {{ sendData }}
-      {{ windowWidth }} -->
       <li v-for="(item, index) in dataList.dataList" :key="index" class="bord">
-        <!-- {{ item }} -->
         <div class="headline mb-2 white--text partTitle" >
           <v-row class="cardModal">
             <h3 class="ml-5 mt-2">{{ item.part }}</h3>
@@ -35,7 +31,7 @@
       </li>
     </div>
     <div class="cont2" v-if="windowWidth < 900">
-      <li v-for="(item, index) in dataList.dataList" :key="index" class="bord">
+      <li v-for="(item, index) in dataList.dataList" :key="index" class="bord mx-3">
         <div class="headline mb-2 white--text partTitle" >
           <v-row class="cardModal">
             <h3 class="ml-5 mt-2">{{ item.part }}</h3>
@@ -158,7 +154,8 @@ export default {
     font-family: myFont, sans-serif;
   }
   .cont{
-    margin: 1rem 15%;
+    margin: 1rem 20%;
+
   }
   .cont2 {
     margin: 0 0;

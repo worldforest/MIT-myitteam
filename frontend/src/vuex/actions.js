@@ -319,7 +319,6 @@ export default {
 	getNickname(context, email){
 		axios.get(`${SERVER_URL}/api/user/selectNickname?email=${email}`)
 		.then(res => {
-			console.log('마이 닉네임..')
 			context.commit('getNick', res.data)
 			context.dispatch('getalarm', res.data)
 		})

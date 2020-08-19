@@ -4,11 +4,13 @@
       <div>
         <v-row v-if="email">
           <v-spacer></v-spacer>
-          <router-link class="TeamButton mr-4" style="color:white" :to="{name:'TeamRegister', params:{no:club.no}}">
-          <v-icon medium color="#FFFFFF" class="ml-auto">mdi-pencil-box-multiple</v-icon> <span>팀원 모집하러 가기</span> </router-link>
+          <v-btn class="TeamButton mr-4">
+            <v-icon medium color="#FFFFFF" class="ml-auto">mdi-pencil-box-multiple</v-icon> <span @click="checkemail();">팀원 모집하러 가기</span>
+          </v-btn>
         </v-row>
       </div>
 
+      {{ getTeamList }}
       <!-- 웹 페이지 클 때-->
       <v-row v-if="windowWidth >= 1270">
         <v-col cols="6" v-for="(i, index) in getTeamList" :key="index">
@@ -178,7 +180,20 @@ export default {
     deleteSave(i){
       this.deleteData.no = i.no
       this.deleteData.leaderemail = i.email
-    }
+    },
+    checkemail(){
+      console.log(this.getTeamList.length)
+      for(var x=0; x < this.getTeamList.length; x++){
+        if (this.getTeamList[x].email === this.email){
+          alert('이미 팀원 모집을 등록하셨습니다.')
+          this.$router.push('/gongmoDetail')
+          var flag = true
+        }
+      }
+      if (flag !== true){
+        this.$router.push({name:'TeamRegister', params:{no:this.club.no}})
+      }
+    },
   },
   data() {
     return {
@@ -222,31 +237,37 @@ export default {
 
   .teamCard {
     border: 2px solid rgb(92, 107, 192);
+    border-top: thick solid rgb(92, 107, 192);
     width: 330px;
     text-align: center;
   }
   .teamCard2 {
     border: 2px solid rgb(92, 107, 192);
+    border-top: thick solid rgb(92, 107, 192);
     width: 340px;
     text-align: center;
   }
   .teamCard3 {
     border: 2px solid rgb(92, 107, 192);
+    border-top: thick solid rgb(92, 107, 192);
     width: 270px;
     text-align: center;
   }
   .teamCard4 {
     border: 2px solid rgb(92, 107, 192);
+    border-top: thick solid rgb(92, 107, 192);
     width: 260px;
     text-align: center;
   }
   .teamCard5 {
     border: 2px solid rgb(92, 107, 192);
+    border-top: thick solid rgb(92, 107, 192);
     width: 300px;
     text-align: center;
   }
   .teamCard6 {
     border: 2px solid rgb(92, 107, 192);
+    border-top: thick solid rgb(92, 107, 192);
     width: 280px;
     text-align: center;
   }

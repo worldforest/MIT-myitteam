@@ -1,13 +1,20 @@
 <template>
   <div>
     <div class="cont" v-if="windowWidth >= 800">
-      <div class="d-flex ma-2">
-        <div class="ml-3">
-          <h1 class="mb-3">{{ club2.title }}</h1>
-          <h4>팀장 : {{ club2.nickname }}</h4>
-          <h4 class="mt-3 mb-4 local"> <li v-for="(i, index) in getTeamList" :key="index">{{ i.local }}</li></h4>
-        </div>
+
+      <div class="ml-3">
+        <h2 class="mb-3 text-center">{{ club2.title }}</h2>
       </div>
+      
+      <div>
+        <v-row class="d-flex">
+          <v-icon class="mx-4" large>mdi-account-circle-outline</v-icon> 
+          <h3 class="mt-5"> {{ club2.nickname }}</h3>
+          <v-spacer></v-spacer>
+          <span class=" mr-5 local"> <li v-for="(i, index) in getTeamList" :key="index">{{ i.local }}</li></span>
+        </v-row>
+      </div>
+
       <hr>
       <div>
         <PjtIntro :club2="club2" :getTeamList="getTeamList"/>
@@ -15,12 +22,17 @@
     </div>
 
     <div class="mx-7" v-if="windowWidth < 800">
-      <div class="d-flex ma-2">
-        <div class="">
-          <h4 class="mb-3">{{ club2.title }}</h4>
-          <h5>팀장 : {{ club2.nickname }}</h5>
-          <h5 class="mt-4 mb-4 local"> <li v-for="(i, index) in getTeamList" :key="index">{{ i.local }}</li></h5>
-        </div>
+      <div class="ml-3">
+        <h2 class="mb-5 text-center">{{ club2.title }}</h2>
+      </div>
+      
+      <div>
+        <v-row class="d-flex">
+          <v-icon class="mx-2" large>mdi-account-circle-outline</v-icon> 
+          <h3 class="mt-3"> {{ club2.nickname }}</h3>
+          <v-spacer></v-spacer>
+          <span class=" mr-5 local2"> <li class="mt-2" v-for="(i, index) in getTeamList" :key="index">{{ i.local }}</li></span>
+        </v-row>
       </div>
       <hr>
       <div>
@@ -100,10 +112,23 @@ export default {
     margin: 0 20%;
   }
   .local {
-    color: rgb(92, 107, 192);
+    color: white;
+    background-color: rgb(92, 107, 192);
     font-weight: bold;
+    font-size: 1.3rem;
+    border: 1px solid rgb(92, 107, 192);
+    padding: 1rem 2rem;
+    border-radius: 100%;
   }
-  
+  .local2 {
+    color: white;
+    background-color: rgb(92, 107, 192);
+    font-weight: bold;
+    font-size: 1rem;
+    border: 1px solid rgb(92, 107, 192);
+    padding: 0.5rem 0.8rem;
+    border-radius: 100%;
+  }
   li {
     list-style: none;
   }
