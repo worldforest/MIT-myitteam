@@ -10,7 +10,7 @@
       <table class="table">
         <caption>카페</caption>
         <tr><th>카페명</th></tr>
-        <tr v-for="data in cafe_data" :key="data.i">
+        <tr v-for="(data, index) in cafe_data" :key="index">
           <td><a :href="data.place_url" target="_blank" class="no-deco">{{ data.place_name }}</a></td>
           <!-- <td>{{ data.road_address_name }}</td> -->
         </tr>
@@ -21,7 +21,7 @@
       <table class="table">
         <caption>카페</caption>
         <tr><th>카페명</th><th>주소</th></tr>
-        <tr v-for="data in cafe_data" :key="data.i">
+        <tr v-for="(data, index) in cafe_data" :key="index">
           <td><a :href="data.place_url" target="_blank" class="no-deco">{{ data.place_name }}</a></td>
           <td class="center-text">{{ data.road_address_name }}</td>
         </tr>
@@ -32,7 +32,7 @@
       <table class="table">
         <caption>카페</caption>
         <tr><th>카페명</th><th>주소</th></tr>
-        <tr v-for="data in cafe_data" :key="data.i">
+        <tr v-for="(data, index) in cafe_data" :key="index">
           <td><a :href="data.place_url" target="_blank" class="no-deco">{{ data.place_name }}</a></td>
           <td class="center-text">{{ data.road_address_name }}</td>
         </tr>

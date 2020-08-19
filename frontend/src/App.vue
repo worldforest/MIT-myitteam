@@ -35,6 +35,7 @@
                 <v-list v-for="(chat, index) in allChat" :key="index">
                   <v-list-item>
                     <v-row>
+
                       <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" class="chat_img mr-3">
                       <span class="not-home ppointer" @click="goChat(chat)">{{ chat }}</span>
                     </v-row>

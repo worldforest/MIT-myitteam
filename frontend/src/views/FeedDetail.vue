@@ -26,7 +26,6 @@
       </div>
       <div class="cont2">
         <v-chip-group
-          v-model="selection"
           active-class="deep-purple accent-4 white--text"
           column   
         >
@@ -82,8 +81,8 @@
             <v-card class="cardModal">
               <h3 class="modaltitle mb-3"> 좋아요 누른 사람</h3>
               
-              <li v-for="item in likeUserList" :key="item">
-                <h4 class="ml-3 followa" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
+              <li v-for="(item, index) in likeUserList" :key="index">
+                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                 <hr>
               </li>
 
@@ -127,7 +126,6 @@
       </div>
       <div class="cont2">
         <v-chip-group
-          v-model="selection"
           active-class="deep-purple accent-4 white--text"
           column   
         >
@@ -183,8 +181,8 @@
 
             <v-card class="cardModal">
               <h3 class="modaltitle mb-3"> 좋아요 누른 사람</h3>
-              <li v-for="item in likeUserList" :key="item">
-                <h4 class="ml-3 followa" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
+              <li v-for="(item, index) in likeUserList" :key="index">
+                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                 <hr>
               </li>
 

@@ -308,6 +308,7 @@ export default {
 	getNickname(context, email){
 		axios.get(`${SERVER_URL}/api/user/selectNickname?email=${email}`)
 		.then(res => {
+			console.log('마이 닉네임..')
 			context.commit('getNick', res.data)
 			context.dispatch('getalarm', res.data)
 		})
@@ -363,7 +364,20 @@ export default {
 		.catch( err => {
 			console.log('에러양아아아아ㅏ')		
 			console.log(err.response.data)})
-		},
+	},
+	deletePjt(context, deletePjtData){
+		console.log(deletePjtData)
+		const params = new URLSearchParams();
+		params.append('no', deletePjtData.no)
+		axios.get(`${SERVER_URL}/api/contents/delete?no=${deletePjtData.no}`)
+		.then(() => {
+			Swal.fire({
+				icon: 'info',
+				text: '성공적으로 삭제하였습니다.',
+			})
+			router.push({ name: "ProjectList"})
+		})
+	},
 	//////////다인///////////////
 
 	/////////지훈////////////////

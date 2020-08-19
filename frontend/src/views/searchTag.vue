@@ -10,7 +10,7 @@
     </div>
     <div>
       <v-row class="cont10">
-        <v-col cols="4" v-for="i in tagData" :key="i.no">
+        <v-col cols="4" v-for="(i, index) in tagData" :key="index">
           <div class="mx-2 detail_hover">
             {{ i.nickname }}
             <img :src="i.src"

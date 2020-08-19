@@ -2,8 +2,8 @@
   <div>     
     <div>
     <v-row no-gutters>
-      <li v-for="i in allContest" :key="i" class="mx-auto">
-        {{ pjt }}
+      <li v-for="(i, index) in allContest" :key="index" class="mx-auto">
+        <!-- {{ pjt }} -->
         <v-col v-for="n in 1" :key="n" cols="sm" > 
           <v-card
             class="mx-auto contestCard"

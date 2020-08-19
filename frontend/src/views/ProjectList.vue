@@ -7,8 +7,8 @@
     </div>
 
     <v-row no-gutters>
-      <li v-for="i in clubs2" :key="i" class="mx-auto">
-        {{ pjt }}
+      <li v-for="(i, index) in clubs2" :key="index" class="mx-auto">
+
         <v-col v-for="n in 1" :key="n" cols="sm"> 
           <div
             class="mx-auto projectCard cursor"
