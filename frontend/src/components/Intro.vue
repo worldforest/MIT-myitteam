@@ -15,7 +15,7 @@
 export default {
   name: 'Intro',
   props: {
-    club: Object,
+    club: Array,
   },
   data() {
     return {

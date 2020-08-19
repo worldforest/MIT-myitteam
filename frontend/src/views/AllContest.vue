@@ -2,8 +2,8 @@
   <div>     
     <div>
     <v-row no-gutters>
-      <li v-for="(i, index) in allContest" :key="index" class="mx-auto">
-        <v-col v-for="n in 1" :key="n" cols="sm" > 
+      <li v-for="(i,index) in allContest" :key="index" class="mx-auto">
+        <v-col v-for="(n,index) in 1" :key="index" cols="sm" > 
           <v-card
             class="mx-auto contestCard"
             max-width="400"
