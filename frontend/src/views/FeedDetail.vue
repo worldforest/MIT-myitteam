@@ -1,6 +1,5 @@
 <template>
   <div class="mt-3">
-    {{ detailFeed }}
     <div v-if="windowWidth >= 767" class="cont15">
       <div class="d-flex">
         <v-avatar size="72">
@@ -70,7 +69,7 @@
       <v-row>
         <v-spacer></v-spacer>
 
-        <div class="text-center">
+        <div class="text-center font">
           <v-dialog v-model="dialog" width="500">
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on" class="cursor">
@@ -96,7 +95,6 @@
           </v-dialog>
         </div>
         
-        {{ likeUserList }}
         <v-icon v-if="!likeUserList2.includes(email)" large class="mr-4 likebtn" @click="like(likeData);">mdi-heart-multiple-outline</v-icon>
         <v-icon v-if="likeUserList2.includes(email)" large class="mr-4 likebtn" color="red" @click="unlike(likeData);">mdi-heart-multiple</v-icon>
       </v-row>
@@ -252,6 +250,8 @@ export default {
 
 <style scoped>
 
+  *{ font-family: 'Jua', sans-serif;}
+  
   hr {
     height: 3px;
     background: #bbb;
@@ -286,6 +286,10 @@ export default {
 
   .cont2 {
     margin: 0 2%;
+  }
+
+  .font {
+
   }
 
 </style>
