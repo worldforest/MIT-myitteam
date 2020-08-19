@@ -6,8 +6,8 @@ import 'url-search-params-polyfill'
 import Swal from 'sweetalert2'
 
 
-// const SERVER_URL = 'http://localhost:9999/mit'
-const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
+const SERVER_URL = 'http://localhost:9999/mit'
+// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
 
 export default {
 	postToken2({ commit }, info) {
@@ -187,15 +187,26 @@ export default {
 			})
 	},
 	projectregister(context, projectData){
-		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
-		.then(() => {
+		var startdate = new Date(projectData.start)
+		var enddate = new Date(projectData.end)
+		if (startdate < enddate) {
+			axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
+			.then(() => {
+				Swal.fire({
+					icon: 'success',
+					title: '성공적으로 등록하였습니다.',
+					width: 600
+				})
+				router.push({ name: "ProjectList"})
+			})
+		}
+		else{
 			Swal.fire({
-				icon: 'success',
-				title: '성공적으로 등록하였습니다.',
+				icon: 'error',
+				title: '프로젝트 기간을 확인해주세요.',
 				width: 600
 			})
-			router.push({ name: "ProjectList"})
-		})
+		}
 	},
 	getTeamData(context, no){
 		const params = new URLSearchParams();

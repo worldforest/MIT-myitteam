@@ -21,6 +21,15 @@
             <li><div class="text-center ">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
+                  <!-- <v-icon
+                    v-if="allChat.length === 0"
+                    middle
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="getAllChat(myNick)"
+                  >
+                    mdi-message-minus
+                  </v-icon> -->
                   <v-icon
                     middle
                     v-bind="attrs"
@@ -28,7 +37,7 @@
                     @click="getAllChat(myNick)"
                   >
                     mdi-comment-processing
-                  </v-icon>
+                  </v-icon> 
 
                 </template>
                 <v-list v-for="(chat, index) in allChat" :key="index">
