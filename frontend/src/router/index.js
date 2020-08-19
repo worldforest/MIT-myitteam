@@ -25,6 +25,7 @@ import FeedUpdate from '@/views/FeedUpdate.vue'
 import teamInfoDetail from '@/views/teamInfoDetail.vue'
 import PageNotFound from '@/views/PageNotFound.vue'
 import RealHome from '@/views/RealHome.vue'
+import '@/App.vue'
 
 Vue.use(VueRouter)
 

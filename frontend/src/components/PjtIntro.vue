@@ -316,10 +316,7 @@ export default {
 </script>
 
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("/src/font/BMJUA_ttf.ttf");
-  }
+  *{ font-family: 'Jua', sans-serif;}
 
   .pill {
     position: absolute;

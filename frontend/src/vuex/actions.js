@@ -266,6 +266,9 @@ export default {
 			context.dispatch('likeCnt', likeData)
 			context.dispatch('likeUser', likeData)
 		})
+		.catch(()=>{
+
+		})
 	},
 	unlike(context, likeData){
 		const params = new URLSearchParams();
@@ -504,6 +507,9 @@ export default {
 				}
 				context.commit('setTag', data)
 			})
+			.catch(()=>{
+			
+			})
 	},
 
 	subEmail(context, res) {
@@ -658,4 +664,3 @@ export default {
 		})
 	}
 }
-

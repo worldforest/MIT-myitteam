@@ -161,8 +161,8 @@
     <div v-else>
       <div class="mt-6">
         <h1 class="Pjt_h1 mb-4">공모전</h1>
-        <carousel :per-page="3"  :mouse-drag="false" >
-          <slide v-for="(club, index) in clubs" :key="index">
+        <carousel :per-page="3" :mouse-drag="false" >
+          <slide v-for="(club,index) in clubs" :key="index">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 75%;">
               <b-card-text @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
@@ -185,7 +185,7 @@
       <h1 @click="goPJT" class="Pjt_h1 mb-4" v-if="windowWidth > 960">프로젝트</h1>
       <div v-if="windowWidth >= 1266">      
         <carousel :per-page="4" :mouse-drag="false" >
-          <slide v-for="(club2, index) in clubs2" :key="index">
+          <slide v-for="(club2,index) in clubs2" :key="index">
             <!-- {{ club2 }} -->
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
@@ -363,6 +363,7 @@ export default {
     font-family: myFont;
     src: url("/src/font/BMJUA_ttf.ttf");
   }
+ *{ font-family: 'Jua', sans-serif;}
   .active{
     width:20px;
     height:20px;

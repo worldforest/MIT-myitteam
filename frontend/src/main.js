@@ -9,7 +9,7 @@ import VueDaumPostcode from "vue-daum-postcode"
 import VueCarousel from 'vue-carousel'
 
 // firebase 설정------------------------------------------
-import firebase from 'firebase'
+import * as firebase from 'firebase/app'
 
 // Required for side-effects
 require("firebase/firestore");
@@ -31,11 +31,6 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
 window.db=db;
-
-// Disable deprecated features
-db.settings({
-  timestampsInSnapshots: true
-});
 //--------------------------------------------------------
 
 var infiniteScroll =  require('vue-infinite-scroll');
@@ -48,10 +43,12 @@ Vue.use(VueCookies)
 Vue.use(VueCarousel)
 Vue.config.productionTip = false
 Vue.use(infiniteScroll)
+Vue.config.devtools = false
 
 new Vue({
   router,
   store,
   vuetify,
   render: h => h(App)
+  
 }).$mount('#app')

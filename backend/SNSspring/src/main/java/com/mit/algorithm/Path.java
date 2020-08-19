@@ -6,12 +6,12 @@ public class Path {
 
 	public Path() {
 //		배포시
-		this.path = "https://i3b306.p.ssafy.io";
-		this.im = "/home/ubuntu/";
+//		this.path = "https://i3b306.p.ssafy.io";
+//		this.im = "/home/ubuntu/";
 		
 //		배포안할시 개발
-//		this.path = "http://localhost:9999";
-//		this.im = "C://";
+		this.path = "http://localhost:9999";
+		this.im = "C://";
 	}
 
 	public String getPath() {

@@ -95,10 +95,8 @@ export default {
 }
 </script>
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("/src/font/BMJUA_ttf.ttf");
-  }
+   *{ font-family: 'Jua', sans-serif;}
+   
   .container{max-width:1170px; margin:auto;}
   img{ max-width:100%;}
   .inbox_people {

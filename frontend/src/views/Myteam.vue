@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row class="d-flex justify-center">
-      <v-col cols='6'  v-for="(info, index) in this.$store.state.myTeamInfo" :key="index">
+      <v-col cols='6' sm="12" v-for="(info, index) in this.$store.state.myTeamInfo" :key="index">
         <v-card
           class="mx-auto my-12"  
           max-width="480px"   

@@ -1,8 +1,5 @@
 <template>
   <div>
-    <!-- {{ club.no }} -->
-    <!-- {{ getTeamList }} -->
-    {{ windowWidth }}
     <div class="container" v-if="windowWidth >= 900">
       <div>
         <v-row v-if="email">
@@ -25,7 +22,6 @@
                 <hr class="hrr">
 
                 <v-row justify="center">
-                  <!-- {{ i }} -->
                   <router-link class="TeamButton white--text mr-5" color="#5C6BC0" :to="{ name:'teamInfoDetail', params:{dataList : i}}">상세보기 </router-link>
                   <v-btn v-if="i.email === email" color="red" class="white--text button" right @click="deleteSave(i); deleteTeam(deleteData);">
                     삭제하기
@@ -222,10 +218,7 @@ export default {
 }
 </script>
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("/src/font/BMJUA_ttf.ttf");
-  }
+ *{ font-family: 'Jua', sans-serif;}
 
   .teamCard {
     border: 2px solid rgb(92, 107, 192);
