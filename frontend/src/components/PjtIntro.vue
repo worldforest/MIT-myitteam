@@ -1,16 +1,11 @@
 <template>
   <div>
-    <!-- {{ windowWidth }} -->
-
     <div class="container" v-if="windowWidth >= 800">
       <h4 class="mt-4">모집 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h4>
       <h4 class="mt-8">프로젝트 소개 : </h4>
       <v-card class="mt-3 px-3 py-3" color="#FAFAFA" style="white-space:pre-line;">{{ club2.description }}</v-card>
     
       <div>
-        {{ club2 }}
-        {{ sendData }}
-        <!-- {{ getTeamList }} -->
         <h4 class="mt-8 mb-4">팀원 모집 : </h4>
         <v-row v-if="windowWidth >= 1270">
           <v-col v-for="(i, index) in getTeamList" :key="index">
