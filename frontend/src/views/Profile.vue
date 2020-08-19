@@ -16,14 +16,14 @@
             <v-dialog v-model="dialog" width="500">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowList(email);">
-                  <h3>팔로잉| {{ profileData.followingCnt }}명</h3>
+                  <h5>팔로잉| {{ profileData.followingCnt }}</h5>
                 </span>
               </template>
 
               <v-card class="cardModal">
                 <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
                 
-                <li v-for="(item,index) in followList" :key="index">
+                <li v-for="(item, index) in followList" :key="index">
                   <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                   <hr>
                 </li>
@@ -42,7 +42,7 @@
             <v-dialog v-model="dialog2" width="500">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowerList(email);">
-                  <h3>팔로워| {{ profileData.followerCnt }}명</h3>
+                  <h5>팔로워| {{ profileData.followerCnt }}</h5>
                 </span>
               </template>
 
@@ -201,7 +201,7 @@
             <v-card class="cardModal">
               <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
               
-              <li v-for="(item,index) in followList" :key="index">
+              <li v-for="(item, index) in followList" :key="index">
                 <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                 <hr>
               </li>

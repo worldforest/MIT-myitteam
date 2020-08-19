@@ -1,11 +1,13 @@
 <template>
   <div>
+    {{ windowWidth }}
+    {{ club2 }}
     <div class="cont" v-if="windowWidth >= 800">
       <div class="d-flex ma-2">
         <div class="ml-3">
           <h1 class="mb-3">{{ club2.title }}</h1>
           <h4>팀장 : {{ club2.nickname }}</h4>
-          <h4 class="mt-3 mb-4 local"> <li v-for="i in getTeamList" :key="i">{{ i.local }}</li></h4>
+          <h4 class="mt-3 mb-4 local"> <li v-for="(i, index) in getTeamList" :key="index">{{ i.local }}</li></h4>
         </div>
       </div>
       <hr>
@@ -19,7 +21,7 @@
         <div class="">
           <h4 class="mb-3">{{ club2.title }}</h4>
           <h5>팀장 : {{ club2.nickname }}</h5>
-          <h5 class="mt-4 mb-4 local"> <li v-for="i in getTeamList" :key="i">{{ i.local }}</li></h5>
+          <h5 class="mt-4 mb-4 local"> <li v-for="(i, index) in getTeamList" :key="index">{{ i.local }}</li></h5>
         </div>
       </div>
       <hr>
@@ -45,7 +47,7 @@ export default {
       isIntro: true,
       isTeam: false,
       windowWidth: window.innerWidth,
-      club2:[],
+      club2: {},
     }
   },
   mounted() {
@@ -77,7 +79,7 @@ export default {
     },
   },
   computed: { 
-    ...mapState(['club2', 'getTeamList', 'email'])
+    ...mapState([ 'getTeamList', 'email'])
   }
 }
 </script>

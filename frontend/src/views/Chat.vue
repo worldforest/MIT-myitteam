@@ -1,14 +1,14 @@
 <template>
-    <div >
-      <h3 class=" text-center mb-3">{{privateChatTitle}}Message</h3>
+    <div class="py-2">
+      <h4 class=" text-center mb-3">{{privateChatTitle}}의 Message</h4>
       <div class="messaging">
         <div class="inbox_msg">
             <div class="msg_history">
-              <div v-for="message in messages" :key="message" class="incoming_msg">
+              <div v-for="(message, index) in messages" :key="index" class="incoming_msg">
                 <div v-if="message.senduser !== myNick">
-                  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="incoming_msg_img"> <img class="ml-3" src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                     <div class="received_msg mb-4">
-                      <div class="received_withd_msg">
+                      <div class="received_withd_msg ml-3">
                         {{ message.senduser }}
                         <p>{{ message.message }}</p>
                         <span class="time_date"> {{ Date(message.createdAt) }}</span>
@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div v-if="message.senduser === myNick">
-                  <div class="outgoing_msg">
+                  <div class="outgoing_msg mr-3">
                     <div class="sent_msg">
                       <p>{{ message.message }}</p>
                       <span class="time_date"> {{ Date(message.createdAt) }}</span>
@@ -27,8 +27,8 @@
             </div>
             <div class="type_msg">
               <div class="input_msg_write">
-                <input @keypress.enter="saveMessage(myNick)" v-model="message" type="text" class="write_msg" placeholder="Type a message" />
-                <button @click="saveMessage(myNick)" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                <input @keypress.enter="saveMessage(myNick)" v-model="message" type="text" class="write_msg px-3" placeholder="Type a message" />
+                <button @click="saveMessage(myNick)" class="msg_send_btn mr-4" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
               </div>
             </div>
         </div>
@@ -72,9 +72,7 @@ export default {
       this.message = null
       setTimeout(()=> {
         document.querySelector('.msg_history').scrollTop = document.querySelector('.msg_history').scrollHeight
-      }, 100)
-
-        
+      }, 100)  
     },
     fetchMessages(){
       db.collection(this.privateChatTitle)
@@ -179,7 +177,7 @@ export default {
     font-size: 12px;
     margin: 8px 0 0;
   }
-  .received_withd_msg { width: 57%;}
+  .received_withd_msg { width: 50%;}
   .mesgs {
     float: left;
     padding: 30px 15px 0 25px;
@@ -196,7 +194,7 @@ export default {
   .outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
   .sent_msg {
     float: right;
-    width: 46%;
+    width: 45%;
   }
   .input_msg_write input {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
@@ -214,15 +212,15 @@ export default {
     color: #fff;
     cursor: pointer;
     font-size: 17px;
-    height: 33px;
+    height: 30px;
     position: absolute;
     right: 0;
     top: 11px;
-    width: 33px;
+    width: 30px;
   }
   .msg_history {
     margin-top: 1rem;
-    height: 550px;
+    height: 450px;
     overflow-y: auto;
   }
 </style>

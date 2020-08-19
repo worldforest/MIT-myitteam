@@ -97,7 +97,7 @@
       <h3 v-if="flag">공모전</h3>
       <h3 v-if="!flag">프로젝트</h3>
       <v-row class="mt-0" v-if="flag">
-        <v-col cols="6" v-for="(club,index) in clubs" :key="index">
+        <v-col cols="6" v-for="(club, index) in clubs" :key="index">
           <v-card      
             class="mx-auto my-1 homeCard"
             max-width="344"
@@ -133,7 +133,7 @@
         </v-col>
       </v-row>
       <v-row class="mt-0" v-if="!flag">
-        <v-col cols="6" v-for="(club,index) in clubs2" :key="index">
+        <v-col cols="6" v-for="(club, index) in clubs2" :key="index">
           <v-card      
             class="mx-auto my-1 homeCard"
             max-width="344"
@@ -225,10 +225,10 @@
         </carousel>
       </div>
 
-      <!-- //////////////////////// 게시글 조회 ////////////////////// -->
-      <h1 class="text-center mt-9"> 게시글 </h1>
-    <v-row class="d-flex justify-center"> 
-      <v-col sm="4" >
+    <!-- //////////////////////// 게시글 조회 ////////////////////// -->
+    <h1 class="text-center mt-9"> 게시글 </h1>
+    <v-row class="d-flex justify-center margin0"> 
+      <v-col sm="4">
         <v-text-field
           v-model="searchData.search"
           append-icon="mdi-magnify"
@@ -239,12 +239,15 @@
       </v-col>
     </v-row>
       <div class="text-box my-6">
-        <div class="center">
-          <button @click="searchFeed()">전체 게시글</button>
-        </div>
-        <div class="right" v-if="email">
-          <button @click="searchFollowFeed(email)">팔로우 게시물</button>
-        </div>
+        <v-row style="font-size:1.3rem">
+          <div class="center">
+            <button @click="searchFeed()"><h5 class="fontcolor">전체 게시글</h5></button>
+          </div>
+          <div class="center" v-if="email">
+            <button @click="searchFollowFeed(email)"><h5 class="fontcolor">팔로우 게시물</h5></button>
+          </div>
+        </v-row>
+        <hr class="hr2">
       </div>
       <div>
         <v-row class="cont10" v-if="windowWidth > 760">
@@ -356,87 +359,78 @@ export default {
 </script>
 
 <style scoped>
+  @font-face {
+    font-family: myFont;
+    src: url("/src/font/BMJUA_ttf.ttf");
+  }
  *{ font-family: 'Jua', sans-serif;}
   .active{
     width:20px;
     height:20px;
     border-radius:20px;
   }
-
   .card-img-top {
     width: 250px;
     height: 350px;
     object-fit: cover;
   }
-
   .card-sm .card-img-top {
     width: 150px;
     height: 200px;
     object-fit: cover;
   }
-
   .bg {
     background-color: #e9e9e9;
   }
-
   .non-dec {
     text-decoration: none;
     color: black !important;
     font-weight: bold;
   }
-
   .detail_hover:hover {
     opacity: 0.5;
   }
-
   .text-box {
     width: 100%;
     text-align: center;
     margin-top: 1rem;
   }
-
   .center {
     display: inline-block;
     margin: 0 auto;
   }
-
   .right {
     float: right;
   }
-
   .cursor {
     cursor: pointer;
     font-weight: bold;
   }
-
   .row{
     margin-top:100px;
   }
-
   .cont10 {
     margin: 0 3%;
   }
-
   .homeCard{
     text-align: center;
     margin: auto ;
     border-top: thick solid rgb(92, 107, 192);
   }
-
   .date{
     color: black;
   }
-
   .hrr{
     width: 200px;
     margin: 1.5rem auto;
   }
-
   .title{
     color: rgb(92, 107, 192);
     font-weight: bold;
   }
-
+  .fontcolor{
+    color: rgb(92, 107, 192);
+  }
   .Pjt_h1{
     cursor: pointer;
   }
@@ -444,5 +438,10 @@ export default {
     font-family: myFont, sans-serif;
     font-size: 1.3rem;
   }
-
+  .margin0{
+    margin: 5% 0;
+  }
+  .hr2{
+    height: 5px;
+  }
 </style>
