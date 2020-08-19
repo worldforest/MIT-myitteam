@@ -187,15 +187,26 @@ export default {
 			})
 	},
 	projectregister(context, projectData){
-		axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
-		.then(() => {
+		var startdate = new Date(projectData.start)
+		var enddate = new Date(projectData.end)
+		if (startdate < enddate) {
+			axios.post(`${SERVER_URL}/api/team/projectteam`, projectData)
+			.then(() => {
+				Swal.fire({
+					icon: 'success',
+					title: '성공적으로 등록하였습니다.',
+					width: 600
+				})
+				router.push({ name: "ProjectList"})
+			})
+		}
+		else{
 			Swal.fire({
-				icon: 'success',
-				title: '성공적으로 등록하였습니다.',
+				icon: 'error',
+				title: '프로젝트 기간을 확인해주세요.',
 				width: 600
 			})
-			router.push({ name: "ProjectList"})
-		})
+		}
 	},
 	getTeamData(context, no){
 		const params = new URLSearchParams();

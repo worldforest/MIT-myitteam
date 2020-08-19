@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- {{ email }} -->
-    {{ applyData }}
-    {{ applyData.no }}
-    
     <br>
     <div v-if="windowWidth >= 730">
       <v-card id="card-apply" class="py-5 px-3 my-8 mx-auto" outlined max-width="900px">
@@ -50,7 +46,6 @@
               <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
                 <h3 class="mb-3 cardTitle">{{ item.part }}</h3>
                 <hr class="mb-3">
-                {{ item }}
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2 cardTitle">인원 : {{ item.headCount }}</h4></v-list-item-title>
