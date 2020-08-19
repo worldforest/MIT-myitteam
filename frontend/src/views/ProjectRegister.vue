@@ -52,7 +52,6 @@
 									</div>
 								</template>
 							</v-col>
-
 							<v-col class="d-flex mx-auto" cols="5">
 								<template>
 									<div class="text-center">
@@ -72,7 +71,11 @@
 											</template>
 											
 												<v-flex>
-													<v-date-picker v-model="projectData.end" color="blue lighten-1"></v-date-picker>
+													<v-date-picker
+														v-model="projectData.end"
+														color="blue lighten-1"
+														beforeShowDay: noBefore
+													></v-date-picker>
 												</v-flex>
 										</v-menu>
 									</div>
@@ -100,12 +103,11 @@
 										</template>
 									
 										<v-flex>
-											<v-date-picker v-model="projectData.start" color="green lighten-1"></v-date-picker>
+											<v-date-picker v-model="projectData" color="green lighten-1"></v-date-picker>
 										</v-flex>
 									</v-menu>
 								</template>
 							</v-col>
-
 							<v-col v-if="windowWidth < 400" class="d-flex" >
 								<template>
 									<div class="text-center">
@@ -119,14 +121,18 @@
 													width="300px"
 												>
 													<v-text-field label="종료"
-															outlined
-															cols="6"
-															v-model="projectData.end"></v-text-field>
+														outlined
+														cols="6"
+														v-model="projectData.end">
+													</v-text-field>
 												</v-btn>
 											</template>
 											
 												<v-flex>
-													<v-date-picker v-model="projectData.end" color="blue lighten-1"></v-date-picker>
+													<v-date-picker
+													v-model="projectData.end"
+													color="blue lighten-1"
+													></v-date-picker>
 												</v-flex>
 										</v-menu>
 									</div>
@@ -192,10 +198,23 @@
 							<v-btn depressed large class="white--text" color="#5C6BC0" @click="projectregister(projectData)">등록하기</v-btn>
 						</div>
 					</v-col>
+
+						<v-date-picker
+							v-model=projectData.term
+							range=true
+							:value="null"
+							is-dark
+							is-inline
+						/>
+
+					{{projectData.term[0]}}
+					{{projectData.term[1]}}
 				</v-card>
       </div>
     </v-container>
 	</v-card>
+
+	
 
 </template>
 
@@ -211,6 +230,10 @@ export default {
 	},
 	data() {
 		return{
+			// range:{
+			// 	start: "2020-08-19",
+			// 	end: ""
+			// },
 			selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
 			projectData: {
 				title: "",
@@ -218,6 +241,7 @@ export default {
 				description: "",
 				start: "",
 				end: "",
+				term:"",
 				local: "",
 				dataList: [],
 			},
@@ -226,22 +250,23 @@ export default {
 		}
 	},
 	watch: {
-    windowWidth(newWidth, oldWidth) {
-      this.txt = `it changed to ${newWidth} from ${oldWidth}`;
-    }
-  },
-  beforeDestroy() { 
-    window.removeEventListener('resize', this.onResize); 
-  },
+		windowWidth(newWidth, oldWidth) {
+		this.txt = `it changed to ${newWidth} from ${oldWidth}`;
+		}
+	},
 	methods: {
 		...mapActions(['projectregister']),
 		addProject(Data){
 			this.projectData.dataList = [...this.projectData.dataList, Data]
 		},
 		onResize() {
-      this.windowWidth = window.innerWidth
-    },
+				this.windowWidth = window.innerWidth
+		},
+		// allowedDates: val => parseInt(val.split('-')[1]) % 2 === 0,
 	}, 
+	beforeDestroy() { 
+		window.removeEventListener('resize', this.onResize); 
+	},
 	mounted () {
 		this.projectData.email = this.$store.state.email, 
       this.$nextTick(() => {
