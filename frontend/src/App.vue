@@ -4,7 +4,7 @@
       <div v-if="!isLoggedIn">
         <nav role="navigation" class="primary-navigation">
           <ul>
-            <li class="home left-nav" ><router-link to="/home"><span>MIT</span></router-link></li>
+            <li class="home left-home" ><router-link to="/home"><span>MIT</span></router-link></li>
             <li class="left-nav"><router-link to="/AllContest"><span>공모전</span></router-link></li>
             <li class="left-nav"><router-link to="/projectlist"><span>프로젝트</span></router-link></li>
             <li class="right-nav"><router-link to="/login"><span>로그인</span></router-link></li>
@@ -15,7 +15,7 @@
       <div v-if="isLoggedIn">
         <nav role="navigation" class="primary-navigation">
           <ul class="right-nav">
-            <li class="left-nav"><router-link to="/home"><span>Home</span></router-link></li>
+            <li class="left-home"><router-link to="/home"><span>MIT</span></router-link></li>
             <li class="left-nav"><router-link to="/AllContest"><span>공모전</span></router-link></li>
             <li class="left-nav"><router-link to="/projectlist"><span>프로젝트</span></router-link></li>
             <li class="right-nav"><div class="text-center ">
@@ -25,7 +25,6 @@
                     middle
                     v-bind="attrs"
                     v-on="on"
-                    color="rgb(92, 107, 192)"
                     size="35px"
                     @click="getAllChat(myNick)"
                   >
@@ -53,7 +52,6 @@
                       middle
                       v-bind="attrs"
                       v-on="on"
-                      color="rgb(92, 107, 192)"
                       @click="getalarm(myNick)"
                       size="35px"
                     >
@@ -64,7 +62,6 @@
                       middle
                       v-bind="attrs"
                       v-on="on"
-                      color="rgb(92, 107, 192)"
                       @click="getalarm(myNick)"
                       size="35px"
                       >mdi-bell-check</v-icon>
@@ -86,7 +83,6 @@
                       middle
                       v-bind="attrs"
                       v-on="on"
-                      color="rgb(92, 107, 192)"
                       class="accountIcon"
                       size="35px"
                     > mdi-account-circle
@@ -293,6 +289,7 @@ export default {
 </script>
 <style scoped>
  *{ font-family: 'Jua', sans-serif;}
+ ul li{font-family: 'Do Hyeon', sans-serif;}
 
   .not-home > a { 
     text-decoration: none;
@@ -385,7 +382,12 @@ export default {
     font-size: 30px;
   }
    li.right-nav{
+    float: right;
     font-size: 25px;
+  }
+  li.left-home{
+    font-size: 50px;
+    display: inline-block;
   }
 
   li.home{
@@ -394,7 +396,7 @@ export default {
   }
 
    nav.primary-navigation ul{
-     padding: 0 0 0 150px;
+     padding: 0 0 20px 0;
    }
 
   /* serim */
