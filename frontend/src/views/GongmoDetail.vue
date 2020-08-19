@@ -81,7 +81,7 @@ export default {
       isIntro: true,
       isTeam: false,
       windowWidth: window.innerWidth,
-      club: [],
+      club: {},
     }
   },
   watch: {

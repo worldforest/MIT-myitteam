@@ -1,22 +1,17 @@
 <template>
   <div>
-    <!-- {{ windowWidth }} -->
-
     <div class="container" v-if="windowWidth >= 800">
       <h4 class="mt-4">모집 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h4>
       <h4 class="mt-8">프로젝트 소개 : </h4>
       <v-card class="mt-3 px-3 py-3" color="#FAFAFA" style="white-space:pre-line;">{{ club2.description }}</v-card>
     
       <div>
-        {{ club2 }}
-        {{ sendData }}
-        <!-- {{ getTeamList }} -->
         <h4 class="mt-8 mb-4">팀원 모집 : </h4>
         <v-row v-if="windowWidth >= 1270">
-          <v-col v-for="i in getTeamList" :key="i">
+          <v-col v-for="(i, index) in getTeamList" :key="index">
               <div class="d-flex mx-auto">
                 <div>
-                  <li v-for="item in i.dataList" :key="item">
+                  <li v-for="(item, index) in i.dataList" :key="index">
                     <div class="pjtCard mx-auto mb-6">
                       <div class="mb-2 white--text partTitle" >
                         <v-row>
@@ -50,7 +45,7 @@
               </div>
               <v-row>
                 <v-spacer></v-spacer>
-                <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+                <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                   삭제하기
                 </v-btn> 
               </v-row>
@@ -58,10 +53,10 @@
         </v-row>
 
         <v-row v-if="windowWidth < 1270 && windowWidth >= 800">
-          <v-col v-for="i in getTeamList" :key="i">
+          <v-col v-for="(i, index) in getTeamList" :key="index">
               <div class="d-flex mx-auto">
                 <div>
-                  <li v-for="item in i.dataList" :key="item">
+                  <li v-for="(item, index) in i.dataList" :key="index">
                     <div class=" pjtCard2 mx-auto mb-6">
                       <div class="headline mb-2 white--text partTitle" >
                         <v-row>
@@ -95,7 +90,7 @@
               </div>
               <v-row>
                 <v-spacer></v-spacer>
-                <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+                <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                   삭제하기
                 </v-btn> 
               </v-row>
@@ -111,11 +106,11 @@
       <v-card class="mt-3 px-3 py-3" color="#FAFAFA" style="white-space:pre-line;">{{ club2.description }}</v-card>
       <h5 class="mt-8 mb-4">팀원 모집 : </h5>
       <v-row class="mx-auto" v-if="windowWidth < 800 && windowWidth >= 600">
-        <v-col v-for="i in getTeamList" :key="i">
+        <v-col v-for="(i, index) in getTeamList" :key="index">
           <!-- {{ i }} -->
             <div class="d-flex mx-auto">
               <div>
-                <li v-for="item in i.dataList" :key="item">
+                <li v-for="(item, index) in i.dataList" :key="index">
                   <div class="pjtCard3 mx-auto mb-6">
                     <div class="headline mb-2 white--text partTitle" >
                       <v-row>
@@ -149,7 +144,7 @@
             </div>
             <v-row>
               <v-spacer></v-spacer>
-              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                 삭제하기
               </v-btn> 
             </v-row>
@@ -157,11 +152,11 @@
       </v-row>
 
       <v-row class="mx-auto" v-if="windowWidth < 600 && windowWidth >= 430">
-        <v-col v-for="i in getTeamList" :key="i">
+        <v-col v-for="(i, index) in getTeamList" :key="index">
           <!-- {{ i }} -->
             <div class="d-flex mx-auto">
               <div>
-                <li v-for="item in i.dataList" :key="item">
+                <li v-for="(item, index) in i.dataList" :key="index">
                   <div class="pjtCard5 mx-auto mb-6">
                     <div class="headline mb-2 white--text partTitle" >
                       <v-row>
@@ -195,7 +190,7 @@
             </div>
             <v-row>
               <v-spacer></v-spacer>
-              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                 삭제하기
               </v-btn> 
             </v-row>     
@@ -203,10 +198,10 @@
       </v-row>
 
       <v-row v-if="windowWidth < 430">
-        <v-col v-for="i in getTeamList" :key="i">
+        <v-col v-for="(i, index) in getTeamList" :key="index">
             <div class="d-flex mx-auto">
               <div>
-                <li v-for="item in i.dataList" :key="item">
+                <li v-for="(item, index) in i.dataList" :key="index">
                   <div class="pjtCard4 mx-auto mb-6">
                     <div class="mb-2 white--text partTitle" >
                       <v-row>
@@ -240,7 +235,7 @@
             </div>
             <v-row>
               <v-spacer></v-spacer>
-              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                 삭제하기
               </v-btn> 
             </v-row> 
@@ -257,7 +252,7 @@ export default {
   name: 'Intro',
   props: {
     club2: Object,
-    getTeamList: Object,
+    getTeamList: Array,
   },
   data() {
     return {
@@ -273,7 +268,7 @@ export default {
         part: '',
       },
       deletePjtData: {
-        no : this.club2.no
+        no : '',
       },
     }
   },
@@ -306,16 +301,17 @@ export default {
     emailSave(i){
       this.sendData.leaderemail = i.email
       this.sendData.no = i.no
+    },
+    noSave(club2){
+      console.log(club2)
+      this.deletePjtData.no = club2.no
     }
   },
 }
 </script>
 
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("/src/font/BMJUA_ttf.ttf");
-  }
+  *{ font-family: 'Jua', sans-serif;}
 
   .pill {
     position: absolute;

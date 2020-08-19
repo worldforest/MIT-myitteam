@@ -1,7 +1,5 @@
 <template>
   <div>
-    {{ saveInfo.no }}
-    {{ saveInfo.leaderemail }}
     <span v-if="saveInfo.leaderemail === email">
       {{ saveInfo.allCnt}}
       {{ saveInfo.members.length}}
@@ -136,10 +134,7 @@
 
     <!-- 내가 팀장이 아닐 때 -->
     <span v-else>
-      {{ '나 팀장 아님' }}
-      {{ teamChatData }}
       <hr>
-      {{ teamchatTitle }}
       <router-link :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
         <v-btn>팀 채팅하기</v-btn>
       </router-link>

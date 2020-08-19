@@ -208,14 +208,20 @@ public class TeamController {
 		List<TeamDto> teams = new ArrayList<TeamDto>();
 
 		// email이 속한 모든 멤버를 가져온다 여기서 no 와 leaderemail를 서치한다 이것을 기준으로 필요한 데이터를 만든다.
+		// 내가 멤버로 있는 팀 정보 가져와서
 		List<Member> members = memberService.selectEmail(email);
 
 		for (Member member : members) {
+			// 그 팀의 no와 leaderemail
 			String no = member.getNo();
 			String leaderemail = member.getLeaderemail();
+			// 팀을 찾고
 			Team team = teamService.selectnoemail(no, leaderemail);
+			
+			// 어떤 공모전, 프로젝트인지 찾고
 			Contents contents = contentsService.selectOne(no);
 
+			// 필요한 정보들 저장하고
 			TeamDto teamDto = new TeamDto();
 			teamDto.setCategory(contents.getCategory() + "");
 			teamDto.setDescription(team.getDescription());
@@ -232,11 +238,14 @@ public class TeamController {
 
 			teamDto.setAllCnt(teaminfoService.countHead(no, leaderemail) + "");
 
+			// 그 팀의 멤버들 가져와서 가져오고
 			teamDto.setMembers(memberService.select(no, leaderemail));
+			// 그 팀에 지원한 사람들 가져오고
 			teamDto.setApplymembers(applymemberService.select(no, leaderemail));
 
 			teams.add(teamDto);
 		}
+		
 
 		return new ResponseEntity<List<TeamDto>>(teams, HttpStatus.OK);
 	}
@@ -246,11 +255,7 @@ public class TeamController {
 	public ResponseEntity<String> applyTeam(@RequestParam("no") String no,
 			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
 			@RequestParam("email") String email) {
-
-		int currmember = Integer.valueOf(memberService.countMember(no, leaderemail));// 현재 팀원
-		int wantmember = Integer.valueOf(teaminfoService.countHead(no, leaderemail));// 구하는 팀원
-
-		// 아직 다 안구해졌을 때만
+		
 		Applymember applymember = new Applymember();
 		applymember.setNo(no);
 		applymember.setLeaderemail(leaderemail);
@@ -287,6 +292,8 @@ public class TeamController {
 			member.setNo(no);
 			member.setLeaderemail(leaderemail);
 			member.setPart(part);
+			String membernickname = userService.selectNickname(teamemail);
+			member.setMembernickname(membernickname);
 			member.setMemberemail(teamemail);
 			if (memberService.insert(member)) {
 			}

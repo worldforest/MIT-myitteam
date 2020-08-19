@@ -1,6 +1,5 @@
 <template>
   <div class="mt-3">
-    {{ detailFeed }}
     <div v-if="windowWidth >= 767" class="cont15">
       <div class="d-flex">
         <v-avatar size="72">
@@ -26,7 +25,6 @@
       </div>
       <div class="cont2">
         <v-chip-group
-          v-model="selection"
           active-class="deep-purple accent-4 white--text"
           column   
         >
@@ -71,7 +69,7 @@
       <v-row>
         <v-spacer></v-spacer>
 
-        <div class="text-center">
+        <div class="text-center font">
           <v-dialog v-model="dialog" width="500">
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on" class="cursor">
@@ -82,8 +80,8 @@
             <v-card class="cardModal">
               <h3 class="modaltitle mb-3"> 좋아요 누른 사람</h3>
               
-              <li v-for="item in likeUserList" :key="item">
-                <h4 class="ml-3 followa" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
+              <li v-for="(item, index) in likeUserList" :key="index">
+                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                 <hr>
               </li>
 
@@ -97,7 +95,6 @@
           </v-dialog>
         </div>
         
-        {{ likeUserList }}
         <v-icon v-if="!likeUserList2.includes(email)" large class="mr-4 likebtn" @click="like(likeData);">mdi-heart-multiple-outline</v-icon>
         <v-icon v-if="likeUserList2.includes(email)" large class="mr-4 likebtn" color="red" @click="unlike(likeData);">mdi-heart-multiple</v-icon>
       </v-row>
@@ -127,7 +124,6 @@
       </div>
       <div class="cont2">
         <v-chip-group
-          v-model="selection"
           active-class="deep-purple accent-4 white--text"
           column   
         >
@@ -183,8 +179,8 @@
 
             <v-card class="cardModal">
               <h3 class="modaltitle mb-3"> 좋아요 누른 사람</h3>
-              <li v-for="item in likeUserList" :key="item">
-                <h4 class="ml-3 followa" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
+              <li v-for="(item, index) in likeUserList" :key="index">
+                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
                 <hr>
               </li>
 
@@ -254,6 +250,8 @@ export default {
 
 <style scoped>
 
+  *{ font-family: 'Jua', sans-serif;}
+  
   hr {
     height: 3px;
     background: #bbb;
@@ -288,6 +286,10 @@ export default {
 
   .cont2 {
     margin: 0 2%;
+  }
+
+  .font {
+
   }
 
 </style>

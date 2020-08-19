@@ -34,6 +34,7 @@
           max-width="344"
           outlined
           v-for="(club, index) in clubs" :key="index"
+          @click="gongmoDetail(club)"
         >
           <v-list-item three-line>
             <v-list-item-content>
@@ -55,12 +56,6 @@
               >
             </v-list-item-avatar>
           </v-list-item>
-
-          <v-card-actions>
-            <v-btn color="orange" text class="mx-auto" @click="gongmoDetail(club)">
-              자세히보기
-            </v-btn>  
-          </v-card-actions>
         </v-card>
       </div>
       <div v-if="!flag">
@@ -69,6 +64,7 @@
           max-width="344"
           outlined
           v-for="(club2, index) in clubs2" :key="index"
+          @click="projectDetail(club); getTeamData(club.no)"
         >
           <v-list-item three-line>
             <v-list-item-content>
@@ -77,12 +73,6 @@
               <v-list-item-subtitle class="text-center">{{ club2.start }} ~ {{ club2.end }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
-
-          <v-card-actions>
-            <v-btn color="orange" text class="mx-auto" @click="projectDetail(club2); getTeamData(club2.no)">
-              자세히보기
-            </v-btn>  
-          </v-card-actions>
         </v-card>
       </div>
     </div>
@@ -94,18 +84,19 @@
         <h3 class="ml-auto cursor" @click="Tflag()">공모전</h3>
         <h3 class="mx-3 cursor" @click="Fflag()">프로젝트</h3>
       </div>
-      <h3 v-if="flag">공모전</h3>
-      <h3 v-if="!flag">프로젝트</h3>
+      <!-- <h3 v-if="flag">공모전</h3>
+      <h3 v-if="!flag">프로젝트</h3> -->
       <v-row class="mt-0" v-if="flag">
-        <v-col cols="6" v-for="(club,index) in clubs" :key="index">
+        <v-col cols="6" v-for="(club, index) in clubs" :key="index">
           <v-card      
             class="mx-auto my-1 homeCard"
             max-width="344"
-            outlined            
+            outlined
+           @click="gongmoDetail(club)"
           >
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class=" mb-1 font">{{ club.title }}</v-list-item-title>
+                <v-list-item-title class="mb-1font">{{ club.title }}</v-list-item-title>
                 <v-list-item-subtitle>{{ club.start }} ~ {{ club.end }}</v-list-item-subtitle>
                 <v-list-item-subtitle v-if="club.host.length <= 15">{{ club.host }}</v-list-item-subtitle>
                 <v-list-item-subtitle v-else>{{ club.host.slice(0,15) }}...</v-list-item-subtitle>
@@ -115,7 +106,6 @@
                 tile
                 size="90"
                 color="grey"
-                
               >
                 <img
                   :src="club.imagesrc"
@@ -123,21 +113,16 @@
                 >
               </v-list-item-avatar>
             </v-list-item>
-
-            <v-card-actions>
-              <v-btn color="orange" text class="mx-auto" @click="gongmoDetail(club)">
-                자세히보기
-              </v-btn>  
-            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
       <v-row class="mt-0" v-if="!flag">
-        <v-col cols="6" v-for="(club,index) in clubs2" :key="index">
+        <v-col cols="6" v-for="(club, index) in clubs2" :key="index">
           <v-card      
             class="mx-auto my-1 homeCard"
             max-width="344"
-            outlined            
+            outlined
+            @click="projectDetail(club); getTeamData(club.no)"     
           >
             <v-list-item three-line>
               <v-list-item-content>
@@ -238,12 +223,15 @@
       </v-col>
     </v-row>
       <div class="text-box my-6">
-        <div class="center">
-          <button @click="searchFeed()">전체 게시글</button>
-        </div>
-        <div class="right" v-if="email">
-          <button @click="searchFollowFeed(email)">팔로우 게시물</button>
-        </div>
+        <v-row style="font-size:1.3rem">
+          <div class="center">
+            <button @click="searchFeed()"><h5 class="fontcolor">전체 게시글</h5></button>
+          </div>
+          <div class="center" v-if="email">
+            <button @click="searchFollowFeed(email)"><h5 class="fontcolor">팔로우 게시물</h5></button>
+          </div>
+        </v-row>
+        <hr class="hr2">
       </div>
       <div>
         <div v-if="windowWidth > 760">
@@ -363,97 +351,87 @@ export default {
 </script>
 
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("/src/font/BMJUA_ttf.ttf");
-  }
+ *{ font-family: 'Jua', sans-serif;}
 
   .active{
     width:20px;
     height:20px;
     border-radius:20px;
   }
-
   .card-img-top {
     width: 250px;
     height: 350px;
     object-fit: cover;
   }
-
   .card-sm .card-img-top {
     width: 150px;
     height: 200px;
     object-fit: cover;
   }
-
   .bg {
     background-color: #e9e9e9;
   }
-
   .non-dec {
     text-decoration: none;
     color: black !important;
     font-weight: bold;
   }
-
   .detail_hover:hover {
     opacity: 0.5;
   }
-
   .text-box {
     width: 100%;
     text-align: center;
     margin-top: 1rem;
   }
-
   .center {
     display: inline-block;
     margin: 0 auto;
   }
-
   .right {
     float: right;
   }
-
   .cursor {
     cursor: pointer;
     font-weight: bold;
   }
-
   .row{
     margin-top:100px;
   }
-
   .cont10 {
     margin: 0 3%;
   }
-
   .homeCard{
     text-align: center;
     margin: auto ;
     border-top: thick solid rgb(92, 107, 192);
   }
-
   .date{
     color: black;
   }
-
   .hrr{
     width: 200px;
     margin: 1.5rem auto;
   }
-
   .title{
     color: rgb(92, 107, 192);
     font-weight: bold;
   }
-
+  .fontcolor{
+    color: rgb(92, 107, 192);
+  }
   .Pjt_h1{
     cursor: pointer;
   }
   .font{
-    font-family: myFont, sans-serif;
     font-size: 1.3rem;
+  }
+  /* serim */
+  span.center{
+    text-align: center;
+  }
+  h1{
+    font-size: 30px;
   }
 
   /* 여기서 부터는 피드 */

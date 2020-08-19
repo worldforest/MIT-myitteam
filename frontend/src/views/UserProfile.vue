@@ -9,56 +9,54 @@
       
       <v-col col="12" sm="10" class="fg2">
         <div class="ml-5">
-          <span ><h3 class="my-3">{{ userprofiledata.nickname }}</h3></span>
+          <v-row>
+            <span><h3 class="my-3">{{ userprofiledata.nickname }}</h3></span>
+            <span class="mt-3 ml-13" v-if="user !== email">
+              <v-btn
+                v-if="!followerList2.includes(email)"
+                class="ml-3"
+                color="primary"
+                @click="follow(user)"
+              >
+                팔로우
+              </v-btn>
+
+              <v-btn
+                v-else
+                class="ml-3"
+                color="primary"
+                @click="unfollow(user)"
+              >
+                팔로우 취소
+              </v-btn>
+            </span>
+            <span justify="center" class="chatmodal mt-3 ml-11 ">
+              <v-btn color="primary" dark @click.stop="dialog = true">
+                채팅 하기
+              </v-btn>
+
+              <v-dialog v-model="dialog" max-width="550">
+                <v-card class="py-5 px-5 chatmodal">
+                  <Chat :privateChatTitle="this.privateChatTitle"/>
+                  <v-card-actions>  
+                    <v-spacer></v-spacer>
+
+                    <v-btn color="green darken-1" class="" text @click="dialog = false">
+                      닫기
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </span>
+          </v-row>
             <!-- 현재 사용중인 유저 닉네임과 프로필 유저 닉네임이 같지 않고, 팔로우리스트안에 이메일이 없을 경우 -->
-            <v-row>
-              <span v-if="user !== email">
-                <v-btn
-                  v-if="!followerList2.includes(email)"
-                  class="ml-3"
-                  color="primary"
-                  @click="follow(user)"
-                >
-                  팔로우
-                </v-btn>
-
-                <v-btn
-                  v-else
-                  class="ml-3"
-                  color="primary"
-                  @click="unfollow(user)"
-                >
-                  팔로우 취소
-                </v-btn>
-              </span>
-              
-              <!-- 채팅 좀 하겠습니다 ~~~~~~ -->
-              <v-row justify="center" class="chatmodal">
-                <v-btn color="primary" dark @click.stop="dialog = true">
-                  채팅 하기
-                </v-btn>
-
-                <v-dialog v-model="dialog" max-width="550">
-                  <v-card class="py-5 px-5 chatmodal">
-                    <Chat :privateChatTitle="this.privateChatTitle"/>
-                    <v-card-actions>  
-                      <v-spacer></v-spacer>
-
-                      <v-btn color="green darken-1" class="" text @click="dialog = false">
-                        닫기
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-row>
-            </v-row>
         </div>
-        <div class="d-flex my-5 ml-5">
-          <span><h4>팔로우| {{ userprofiledata.followingCnt }}명</h4></span>
-          <span class="mx-auto"><h4>팔로워| {{ followerList.length }}명</h4></span>
+        <div class="d-flex my-5 ml-3">
+          <span><h5>팔로우| {{ userprofiledata.followingCnt }}명</h5></span>
+          <span class="ml-15"><h5>팔로워| {{ followerList.length }}명</h5></span>
         </div>
-        <div class="d-flex ml-5">
-          <span> <h3>{{ userprofiledata.description }} 개발자</h3> </span>
+        <div class="d-flex ml-3">
+          <span><h5 class="fontcolor">#{{ userprofiledata.description }} 개발자</h5> </span>
           <br>
         </div>
       </v-col>
@@ -265,7 +263,6 @@ export default {
     ...mapActions(['userprofile', 'profile', 'follow', 'myFollowerList', 'unfollow', 'followerCnt', 'getNickname', 'privateChat',])
   },
   computed : {
-    // ...mapGetter s(['isLoggedIn'])
     ...mapState(['userprofiledata', 'email', 'profileData', 'followerList', 'followflag', 'followCnt', 'followerList2', 'myNick', 'privateChatTitle', 'user']),
     ...mapGetters(['isLoggedIn',])
      
@@ -298,10 +295,7 @@ export default {
 </script>
 
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("/src/font/BMJUA_ttf.ttf");
-  }
+ *{ font-family: 'Jua', sans-serif;}
 
   .h1 {
     font-size: 30px;
