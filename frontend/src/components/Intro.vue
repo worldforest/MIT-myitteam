@@ -61,8 +61,4 @@ export default {
     background-color: #a6a6a6;
   }
 
-  .container {
-    /* max-width: 50%; */
-  }
-
 </style>

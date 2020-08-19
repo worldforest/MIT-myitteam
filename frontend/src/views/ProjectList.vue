@@ -1,17 +1,17 @@
 <template>
   <div>
-		<h1 v-if="windowWidth > 800" class="my-3 ml-3">프로젝트 목록</h1>
-    <h3 v-if="windowWidth < 800" class="my-3 ml-3">프로젝트 목록</h3>
+		<h2 v-if="windowWidth > 800" class="my-3 ml-3">프로젝트 전체목록</h2>
+    <h3 v-if="windowWidth < 800" class="my-3 ml-3">프로젝트 전체목록</h3>
     <div class="d-flex">
       <v-btn color="primary" class="ml-auto mb-3"  @click="goTeam"><v-icon  color="#FFFFFF" class="mr-2">mdi-pencil-box-multiple</v-icon>프로젝트 등록</v-btn>
     </div>
 
     <v-row no-gutters>
-      <li v-for="i in clubs2" :key="i" class="mx-auto">
-        {{ pjt }}
+      <li v-for="(i, index) in clubs2" :key="index" class="mx-auto">
+
         <v-col v-for="n in 1" :key="n" cols="sm"> 
           <div
-            class="mx-auto projectCard"
+            class="mx-auto projectCard cursor"
             max-width="500"
             v-on:click="projectDetail(i)">
             <div class="cardBar"> </div>
@@ -21,11 +21,6 @@
             </v-card-title>
             <hr class="hrr">
             <v-card-text class="text--primary mb-3">{{ i.start }} ~ {{ i.end }}
-               <v-card-actions>
-                  <v-btn color="orange" text class="ml-auto" @click="projectDetail(i); getTeamData(i.no)">
-                    자세히보기
-                  </v-btn>  
-                </v-card-actions>
             </v-card-text>
           </div>
         </v-col>
@@ -93,6 +88,10 @@ export default {
   }
   li {
     list-style: none;
+  }
+  .cursor {
+    cursor: pointer;
+    font-weight: bold;
   }
 
 </style>

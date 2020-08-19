@@ -90,13 +90,6 @@ public class ChatController {
 		if (chatlistService.selectno(roomname) == null) {
 			// chatlist에 방 만들고
 			chatlistService.insert(roomname);
-			// 채팅방 번호 가져와서
-			String roomnum = chatlistService.selectno(roomname);
-			// 채팅방 멤버 등록
-			for (Member member : memberlist) {
-				String nickname = member.getMembernickname();
-				chatmemberService.insert(roomnum, nickname);
-			}
 		}
 		return new ResponseEntity<String>(roomname, HttpStatus.OK);
 	}
