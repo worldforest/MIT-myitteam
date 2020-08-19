@@ -363,7 +363,9 @@ export default {
     font-family: myFont;
     src: url("/src/font/BMJUA_ttf.ttf");
   }
+
  *{ font-family: 'Jua', sans-serif;}
+ 
   .active{
     width:20px;
     height:20px;

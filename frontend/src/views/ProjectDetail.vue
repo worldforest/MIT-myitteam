@@ -1,7 +1,5 @@
 <template>
   <div>
-    {{ windowWidth }}
-    {{ club2 }}
     <div class="cont" v-if="windowWidth >= 800">
       <div class="d-flex ma-2">
         <div class="ml-3">
@@ -52,7 +50,7 @@ export default {
   },
   mounted() {
     this.club2 = JSON.parse(sessionStorage.getItem('projectinfo'))
-    
+    this.getTeamData(this.club2.no)
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
@@ -80,7 +78,7 @@ export default {
   },
   computed: { 
     ...mapState([ 'getTeamList', 'email'])
-  }
+  },
 }
 </script>
 
