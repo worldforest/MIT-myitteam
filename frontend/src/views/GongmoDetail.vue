@@ -121,7 +121,7 @@ export default {
     },
   },
   computed: { 
-    ...mapState(['getTeamList', 'club'])
+    ...mapState(['getTeamList'])
   }
 }
 </script>

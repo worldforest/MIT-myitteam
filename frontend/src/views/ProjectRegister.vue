@@ -1,5 +1,4 @@
 <template>
-	<v-card>
     <v-container>
       <div>
 				<v-card id="card-apply" class="mx-auto py-5 px-3 my-8" outlined max-width="800">
@@ -195,8 +194,6 @@
 				</v-card>
       </div>
     </v-container>
-	</v-card>
-
 </template>
 
 <script>

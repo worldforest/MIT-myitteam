@@ -158,7 +158,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'Team',
   props: {
-    club: Object,
+    club: Array,
     getTeamList: Object,
   },
   components: {
