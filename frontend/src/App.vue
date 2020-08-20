@@ -214,7 +214,7 @@
       </div>
     </div>
     <v-app :class="[ {'container': currentRouteName !== 'RealHome' } ]" style="padding:0px; background-color:#FAFAFA;">
-      <div style="background-color:#FAFAFA;" class="mt-10">
+      <div style="background-color:#FAFAFA;" :class="[ {'mt-10': currentRouteName !== 'RealHome' } ]">
         <router-view :privateChatTitle="$route.fullPath"/>
       </div>
     </v-app>
