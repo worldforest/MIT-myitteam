@@ -12,6 +12,9 @@
 
       <!-- 웹 페이지 클 때-->
       <v-row v-if="windowWidth >= 1270">
+        <v-card v-if="getTeamList.length === 0" class="text-center noCard mx-auto mt-15">
+          <h3>등록된 팀원 모집이 없습니다.</h3>
+        </v-card>
         <v-col cols="6" v-for="(i, index) in getTeamList" :key="index">
           <div class="teamCard py-5 px-5">
             <div>
@@ -35,6 +38,9 @@
       </v-row>
       
       <v-row v-if="windowWidth < 1270 && windowWidth >= 900 ">
+        <v-card v-if="getTeamList.length === 0" class="text-center noCard mx-auto mt-15">
+          <h3>등록된 팀원 모집이 없습니다.</h3>
+        </v-card>
         <v-col cols="6" class="px-6" v-for="(i, index) in getTeamList" :key="index">
           <div class="teamCard2 py-5 px-5">
             <div >
@@ -69,6 +75,9 @@
 
       <!-- 700이상 900미만 -->
       <v-row v-if="windowWidth < 900 && windowWidth >= 700 ">
+        <v-card v-if="getTeamList.length === 0" class="text-center noCard mx-auto mt-15">
+          <h3>등록된 팀원 모집이 없습니다.</h3>
+        </v-card>
         <v-col cols="6" class="px-6" v-for="(i, index) in getTeamList" :key="index">
           <div class="teamCard3 py-5 px-5">
             <div>
@@ -89,6 +98,9 @@
 
       <!-- 550이상 700미만 -->
       <v-row v-if="windowWidth < 700 && windowWidth >= 550 ">
+        <v-card v-if="getTeamList.length === 0" class="text-center noCard mx-auto mt-15">
+          <h3>등록된 팀원 모집이 없습니다.</h3>
+        </v-card>
         <v-col cols="6" class="px-6" v-for="(i, index) in getTeamList" :key="index">
           <div class="teamCard4 py-5 px-5">
             <div>
@@ -109,6 +121,9 @@
 
       <!-- 380이상 550미만 -->
       <v-row v-if="windowWidth < 550 && windowWidth > 380">
+        <v-card v-if="getTeamList.length === 0" class="text-center noCard2 mx-auto mt-15">
+          <h4>등록된 팀원 모집이 없습니다.</h4>
+        </v-card>
         <v-col cols="8" class="px-6" v-for="(i, index) in getTeamList" :key="index">
           <div class="teamCard5 py-5 px-5">
             <div>
@@ -129,6 +144,9 @@
 
       <!-- 380미만 -->
       <v-row v-if="windowWidth <= 380">
+        <v-card v-if="getTeamList.length === 0" class="text-center noCard2 mx-auto mt-15">
+          <h4>등록된 팀원 모집이 없습니다.</h4>
+        </v-card>
         <v-col cols="8" v-for="(i, index) in getTeamList" :key="index">
           <div class="teamCard6 py-5 px-5">
             <div>
@@ -314,5 +332,13 @@ export default {
   }
   .button {
     border-radius: 0.5rem;
+  }
+  .noCard{
+    padding: 2rem;
+    border: 2px solid rgb(92, 107, 192)
+  }
+  .noCard2{
+    padding: 1.5rem;
+    border: 2px solid rgb(92, 107, 192)
   }
 </style>
