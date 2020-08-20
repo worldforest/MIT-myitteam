@@ -21,7 +21,7 @@
         </div>            
       </main>
     </div>
-    <div v-else>
+    <div v-else  class="cont10">
       <h5 class="text-center">#{{ keyword }}</h5>
       <v-row  class="bg-gray">
       <v-col cols='12'  v-for="(feed, index) in tagData" :key="index">
@@ -113,6 +113,10 @@ export default {
 
   .right {
     float: right;
+  }
+
+  .cont10 {
+    margin: 0 3%;
   }
 
   .cursor {

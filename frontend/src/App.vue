@@ -28,8 +28,7 @@
                     @click="getAllChat(myNick)"
                   >
                     mdi-comment-processing
-                  </v-icon> 
-
+                  </v-icon>
                 </template>
                 <v-list v-for="(chat, index) in allChat" :key="index">
                   <v-list-item>
@@ -208,7 +207,7 @@
       </div>
     </div>
     <v-app :class="[ {'container': currentRouteName !== 'RealHome' } ]" style="padding:0px; background-color:#FAFAFA;">
-      <div style="background-color:#FAFAFA;">
+      <div style="background-color:#FAFAFA;" class="mt-10">
         <router-view :privateChatTitle="$route.fullPath"/>
       </div>
     </v-app>

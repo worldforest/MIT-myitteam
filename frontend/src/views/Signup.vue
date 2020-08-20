@@ -197,4 +197,7 @@ export default {
   .passwordfont{
     font-family: Arial, Helvetica, sans-serif !important;
   }
+
+
+  
 </style>

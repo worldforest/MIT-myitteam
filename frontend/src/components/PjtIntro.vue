@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="container" v-if="windowWidth >= 800">
-      <h4 class="mt-4">모집 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h4>
-      <h4 class="mt-8">프로젝트 소개 : </h4>
+      <h5 class="mt-4">모집 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h5>
+      <h5 class="mt-8">프로젝트 소개 : </h5>
       <v-card class="mt-3 px-3 py-3" color="#FAFAFA" style="white-space:pre-line;">{{ club2.description }}</v-card>
     
       <div>
-        <h4 class="mt-8 mb-4">팀원 모집 : </h4>
+        <h5 class="mt-8 mb-4">팀원 모집 : </h5>
         <v-row v-if="windowWidth >= 1270">
           <v-col v-for="(i, index) in getTeamList" :key="index">
               <div class="d-flex mx-auto">
@@ -20,18 +20,18 @@
                           <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                         </v-row>
                       </div>
-                      <h3 class="ml-3 mt-3">담당 업무</h3>
-                      <v-card-text class="ml-2">
+                      <h4 class="ml-5 mt-3">담당 업무</h4>
+                      <v-card-text class="ml-5">
                         <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
                       </v-card-text>
                       <hr class="mb-2">
-                      <h3 class="ml-3">필수 역량</h3>
-                      <v-card-text class="ml-2">
+                      <h4 class="ml-5">필수 역량</h4>
+                      <v-card-text class="ml-5">
                         <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
                       </v-card-text>
                       <hr class="mb-2">
-                      <h3 class="ml-3">우대 사항</h3>
-                      <v-card-text class="ml-2">
+                      <h4 class="ml-5">우대 사항</h4>
+                      <v-card-text class="ml-5">
                         <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                       </v-card-text>
                       <v-row v-if="club2.email !== email" justify="center">
@@ -101,10 +101,10 @@
 
     <!-- 웹 화면 작을 때 !!!!!!!!!!!!!!!!!!!!! -->
     <div v-if="windowWidth < 800">
-      <h5 class="mt-4">접수 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h5>
-      <h5 class="mt-8">프로젝트 소개 : </h5>
+      <h6 class="mt-4">접수 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h6>
+      <h6 class="mt-8">프로젝트 소개 : </h6>
       <v-card class="mt-3 px-3 py-3" color="#FAFAFA" style="white-space:pre-line;">{{ club2.description }}</v-card>
-      <h5 class="mt-8 mb-4">팀원 모집 : </h5>
+      <h6 class="mt-8 mb-2">팀원 모집 : </h6>
       <v-row class="mx-auto" v-if="windowWidth < 800 && windowWidth >= 600">
         <v-col v-for="(i, index) in getTeamList" :key="index">
           <!-- {{ i }} -->
@@ -154,7 +154,7 @@
       <v-row class="mx-auto" v-if="windowWidth < 600 && windowWidth >= 430">
         <v-col v-for="(i, index) in getTeamList" :key="index">
           <!-- {{ i }} -->
-            <div class="d-flex mx-auto">
+            <div class="mx-auto">
               <div>
                 <li v-for="(item, index) in i.dataList" :key="index">
                   <div class="pjtCard5 mx-auto mb-6">
@@ -202,25 +202,25 @@
             <div class="d-flex mx-auto">
               <div>
                 <li v-for="(item, index) in i.dataList" :key="index">
-                  <div class="pjtCard4 mx-auto mb-6">
+                  <div class="pjtCard4 mx-auto mb-4">
                     <div class="mb-2 white--text partTitle" >
                       <v-row>
-                        <h3 class="ml-5 mt-2 cardModal">{{ item.part }}</h3>
+                        <h4 class="ml-3 mt-2 cardModal">{{ item.part }}</h4>
                         <v-spacer></v-spacer>
                         <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                       </v-row>
                     </div>
-                    <h4 class="ml-3">담당 업무</h4>
+                    <h5 class="ml-3">담당 업무</h5>
                     <v-card-text class="ml-2">
                       <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
                     </v-card-text>
                     <hr class="mb-2">
-                    <h4 class="ml-3">필수 역량</h4>
+                    <h5 class="ml-3">필수 역량</h5>
                     <v-card-text class="ml-2">
                       <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
                     </v-card-text>
                     <hr class="mb-2">
-                    <h4 class="ml-3">우대 사항</h4>
+                    <h5 class="ml-3">우대 사항</h5>
                     <v-card-text class="ml-2">
                       <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                     </v-card-text>
