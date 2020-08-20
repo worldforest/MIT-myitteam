@@ -113,6 +113,9 @@ export default {
   computed : {
     ...mapState(['updateProfile', 'email'])
   },
+  mounted() {
+    window.scrollTo(0, 0)
+  },
   methods: {
     getData(data) {
       // 클릭한 데이터를 address에 저장

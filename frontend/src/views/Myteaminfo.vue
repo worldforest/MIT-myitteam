@@ -245,6 +245,7 @@ export default {
       }
       this.teamDataSave();
       this.teamChat(this.teamChatData);
+      window.scrollTo(0, 0)
     }, 350)
     setTimeout(() => {
       this.can.dates = this.$store.state.myDay

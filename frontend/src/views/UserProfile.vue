@@ -275,7 +275,9 @@ export default {
     })
     this.followerCnt(this.user)
     this.myFollowerList(this.user)
+    window.scrollTo(0, 0)
   },
+  
 
   created () {
     

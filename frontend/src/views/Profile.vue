@@ -240,7 +240,7 @@
         </div>            
       </main>
     </div>
-    <v-row v-else>
+    <v-row v-else class="cont3">
       <v-col cols='12'  v-for="(feed, index) in profileData.feeds" :key="index">
         <v-card
           class="mx-auto my-3"
@@ -259,7 +259,8 @@
             </v-row>
 
             <div class="my-4 subtitle-1">
-              {{feed.description}}
+              <span v-if="feed.description.length < 30">{{feed.description}}</span>
+              <span v-else-if="feed.description.length >= 30">{{feed.description.slice(0,30)}}...</span>
             </div>
           </v-card-text>
 
@@ -330,6 +331,7 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+    window.scrollTo(0, 0)
   }
 
 }
@@ -371,6 +373,10 @@ export default {
 
   .cont10 {
     margin: 0 10%;
+  }
+  
+  .cont3 {
+    margin: 0 3%;
   }
 
   .box{
