@@ -165,10 +165,17 @@ export default {
 			.then(() => {
 				Swal.fire({
 					icon: 'success',
-					title: '성공적으로 등록하였습니다.',
+					title: '피드 등록 완료!',
 					width: 600
 				})
 				router.push({ name: "Profile"})
+			})
+			.catch(()=>{
+				Swal.fire({
+					icon: 'error',
+					title: '파일 용량을 줄여주세요 :(',
+					width: 600
+				})
 			})
 		}		
 	},
@@ -231,7 +238,14 @@ export default {
 				width: 600
 			})
 		})
-		.catch(() => {})
+		.catch(() => {
+			Swal.fire({
+				icon: 'error',
+				title: '이미 지원한 팀 입니다.',
+				width: 600
+			})
+			router.push({name: 'GongmoDetail'})
+		})
 	},
 	deleteTeam(context, deleteData){
 		const params = new URLSearchParams();

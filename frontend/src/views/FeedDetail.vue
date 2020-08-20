@@ -45,7 +45,7 @@
                             {{tag}}
                           </v-chip>
                         </v-chip-group></h6>
-                      <p class="card-description"> {{detailFeed.description}} </p>
+                      <h5 class="card-description my-10"> {{detailFeed.description}} </h5>
                       <div class="ftr"> 
                         <div class="d-flex cont2" v-if=" detailFeed.email === email">
                           <div class="ml-auto">
@@ -71,7 +71,7 @@
                         </div>
                         <hr>
                         <div class="text-center font">
-                          <v-dialog v-model="dialog" width="500">
+                          <v-dialog v-model="dialog" width="300">
                             <template v-slot:activator="{ on, attrs }">
                               <span v-bind="attrs" v-on="on" class="cursor">
                                 <span class="mr-4 fonts">{{ likeCntnum }}명이 좋아합니다. </span>
@@ -177,7 +177,7 @@
         <v-spacer></v-spacer>
 
         <div class="text-center">
-          <v-dialog v-model="dialog" width="500">
+          <v-dialog v-model="dialog" width="300">
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on" class="cursor">
                 <h5 class="mr-4">{{ likeCntnum }}명이 좋아합니다. </h5>
