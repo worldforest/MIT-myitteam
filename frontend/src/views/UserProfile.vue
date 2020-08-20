@@ -115,7 +115,7 @@
         </div>
         <div class="d-flex my-5 ml-5">
           <span><h5>팔로우 | {{ userprofiledata.followingCnt }}명</h5></span>
-          <span><h5>팔로워 | {{ followerList.length }}명</h5></span>
+          <span><h5 class="ml-15">팔로워 | {{ followerList.length }}명</h5></span>
         </div>
         <div class="d-flex ml-5">
            <span><h5 class="fontcolor"># {{ userprofiledata.description }} 개발자</h5></span>
