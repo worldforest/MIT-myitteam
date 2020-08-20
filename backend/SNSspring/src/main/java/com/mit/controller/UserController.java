@@ -114,23 +114,24 @@ public class UserController {
 		}
 		user.setSrc(sb.toString());
 
-		// 파일을local, server에 저장
-		if (file != null && !file.isEmpty()) {
-			// 파일을 저장할 위치에 파일 고유 이름 파일을 저장
-			File dest = new File(path.getIm() + "images/user/" + sb.toString());
-			try {
-				file.transferTo(dest);
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 
 		if (userService.updateUser(user)) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+			// 파일을local, server에 저장
+			if (file != null && !file.isEmpty()) {
+				// 파일을 저장할 위치에 파일 고유 이름 파일을 저장
+				File dest = new File(path.getIm() + "images/user/" + sb.toString());
+				try {
+					file.transferTo(dest);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}else {
+			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);			
 		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "getToken", notes = "이메일을 주면 Token을 반환합니다.")
@@ -177,7 +178,7 @@ public class UserController {
 	@ApiOperation(value = "user image 조회 ", notes = "user Image를 반환합니다. 못찾은경우 기본 image를 반환합니다.")
 	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<byte[]> userImageSearch(@PathVariable("imagename") String imagename) throws IOException {
-		InputStream imageStream = new FileInputStream("C://images/user/" + imagename);
+		InputStream imageStream = new FileInputStream(path.getIm() + "images/user/" + imagename);
 		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
 		imageStream.close();
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);

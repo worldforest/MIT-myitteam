@@ -59,7 +59,7 @@
 export default {
 	data() {
 		return{
-			selectArea: ['프론트엔드', '백엔드', '인공지능', '빅데이터', '블록체인'],
+			selectArea: ['프론트엔드', '백엔드', '인공지능', '빅데이터', '블록체인', 'IOT'],
 			selectPeople: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 			projectData: {
 				part: '',

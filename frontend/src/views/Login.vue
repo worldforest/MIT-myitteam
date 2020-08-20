@@ -1,56 +1,53 @@
 <template>
-  <div :class="[ {'cont15': windowWidth >= 767 } ]">
-    <v-form>
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-text-field
-              label="Email"
-              outlined
-              v-model="loginData.email"
-              :rules="emailRules"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-text-field
-              label="Password"
-              outlined
-              v-model="loginData.pwd"
-              :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+  <div class='cont15'>
+    <div  :class="[ {'login-box': windowWidth >= 767, 'login-box2' : windowWidth < 767 } ]">
+      <h2>Login</h2>
+      <form>
+        <div class="user-box">
+          <input type="text" v-model="loginData.email" :rules="emailRules" required outlined>
+          <label>E-mail</label>
+        </div>
+        <div class="user-box">
+          <input type="password" name="" required="" v-model="loginData.pwd" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[rules.required, rules.min]"
-              :type="show2 ? 'text' : 'password'"
-              name="input-10-2"
-              hint="At least 8 characters"
+              hint="비밀번호는 최소 4자리 이상입니다."
               class="input-group--focused passwordfont"
               @click:append="show2 = !show2"
-              @keypress.enter="login(loginData)"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-btn
-          width="100%"
-          class="white--text"
-          large
-          color="#5C6BC0"
-          @click="login(loginData)"
-        >Login</v-btn>
-        <button @click="googlelogin">login with google</button>
-        <!-- google login -->
-        <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
-        <div class="d-flex mt-3">
-          <v-btn class="ml-auto" text-color="#5C6BC0" @click="gotofind()">비밀번호 찾기</v-btn>
+              @keypress.enter="login(loginData)">
+          <label>Password</label>
         </div>
-      </v-container>
-    </v-form>
+        <div class="d-flex">
+          <a @click="login(loginData)">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Submit
+          </a>
+          <a class="ml-auto"  @click="gotofind()">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            FindPwd
+          </a>
+        </div>
+        <div class="d-flex">
+          <a class="mx-auto" href="/signup">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Sign up
+          </a>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import firebase from 'firebase';
 
 export default {
   name: "Loginfo",
@@ -64,15 +61,15 @@ export default {
       show2: false,
       password: "Password",
       rules: {
-        required: (value) => !!value || "Required.",
-        min: (v) => v.length >= 4 || "Min 4 characters",
-        emailMatch: () => "The email and password you entered don't match",
+        required: (value) => !!value || "비밀번호를 입력해주세요.",
+        min: (v) => v.length >= 4 || "비밀번호는 4자리 이상입니다.",
+        emailMatch: () => "이메일과 비밀번호가 일치하지 않습니다.",
       },
       emailRules: [
-        (v) => !!v || "E-mail is required",
+        (v) => !!v || "이메일을 입력해주세요.",
         (v) =>
           /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-          "E-mail must be valid",
+          "이메일 형식에 맞지 않습니다.",
       ],
     };
   },
@@ -84,39 +81,6 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth;
     },
-    ///소셜 로그인///
-    onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log("Name: " + profile.getName());
-      console.log("Image URL: " + profile.getImageUrl());
-      console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
-    },
-    googlelogin(){
-      var provider = new firebase.auth.GoogleAuthProvider();
-      provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-
-      // firebase.auth().signInWithPopup(provider).then( result => {
-      //   // This gives you a Google Access Token. You can use it to access the Google API.
-      //   var token = result.credential.accessToken;
-      //   // The signed-in user info.
-      //  var user = result.user;
-      //  var email = result.email;
-       
-
-      //   this.$router.push('/login');
-      // }).catch( () => {
-      //   // Handle Errors here.
-      //   //var errorCode = error.code;
-      //   //var errorMessage = error.message;
-      //   // The email of the user's account used.
-      //   var email = error.email;
-      //   // The firebase.auth.Authedential type that was used.
-      //   //var credential = error.credential;
-      //   // ...
-      // });
-    },
-    ///소셜 로그인///
     /// 비밀번호 찾기 페이지//
     gotofind() {
       this.$router.push('/findpwd')
@@ -131,10 +95,302 @@ export default {
 </script>
 
 <style scoped>
-.cont15 {
-  margin: 0 15%;
-}
-.passwordfont{
-  font-family: Arial, Helvetica, sans-serif !important;
-}
+  .cont15 {
+    margin: 0 15%;
+  }
+  .passwordfont{
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
+
+  html {
+    height: 100%;
+  }
+  body {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #243b55);
+  }
+
+  .login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+  }
+
+  .login-box2 {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 300px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+  }
+
+  .login-box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+  }
+
+  .login-box2 h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+  }
+
+  
+
+  .login-box .user-box {
+    position: relative;
+  }
+
+  .login-box2 .user-box {
+    position: relative;
+  }
+
+  .login-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+  }
+  .login-box .user-box label {
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+  }
+
+  .login-box2 .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+  }
+  .login-box2 .user-box label {
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+  }
+
+  .login-box .user-box input:focus ~ label,
+  .login-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #03e9f4;
+    font-size: 12px;
+  }
+
+  .login-box2 .user-box input:focus ~ label,
+  .login-box2 .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #03e9f4;
+    font-size: 12px;
+  }
+
+  .login-box form a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px
+  }
+
+  .login-box2 form a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px
+  }
+
+  .login-box a:hover {
+    background: #03e9f4;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #03e9f4,
+                0 0 25px #03e9f4,
+                0 0 50px #03e9f4,
+                0 0 100px #03e9f4;
+  }
+
+  .login-box2 a:hover {
+    background: #03e9f4;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #03e9f4,
+                0 0 25px #03e9f4,
+                0 0 50px #03e9f4,
+                0 0 100px #03e9f4;
+  }
+
+  .login-box a span {
+    position: absolute;
+    display: block;
+  }
+
+  .login-box2 a span {
+    position: absolute;
+    display: block;
+  }
+
+  .login-box a span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #03e9f4);
+    animation: btn-anim1 1s linear infinite;
+  }
+
+  .login-box2 a span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #03e9f4);
+    animation: btn-anim1 1s linear infinite;
+  }
+
+  @keyframes btn-anim1 {
+    0% {
+      left: -100%;
+    }
+    50%,100% {
+      left: 100%;
+    }
+  }
+
+  .login-box a span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+  }
+
+  .login-box2 a span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+  }
+
+  @keyframes btn-anim2 {
+    0% {
+      top: -100%;
+    }
+    50%,100% {
+      top: 100%;
+    }
+  }
+
+  .login-box a span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #03e9f4);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+  }
+
+  .login-box2 a span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #03e9f4);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+  }
+
+  @keyframes btn-anim3 {
+    0% {
+      right: -100%;
+    }
+    50%,100% {
+      right: 100%;
+    }
+  }
+
+  .login-box a span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #03e9f4);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+  }
+
+  .login-box2 a span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #03e9f4);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+  }
+
+  @keyframes btn-anim4 {
+    0% {
+      bottom: -100%;
+    }
+    50%,100% {
+      bottom: 100%;
+    }
+  }
 </style>

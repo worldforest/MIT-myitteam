@@ -88,8 +88,10 @@
 <script>
 import { mapState } from 'vuex'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const SERVER_URL = 'http://localhost:9999/mit'
+// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
 
 export default {
   data () {
@@ -102,7 +104,7 @@ export default {
       dialog: false,
       rules: {
         required: value => !!value || '필수 값 입니다.',
-        min: v => v.length >= 4 || '비밀번호는 최소 8자리 이상 적어주세요.' ,
+        min: v => v.length >= 4 || '비밀번호는 최소 8s자리 이상 적어주세요.' ,
         emailMatch: () => ('The email and password you entered don\'t match'),
         pwdcheck: v => v == this.updateData.pwd || '비밀번호가 일치하지 않습니다',
       },
@@ -127,7 +129,13 @@ export default {
       formdata.append('file', res.src)
       axios.post(`${SERVER_URL}/api/user/update`, formdata)
         .then(() => {
-          alert('성공적으로 수정하였습니다.')
+          // alert('성공적으로 수정하였습니다.')
+          Swal.fire({
+					icon: 'success',
+					text: '프로필 업데이트 완료!',
+        })
+
+          
           this.$router.push('/profile')
         })
     }

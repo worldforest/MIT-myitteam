@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <h4>접수 기간 : {{ club.start }} ~ {{ club.end }} </h4>
-    <h4 class="mt-10">주최 : {{ club.host }} </h4>
+    <h4>접수 기간 : <span class="local">{{ club.start }} ~ {{ club.end }} </span></h4>
     <h4 class="mt-10">총 시상금 : {{ club.reward }} </h4>
     <div class="mt-10 text-center" >      
       <img :src="club.imagesrc" alt="" style='width:100%'>
@@ -11,11 +10,11 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 export default {
   name: 'Intro',
   props: {
-    club: Object,
+    club: Array,
   },
   data() {
     return {
@@ -59,10 +58,6 @@ export default {
     font-size: 14px;
     font-weight: bold;
     background-color: #a6a6a6;
-  }
-
-  .container {
-    /* max-width: 50%; */
   }
 
 </style>

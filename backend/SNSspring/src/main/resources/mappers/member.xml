@@ -4,13 +4,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mit.repo.MemberRepo">
 	<select id="select" parameterType="String" resultType="member">
-		select *
-		from member where no = #{no} and leaderemail = #{leaderemail}
-	</select>
-	
-	<select id="memberCnt" parameterType="String" resultType="member">
-		select count(*)
-		from member where no = #{no} and leaderemail = #{leaderemail}
+		select
+		a.no as no,
+		a.leaderemail as leaderemail ,
+		a.memberemail as memberemail
+		, b.nickname as membernickname ,
+		a.part as part
+		from member as a inner join user as b
+		on a.memberemail =
+		b.email
+		where no = #{no} and
+		leaderemail = #{leaderemail}
+
 	</select>
 
 	<insert id="insert" parameterType="member">
@@ -29,11 +34,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="member">
 		select * from member where memberemail = #{email}
 	</select>
-	
+
 	<select id="countMember" parameterType="String"
-		resultType="String">
-		select count(*) from member where leaderemail = #{leaderemail} and no =#{no}
+		resultType="int">
+		select count(*) from member where leaderemail =
+		#{leaderemail} and no =#{no}
 	</select>
-	
+
 
 </mapper>

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mit.dto.Alarm;
 import com.mit.dto.Applymember;
 import com.mit.dto.Contents;
 import com.mit.dto.Member;
@@ -27,12 +28,14 @@ import com.mit.dto.Teaminfo;
 import com.mit.returnDto.RegTeam;
 import com.mit.returnDto.RegTeamInfo;
 import com.mit.returnDto.TeamDto;
+import com.mit.service.AlarmService;
 import com.mit.service.ApplymemberService;
 import com.mit.service.ContentsService;
 import com.mit.service.MemberScheduleService;
 import com.mit.service.MemberService;
 import com.mit.service.TeamService;
 import com.mit.service.TeaminfoService;
+import com.mit.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -47,6 +50,8 @@ public class TeamController {
 	private static final String FAIL = "fail";
 
 	@Autowired
+	private UserService userService;
+	@Autowired
 	private TeamService teamService;
 	@Autowired
 	private TeaminfoService teaminfoService;
@@ -58,6 +63,8 @@ public class TeamController {
 	private ApplymemberService applymemberService;
 	@Autowired
 	private MemberScheduleService memberScheduleService;
+	@Autowired
+	private AlarmService alramService;
 
 	@ApiOperation(value = "프로젝트 팀을 생성합니다.", notes = "성공시 SUCESS를 반환합니다.\n" + "필요 데이터\n"
 			+ "description,email(프로젝트팀 생성자),title,start,end,info")
@@ -88,9 +95,7 @@ public class TeamController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
 
 		// 방금 등록한 contents 번호 얻어오기
-		System.out.println(no + "제발");
 		for (RegTeamInfo regTeamInfo : regTeam.getDataList()) {
-			System.out.println("gogo");
 			Teaminfo teaminfo = new Teaminfo();
 			teaminfo.setNo(no);
 			teaminfo.setLeaderemail(regTeam.getEmail());
@@ -99,7 +104,6 @@ public class TeamController {
 			teaminfo.setTask(regTeamInfo.getTask());
 			teaminfo.setAdvantage(regTeamInfo.getAdvantage());
 			teaminfo.setHeadcount(regTeamInfo.getHeadCount());
-			System.out.println(teaminfo);
 			// DB 에 등록하기
 			if (!teaminfoService.insert(teaminfo))
 				return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
@@ -204,14 +208,20 @@ public class TeamController {
 		List<TeamDto> teams = new ArrayList<TeamDto>();
 
 		// email이 속한 모든 멤버를 가져온다 여기서 no 와 leaderemail를 서치한다 이것을 기준으로 필요한 데이터를 만든다.
+		// 내가 멤버로 있는 팀 정보 가져와서
 		List<Member> members = memberService.selectEmail(email);
 
 		for (Member member : members) {
+			// 그 팀의 no와 leaderemail
 			String no = member.getNo();
 			String leaderemail = member.getLeaderemail();
+			// 팀을 찾고
 			Team team = teamService.selectnoemail(no, leaderemail);
+			
+			// 어떤 공모전, 프로젝트인지 찾고
 			Contents contents = contentsService.selectOne(no);
 
+			// 필요한 정보들 저장하고
 			TeamDto teamDto = new TeamDto();
 			teamDto.setCategory(contents.getCategory() + "");
 			teamDto.setDescription(team.getDescription());
@@ -226,29 +236,41 @@ public class TeamController {
 			teamDto.setReward(contents.getReward());
 			teamDto.setTitle(team.getTitle());
 
+			teamDto.setAllCnt(teaminfoService.countHead(no, leaderemail) + "");
+
+			// 그 팀의 멤버들 가져와서 가져오고
 			teamDto.setMembers(memberService.select(no, leaderemail));
+			// 그 팀에 지원한 사람들 가져오고
 			teamDto.setApplymembers(applymemberService.select(no, leaderemail));
 
 			teams.add(teamDto);
 		}
+		
 
 		return new ResponseEntity<List<TeamDto>>(teams, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "팀 지원하기", notes = "팀 정보(번호, 리더메일)과 나의 이메일과 지원파트를 applymember에 저장")
 	@PostMapping("applyTeam")
-	public ResponseEntity<List<TeamDto>> applyTeam(@RequestParam("no") String no,
+	public ResponseEntity<String> applyTeam(@RequestParam("no") String no,
 			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
 			@RequestParam("email") String email) {
-
+		
 		Applymember applymember = new Applymember();
 		applymember.setNo(no);
 		applymember.setLeaderemail(leaderemail);
 		applymember.setPart(part);
 		applymember.setTeamemail(email);
 		applymemberService.insert(applymember);
-
-		return null;
+		Alarm alram = new Alarm();
+		String leadernickname = userService.selectNickname(leaderemail);
+		alram.setAddressee(leadernickname);// 팀장에게
+		String membernickname = userService.selectNickname(email);
+		alram.setSender(membernickname);// 내가
+		alram.setMessage(membernickname + "님이 팀에 지원했습니다.");
+		alram.setFlag("0");
+		alramService.insert(alram);
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "팀원 확정하기", notes = "no, leaderemail(팀 구분), part(팀원 파트), teamemail(팀원 메일)")
@@ -257,26 +279,28 @@ public class TeamController {
 			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
 			@RequestParam("teamemail") String teamemail) {
 
-		// 그 팀의
-		// applymember에서 삭제
-		applymemberService.delete(no, leaderemail, teamemail);
-		// member에 등록
-		Member member = new Member();
-		member.setNo(no);
-		member.setLeaderemail(leaderemail);
-		member.setPart(part);
-		member.setMemberemail(teamemail);
-		memberService.insert(member);
+		// applymember에 없으면 fail
+		if ((applymemberService.selectOne(no, leaderemail, teamemail)) != 1) {
+			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+		}
+		// applymember에 등록되어있으면
+		else {
+			// applymember에서 지우고
+			applymemberService.delete(no, leaderemail, teamemail, part);
+			// member에 등록하고
+			Member member = new Member();
+			member.setNo(no);
+			member.setLeaderemail(leaderemail);
+			member.setPart(part);
+			String membernickname = userService.selectNickname(teamemail);
+			member.setMembernickname(membernickname);
+			member.setMemberemail(teamemail);
+			if (memberService.insert(member)) {
+			}
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 
-//		//teaminfo.setHeadcount(getHedcount()-1);
-//		//teaminfo에서 그 part의 headcount
-		String headcount = teaminfoService.selectHeadcount(no, leaderemail, part);
-		System.out.println(headcount);
-		int curr = Integer.parseInt(headcount) - 1;
-		System.out.println(curr);
-		teaminfoService.update(no, leaderemail, part, curr + "");
+		}
 
-		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "팀원 거절하기", notes = "no, leaderemail(팀 구분), part(팀원 파트), teamemail(팀원 메일)")
@@ -285,7 +309,7 @@ public class TeamController {
 			@RequestParam("leaderemail") String leaderemail, @RequestParam("part") String part,
 			@RequestParam("teamemail") String teamemail) {
 
-		if (applymemberService.delete(no, leaderemail, teamemail)) {
+		if (applymemberService.delete(no, leaderemail, teamemail, part)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
@@ -350,7 +374,7 @@ public class TeamController {
 		// 확인하는 방법
 		Iterator<String> keys = selectSchedule.keySet().iterator();
 
-		int memberCnt = memberService.memberCnt(no, leaderemail);
+		int memberCnt = memberService.countMember(no, leaderemail);
 		System.out.println(memberCnt);
 		List<String> selectDate = new ArrayList<>();
 		while (keys.hasNext()) {
@@ -366,15 +390,16 @@ public class TeamController {
 
 	@ApiOperation(value = "팀원 일정 확인", notes = "no, leaderemail로 팀 구분하고 memberemail로 팀원 구분후 팀원별 일정 확인")
 	@PostMapping("memberSchedule")
-	public ResponseEntity<List<String>> memberSchedule(@RequestParam String no, @RequestParam String leaderemail,@RequestParam String memberemail) {
+	public ResponseEntity<List<String>> memberSchedule(@RequestParam String no, @RequestParam String leaderemail,
+			@RequestParam String memberemail) {
 		List<String> memberSchedule = memberScheduleService.selectMember(no, leaderemail, memberemail);
 		return new ResponseEntity<List<String>>(memberSchedule, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "팀원 총인원 구하기", notes = "contents no 와 leaderemail을 등록하면 총 수를 반환합니다 리더수 포함.")
 	@PostMapping("countTeam")
-	public ResponseEntity<String> contTeam(@RequestParam String no, @RequestParam String leaderemail) {
-		return new ResponseEntity<String>(memberService.countMember(no, leaderemail), HttpStatus.OK);
+	public ResponseEntity<Integer> contTeam(@RequestParam String no, @RequestParam String leaderemail) {
+		return new ResponseEntity<Integer>(memberService.countMember(no, leaderemail), HttpStatus.OK);
 	}
 
 }

@@ -3,10 +3,25 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mit.repo.ApplymemberRepo">
+
 	<select id="select" parameterType="String"
 		resultType="applymember">
-		select * from applymember where no = #{no} and leaderemail
-		= #{leaderemail}
+		select a.no as no,
+		a.leaderemail as leaderemail,
+		a.teamemail as teamemail,
+		b.nickname as teamnickname,
+		a.part as part
+		from applymember as a inner join user as b
+		on a.teamemail = b.email
+		where no = #{no} and leaderemail = #{leaderemail}
+	</select>
+
+	<select id="selectOne" parameterType="String"
+		resultType="int">
+		select count(*)
+		from applymember
+		where no=#{no} and
+		leaderemail=#{leaderemail} and teamemail=#{teamemail}
 	</select>
 
 	<insert id="insert" parameterType="applymember">
@@ -18,6 +33,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="String">
 		delete from applymember where
 		no = #{no} and leaderemail = #{leaderemail} and teamemail =
-		#{teamemail}
+		#{teamemail} and part = #{part}
+	</delete>
+
+	<delete id="deleteALl" parameterType="String">
+		delete from applymember
+		where no=#{no} and leaderemail=#{laedermail}
 	</delete>
 </mapper>

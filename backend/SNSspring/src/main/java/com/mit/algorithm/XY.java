@@ -5,6 +5,16 @@ public class XY {
 	String y;
 	String name;
 
+	public XY(String x, String y) {
+		super();
+		this.x = x;
+		this.y = y;
+	}
+
+	public XY() {
+		super();
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -27,6 +37,11 @@ public class XY {
 
 	public void setY(String y) {
 		this.y = y;
+	}
+
+	@Override
+	public String toString() {
+		return "XY [x=" + x + ", y=" + y + ", name=" + name + "]";
 	}
 
 }

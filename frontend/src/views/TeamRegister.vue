@@ -1,11 +1,6 @@
 <template>
   <div>
-    <!-- {{ email }} -->
-    {{ applyData }}
-    {{ applyData.no }}
-    
     <br>
-    <!-- {{ windowWidth }} -->
     <div v-if="windowWidth >= 730">
       <v-card id="card-apply" class="py-5 px-3 my-8 mx-auto" outlined max-width="900px">
         <h1 class="text-center mb-5 h1-apply">공모전 팀원을 구해보세요 :)</h1>
@@ -46,12 +41,11 @@
         <TeamInput @add-apply="addApply"/>
 
         <div>
-          <li class="itemLi" v-for="item in this.applyData.dataList" :key="item.id">
+          <li class="itemLi" v-for="(item, index) in this.applyData.dataList" :key="index">
             <v-col class="mx-auto" cols="12" md="11">
               <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
-                <h3 class="mb-3 cardTitle">{{ item.part }}</h3>
+                <h3 class="mb-3 fontcolor text-center ">{{ item.part }}</h3>
                 <hr class="mb-3">
-                {{ item }}
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2 cardTitle">인원 : {{ item.headCount }}</h4></v-list-item-title>
@@ -60,31 +54,24 @@
                 
                 <v-list-item>
                   <v-list-item-content>
-                    <h4 class="mb-2 cardTitle">담당 업무</h4>
+                    <h4 class="mb-2 cardTitle">담당 업무 : </h4>
                     <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-content>
-                    <h4 class="mb-2 cardTitle">필수 역량</h4>
+                    <h4 class="mb-2 cardTitle">필수 역량 : </h4>
                     <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-content>
-                    <h4 class="mb-2 cardTitle">우대 사항</h4>
+                    <h4 class="mb-2 cardTitle">우대 사항 : </h4>
                     <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                
-                <!-- 보류 !!!!!!! -->
-                <!-- <v-row>
-                  <v-spacer></v-spacer>
-                  <v-btn class="white--text mr-3" color="green" @click="updateCardSave(item); updateCard(updateData);"> 수정하기 </v-btn>
-                  <v-btn class="white--text mr-3" color="red" @click="deleteCardSave(item); deleteCard(deleteData);"> 삭제하기 </v-btn>
-                </v-row> -->
               </v-card>
             </v-col>
           </li>
@@ -139,35 +126,35 @@
       <TeamInput @add-apply="addApply"/>
 
       <div>
-        <li class="itemLi" v-for="item in this.applyData.datalist" :key="item.id">
+        <li class="itemLi" v-for="(item, index) in this.applyData.datalist" :key="index">
           <v-col class="mx-auto" cols="12" md="11">
             <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
-              <h3 class="mb-3">{{ item.part }}</h3>
+              <h3 class="mb-3 fontcolor text-center">{{ item.part }}</h3>
               <hr class="mb-3">
 
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
+                  <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headCount }}</h4></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               
               <v-list-item>
                 <v-list-item-content>
-                  <h4 class="mb-2">담당 업무</h4>
+                  <h4 class="mb-2">담당 업무 : </h4>
                   <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <h4 class="mb-2">필수 역량</h4>
+                  <h4 class="mb-2">필수 역량 : </h4>
                   <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <h4 class="mb-2">우대 사항</h4>
+                  <h4 class="mb-2">우대 사항 : </h4>
                   <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -225,35 +212,34 @@
       <TeamInput @add-apply="addApply"/>
 
       <div>
-        <li class="itemLi" v-for="item in this.applyData.dataList" :key="item.id">
+        <li class="itemLi" v-for="(item, index) in this.applyData.dataList" :key="index">
           <v-col class="mx-auto" cols="12" md="11">
             <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
-              <h3 class="mb-3">{{ item.part }}</h3>
-              <hr class="mb-3">
+              <h3 class="mb-3 fontcolor text-center">{{ item.part }}</h3>
 
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
+                  <v-list-item-title style="white-space:pre-line;"><h5 class="mb-2">인원 : {{ item.headCount }}</h5></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               
               <v-list-item>
                 <v-list-item-content>
-                  <h4 class="mb-2">담당 업무</h4>
+                  <h5 class="mb-2">담당 업무 : </h5>
                   <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <h4 class="mb-2">필수 역량</h4>
+                  <h5 class="mb-2">필수 역량 : </h5>
                   <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <h4 class="mb-2">우대 사항</h4>
+                  <h5 class="mb-2">우대 사항 : </h5>
                   <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -275,11 +261,8 @@
 
 <script>
 import TeamInput from '@/components/TeamInput'
-// import PartDetail from '@/components/PartDetail'
-// import Team from '@/components/Team'
 
 import { mapState, mapActions } from 'vuex'
-// import axios from 'axios'
 
 export default {
   name: 'TeamRegister',
@@ -330,29 +313,12 @@ export default {
   },
 
   methods: {
-    ...mapActions(['teamregister', 'updateCard', 'deleteCard', 'getTeamData']),
+    ...mapActions(['teamregister','getTeamData']),
     addApply(Data){
       this.applyData.dataList = [...this.applyData.dataList, Data]
     },
     onResize() {
       this.windowWidth = window.innerWidth
-    },
-    updateCardSave(item){
-      this.updateData.no = this.applyData.no
-      this.updateData.leaderemail = this.applyData.email
-      this.updateData.part = item.part
-      var temp = String(item.headCount)
-      this.updateData.headcount = temp
-      this.updateData.ability = item.ability
-      this.updateData.task = item.task
-      this.updateData.advantage = item.advantage
-
-      console.log(typeof(this.updateData.headcount))
-    },
-    deleteCardSave(item){
-      this.deleteData.no = this.applyData.no
-      this.deleteData.leaderemail = this.applyData.email
-      this.deleteData.part = item.part
     }
   },
   mounted () {
@@ -389,5 +355,8 @@ export default {
   
   .cardTitle{
     color: black;
+  }
+  .fontcolor {
+    color: rgb(92, 107, 192);
   }
 </style>

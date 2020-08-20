@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mit.algorithm.Path;
+import com.mit.dto.Alarm;
 import com.mit.dto.Follow;
 import com.mit.returnDto.FollowList;
+import com.mit.service.AlarmService;
 import com.mit.service.FollowService;
+import com.mit.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -24,10 +27,16 @@ import io.swagger.annotations.ApiOperation;
 public class FollowController {
 	@Autowired
 	private FollowService followService;
+	@Autowired
+	private AlarmService alramService;
+	@Autowired
+	private UserService userService;
+	
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 	private static Path path = new Path();
-	@ApiOperation(value = "팔로우를 신청합니다.", notes = "팔로우 신청시, 로그인한 계정 email=email/팔로우한 계정 email=following")
+	@ApiOperation(value = "팔로우를 신청합니다.", notes = "팔로우 신청시, 로그인한 계정 email=email/팔로우한 계정 email=following \n"
+			+"팔로우 알람 : check=0 확인 안 한 상태, check=1 확인")
 	@PostMapping("follow")
 	public ResponseEntity<String> follow(@RequestParam("email") String email,
 			@RequestParam("following") String following) {
@@ -37,6 +46,16 @@ public class FollowController {
 		if (followService.follow(follow)) {
 			follow.setEmail(email);
 			follow.setFollowing(following);
+			
+			Alarm alram = new Alarm();
+			String followingnickname=userService.selectNickname(following);			
+			alram.setAddressee(followingnickname);
+			String mynickname = userService.selectNickname(email);
+			alram.setSender(mynickname);
+			alram.setMessage(mynickname+"님이 팔로우 신청을 했습니다.");
+			alram.setFlag("0");
+			alramService.insert(alram);
+			
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);

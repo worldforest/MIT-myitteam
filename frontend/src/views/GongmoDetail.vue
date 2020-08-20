@@ -1,13 +1,11 @@
 <template>
   <div >
-    {{ clubinfo }}
-    <div class="cont" v-if="windowWidth >= 900">
+    <div class="cont" v-if="windowWidth >= 1270">
       <div class="d-flex ma-2">
         <div>
           <img :src="club.imagesrc" alt="제목부분 포스터" class="title-img">
         </div>
         <div class="ml-3">
-          <!-- {{ club.no }} -->
           <h2 class="mb-3">{{ club.title }}</h2>
           <h4>주 최 : {{ club.host }}</h4>  
         </div>
@@ -32,6 +30,7 @@
         <Team :club="club" :getTeamList="getTeamList"/>
       </div>
     </div>
+
     <div v-else>
       <div class="d-flex ma-2">
         <div>
@@ -65,17 +64,13 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import Intro from '@/components/Intro.vue'
 import Team from '@/components/Team.vue'
 import { mapActions, mapState } from 'vuex'
 
 export default {
   name: "GongmoDetail",
-  props: {
-    club: Object,
-  },
-
   components: {
     Intro,
     Team,
@@ -86,6 +81,7 @@ export default {
       isIntro: true,
       isTeam: false,
       windowWidth: window.innerWidth,
+      club: {},
     }
   },
   watch: {
@@ -98,6 +94,7 @@ export default {
   },
   mounted() {
     this.info = this.$store.state.club
+    this.club = JSON.parse(sessionStorage.getItem('contestinfo'))
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
@@ -124,7 +121,7 @@ export default {
     },
   },
   computed: { 
-    ...mapState(['getTeamList', 'club'])
+    ...mapState(['getTeamList'])
   }
 }
 </script>

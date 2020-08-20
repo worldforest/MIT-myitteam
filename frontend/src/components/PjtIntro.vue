@@ -1,45 +1,41 @@
 <template>
   <div>
-    <!-- {{ windowWidth }} -->
-
     <div class="container" v-if="windowWidth >= 800">
-      <h4 class="mt-4">모집 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h4>
-      <h4 class="mt-8">프로젝트 소개 : </h4>
+      <h5 class="mt-4">모집 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h5>
+      <h5 class="mt-8">프로젝트 소개 : </h5>
       <v-card class="mt-3 px-3 py-3" color="#FAFAFA" style="white-space:pre-line;">{{ club2.description }}</v-card>
     
       <div>
-        <!-- {{ club2 }} -->
-        <!-- {{ getTeamList }} -->
-        <h4 class="mt-8 mb-4">팀원 모집 : </h4>
+        <h5 class="mt-8 mb-4">팀원 모집 : </h5>
         <v-row v-if="windowWidth >= 1270">
-          <v-col v-for="i in getTeamList" :key="i">
+          <v-col v-for="(i, index) in getTeamList" :key="index">
               <div class="d-flex mx-auto">
                 <div>
-                  <li v-for="item in i.dataList" :key="item">
+                  <li v-for="(item, index) in i.dataList" :key="index">
                     <div class="pjtCard mx-auto mb-6">
                       <div class="mb-2 white--text partTitle" >
                         <v-row>
-                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                          <h3 class="ml-5 mt-2 cardModal fontda">{{ item.part }}</h3>
                           <v-spacer></v-spacer>
-                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                          <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                         </v-row>
                       </div>
-                      <h3 class="ml-3 mt-3">담당 업무</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                      <h4 class="ml-5 mt-3">담당 업무</h4>
+                      <v-card-text class="ml-5">
+                        <v-list-item-title style="white-space:pre-line;"><h5>{{ item.task }}</h5></v-list-item-title>
                       </v-card-text>
                       <hr class="mb-2">
-                      <h3 class="ml-3">필수 역량</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                      <h4 class="ml-5">필수 역량</h4>
+                      <v-card-text class="ml-5">
+                        <v-list-item-title style="white-space:pre-line;"><h5>{{ item.ability }}</h5></v-list-item-title>
                       </v-card-text>
                       <hr class="mb-2">
-                      <h3 class="ml-3">우대 사항</h3>
-                      <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                      <h4 class="ml-5">우대 사항</h4>
+                      <v-card-text class="ml-5">
+                        <v-list-item-title style="white-space:pre-line;"><h5>{{ item.advantage }}</h5></v-list-item-title>
                       </v-card-text>
-                      <v-row justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
+                      <v-row v-if="club2.email !== email" justify="center">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
                           지원하기
                         </v-btn>
                       </v-row>
@@ -49,7 +45,7 @@
               </div>
               <v-row>
                 <v-spacer></v-spacer>
-                <v-btn color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+                <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                   삭제하기
                 </v-btn> 
               </v-row>
@@ -57,34 +53,34 @@
         </v-row>
 
         <v-row v-if="windowWidth < 1270 && windowWidth >= 800">
-          <v-col v-for="i in getTeamList" :key="i">
+          <v-col v-for="(i, index) in getTeamList" :key="index">
               <div class="d-flex mx-auto">
                 <div>
-                  <li v-for="item in i.dataList" :key="item">
+                  <li v-for="(item, index) in i.dataList" :key="index">
                     <div class=" pjtCard2 mx-auto mb-6">
                       <div class="headline mb-2 white--text partTitle" >
                         <v-row>
-                          <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                          <h3 class="ml-5 mt-2 cardModal fontda">{{ item.part }}</h3>
                           <v-spacer></v-spacer>
-                          <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                          <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                         </v-row>
                       </div>
                       <h3 class="ml-3">담당 업무</h3>
                       <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                        <v-list-item-title style="white-space:pre-line;"><h5>{{ item.task }}</h5></v-list-item-title>
                       </v-card-text>
                       <hr class="mb-2">
                       <h3 class="ml-3">필수 역량</h3>
                       <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                        <v-list-item-title style="white-space:pre-line;"><h5>{{ item.ability }}</h5></v-list-item-title>
                       </v-card-text>
                       <hr class="mb-2">
                       <h3 class="ml-3">우대 사항</h3>
                       <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                        <v-list-item-title style="white-space:pre-line;"><h5>{{ item.advantage }}</h5></v-list-item-title>
                       </v-card-text>
-                      <v-row justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
+                      <v-row v-if="club2.email !== email" justify="center">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
                           지원하기
                         </v-btn>
                       </v-row>
@@ -94,7 +90,7 @@
               </div>
               <v-row>
                 <v-spacer></v-spacer>
-                <v-btn color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+                <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                   삭제하기
                 </v-btn> 
               </v-row>
@@ -105,40 +101,40 @@
 
     <!-- 웹 화면 작을 때 !!!!!!!!!!!!!!!!!!!!! -->
     <div v-if="windowWidth < 800">
-      <h5 class="mt-4">접수 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h5>
-      <h5 class="mt-8">프로젝트 소개 : </h5>
+      <h6 class="mt-4">접수 기간 : <span class="local">{{ club2.start }} ~ {{ club2.end }}</span></h6>
+      <h6 class="mt-8">프로젝트 소개 : </h6>
       <v-card class="mt-3 px-3 py-3" color="#FAFAFA" style="white-space:pre-line;">{{ club2.description }}</v-card>
-      <h5 class="mt-8 mb-4">팀원 모집 : </h5>
+      <h6 class="mt-8 mb-2">팀원 모집 : </h6>
       <v-row class="mx-auto" v-if="windowWidth < 800 && windowWidth >= 600">
-        <v-col v-for="i in getTeamList" :key="i">
+        <v-col v-for="(i, index) in getTeamList" :key="index">
           <!-- {{ i }} -->
             <div class="d-flex mx-auto">
               <div>
-                <li v-for="item in i.dataList" :key="item">
+                <li v-for="(item, index) in i.dataList" :key="index">
                   <div class="pjtCard3 mx-auto mb-6">
                     <div class="headline mb-2 white--text partTitle" >
                       <v-row>
-                        <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                        <h3 class="ml-5 mt-2 cardModal fontda">{{ item.part }}</h3>
                         <v-spacer></v-spacer>
-                        <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                        <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                       </v-row>
                     </div>
                     <h3 class="ml-3">담당 업무</h3>
                     <v-card-text class="ml-2">
-                      <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                      <v-list-item-title style="white-space:pre-line;"><h5>{{ item.task }}</h5></v-list-item-title>
                     </v-card-text>
                     <hr class="mb-2">
                     <h3 class="ml-3">필수 역량</h3>
                     <v-card-text class="ml-2">
-                      <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                      <v-list-item-title style="white-space:pre-line;"><h5>{{ item.ability }}</h5></v-list-item-title>
                     </v-card-text>
                     <hr class="mb-2">
                     <h3 class="ml-3">우대 사항</h3>
                     <v-card-text class="ml-2">
-                      <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                      <v-list-item-title style="white-space:pre-line;"><h5>{{ item.advantage }}</h5></v-list-item-title>
                     </v-card-text>
-                    <v-row justify="center">
-                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
+                    <v-row v-if="club2.email !== email" justify="center">
+                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
                         지원하기
                       </v-btn>
                     </v-row>
@@ -148,7 +144,7 @@
             </div>
             <v-row>
               <v-spacer></v-spacer>
-              <v-btn color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                 삭제하기
               </v-btn> 
             </v-row>
@@ -156,35 +152,35 @@
       </v-row>
 
       <v-row class="mx-auto" v-if="windowWidth < 600 && windowWidth >= 430">
-        <v-col v-for="i in getTeamList" :key="i">
+        <v-col v-for="(i, index) in getTeamList" :key="index">
           <!-- {{ i }} -->
-            <div class="d-flex mx-auto">
+            <div class="mx-auto">
               <div>
-                <li v-for="item in i.dataList" :key="item">
+                <li v-for="(item, index) in i.dataList" :key="index">
                   <div class="pjtCard5 mx-auto mb-6">
                     <div class="headline mb-2 white--text partTitle" >
                       <v-row>
-                        <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                        <h3 class="ml-5 mt-2 cardModal fontda">{{ item.part }}</h3>
                         <v-spacer></v-spacer>
-                        <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                        <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                       </v-row>
                     </div>
                     <h3 class="ml-3">담당 업무</h3>
                     <v-card-text class="ml-2">
-                      <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                      <v-list-item-title style="white-space:pre-line;"><h5>{{ item.task }}</h5></v-list-item-title>
                     </v-card-text>
                     <hr class="mb-2">
                     <h3 class="ml-3">필수 역량</h3>
                     <v-card-text class="ml-2">
-                      <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                      <v-list-item-title style="white-space:pre-line;"><h5>{{ item.ability }}</h5></v-list-item-title>
                     </v-card-text>
                     <hr class="mb-2">
                     <h3 class="ml-3">우대 사항</h3>
                     <v-card-text class="ml-2">
-                      <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                      <v-list-item-title style="white-space:pre-line;"><h5>{{ item.advantage }}</h5></v-list-item-title>
                     </v-card-text>
-                    <v-row justify="center">
-                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
+                    <v-row v-if="club2.email !== email" justify="center">
+                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
                         지원하기
                       </v-btn>
                     </v-row>
@@ -194,7 +190,7 @@
             </div>
             <v-row>
               <v-spacer></v-spacer>
-              <v-btn color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                 삭제하기
               </v-btn> 
             </v-row>     
@@ -202,34 +198,34 @@
       </v-row>
 
       <v-row v-if="windowWidth < 430">
-        <v-col v-for="i in getTeamList" :key="i">
+        <v-col v-for="(i, index) in getTeamList" :key="index">
             <div class="d-flex mx-auto">
               <div>
-                <li v-for="item in i.dataList" :key="item">
-                  <div class="pjtCard4 mx-auto mb-6">
+                <li v-for="(item, index) in i.dataList" :key="index">
+                  <div class="pjtCard4 mx-auto mb-4">
                     <div class="mb-2 white--text partTitle" >
-                      <v-row>
-                        <h3 class="ml-5 mt-2">{{ item.part }}</h3>
+                      <v-row class="fontda">
+                        <h4 class="ml-3 mt-2 cardModal">{{ item.part }}</h4>
                         <v-spacer></v-spacer>
-                        <h5 class="mr-5 mt-3"> 인원 : {{ item.headCount }}</h5>
+                        <h6 class="mr-5 mt-3 cardModal fontda"> 인원 : {{ item.headCount }}</h6>
                       </v-row>
                     </div>
-                    <h4 class="ml-3">담당 업무</h4>
+                    <h5 class="ml-3">담당 업무</h5>
                     <v-card-text class="ml-2">
                       <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
                     </v-card-text>
                     <hr class="mb-2">
-                    <h4 class="ml-3">필수 역량</h4>
+                    <h5 class="ml-3">필수 역량</h5>
                     <v-card-text class="ml-2">
                       <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
                     </v-card-text>
                     <hr class="mb-2">
-                    <h4 class="ml-3">우대 사항</h4>
+                    <h5 class="ml-3">우대 사항</h5>
                     <v-card-text class="ml-2">
                       <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                     </v-card-text>
-                    <v-row justify="center">
-                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="submitProfile(); applyLeader(item); apply(sendData);">
+                    <v-row v-if="club2.email !== email" justify="center">
+                      <v-btn class="mb-3 local" color="primary" v-if="email" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
                         지원하기
                       </v-btn>
                     </v-row>
@@ -239,7 +235,7 @@
             </div>
             <v-row>
               <v-spacer></v-spacer>
-              <v-btn color="red" class="white--text" right @click="deletePjt(deletePjtData);">
+              <v-btn v-if="club2.email === email" color="red" class="white--text" right @click="noSave(club2); deletePjt(deletePjtData);">
                 삭제하기
               </v-btn> 
             </v-row> 
@@ -251,13 +247,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Swal from 'sweetalert2'
 
 export default {
   name: 'Intro',
   props: {
     club2: Object,
-    getTeamList: Object,
+    getTeamList: Array,
   },
   data() {
     return {
@@ -267,13 +262,13 @@ export default {
       dialog2: false,
       applyData: '',
       sendData: {
-        no: this.club2.no,
-        leaderemail: this.club2.email,
+        no: '',
+        leaderemail: '',
         email: '',
         part: '',
       },
       deletePjtData: {
-        no : this.club2.no
+        no : '',
       },
     }
   },
@@ -291,33 +286,36 @@ export default {
     window.removeEventListener('resize', this.onResize); 
   },
   computed : {
-    ...mapState(['email']),
+    ...mapState(['email', ]),
   },
   methods: {
     ...mapActions(['apply', 'deletePjt']),
     onResize() {
       this.windowWidth = window.innerWidth
     },
-    submitProfile(){
-			Swal.fire({
-        text: '팀장에게 프로필을 전달하였습니다.',
-			})
-    },
     applyLeader(item){
       this.sendData.part = item.part
       this.sendData.email = this.$store.state.email
       console.log(this.sendData)
     },
-    // emailSave(i){
-    //   this.sendData.leaderemail = i.email
-    //   this.sendData.no = i.no
-    // }
+    emailSave(i){
+      this.sendData.leaderemail = i.email
+      this.sendData.no = i.no
+    },
+    noSave(club2){
+      console.log(club2)
+      this.deletePjtData.no = club2.no
+    }
   },
-
 }
 </script>
 
 <style scoped>
+  *{ font-family: 'Jua', sans-serif;}
+
+  .fontda{
+    font-family: 'Jua', sans-serif;
+  }
   .pill {
     position: absolute;
     padding: 0 8px;
@@ -328,7 +326,9 @@ export default {
     font-weight: bold;
     background-color: #a6a6a6;
   }
-
+  .local{
+    color: rgb(92, 107, 192);
+  }
   li {
     list-style: none;
   }
@@ -347,7 +347,7 @@ export default {
   }
   .pjtCard3 {
     border: 2px solid lightgrey;
-    width: 500px;
+    width: 400px;
   }
   .pjtCard4 {
     border: 2px solid lightgrey;

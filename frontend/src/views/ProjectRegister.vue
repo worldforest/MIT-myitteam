@@ -1,8 +1,5 @@
 <template>
-	<v-card>
     <v-container>
-			{{ teamreg }}
-			{{ windowWidth }}
       <div>
 				<v-card id="card-apply" class="mx-auto py-5 px-3 my-8" outlined max-width="800">
 					<h1 v-if="windowWidth >= 730" class="text-center mb-8 h1-apply">프로젝트 팀원을 구해보세요 :)</h1>
@@ -54,7 +51,6 @@
 									</div>
 								</template>
 							</v-col>
-
 							<v-col class="d-flex mx-auto" cols="5">
 								<template>
 									<div class="text-center">
@@ -67,14 +63,19 @@
 													height="80px"
 												>
 													<v-text-field label="프로젝트 종료"
-															outlined
-															class="d-flex mx-auto" cols="5"
-															v-model="projectData.end"></v-text-field>
+														outlined
+														class="d-flex mx-auto" cols="5"
+														v-model="projectData.end"></v-text-field>
 												</v-btn>
 											</template>
 											
 												<v-flex>
-													<v-date-picker v-model="projectData.end" color="blue lighten-1"></v-date-picker>
+													<v-date-picker
+														
+														v-model="projectData.end"
+														color="blue lighten-1"
+														beforeShowDay: noBefore
+													></v-date-picker>
 												</v-flex>
 										</v-menu>
 									</div>
@@ -83,32 +84,8 @@
 						</v-row>
 
 						<!-- /////////////// 모바일 //////////////////-->
-						<v-row>
-							<v-col v-if="windowWidth < 400" class="d-flex">
-								<template>
-									<v-menu offset-y>
-										<template v-slot:activator="{ on, attrs }">
-											<v-btn
-												text
-												v-bind="attrs"
-												v-on="on"
-												height="80px"
-												width="300px"
-											>
-												<v-text-field label="시작"
-													outlined
-													v-model="projectData.start"></v-text-field>
-											</v-btn>
-										</template>
-									
-										<v-flex>
-											<v-date-picker v-model="projectData.start" color="green lighten-1"></v-date-picker>
-										</v-flex>
-									</v-menu>
-								</template>
-							</v-col>
-
-							<v-col v-if="windowWidth < 400" class="d-flex" >
+						<v-row v-if="windowWidth < 400">
+							<v-col class="d-flex mx-auto" cols="12">
 								<template>
 									<div class="text-center">
 										<v-menu offset-y>
@@ -119,16 +96,48 @@
 													v-on="on"
 													height="80px"
 													width="300px"
+													class="mx-auto"
 												>
-													<v-text-field label="종료"
+													<v-text-field label="프로젝트 시작"
 															outlined
-															cols="6"
-															v-model="projectData.end"></v-text-field>
+															v-model="projectData.start"></v-text-field>
+												</v-btn>
+											</template>
+										
+											<v-flex>
+												<v-date-picker v-model="projectData.start" color="green lighten-1"></v-date-picker>
+											</v-flex>
+										</v-menu>
+									</div>
+								</template>
+							</v-col>
+							<v-col class="d-flex mx-auto" cols="12">
+								<template>
+									<div class="text-center">
+										<v-menu offset-y>
+											<template v-slot:activator="{ on, attrs }">
+												<v-btn
+													text
+													v-bind="attrs"
+													v-on="on"
+													height="80px"
+													width="300px"
+													class="mx-auto"
+												>
+													<v-text-field label="프로젝트 종료"
+														outlined
+														class="d-flex mx-auto" cols="5"
+														v-model="projectData.end"></v-text-field>
 												</v-btn>
 											</template>
 											
 												<v-flex>
-													<v-date-picker v-model="projectData.end" color="blue lighten-1"></v-date-picker>
+													<v-date-picker
+														
+														v-model="projectData.end"
+														color="blue lighten-1"
+														beforeShowDay: noBefore
+													></v-date-picker>
 												</v-flex>
 										</v-menu>
 									</div>
@@ -152,7 +161,7 @@
 					<ProjectInput @add-project="addProject"/>
 
 					<div>
-						<li class="itemLi" v-for="item in this.projectData.dataList" :key="item.id">
+						<li class="itemLi" v-for="(item, index) in this.projectData.dataList" :key="index">
 							<v-col class="mx-auto" cols="12" md="11">
 								<v-card color="#FAFAFA" class="mb-3 py-4 px-3">
 									<h3 class="mb-3">{{ item.part }}</h3>
@@ -197,13 +206,10 @@
 				</v-card>
       </div>
     </v-container>
-	</v-card>
-
 </template>
 
 <script>
 import ProjectInput from '@/components/ProjectInput'
-// import ProjectPartDetail from '@/components/ProjectPartDetail'
 
 import { mapActions, mapState } from 'vuex'
 
@@ -211,7 +217,6 @@ export default {
 	name: "ProjectRegister",
 	components: {
 		ProjectInput,
-		// ProjectPartDetail,
 	},
 	data() {
 		return{
@@ -222,6 +227,7 @@ export default {
 				description: "",
 				start: "",
 				end: "",
+				term:"",
 				local: "",
 				dataList: [],
 			},
@@ -230,27 +236,28 @@ export default {
 		}
 	},
 	watch: {
-    windowWidth(newWidth, oldWidth) {
-      this.txt = `it changed to ${newWidth} from ${oldWidth}`;
-    }
-  },
-  beforeDestroy() { 
-    window.removeEventListener('resize', this.onResize); 
-  },
+		windowWidth(newWidth, oldWidth) {
+		this.txt = `it changed to ${newWidth} from ${oldWidth}`;
+		}
+		
+	},
 	methods: {
 		...mapActions(['projectregister']),
 		addProject(Data){
 			this.projectData.dataList = [...this.projectData.dataList, Data]
 		},
 		onResize() {
-      this.windowWidth = window.innerWidth
-    },
+				this.windowWidth = window.innerWidth
+		},
 	}, 
+	beforeDestroy() { 
+		window.removeEventListener('resize', this.onResize); 
+	},
 	mounted () {
 		this.projectData.email = this.$store.state.email, 
       this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
-    })
+		})
 	},
 	computed : {
     ...mapState(['email', 'teamreg']),

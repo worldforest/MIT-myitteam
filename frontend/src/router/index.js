@@ -22,20 +22,36 @@ import UpdateProfile from '@/views/UpdateProfile.vue'
 import searchTag from '@/views/searchTag.vue'
 import dmap from '@/views/dmap.vue'
 import FeedUpdate from '@/views/FeedUpdate.vue'
+import teamInfoDetail from '@/views/teamInfoDetail.vue'
+import PageNotFound from '@/views/PageNotFound.vue'
+import RealHome from '@/views/RealHome.vue'
+import '@/App.vue'
 
 Vue.use(VueRouter)
 
-
   const routes = [
-    {
-    path: '/',
+  {
+    path: '/home',
     name: 'Home',
     component: Home
   },
   {
+    path: '/',
+    name: 'RealHome',
+    component: RealHome
+  },
+  {
     path: '/feedcreate',
     name: "FeedCreate",
-    component: FeedCreate
+    component: FeedCreate,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/login',
@@ -43,7 +59,7 @@ Vue.use(VueRouter)
     component: Login,
     beforeEnter(to, from, next) {
       if (Vue.$cookies.isKey('auth-token')) {
-        next('/')
+        next('/home')
       }
       else {
         next()
@@ -56,7 +72,7 @@ Vue.use(VueRouter)
     component: Signup,
     beforeEnter(to, from, next) {
       if (Vue.$cookies.isKey('auth-token')) {
-        next('/')
+        next('/home')
       }
       else {
         next()
@@ -66,7 +82,15 @@ Vue.use(VueRouter)
   {
     path: '/profile',
     name: "Profile",
-    component: Profile
+    component: Profile,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   //////////다인////////////
   {
@@ -74,16 +98,46 @@ Vue.use(VueRouter)
     name: "TeamRegister",
     component: TeamRegister,
     props: true,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/projectregister',
     name: 'ProjectRegister',
-    component: ProjectRegister
+    component: ProjectRegister,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/projectlist',
     name: 'ProjectList',
     component: ProjectList
+  },
+  {
+    path: '/teamInfoDetail',
+    name: 'teamInfoDetail',
+    component: teamInfoDetail,
+    props: true,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   //////////다인////////////
   //////////지훈////////////
@@ -129,6 +183,14 @@ Vue.use(VueRouter)
     path: '/updateprofile',
     name: 'UpdateProfile',
     component: UpdateProfile,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/searchtag',
@@ -138,30 +200,79 @@ Vue.use(VueRouter)
   {
     path: '/dmap',
     name: 'dmap',
-    component: dmap
+    component: dmap,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/feedupdate',
     name: 'FeedUpdate',
     component: FeedUpdate,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
+  },
+  {
+    path: '*',
+    redirect: '/404'
+  },
+  {
+    path: '/404',
+    name: 'PageNotFound',
+    component: PageNotFound
   },
   //////////지훈////////////
   {
     path: '/myteam',
     name: "Myteam",
     component: Myteam,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/myteam/:id',
     name: "Myteaminfo",
     component: Myteaminfo,
     props: true,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/chat',
     name: "Chat",
     component: Chat,
     props: true,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   }
 ]
 
@@ -169,6 +280,6 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
+});
 
-export default router
+export default router;
