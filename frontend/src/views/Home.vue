@@ -7,12 +7,12 @@
         <carousel :per-page="4" :mouse-drag="true" style="width:100%">
           <slide v-for="(club, index) in clubs" :key="index">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
-              <b-card-text @click="gongmoDetail(club)">
+              <b-card-text class="py-2" @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
-                    <h5>{{ club.title.slice(0,13)}}...</h5>
+                    <h5 class="ml-3">{{ club.title.slice(0,13)}}...</h5>
                 </div>
                 <div v-else>
-                    <h5>{{ club.title }}</h5>
+                    <h5 class="ml-3">{{ club.title }}</h5>
                 </div>
               </b-card-text>
             </b-card>
@@ -25,8 +25,8 @@
 
     <div v-else-if="500 > windowWidth">
       <div class="d-flex">
-        <span class="ml-auto cursor" @click="Tflag()">공모전</span>
-        <span class="mx-3 cursor" @click="Fflag()">프로젝트</span>
+        <span class="ml-auto cursor" @click="Tflag()"><h5>공모전  | </h5></span>
+        <span class="mx-3 cursor" @click="Fflag()"><h5>프로젝트</h5></span>
       </div>
       <div v-if="flag">
         <v-card      
@@ -38,7 +38,7 @@
         >
           <v-list-item three-line>
             <v-list-item-content>
-              <v-list-item-title class=" mb-1 font">{{ club.title }}</v-list-item-title>
+              <v-list-item-title class=" mb-1 ml-3 font">{{ club.title }}</v-list-item-title>
               <v-list-item-subtitle>{{ club.start }} ~ {{ club.end }}</v-list-item-subtitle>
               <v-list-item-subtitle v-if="club.host.length <= 15">{{ club.host }}</v-list-item-subtitle>
               <v-list-item-subtitle v-else>{{ club.host.slice(0,15) }}...</v-list-item-subtitle>
@@ -48,7 +48,6 @@
               tile
               size="90"
               color="grey"
-              
             >
               <img
                 :src="club.imagesrc"
@@ -60,7 +59,8 @@
       </div>
       <div v-if="!flag">
         <v-card      
-          class="mx-auto my-1 homeCard"
+          class="mx-auto my-2 homeCard"
+          style="height:130px;"
           max-width="344"
           outlined
           v-for="(club2, index) in clubs2" :key="index"
@@ -68,9 +68,9 @@
         >
           <v-list-item three-line>
             <v-list-item-content>
-              <v-list-item-title class="text-center mb-1 font">{{ club2.title }}</v-list-item-title>              
-              <hr class="cont15 my-3 mx-5">
-              <v-list-item-subtitle class="text-center">{{ club2.start }} ~ {{ club2.end }}</v-list-item-subtitle>
+              <v-list-item-title class="text-center mt-8 font">{{ club2.title }}</v-list-item-title>              
+              <hr class="cont15 my-2 mx-5 hrr">
+              <v-list-item-subtitle class="text-center my-3">{{ club2.start }} ~ {{ club2.end }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-card>
@@ -84,8 +84,6 @@
         <h3 class="ml-auto cursor" @click="Tflag()">공모전</h3>
         <h3 class="mx-3 cursor" @click="Fflag()">프로젝트</h3>
       </div>
-      <!-- <h3 v-if="flag">공모전</h3>
-      <h3 v-if="!flag">프로젝트</h3> -->
       <v-row class="mt-0" v-if="flag">
         <v-col cols="6" v-for="(club, index) in clubs" :key="index">
           <v-card      
@@ -143,12 +141,12 @@
         <carousel :per-page="3" :mouse-drag="false" >
           <slide v-for="(club,index) in clubs" :key="index">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 75%;">
-              <b-card-text @click="gongmoDetail(club)">
+              <b-card-text class="py-2" @click="gongmoDetail(club)">
                 <div v-if="club.title.length >= 15" >
-                    <h5>{{ club.title.slice(0,15)}}...</h5>
+                    <h5 class="ml-3">{{ club.title.slice(0,15)}}...</h5>
                 </div>
                 <div v-else>
-                    <h4>{{ club.title }}</h4>
+                    <h4 class="ml-3">{{ club.title }}</h4>
                 </div>
               </b-card-text>
             </b-card>
@@ -169,10 +167,10 @@
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
-                    <h3 class="mt-3 title">{{ club2.title.slice(0,8)}}...</h3>
+                    <h3 class="mt-8 title">{{ club2.title.slice(0,8)}}...</h3>
                 </div>
                 <div v-else>
-                  <h3 class="mt-3 title">{{ club2.title }}</h3>
+                  <h3 class="mt-8 title">{{ club2.title }}</h3>
                 </div>
                 <hr class="hrr">
                 <p class="date"> {{ club2.start }} ~ {{ club2.end }} </p>
@@ -191,10 +189,10 @@
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
-                    <h3 class="title mt-3">{{ club2.title.slice(0,8)}}...</h3>
+                    <h3 class="title mt-8">{{ club2.title.slice(0,8)}}...</h3>
                 </div>
                 <div v-else>
-                  <h3 class="title mt-3">{{ club2.title }}</h3>
+                  <h3 class="title mt-8">{{ club2.title }}</h3>
                 </div>
                 <hr class="hrr">
                 <p class="date"> {{ club2.start }} ~ {{ club2.end }} </p>
@@ -542,5 +540,4 @@ export default {
       width: 100%;
     }
   }
-
 </style>

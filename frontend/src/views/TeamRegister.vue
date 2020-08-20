@@ -44,7 +44,7 @@
           <li class="itemLi" v-for="(item, index) in this.applyData.dataList" :key="index">
             <v-col class="mx-auto" cols="12" md="11">
               <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
-                <h3 class="mb-3 cardTitle">{{ item.part }}</h3>
+                <h3 class="mb-3 fontcolor text-center ">{{ item.part }}</h3>
                 <hr class="mb-3">
                 <v-list-item>
                   <v-list-item-content>
@@ -54,21 +54,21 @@
                 
                 <v-list-item>
                   <v-list-item-content>
-                    <h4 class="mb-2 cardTitle">담당 업무</h4>
+                    <h4 class="mb-2 cardTitle">담당 업무 : </h4>
                     <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-content>
-                    <h4 class="mb-2 cardTitle">필수 역량</h4>
+                    <h4 class="mb-2 cardTitle">필수 역량 : </h4>
                     <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-content>
-                    <h4 class="mb-2 cardTitle">우대 사항</h4>
+                    <h4 class="mb-2 cardTitle">우대 사항 : </h4>
                     <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -129,32 +129,32 @@
         <li class="itemLi" v-for="(item, index) in this.applyData.datalist" :key="index">
           <v-col class="mx-auto" cols="12" md="11">
             <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
-              <h3 class="mb-3">{{ item.part }}</h3>
+              <h3 class="mb-3 fontcolor text-center">{{ item.part }}</h3>
               <hr class="mb-3">
 
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
+                  <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headCount }}</h4></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               
               <v-list-item>
                 <v-list-item-content>
-                  <h4 class="mb-2">담당 업무</h4>
+                  <h4 class="mb-2">담당 업무 : </h4>
                   <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <h4 class="mb-2">필수 역량</h4>
+                  <h4 class="mb-2">필수 역량 : </h4>
                   <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <h4 class="mb-2">우대 사항</h4>
+                  <h4 class="mb-2">우대 사항 : </h4>
                   <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -215,31 +215,31 @@
         <li class="itemLi" v-for="(item, index) in this.applyData.dataList" :key="index">
           <v-col class="mx-auto" cols="12" md="11">
             <v-card color="#FAFAFA" class="mb-3 py-4 px-3">
-              <h3 class="mb-3">{{ item.part }}</h3>
+              <h3 class="mb-3 fontcolor text-center">{{ item.part }}</h3>
 
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title style="white-space:pre-line;"><h4 class="mb-2">인원 : {{ item.headcount }}</h4></v-list-item-title>
+                  <v-list-item-title style="white-space:pre-line;"><h5 class="mb-2">인원 : {{ item.headCount }}</h5></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               
               <v-list-item>
                 <v-list-item-content>
-                  <h4 class="mb-2">담당 업무</h4>
+                  <h5 class="mb-2">담당 업무 : </h5>
                   <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <h4 class="mb-2">필수 역량</h4>
+                  <h5 class="mb-2">필수 역량 : </h5>
                   <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <h4 class="mb-2">우대 사항</h4>
+                  <h5 class="mb-2">우대 사항 : </h5>
                   <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -355,5 +355,8 @@ export default {
   
   .cardTitle{
     color: black;
+  }
+  .fontcolor {
+    color: rgb(92, 107, 192);
   }
 </style>
