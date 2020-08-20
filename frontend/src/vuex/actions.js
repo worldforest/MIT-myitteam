@@ -245,6 +245,7 @@ export default {
 				title: '이미 지원한 팀 입니다.',
 				width: 600
 			})
+			router.push({name: 'GongmoDetail'})
 		})
 	},
 	deleteTeam(context, deleteData){
