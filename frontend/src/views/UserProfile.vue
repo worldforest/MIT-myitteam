@@ -1,8 +1,5 @@
 <template>
   <div :class="[ {'cont10': windowWidth >= 767 } ]">
-    {{email}} <br>
-    {{followerList2}} <br>
-    {{followerList}}
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
@@ -224,7 +221,7 @@ export default {
     Chat: Chatting
   },
   props: {
-
+    user: String
   },
   data() {
     return {
