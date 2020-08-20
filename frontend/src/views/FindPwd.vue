@@ -17,7 +17,7 @@
           <span></span>
           <span></span>
           <span></span>
-          Submit
+          메일받기
         </a>
       </form>
     </div>
@@ -35,7 +35,7 @@
           <span></span>
           <span></span>
           <span></span>
-          Submit
+          인증번호 확인
         </a>
       </form>
     </div>
@@ -124,6 +124,31 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.onResize);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
   },
   mounted() {
     this.$nextTick(() => {

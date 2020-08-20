@@ -188,9 +188,10 @@ public class FeedController {
 				}
 				// db에 파일 위치랑 번호 등록
 			}
-		} else {
-			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
-		}
+		} 
+//		else {
+//			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+//		}
 
 		// feed tag 등록
 		StringTokenizer st = null;
