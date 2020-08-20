@@ -16,13 +16,22 @@
               @keypress.enter="login(loginData)">
           <label>Password</label>
         </div>
-        <a @click="login(loginData)">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          Submit
-        </a>
+        <div class="d-flex">
+          <a @click="login(loginData)">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Submit
+          </a>
+          <a class="ml-auto"  @click="gotofind()">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            FindPwd
+          </a>
+        </div>
       </form>
     </div>
   </div>

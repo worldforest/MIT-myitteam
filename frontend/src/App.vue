@@ -277,16 +277,21 @@ export default {
   },
   mounted() {
     this.getContestData()
-    if (this.$cookies.isKey('auth-token')) {
+    if (this.$cookies.isKey('auth-token') && !this.$cookies.isKey('auth-email')) {
       this.postEmailToken()
-      this.getTeamInfo()
       } 
+    if (this.$cookies.isKey('auth-token')) {
+      this.getTeamInfo()
+    }
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
   },
   created () {
-    this.getNickname(this.email)
+    if (this.$cookies.isKey('auth-token')) {
+      this.getNickname(this.email)
+      console.log(this.email)
+    }
     this.currentRouteName
     // this.getAllChat(this.myNick)
   },

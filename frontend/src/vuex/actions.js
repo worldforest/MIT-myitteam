@@ -317,9 +317,9 @@ export default {
 		})
 	},
 	getNickname(context, email){
+		// console.log(email)
 		axios.get(`${SERVER_URL}/api/user/selectNickname?email=${email}`)
 		.then(res => {
-			console.log('마이 닉네임..')
 			context.commit('getNick', res.data)
 			context.dispatch('getalarm', res.data)
 		})
@@ -439,7 +439,7 @@ export default {
 			Swal.fire({
 				icon: 'error',
 				text: '회원만 팔로우를 할 수 있습니다.',
-				footer: '회원이 아니신가요?<a href="/signup">   가입하기   </a>'
+				footer: '<br>회원이 아니신가요?<a href="/signup">   <br>가입하기   </a>'
 			})
 		}
 	},
@@ -531,7 +531,10 @@ export default {
 	},
 
 	pushCode(context, res) {
-		axios.post(`${SERVER_URL}/api/user/pwd?code=${res.code}&email=${res.email}`)
+		var params = new URLSearchParams();
+		params.append('code', res.code)
+		params.append('email', res.email)
+		axios.post(`${SERVER_URL}/api/user/pwd`)
 			.then((response) => {
 				context.commit('getPwdToken', response.data)
 			})
@@ -577,7 +580,7 @@ export default {
       .then(() => {
         Swal.fire({
 					icon: 'success',
-					text: '성공적으로 삭제하였습니다.!',
+					text: '성공적으로 수정하였습니다.!',
         })
         router.push({ name: "Profile" })
       })

@@ -1,5 +1,8 @@
 <template>
   <div :class="[ {'cont10': windowWidth >= 767 } ]">
+    {{email}} <br>
+    {{followerList2}} <br>
+    {{followerList}}
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
@@ -13,7 +16,7 @@
             <span><h3 class="my-3">{{ userprofiledata.nickname }}</h3></span>
             <span class="mt-3 ml-13" v-if="user !== email">
               <v-btn
-                v-if="!followerList2.includes(email)"
+                v-if="!followerList.includes(email)"
                 class="ml-3"
                 color="primary"
                 @click="follow(user)"
@@ -76,7 +79,7 @@
           <v-row>
             <span v-if="user !== email">
               <v-btn
-                v-if="!followerList2.includes(email)"
+                v-if="!followerList.includes(email)"
                 class="ml-3"
                 color="primary"
                 @click="follow(user)"
@@ -133,8 +136,8 @@
         <img :src="userprofiledata.src" class="thumbnail">
         <h3 class="name">{{ userprofiledata.nickname }}</h3>
         <p class="title">{{ userprofiledata.description }} 개발자</p>
-        <button type="button" class="btn text-center my-2" v-if="!followerList2.includes(email)"  @click="follow(user)">팔로우</button>
-        <button type="button" class="btn text-center my-2" v-else-if="followerList2.includes(email)" @click="unfollow(user)">팔로우 취소</button>
+        <button type="button" class="btn text-center my-2" v-if="!followerList.includes(email)"  @click="follow(user)">팔로우</button>
+        <button type="button" class="btn text-center my-2" v-else-if="followerList.includes(email)" @click="unfollow(user)">팔로우 취소</button>
         <div class="chatmodal">
           <button type="button" class="btn text-center"  @click.stop="dialog = true">채팅하기</button>
           <v-dialog v-model="dialog" max-width="550">
@@ -177,7 +180,7 @@
         </div>            
       </main>
     </div>
-    <v-row v-else class="bg-gray">
+    <v-row v-else class="bg-gray cont3">
       <v-col cols='12'  v-for="(feed, index) in userprofiledata.feeds" :key="index">
         <v-card
           class="mx-auto my-3"
@@ -280,10 +283,11 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
     this.followerCnt(this.user)
+    this.myFollowerList(this.user)
   },
 
   created () {
-    this.myFollowerList(this.user)
+    
     // 이 페이지의 유저 정보를 확인
     this.userprofile(this.user)
     // 로그인한 유저의 정보를 확인
@@ -327,6 +331,10 @@ export default {
 
   .detail_hover:hover {
     opacity: 0.5;
+  }
+
+  .cont3 {
+    margin: 0 3%;
   }
 
   .cont10 {
