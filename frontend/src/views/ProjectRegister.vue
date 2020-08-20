@@ -249,7 +249,6 @@ export default {
 		onResize() {
 				this.windowWidth = window.innerWidth
 		},
-		// allowedDates: val => parseInt(val.split('-')[1]) % 2 === 0,
 	}, 
 	beforeDestroy() { 
 		window.removeEventListener('resize', this.onResize); 

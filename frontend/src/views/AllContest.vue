@@ -73,11 +73,6 @@ export default {
 </script>
 
 <style scoped>
-
-h3{
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 20px;
-}
   .contestCard{
     width: 320px
   }

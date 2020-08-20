@@ -46,10 +46,9 @@ export default {
   name: 'Chat',
   data(){
     return {
-      message: null,
+      message: "",
       messages: [],
-      createdAt: null,
-      // chatAt:null,
+      createdAt: new Date().toISOString().substr(0, 10),
     }
   },
   props: {

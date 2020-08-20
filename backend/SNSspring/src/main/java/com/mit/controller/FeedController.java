@@ -167,7 +167,8 @@ public class FeedController {
 
 		if (file == null || file.isEmpty()) {
 			// file image 가 없을 경우
-			sb.append("none.png");
+//			sb.append("none.png");
+			feed.setSrc(feed.getSrc());
 		} else {
 			sb.append(date.getTime());
 			sb.append(file.getOriginalFilename());
