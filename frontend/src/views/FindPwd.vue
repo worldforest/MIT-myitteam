@@ -17,7 +17,7 @@
           <span></span>
           <span></span>
           <span></span>
-          메일받기
+          인증번호 받기
         </a>
       </form>
     </div>
@@ -124,31 +124,6 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.onResize);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
   },
   mounted() {
     this.$nextTick(() => {
