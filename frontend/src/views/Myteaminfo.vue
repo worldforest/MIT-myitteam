@@ -1,7 +1,7 @@
 <template>
   <div>
     <span v-if="saveInfo.leaderemail === email">
-      <span v-if="saveInfo.allCnt != saveInfo.members.length">
+      <span v-if="(Number(saveInfo.allCnt)+1) != saveInfo.members.length">
         <div class="apply">
           <div class="card" v-for="(apply, index) in saveInfo.applymembers" :key="index">
             <h2 @click="goUserProfile(apply.teamemail)">{{ apply.teamnickname }}</h2>
@@ -51,44 +51,55 @@
             </span>
           </div>
         </div>
-        <hr>
-        <v-row>
-          <v-col cols="12" sm="6" md="4">
-            <v-menu
-              ref="menu"
-              v-model="menu"
-              :close-on-content-click="false"
-              :return-value.sync="date"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="dateInfo.date"
-                  label="날짜 선택"
-                  prepend-icon
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker v-model="dateInfo.date" multiple no-title scrollable>
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="menu = false; deleteDate(dateInfo)">빼기</v-btn>
-                <v-btn text color="primary" @click.native="$refs.menu.save(date); postDate(dateInfo)">추가</v-btn>
-              </v-date-picker>
-            </v-menu>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-date-picker v-model="can.dates" readonly multiple></v-date-picker>
-        </v-row>
-        <div v-for="day in meetDay" :key="day">
-          {{ day }}
+        <div class="cal">
+          <div class="cal2">
+            <div>
+              <v-menu
+                ref="menu"
+                v-model="menu"
+                :close-on-content-click="false"
+                :return-value.sync="date"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+                class= "cal_bar"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="dateInfo.date"
+                    label="Date"
+                    prepend-icon  
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    class="cal_input"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="dateInfo.date" multiple no-title scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn text color="primary" @click.native="$refs.menu.save(); postDate(dateInfo)">Add</v-btn>
+                  <v-btn text color="primary" @click="menu = false; deleteDate(dateInfo)">Delete</v-btn>
+                </v-date-picker>
+              </v-menu>
+            </div>
+            <div>
+              <div class="btn">
+                <span class="text">Text</span>
+                <span class="flip-front">장소</span>
+                <span class="flip-back" @click="gotoMap(saveInfo)">추천</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 dot">
+            <v-date-picker v-model="can.dates" readonly multiple :events="functionEvents"></v-date-picker>
+            <div><img src="../assets/빨간점.png"> : 총 팀원의 공통 날짜</div>
+          </div>
         </div>
+
+
       </span>
     </span>
+    
 
 
     <!-- 내가 팀장이 아닐 때 -->
@@ -181,9 +192,8 @@
         {{ day }}
       </div>
     </span>
-
-    <v-btn text color="primary" @click="gotoMap(saveInfo)">장소 추천보기!</v-btn>
   </div>
+  
 </template>
 
 <script scoped>
@@ -221,14 +231,19 @@ export default {
   methods : {
     ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'selectDay', 'getNickname', 'getMyday', 'deleteDate', 'teamChat', 'gotoMap']),
     ...mapMutations(['goUserProfile']),
-    teamDataSave(){
+    teamDataSave() {
       this.teamChatData.no = this.saveInfo.no,
       this.teamChatData.leaderemail = this.saveInfo.leaderemail
-    }
+    },
+    functionEvents (date) {
+      for (let i = 0; i < this.meetDay.length; i++){
+        if( date === this.meetDay[i]) {
+          return ['red']
+        }
+      }
+      },
   },
   created() {
-    // this.dates = this.$store.state.dates
-
   },
   mounted () {
     setTimeout(()=>{
@@ -250,7 +265,6 @@ export default {
     setTimeout(() => {
       this.can.dates = this.$store.state.myDay
     }, 450)
-    // console.log(this.can.dates)
   }
 }
 </script>
@@ -446,5 +460,101 @@ button::-moz-focus-inner {
 
 .button:active {
   opacity: 0.5;
+}
+
+.cal {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-content: center;
+  margin: 10%;
+}
+
+.cal2 {
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.cal_input {
+  flex: none; 
+}
+
+
+.btn {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  position: relative;
+  /* position: absolute; */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transition: all .3s ease-out;
+  -o-transition: all .3s ease-out;
+  transition: all .3s ease-out;
+}
+
+.text {
+  padding: 0 50px;
+  visibility: hidden;
+}
+
+.flip-front, 
+.flip-back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: flat;
+    transform-style: flat;
+    -webkit-transition: -webkit-transform .3s ease-out;
+    -o-transition: -o-transform .3s ease-out;
+    transition: transform .3s ease-out;
+}
+
+.flip-front {
+    color: #313131;
+    border: 2px solid #313131;
+    background-color: transparent;
+    -webkit-transform: rotateX(0deg) translateZ(25px);
+    -ms-transform: rotateX(0deg) translateZ(25px);
+    -o-transform: rotateX(0deg) translateZ(25px);
+    transform: rotateX(0deg) translateZ(25px);
+}
+
+.flip-back {
+  color: #fff;
+  background-color: #313131;
+  border: 2px solid #313131;
+  -webkit-transform: rotateX(90deg) translateZ(25px);
+  -ms-transform: rotateX(90deg) translateZ(25px);
+  -o-transform: rotateX(90deg) translateZ(25px);
+  transform: rotateX(90deg) translateZ(25px);
+}
+
+.btn:hover .flip-front {
+    -webkit-transform: rotateX(-90deg) translateZ(25px);
+    -ms-transform: rotateX(-90deg) translateZ(25px);
+    -o-transform: rotateX(-90deg) translateZ(25px);
+    transform: rotateX(-90deg) translateZ(25px);
+}
+
+.btn:hover .flip-back {
+    -webkit-transform: rotateX(0deg) translateZ(25px);
+    -ms-transform: rotateX(0deg) translateZ(25px);
+    -o-transform: rotateX(0deg) translateZ(25px);
+    transform: rotateX(0deg) translateZ(25px);
+}
+
+.dot {
+  display: flex;
+  flex-direction: column;
+}
+
+.dot img {
+  width: 10px;
 }
 </style>
