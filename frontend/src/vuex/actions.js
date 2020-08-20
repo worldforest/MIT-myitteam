@@ -156,6 +156,7 @@ export default {
 				title: '필수 항목들을 입력해주세요!(사진, 소개)',
 			})
 		} else {
+      console.log(feedData)
 			const formdata = new FormData();
 			formdata.append('description', feedData.description)
 			formdata.append('email', feedData.email) 
@@ -593,18 +594,21 @@ export default {
 	},
 
 	feedUpdate(context, res) {
+    console.log(res)
     const formdata = new FormData();
     formdata.append('description', res.description)
     formdata.append('file', res.src)
-    formdata.append('no',res.no)
-    formdata.append('tags', res.tag)
+    formdata.append('no', res.no)
     axios.post(`${SERVER_URL}/api/feed/update`, formdata)
       .then(() => {
         Swal.fire({
-					icon: 'success',
-					text: '성공적으로 수정하였습니다.!',
+          icon: 'success',
+          text: '성공적으로 수정하였습니다.!',
         })
         router.push({ name: "Profile" })
+      })
+      .catch((err) => {
+        console.log(err)
       })
 	},
 	

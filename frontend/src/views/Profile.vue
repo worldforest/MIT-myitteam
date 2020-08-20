@@ -21,10 +21,10 @@
               </template>
 
               <v-card class="cardModal">
-                <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
+                <h3 class="modaltitle mb-3"> 내가 팔로우한 리스트</h3>
                 
                 <li v-for="(item, index) in followList" :key="index">
-                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <h4 class="followa ml-3" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                   <hr>
                 </li>
 
@@ -50,7 +50,7 @@
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
                 <li v-for="(item, index) in followerList" :key="index">
-                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <h4 class="followa ml-3" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                   <hr>
                 </li>
 
@@ -102,7 +102,7 @@
                 <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
                 
                 <li v-for="(item, index) in followList" :key="index">
-                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <h4 class="followa ml-3" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                   <hr>
                 </li>
 
@@ -128,7 +128,7 @@
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
                 <li v-for="(item, index) in followerList" :key="index">
-                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <h4 class="followa ml-3" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                   <hr>
                 </li>
 
@@ -175,7 +175,7 @@
               <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
               
               <li v-for="(item, index) in followerList" :key="index">
-                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                <h4 class="followa ml-3" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                 <hr>
               </li>
 
@@ -202,7 +202,7 @@
               <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
               
               <li v-for="(item, index) in followList" :key="index">
-                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                <h4 class="followa ml-3" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                 <hr>
               </li>
 
@@ -319,7 +319,7 @@ export default {
       this.windowWidth = window.innerWidth
     },
 
-    ...mapMutations(['feedDetail', 'updateProfile']),
+    ...mapMutations(['feedDetail', 'updateProfile', 'goUserProfile']),
     ...mapActions(['profile', 'myFollowList', 'myFollowerList','searchTagFeed'])
   },
   computed : {

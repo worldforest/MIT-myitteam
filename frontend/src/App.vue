@@ -214,7 +214,7 @@
       </div>
     </div>
     <v-app :class="[ {'container': currentRouteName !== 'RealHome' } ]" style="padding:0px; background-color:#FAFAFA;">
-      <div style="background-color:#FAFAFA;" class="mt-10">
+      <div style="background-color:#FAFAFA;" :class="[ {'mt-10': currentRouteName !== 'RealHome' } ]">
         <router-view :privateChatTitle="$route.fullPath"/>
       </div>
     </v-app>
@@ -249,19 +249,20 @@ export default {
       this.windowWidth = window.innerWidth
     },
     goPJT(){
-      this.$router.push('/projectlist')
+      this.$router.push('/projectlist').catch(()=>{})
+        
     },
     goCON(){
-      this.$router.push('/AllContest')
+      this.$router.push('/AllContest').catch(()=>{})
     },
     goTEAM(){
-      this.$router.push('/myteam')
+      this.$router.push('/myteam').catch(()=>{})
     },
     goPRO(){
-      this.$router.push('/profile')
+      this.$router.push('/profile').catch(()=>{})
     },
     goChat(chat){
-      this.$router.push({name: 'Chat', params: { privateChatTitle : chat }});
+      this.$router.push({name: 'Chat', params: { privateChatTitle : chat }}).catch(()=>{});
     }
 
   },

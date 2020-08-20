@@ -221,7 +221,7 @@ export default {
     Chat: Chatting
   },
   props: {
-
+    user: String
   },
   data() {
     return {
