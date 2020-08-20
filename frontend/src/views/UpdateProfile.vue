@@ -70,7 +70,7 @@
         <div>
           <h3 class="ml-4">비밀번호 확인 : </h3>
           <v-col xs="6" md="11" class="mx-auto">
-            <v-text-field class="passwordfont" :rules="[rules.pwdcheck, rules.required]" v-model="updateData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
+            <v-text-field class="passwordfont" :rules="[rules.pwdcheck, rules.required]" v-model="updateData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password" @keypress.enter="ProfileUpdate(updateProfile, updateData)"></v-text-field>
           </v-col>
         </div>
 

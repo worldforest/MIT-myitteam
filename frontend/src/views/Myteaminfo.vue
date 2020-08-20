@@ -34,6 +34,7 @@
               <div v-else-if="member.part === '인공지능'" class="title title--common">{{ member.part }}</div>
               <div v-else-if="member.part === '빅데이터'" class="title title--bigdata">{{ member.part }}</div>
               <div v-else-if="member.part === '블록체인'" class="title title--block">{{ member.part }}</div>
+              <div v-else-if="member.part === '팀장'" class="title title--boss">{{ member.part }}</div>
               <svg viewBox="0 0 100 100">
                 <path d="m38.977 59.074c0 2.75-4.125 2.75-4.125 0s4.125-2.75 4.125 0"></path>
                 <path d="m60.477 59.074c0 2.75-4.125 2.75-4.125 0s4.125-2.75 4.125 0"></path>
@@ -45,8 +46,8 @@
               </div>
             </span>
             <span v-else>
-              <router-link :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
-                <button class="button"> Team Chat </button>
+              <router-link  :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
+                <button class="button" @click="saveChat"> Team Chat </button>
               </router-link>
             </span>
           </div>
@@ -77,7 +78,7 @@
                 </template>
                 <v-date-picker v-model="dateInfo.date" multiple no-title scrollable>
                   <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click.native="$refs.menu.save(); postDate(dateInfo)">Add</v-btn>
+                  <v-btn text color="primary" @click.native="$refs.menu.save(date); postDate(dateInfo)">Add</v-btn>
                   <v-btn text color="primary" @click="menu = false; deleteDate(dateInfo)">Delete</v-btn>
                 </v-date-picker>
               </v-menu>
@@ -111,6 +112,7 @@
             <div v-else-if="member.part === '인공지능'" class="title title--common">{{ member.part }}</div>
             <div v-else-if="member.part === '빅데이터'" class="title title--bigdata">{{ member.part }}</div>
             <div v-else-if="member.part === '블록체인'" class="title title--block">{{ member.part }}</div>
+            <div v-else-if="member.part === '팀장'" class="title title--boss">{{ member.part }}</div>
             <svg viewBox="0 0 100 100">
               <path d="m38.977 59.074c0 2.75-4.125 2.75-4.125 0s4.125-2.75 4.125 0"></path>
               <path d="m60.477 59.074c0 2.75-4.125 2.75-4.125 0s4.125-2.75 4.125 0"></path>
@@ -123,7 +125,7 @@
           </span>
           <span v-else>
             <router-link :to="{ name: 'Chat', params:{ privateChatTitle : teamchatTitle }}">
-              <button class="button"> Team Chat </button>
+              <button class="button" @click="saveChat"> Team Chat </button>
             </router-link>
           </span>
         </div>
@@ -154,12 +156,12 @@
               </template>
               <v-date-picker v-model="dateInfo.date" multiple no-title scrollable>
                 <v-spacer></v-spacer>
-                <v-btn text color="primary" @click.native="$refs.menu.save(); postDate(dateInfo)">Add</v-btn>
+                <v-btn text color="primary" @click.native="$refs.menu.save(date); postDate(dateInfo)">Add</v-btn>
                 <v-btn text color="primary" @click="menu = false; deleteDate(dateInfo)">Delete</v-btn>
               </v-date-picker>
             </v-menu>
           </div>
-          <div>
+          <div class="place">
             <div class="btn">
               <span class="text">Text</span>
               <span class="flip-front">장소</span>
@@ -213,8 +215,8 @@ export default {
     ...mapActions(['getTeamInfo', 'postDate', 'selectMember', 'deleteMember', 'selectDay', 'getNickname', 'getMyday', 'deleteDate', 'teamChat', 'gotoMap']),
     ...mapMutations(['goUserProfile']),
     teamDataSave() {
-      this.teamChatData.no = this.saveInfo.no,
-      this.teamChatData.leaderemail = this.saveInfo.leaderemail
+      this.teamChatData.no = sessionStorage.getItem('team_no')
+      this.teamChatData.leaderemail = sessionStorage.getItem('teamleader')
     },
     functionEvents (date) {
       for (let i = 0; i < this.meetDay.length; i++){
@@ -222,7 +224,11 @@ export default {
           return ['red']
         }
       }
-      },
+    },
+    saveChat() {
+      console.log(this.$store.state.teamchatTitle)
+      sessionStorage.setItem('chatinfo', this.$store.state.teamchatTitle)
+    }
   },
   created() {
   },
@@ -235,6 +241,9 @@ export default {
           this.dateInfo.leaderemail = infos[i].leaderemail
           this.dateInfo.memberemail = this.$store.state.email
           this.dateInfo.no = this.$route.params.id
+          this.teamChatData.no = this.saveInfo.no,
+          sessionStorage.setItem('team_no', this.saveInfo.no,)
+          sessionStorage.setItem('teamleader', this.saveInfo.leaderemail)
           this.selectDay(this.dateInfo)
           this.getMyday(this.dateInfo)
         }
@@ -243,9 +252,11 @@ export default {
       this.teamChat(this.teamChatData);
       window.scrollTo(0, 0)
     }, 350)
+
+
     setTimeout(() => {
       this.can.dates = this.$store.state.myDay
-    }, 450)
+    }, 550)
   }
 }
 </script>
@@ -354,6 +365,12 @@ body {
 }
 .card .title--block:hover {
   box-shadow: 0 0 12px rgba(55, 66, 250, 0.8);
+}
+.card .title--boss {
+  background-color: #1e272e;
+}
+.card .title--boss:hover {
+  box-shadow: 0 0 12px rgba(30, 39, 46, 0.8);
 }
 .card .desc {
   text-align: center;
@@ -537,5 +554,9 @@ button::-moz-focus-inner {
 
 .dot img {
   width: 10px;
+}
+
+.place {
+  margin: 7%;
 }
 </style>

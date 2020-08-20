@@ -48,11 +48,12 @@ export default {
     return {
       message: "",
       messages: [],
+      privateChatTitle: '',
     }
   },
   props: {
     nickname: String,
-    privateChatTitle: String, 
+    // privateChatTitle: String, 
   },
   methods:{
     ...mapActions(['getNickname', 'privateChat']),
@@ -85,9 +86,19 @@ export default {
     },
   },
   computed:{
-    ...mapState(['email', 'myNick']),
+    ...mapState(['email', 'myNick', 'privateChatTitle']),
   },
   created(){
+    if (typeof(sessionStorage.getItem('chatinfo')) === 'string') {
+      if (sessionStorage.getItem('chatinfo')[0] === '{' ) {
+        const info = JSON.parse(sessionStorage.getItem('chatinfo'))
+        this.privateChat(info)
+        this.privateChatTitle = this.$store.state.privateChatTitle
+      } else {
+        this.privateChatTitle = sessionStorage.getItem('chatinfo')
+      }
+    } 
+    
     this.fetchMessages();
   },
 }
