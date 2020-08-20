@@ -43,7 +43,15 @@ Vue.use(VueRouter)
   {
     path: '/feedcreate',
     name: "FeedCreate",
-    component: FeedCreate
+    component: FeedCreate,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/login',
