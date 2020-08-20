@@ -25,6 +25,7 @@
 <script>
 import { mapState } from "vuex";
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 // const SERVER_URL = 'http://localhost:9999/mit'
 const SERVER_URL = 'http:/i3b306.p.ssafy.io:9999/mit'
@@ -54,11 +55,13 @@ export default {
         if (res.length >= 8) {
           axios.put(`${SERVER_URL}/api/user/pwd?pwd=${res}&token=${res3}`)
             .then(() => {
-              alert('정상적으로 변경되었습니다.')
+              Swal.fire({
+                icon: 'success',
+                title: '정상적으로 변경되었습니다.',
+              })
               this.$router.push('/login')
             })
-            .catch((err) => {
-              console.log(err.data)
+            .catch( () => {
             })
         }
         else {
