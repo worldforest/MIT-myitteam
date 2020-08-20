@@ -156,6 +156,7 @@ export default {
 				title: '필수 항목들을 입력해주세요!(사진, 소개)',
 			})
 		} else {
+      console.log(feedData)
 			const formdata = new FormData();
 			formdata.append('description', feedData.description)
 			formdata.append('email', feedData.email) 
@@ -402,7 +403,12 @@ export default {
 					}
 			}
 		context.commit('contestData', contest.slice(9))
-		context.commit('projectData', project)
+		if (project.length >= 10) {
+			context.commit('projectData', project.slice(9))
+		} else {
+			context.commit('projectData', project)
+		}
+		
 		})
 		.catch(()=>{})
 	},
@@ -524,11 +530,12 @@ export default {
 			.catch(()=>{})
 	},
 
-	subEmail(context, res) {
-		var params = new URLSearchParams();
-		params.append('email', res)
+	subEmail(context, res) {	
 		context.commit('chageIsFlag')
 		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
+			.then((response)=>{
+				console.log(response)
+			})
 	},
 
 	pushCode(context, res) {
@@ -574,18 +581,21 @@ export default {
 	},
 
 	feedUpdate(context, res) {
+    console.log(res)
     const formdata = new FormData();
     formdata.append('description', res.description)
     formdata.append('file', res.src)
-    formdata.append('no',res.no)
-    formdata.append('tags', res.tag)
+    formdata.append('no', res.no)
     axios.post(`${SERVER_URL}/api/feed/update`, formdata)
       .then(() => {
         Swal.fire({
-					icon: 'success',
-					text: '성공적으로 수정하였습니다.!',
+          icon: 'success',
+          text: '성공적으로 수정하였습니다.!',
         })
         router.push({ name: "Profile" })
+      })
+      .catch((err) => {
+        console.log(err)
       })
 	},
 	

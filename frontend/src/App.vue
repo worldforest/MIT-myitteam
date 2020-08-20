@@ -147,6 +147,7 @@
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
+                  v-if="alarmList.length === 0"
                     x-large color="#FFFFFF"
                     v-bind="attrs"
                     v-on="on"
@@ -154,7 +155,13 @@
                   >
                     mdi-bell
                   </v-icon>
-                  <!-- <v-icon>mdi-bell-check</v-icon> -->
+                  <v-icon
+                      v-else
+                      x-large color="#FFFFFF"
+                      v-bind="attrs"
+                      v-on="on"
+                      class="accountIcon not-home mt-1 mr-2"
+                      @click="getalarm(myNick)">mdi-bell-check</v-icon>
                 </template>
                 <v-list v-for="(alarm, index) in alarmList" :key="index">
                   <v-list-item>
@@ -207,7 +214,7 @@
       </div>
     </div>
     <v-app :class="[ {'container': currentRouteName !== 'RealHome' } ]" style="padding:0px; background-color:#FAFAFA;">
-      <div style="background-color:#FAFAFA;" class="mt-10">
+      <div style="background-color:#FAFAFA;" :class="[ {'mt-10': currentRouteName !== 'RealHome' } ]">
         <router-view :privateChatTitle="$route.fullPath"/>
       </div>
     </v-app>
@@ -242,19 +249,20 @@ export default {
       this.windowWidth = window.innerWidth
     },
     goPJT(){
-      this.$router.push('/projectlist')
+      this.$router.push('/projectlist').catch(()=>{})
+        
     },
     goCON(){
-      this.$router.push('/AllContest')
+      this.$router.push('/AllContest').catch(()=>{})
     },
     goTEAM(){
-      this.$router.push('/myteam')
+      this.$router.push('/myteam').catch(()=>{})
     },
     goPRO(){
-      this.$router.push('/profile')
+      this.$router.push('/profile').catch(()=>{})
     },
     goChat(chat){
-      this.$router.push({name: 'Chat', params: { privateChatTitle : chat }});
+      this.$router.push({name: 'Chat', params: { privateChatTitle : chat }}).catch(()=>{});
     }
 
   },

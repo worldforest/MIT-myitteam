@@ -3,10 +3,10 @@
       <div>
         <v-card id="card-signup" class="mx-auto py-5 px-2 my-8" max-width="800">
         <h2 v-if="windowWidth >= 400" xs="6" class="text-center mb-8 h1-signup">회원가입해서 팀원을 만나보세요 :)</h2>
-        <h3 v-if="windowWidth < 400" xs="6" class="text-center mb-8 h1-signup">회원가입해서 팀원을 만나보세요 :)</h3>
+        <h4 v-if="windowWidth < 400" xs="6" class="text-center mb-8 h1-signup">회원가입해서 팀원을 만나보세요 :)</h4>
         <div>
           <v-col xs="6" md="11" class="mx-auto">
-            <v-text-field :rules="emailRules" v-model="signupData.email" label="아이디" outlined id="email"></v-text-field>
+            <v-text-field :rules="emailRules" v-model="signupData.email" label="E-mail" outlined id="email"></v-text-field>
           </v-col>
         </div>
 
