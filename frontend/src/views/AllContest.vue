@@ -2,9 +2,8 @@
   <div>     
     <div>
     <v-row no-gutters>
-      <li v-for="(i, index) in allContest" :key="index" class="mx-auto">
-        <!-- {{ pjt }} -->
-        <v-col v-for="n in 1" :key="n" cols="sm" > 
+      <li v-for="(i,index) in allContest" :key="index" class="mx-auto">
+        <v-col v-for="(n,index) in 1" :key="index" cols="sm" > 
           <v-card
             class="mx-auto contestCard"
             max-width="400"
@@ -16,20 +15,8 @@
               :src="i.imagesrc"
             >
             </v-img>
-
-            <v-card-subtitle class="pb-0" v-if="windowWidth > 800"><h4>{{i.title.slice(0,15)}}...</h4></v-card-subtitle>
-            <v-card-subtitle class="pb-0" v-else><p>{{i.title.slice(0,10)}}...</p></v-card-subtitle>
-
-            <v-card-actions >
-              <v-btn
-                color="orange"
-                text
-                class="ml-auto"
-                @click="gongmoDetail(i)"
-              >
-                자세히보기
-              </v-btn>
-            </v-card-actions>
+            <v-card-subtitle class="pb-0" v-if="windowWidth > 800"><h3>{{i.title.slice(0,20)}}</h3></v-card-subtitle>
+            <v-card-subtitle class="pb-0" v-else><h3>{{i.title.slice(0,20)}}</h3></v-card-subtitle>
           </v-card>
         </v-col>
       </li>
@@ -86,6 +73,11 @@ export default {
 </script>
 
 <style scoped>
+
+h3{
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 20px;
+}
   .contestCard{
     width: 320px
   }

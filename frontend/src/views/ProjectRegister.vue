@@ -1,5 +1,4 @@
 <template>
-	<v-card>
     <v-container>
       <div>
 				<v-card id="card-apply" class="mx-auto py-5 px-3 my-8" outlined max-width="800">
@@ -64,14 +63,17 @@
 													height="80px"
 												>
 													<v-text-field label="프로젝트 종료"
-															outlined
-															class="d-flex mx-auto" cols="5"
-															v-model="projectData.end"></v-text-field>
+														@eventlistener="date()"
+														outlined
+														class="d-flex mx-auto" cols="5"
+														
+														v-model="projectData.end"></v-text-field>
 												</v-btn>
 											</template>
 											
 												<v-flex>
 													<v-date-picker
+														
 														v-model="projectData.end"
 														color="blue lighten-1"
 														beforeShowDay: noBefore
@@ -198,24 +200,9 @@
 							<v-btn depressed large class="white--text" color="#5C6BC0" @click="projectregister(projectData)">등록하기</v-btn>
 						</div>
 					</v-col>
-
-						<v-date-picker
-							v-model=projectData.term
-							range=true
-							:value="null"
-							is-dark
-							is-inline
-						/>
-
-					{{projectData.term[0]}}
-					{{projectData.term[1]}}
 				</v-card>
       </div>
     </v-container>
-	</v-card>
-
-	
-
 </template>
 
 <script>
@@ -230,10 +217,6 @@ export default {
 	},
 	data() {
 		return{
-			// range:{
-			// 	start: "2020-08-19",
-			// 	end: ""
-			// },
 			selectRegion: ['서울특별시', '대전광역시', '대구광역시', '부산광역시', '경기도', '인천광역시', '광주광역시', '울산광역시', '세종특별시', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도'],
 			projectData: {
 				title: "",
@@ -253,6 +236,7 @@ export default {
 		windowWidth(newWidth, oldWidth) {
 		this.txt = `it changed to ${newWidth} from ${oldWidth}`;
 		}
+		
 	},
 	methods: {
 		...mapActions(['projectregister']),
@@ -271,7 +255,7 @@ export default {
 		this.projectData.email = this.$store.state.email, 
       this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
-    })
+		})
 	},
 	computed : {
     ...mapState(['email', 'teamreg']),
