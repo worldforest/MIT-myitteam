@@ -427,7 +427,6 @@ export default {
   h1{
     font-size: 30px;
   }
-
   /* 여기서 부터는 피드 */
   @import url("https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,700");
 * {

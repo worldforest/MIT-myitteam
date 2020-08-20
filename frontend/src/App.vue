@@ -21,15 +21,6 @@
             <li><div class="text-center ">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
-                  <!-- <v-icon
-                    v-if="allChat.length === 0"
-                    middle
-                    v-bind="attrs"
-                    v-on="on"
-                    @click="getAllChat(myNick)"
-                  >
-                    mdi-message-minus
-                  </v-icon> -->
                   <v-icon
                     middle
                     v-bind="attrs"
@@ -277,29 +268,27 @@ export default {
   },
   mounted() {
     this.getContestData()
-    if (this.$cookies.isKey('auth-token')) {
+    if (this.$cookies.isKey('auth-token') && !this.$cookies.isKey('auth-email')) {
       this.postEmailToken()
-      this.getTeamInfo()
       } 
+    if (this.$cookies.isKey('auth-token')) {
+      this.getTeamInfo()
+    }
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
   },
   created () {
-    this.getNickname(this.email)
+    if (this.$cookies.isKey('auth-token')) {
+      this.getNickname(this.email)
+    }
     this.currentRouteName
-    // this.getAllChat(this.myNick)
   },
 };
 </script>
 
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("./font/BMJUA_ttf.ttf");
-  }
-
-  *{ font-family: myFont, sans-serif; }
+  *{ font-family: 'Jua', sans-serif; }
 
   .not-home > a { 
     text-decoration: none;

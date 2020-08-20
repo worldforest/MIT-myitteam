@@ -24,8 +24,6 @@ export default {
         router.push({name: 'UserProfile'})
     },
     gongmoDetail(state, res) {
-        console.log('공모')
-        console.log(res)
         state.club = res
         sessionStorage.setItem('contestinfo', JSON.stringify(res))
         router.push({ name: "GongmoDetail"})
@@ -75,7 +73,6 @@ export default {
         state.followList = res
     },
     getTeam(state, res) {
-        console.log("mutations")
         state.getTeams = res 
     },
     followflag(state) {
@@ -167,7 +164,6 @@ export default {
         state.privateChatTitle = data
     },
     getDay(state, res) {
-        console.log(res)
         state.myDay = res
     },
     selectDay(state, res) {
