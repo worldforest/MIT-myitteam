@@ -249,19 +249,20 @@ export default {
       this.windowWidth = window.innerWidth
     },
     goPJT(){
-      this.$router.push('/projectlist')
+      this.$router.push('/projectlist').catch(()=>{})
+        
     },
     goCON(){
-      this.$router.push('/AllContest')
+      this.$router.push('/AllContest').catch(()=>{})
     },
     goTEAM(){
-      this.$router.push('/myteam')
+      this.$router.push('/myteam').catch(()=>{})
     },
     goPRO(){
-      this.$router.push('/profile')
+      this.$router.push('/profile').catch(()=>{})
     },
     goChat(chat){
-      this.$router.push({name: 'Chat', params: { privateChatTitle : chat }});
+      this.$router.push({name: 'Chat', params: { privateChatTitle : chat }}).catch(()=>{});
     }
 
   },

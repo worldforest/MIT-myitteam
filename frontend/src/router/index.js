@@ -98,11 +98,27 @@ Vue.use(VueRouter)
     name: "TeamRegister",
     component: TeamRegister,
     props: true,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/projectregister',
     name: 'ProjectRegister',
-    component: ProjectRegister
+    component: ProjectRegister,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/projectlist',
@@ -113,7 +129,15 @@ Vue.use(VueRouter)
     path: '/teamInfoDetail',
     name: 'teamInfoDetail',
     component: teamInfoDetail,
-    props: true
+    props: true,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   //////////다인////////////
   //////////지훈////////////
@@ -159,6 +183,14 @@ Vue.use(VueRouter)
     path: '/updateprofile',
     name: 'UpdateProfile',
     component: UpdateProfile,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/searchtag',
@@ -168,12 +200,28 @@ Vue.use(VueRouter)
   {
     path: '/dmap',
     name: 'dmap',
-    component: dmap
+    component: dmap,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/feedupdate',
     name: 'FeedUpdate',
     component: FeedUpdate,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '*',
@@ -189,18 +237,42 @@ Vue.use(VueRouter)
     path: '/myteam',
     name: "Myteam",
     component: Myteam,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/myteam/:id',
     name: "Myteaminfo",
     component: Myteaminfo,
     props: true,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: '/chat',
     name: "Chat",
     component: Chat,
     props: true,
+    beforeEnter(to, from, next) {
+      if (!Vue.$cookies.isKey('auth-token')) {
+        next('/login')
+      }
+      else {
+        next()
+      }
+    }
   }
 ]
 
