@@ -333,7 +333,7 @@ export default {
     },
     Fflag() {
       this.flag = false
-    }
+    },
   },
 
   computed: {
