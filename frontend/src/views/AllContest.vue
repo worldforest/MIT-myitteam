@@ -15,8 +15,8 @@
               :src="i.imagesrc"
             >
             </v-img>
-            <v-card-subtitle class="pb-0" v-if="windowWidth > 800"><h3>{{i.title.slice(0,20)}}</h3></v-card-subtitle>
-            <v-card-subtitle class="pb-0" v-else><h3>{{i.title.slice(0,20)}}</h3></v-card-subtitle>
+            <v-card-subtitle class="pb-1" v-if="windowWidth > 800"><h3>{{i.title.slice(0,20)}}</h3></v-card-subtitle>
+            <v-card-subtitle class="pb-1" v-else><h3>{{i.title.slice(0,20)}}</h3></v-card-subtitle>
           </v-card>
         </v-col>
       </li>
@@ -73,11 +73,6 @@ export default {
 </script>
 
 <style scoped>
-
-h3{
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 20px;
-}
   .contestCard{
     width: 320px
   }

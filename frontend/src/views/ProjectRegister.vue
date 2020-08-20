@@ -63,10 +63,8 @@
 													height="80px"
 												>
 													<v-text-field label="프로젝트 종료"
-														@eventlistener="date()"
 														outlined
 														class="d-flex mx-auto" cols="5"
-														
 														v-model="projectData.end"></v-text-field>
 												</v-btn>
 											</template>
@@ -86,31 +84,8 @@
 						</v-row>
 
 						<!-- /////////////// 모바일 //////////////////-->
-						<v-row>
-							<v-col v-if="windowWidth < 400" class="d-flex">
-								<template>
-									<v-menu offset-y>
-										<template v-slot:activator="{ on, attrs }">
-											<v-btn
-												text
-												v-bind="attrs"
-												v-on="on"
-												height="80px"
-												width="300px"
-											>
-												<v-text-field label="시작"
-													outlined
-													v-model="projectData.start"></v-text-field>
-											</v-btn>
-										</template>
-									
-										<v-flex>
-											<v-date-picker v-model="projectData" color="green lighten-1"></v-date-picker>
-										</v-flex>
-									</v-menu>
-								</template>
-							</v-col>
-							<v-col v-if="windowWidth < 400" class="d-flex" >
+						<v-row v-if="windowWidth < 400">
+							<v-col class="d-flex mx-auto" cols="12">
 								<template>
 									<div class="text-center">
 										<v-menu offset-y>
@@ -121,19 +96,47 @@
 													v-on="on"
 													height="80px"
 													width="300px"
+													class="mx-auto"
 												>
-													<v-text-field label="종료"
+													<v-text-field label="프로젝트 시작"
+															outlined
+															v-model="projectData.start"></v-text-field>
+												</v-btn>
+											</template>
+										
+											<v-flex>
+												<v-date-picker v-model="projectData.start" color="green lighten-1"></v-date-picker>
+											</v-flex>
+										</v-menu>
+									</div>
+								</template>
+							</v-col>
+							<v-col class="d-flex mx-auto" cols="12">
+								<template>
+									<div class="text-center">
+										<v-menu offset-y>
+											<template v-slot:activator="{ on, attrs }">
+												<v-btn
+													text
+													v-bind="attrs"
+													v-on="on"
+													height="80px"
+													width="300px"
+													class="mx-auto"
+												>
+													<v-text-field label="프로젝트 종료"
 														outlined
-														cols="6"
-														v-model="projectData.end">
-													</v-text-field>
+														class="d-flex mx-auto" cols="5"
+														v-model="projectData.end"></v-text-field>
 												</v-btn>
 											</template>
 											
 												<v-flex>
 													<v-date-picker
-													v-model="projectData.end"
-													color="blue lighten-1"
+														
+														v-model="projectData.end"
+														color="blue lighten-1"
+														beforeShowDay: noBefore
 													></v-date-picker>
 												</v-flex>
 										</v-menu>
@@ -246,7 +249,6 @@ export default {
 		onResize() {
 				this.windowWidth = window.innerWidth
 		},
-		// allowedDates: val => parseInt(val.split('-')[1]) % 2 === 0,
 	}, 
 	beforeDestroy() { 
 		window.removeEventListener('resize', this.onResize); 

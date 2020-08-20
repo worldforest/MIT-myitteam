@@ -21,15 +21,6 @@
             <li><div class="text-center ">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
-                  <!-- <v-icon
-                    v-if="allChat.length === 0"
-                    middle
-                    v-bind="attrs"
-                    v-on="on"
-                    @click="getAllChat(myNick)"
-                  >
-                    mdi-message-minus
-                  </v-icon> -->
                   <v-icon
                     middle
                     v-bind="attrs"
@@ -223,7 +214,7 @@
       </div>
     </div>
     <v-app :class="[ {'container': currentRouteName !== 'RealHome' } ]" style="padding:0px; background-color:#FAFAFA;">
-      <div style="background-color:#FAFAFA;">
+      <div style="background-color:#FAFAFA;" class="mt-10">
         <router-view :privateChatTitle="$route.fullPath"/>
       </div>
     </v-app>
@@ -296,21 +287,14 @@ export default {
   created () {
     if (this.$cookies.isKey('auth-token')) {
       this.getNickname(this.email)
-      console.log(this.email)
     }
     this.currentRouteName
-    // this.getAllChat(this.myNick)
   },
 };
 </script>
 
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("./font/BMJUA_ttf.ttf");
-  }
-
-  *{ font-family: myFont, sans-serif; }
+  *{ font-family: 'Jua', sans-serif; }
 
   .not-home > a { 
     text-decoration: none;

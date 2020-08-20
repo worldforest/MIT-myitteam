@@ -186,7 +186,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
