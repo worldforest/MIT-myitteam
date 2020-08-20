@@ -90,7 +90,7 @@
         </div>
         <div class="d-flex my-5 ml-5">
           <div class="text-center mr-15">
-            <v-dialog v-model="dialog" width="500">
+            <v-dialog v-model="dialog" width="300">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowList(email);">
                   <h4>팔로잉| {{ profileData.followingCnt }}명</h4>
