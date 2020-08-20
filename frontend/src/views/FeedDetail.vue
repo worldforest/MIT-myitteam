@@ -14,7 +14,6 @@
       <hr>
       <div class="d-flex justify-end mb-4">
         <h4>작성일자: {{ detailFeed.writedate.slice(0,10) }}</h4>
-        <h4 class="ml-4">조회수:  {{ detailFeed.views }}</h4>
       </div>
 
       <article class="col-md-12">
@@ -96,8 +95,8 @@
                           </v-dialog>
                         </div>
                         
-                        <v-icon v-if="!likeUserList2.includes(email)" large class="mr-4 likebtn" @click="like(likeData);">mdi-heart-multiple-outline</v-icon>
-                        <v-icon v-if="likeUserList2.includes(email)" large class="mr-4 likebtn" color="red" @click="unlike(likeData);">mdi-heart-multiple</v-icon>
+                        <v-icon v-if="!likeUserList2.includes(email) && email" large class="mr-4 likebtn" @click="like(likeData);">mdi-heart-multiple-outline</v-icon>
+                        <v-icon v-if="likeUserList2.includes(email) && email" large class="mr-4 likebtn" color="red" @click="unlike(likeData);">mdi-heart-multiple</v-icon>
                       </div>
                     </div>
                   </div>
@@ -120,7 +119,6 @@
       <hr>
       <div class="d-flex justify-end mb-4">
         <span>작성일자: {{ detailFeed.writedate.slice(0,10) }}</span>
-        <span class="ml-4">조회수:  {{ detailFeed.views }}</span>
       </div>
 
       <div>      

@@ -3,7 +3,7 @@
     <!-- /////////////////////////////    화면이 가장 클 때    //////////////////////////////////////// -->
     <div v-if="windowWidth >= 1266">
       <div class="mt-6">
-        <h1 @click="goContest" class="Pjt_h1 mb-4">공모전</h1>
+        <h1 @click="goContest()" class="Pjt_h1 mb-4">공모전</h1>
         <carousel :per-page="4" :mouse-drag="true" style="width:100%">
           <slide v-for="(club, index) in clubs" :key="index">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
