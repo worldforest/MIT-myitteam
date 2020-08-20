@@ -15,24 +15,24 @@
                     <div class="pjtCard mx-auto mb-6">
                       <div class="mb-2 white--text partTitle" >
                         <v-row>
-                          <h3 class="ml-5 mt-2 cardModal">{{ item.part }}</h3>
+                          <h3 class="ml-5 mt-2 cardModal fontda">{{ item.part }}</h3>
                           <v-spacer></v-spacer>
                           <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                         </v-row>
                       </div>
                       <h4 class="ml-5 mt-3">담당 업무</h4>
                       <v-card-text class="ml-5">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                        <v-list-item-title style="white-space:pre-line;"><h5>{{ item.task }}</h5></v-list-item-title>
                       </v-card-text>
                       <hr class="mb-2">
                       <h4 class="ml-5">필수 역량</h4>
                       <v-card-text class="ml-5">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                        <v-list-item-title style="white-space:pre-line;"><h5>{{ item.ability }}</h5></v-list-item-title>
                       </v-card-text>
                       <hr class="mb-2">
                       <h4 class="ml-5">우대 사항</h4>
                       <v-card-text class="ml-5">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                        <v-list-item-title style="white-space:pre-line;"><h5>{{ item.advantage }}</h5></v-list-item-title>
                       </v-card-text>
                       <v-row v-if="club2.email !== email" justify="center">
                         <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
@@ -60,24 +60,24 @@
                     <div class=" pjtCard2 mx-auto mb-6">
                       <div class="headline mb-2 white--text partTitle" >
                         <v-row>
-                          <h3 class="ml-5 mt-2 cardModal">{{ item.part }}</h3>
+                          <h3 class="ml-5 mt-2 cardModal fontda">{{ item.part }}</h3>
                           <v-spacer></v-spacer>
                           <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                         </v-row>
                       </div>
                       <h3 class="ml-3">담당 업무</h3>
                       <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                        <v-list-item-title style="white-space:pre-line;"><h5>{{ item.task }}</h5></v-list-item-title>
                       </v-card-text>
                       <hr class="mb-2">
                       <h3 class="ml-3">필수 역량</h3>
                       <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                        <v-list-item-title style="white-space:pre-line;"><h5>{{ item.ability }}</h5></v-list-item-title>
                       </v-card-text>
                       <hr class="mb-2">
                       <h3 class="ml-3">우대 사항</h3>
                       <v-card-text class="ml-2">
-                        <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                        <v-list-item-title style="white-space:pre-line;"><h5>{{ item.advantage }}</h5></v-list-item-title>
                       </v-card-text>
                       <v-row v-if="club2.email !== email" justify="center">
                         <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
@@ -114,24 +114,24 @@
                   <div class="pjtCard3 mx-auto mb-6">
                     <div class="headline mb-2 white--text partTitle" >
                       <v-row>
-                        <h3 class="ml-5 mt-2 cardModal">{{ item.part }}</h3>
+                        <h3 class="ml-5 mt-2 cardModal fontda">{{ item.part }}</h3>
                         <v-spacer></v-spacer>
                         <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                       </v-row>
                     </div>
                     <h3 class="ml-3">담당 업무</h3>
                     <v-card-text class="ml-2">
-                      <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                      <v-list-item-title style="white-space:pre-line;"><h5>{{ item.task }}</h5></v-list-item-title>
                     </v-card-text>
                     <hr class="mb-2">
                     <h3 class="ml-3">필수 역량</h3>
                     <v-card-text class="ml-2">
-                      <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                      <v-list-item-title style="white-space:pre-line;"><h5>{{ item.ability }}</h5></v-list-item-title>
                     </v-card-text>
                     <hr class="mb-2">
                     <h3 class="ml-3">우대 사항</h3>
                     <v-card-text class="ml-2">
-                      <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                      <v-list-item-title style="white-space:pre-line;"><h5>{{ item.advantage }}</h5></v-list-item-title>
                     </v-card-text>
                     <v-row v-if="club2.email !== email" justify="center">
                       <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
@@ -160,24 +160,24 @@
                   <div class="pjtCard5 mx-auto mb-6">
                     <div class="headline mb-2 white--text partTitle" >
                       <v-row>
-                        <h3 class="ml-5 mt-2 cardModal">{{ item.part }}</h3>
+                        <h3 class="ml-5 mt-2 cardModal fontda">{{ item.part }}</h3>
                         <v-spacer></v-spacer>
                         <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
                       </v-row>
                     </div>
                     <h3 class="ml-3">담당 업무</h3>
                     <v-card-text class="ml-2">
-                      <v-list-item-title style="white-space:pre-line;">{{ item.task }}</v-list-item-title>
+                      <v-list-item-title style="white-space:pre-line;"><h5>{{ item.task }}</h5></v-list-item-title>
                     </v-card-text>
                     <hr class="mb-2">
                     <h3 class="ml-3">필수 역량</h3>
                     <v-card-text class="ml-2">
-                      <v-list-item-title style="white-space:pre-line;">{{ item.ability }}</v-list-item-title>
+                      <v-list-item-title style="white-space:pre-line;"><h5>{{ item.ability }}</h5></v-list-item-title>
                     </v-card-text>
                     <hr class="mb-2">
                     <h3 class="ml-3">우대 사항</h3>
                     <v-card-text class="ml-2">
-                      <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
+                      <v-list-item-title style="white-space:pre-line;"><h5>{{ item.advantage }}</h5></v-list-item-title>
                     </v-card-text>
                     <v-row v-if="club2.email !== email" justify="center">
                       <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
@@ -204,10 +204,10 @@
                 <li v-for="(item, index) in i.dataList" :key="index">
                   <div class="pjtCard4 mx-auto mb-4">
                     <div class="mb-2 white--text partTitle" >
-                      <v-row>
+                      <v-row class="fontda">
                         <h4 class="ml-3 mt-2 cardModal">{{ item.part }}</h4>
                         <v-spacer></v-spacer>
-                        <h5 class="mr-5 mt-3 cardModal"> 인원 : {{ item.headCount }}</h5>
+                        <h6 class="mr-5 mt-3 cardModal fontda"> 인원 : {{ item.headCount }}</h6>
                       </v-row>
                     </div>
                     <h5 class="ml-3">담당 업무</h5>
@@ -313,6 +313,9 @@ export default {
 <style scoped>
   *{ font-family: 'Jua', sans-serif;}
 
+  .fontda{
+    font-family: 'Jua', sans-serif;
+  }
   .pill {
     position: absolute;
     padding: 0 8px;
@@ -323,7 +326,9 @@ export default {
     font-weight: bold;
     background-color: #a6a6a6;
   }
-
+  .local{
+    color: rgb(92, 107, 192);
+  }
   li {
     list-style: none;
   }
@@ -352,7 +357,5 @@ export default {
     border: 2px solid lightgrey;
     width: 330px;
   }
-  .cardModal{
-    font-family: myFont, sans-serif;
-  }
+
 </style>

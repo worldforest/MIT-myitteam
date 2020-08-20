@@ -13,18 +13,19 @@
         </div>
         <div class="d-flex my-5 ml-5">
           <div class="text-center mr-15">
-            <v-dialog v-model="dialog" width="500">
+            <v-dialog v-model="dialog" width="300">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowList(email);">
-                  <h5>팔로잉| {{ profileData.followingCnt }}</h5>
+                  <h5>팔로잉 | {{ profileData.followingCnt }}</h5>
                 </span>
               </template>
 
               <v-card class="cardModal">
+                {{ followList }}
                 <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
                 
                 <li v-for="(item, index) in followList" :key="index">
-                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3 my-2">{{ item.nickname }}</h4></router-link>
                   <hr>
                 </li>
 
@@ -39,10 +40,10 @@
           </div>
 
           <div class="text-center">
-            <v-dialog v-model="dialog2" width="500">
+            <v-dialog v-model="dialog2" width="300">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowerList(email);">
-                  <h5>팔로워| {{ profileData.followerCnt }}</h5>
+                  <h5>팔로워 | {{ profileData.followerCnt }}</h5>
                 </span>
               </template>
 
@@ -50,7 +51,7 @@
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
                 <li v-for="(item, index) in followerList" :key="index">
-                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3 my-2">{{ item.nickname }}</h4></router-link>
                   <hr>
                 </li>
 
@@ -65,9 +66,8 @@
           </div>
         </div>
         <div class="d-flex ml-5">
-          <span> <h3>{{ profileData.description }} 개발자</h3> </span>
+          <h5 ># <span class="fontcolor">{{ profileData.description }} 개발자</span></h5>
           <br>
-          
         </div>
         <div class="d-flex">
           <div class="ml-auto TeamButton cursor" style="color:white" @click="updateProfile(profileData)">
@@ -102,7 +102,7 @@
                 <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
                 
                 <li v-for="(item, index) in followList" :key="index">
-                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3 my-2">{{ item.nickname }}</h4></router-link>
                   <hr>
                 </li>
 
@@ -117,7 +117,7 @@
           </div>
 
           <div class="text-center">
-            <v-dialog v-model="dialog2" width="500">
+            <v-dialog v-model="dialog2" width="300">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowerList(email);">
                   <h4>팔로워| {{ profileData.followerCnt }}명</h4>
@@ -128,7 +128,7 @@
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
                 <li v-for="(item, index) in followerList" :key="index">
-                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                  <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3 my-2">{{ item.nickname }}</h4></router-link>
                   <hr>
                 </li>
 
@@ -164,7 +164,7 @@
       
       <div class="social-icons">
         <div class="icon">
-          <v-dialog v-model="dialog2" width="500">
+          <v-dialog v-model="dialog2" width="300">
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowerList(email);">
                 <h4>{{  profileData.followerCnt }}</h4>
@@ -175,7 +175,7 @@
               <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
               
               <li v-for="(item, index) in followerList" :key="index">
-                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3 my-2">{{ item.nickname }}</h4></router-link>
                 <hr>
               </li>
 
@@ -191,7 +191,7 @@
         </div>
         
         <div class="icon">
-          <v-dialog v-model="dialog" width="500">
+          <v-dialog v-model="dialog" width="300">
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowList(email);">
                 <h4>{{  profileData.followingCnt }}</h4>
@@ -202,7 +202,7 @@
               <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
               
               <li v-for="(item, index) in followList" :key="index">
-                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3 my-2">{{ item.nickname }}</h4></router-link>
                 <hr>
               </li>
 
@@ -219,7 +219,7 @@
         
       </div>
     </div>
-    <hr class="mb-2">
+    <hr class="my-4">
     <div class="text-center" v-if="windowWidth <= 760">
       <h3>피드</h3>
     </div>
@@ -342,7 +342,9 @@ export default {
   .h1 {
     font-size: 30px;
   }
-
+  .fontcolor{
+    color: rgb(92, 107, 192);
+  }
   .filebox label 
     { display: inline-block;
       padding: .5em .75em;

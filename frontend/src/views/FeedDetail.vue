@@ -45,7 +45,7 @@
                             {{tag}}
                           </v-chip>
                         </v-chip-group></h6>
-                      <p class="card-description"> {{detailFeed.description}} </p>
+                      <h5 class="card-description my-10"> {{detailFeed.description}} </h5>
                       <div class="ftr"> 
                         <div class="d-flex cont2" v-if=" detailFeed.email === email">
                           <div class="ml-auto">
