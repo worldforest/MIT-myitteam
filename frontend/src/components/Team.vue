@@ -201,7 +201,6 @@ export default {
       this.deleteData.leaderemail = i.email
     },
     checkemail(){
-      console.log(this.getTeamList.length)
       for(var x=0; x < this.getTeamList.length; x++){
         if (this.getTeamList[x].email === this.email){
           Swal.fire({
