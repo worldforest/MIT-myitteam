@@ -30,7 +30,7 @@
             v-model="pushData.code">
           <label>Code</label>
         </div>
-        <a @click="pushCode(pushData.code)">
+        <a @click="pushCode(pushData)">
           <span></span>
           <span></span>
           <span></span>
@@ -40,58 +40,6 @@
       </form>
     </div>
 
-    <!-- <div v-if="isFlag">
-      <h2 class="text-center mt-2">비밀번호 찾기</h2>
-      <v-form>
-        <v-container>
-          <v-row>
-            <v-col>
-              <v-text-field
-                label="Email"
-                outlined
-                v-model="pushData.email"
-                :rules="emailRules"
-                required
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <v-btn
-            width="100%"
-            class="white--text"
-            large
-            color="#5C6BC0"
-            @click="subEmail(pushData.email)"
-          >Submit</v-btn>
-        </v-container>
-      </v-form>  
-    </div>
-    <div v-else>
-      <h2 class="text-center mt-2">비밀번호 찾기</h2>
-      <v-form>
-        <v-container>
-          <v-row>
-            <v-col>
-              <v-text-field
-                label="Email"
-                outlined
-                v-model="pushData.email"
-                :rules="emailRules"
-                required
-              ></v-text-field>
-            </v-col>
-          </v-row>
-           <v-text-field v-model="pushData.code" label="코드" outlined id="code"></v-text-field>
-           <v-btn
-            width="100%"
-            class="white--text"
-            large
-            color="#5C6BC0"
-            @click="pushCode(pushData)"
-          >Submit</v-btn>
-        </v-container>
-      </v-form>  
-     
-    </div>   -->
   </div>
 </template>
 
@@ -123,12 +71,13 @@ export default {
     ...mapState(['isFlag'])
   },
   beforeDestroy() {
-    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener("resize", this.onResize);    
   },
   mounted() {
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
+    window.scrollTo(0, 0)
   },
 };
 </script>

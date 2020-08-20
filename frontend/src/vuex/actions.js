@@ -6,8 +6,8 @@ import 'url-search-params-polyfill'
 import Swal from 'sweetalert2'
 
 
-const SERVER_URL = 'http://localhost:9999/mit'
-// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
+// const SERVER_URL = 'http://localhost:9999/mit'
+const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
 
 export default {
 	postToken2({ commit }, info) {
@@ -156,7 +156,6 @@ export default {
 				title: '필수 항목들을 입력해주세요!(사진, 소개)',
 			})
 		} else {
-      console.log(feedData)
 			const formdata = new FormData();
 			formdata.append('description', feedData.description)
 			formdata.append('email', feedData.email) 
@@ -330,7 +329,6 @@ export default {
 		})
 	},
 	getNickname(context, email){
-		// console.log(email)
 		axios.get(`${SERVER_URL}/api/user/selectNickname?email=${email}`)
 		.then(res => {
 			context.commit('getNick', res.data)
@@ -547,16 +545,15 @@ export default {
 	subEmail(context, res) {	
 		context.commit('chageIsFlag')
 		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
-			.then((response)=>{
-				console.log(response)
-			})
 	},
 
 	pushCode(context, res) {
-		var params = new URLSearchParams();
-		params.append('code', res.code)
-		params.append('email', res.email)
-		axios.post(`${SERVER_URL}/api/user/pwd`,params)
+		// var params = new URLSearchParams();
+		// params.append('code', res.code)
+		// params.append('email', res.email)
+		console.log(res.code)
+		console.log(res.email)
+		axios.post(`${SERVER_URL}/api/user/pwd?code=${res.code}&email=${res.email}`)
 			.then((response) => {
 				context.commit('getPwdToken', response.data)
 			})
@@ -595,7 +592,6 @@ export default {
 	},
 
 	feedUpdate(context, res) {
-    console.log(res)
     const formdata = new FormData();
     formdata.append('description', res.description)
     formdata.append('file', res.src)
@@ -608,8 +604,11 @@ export default {
         })
         router.push({ name: "Profile" })
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(() => {
+        Swal.fire({
+          icon: 'fail',
+          text: '수정에 실패하였습니다. 빠진 항목이 없는지 확인해주세요 ㅜㅜ',
+        })
       })
 	},
 	
