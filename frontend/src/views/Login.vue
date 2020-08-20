@@ -32,6 +32,15 @@
             FindPwd
           </a>
         </div>
+        <div class="d-flex">
+          <a class="mx-auto" href="/signup">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Sign up
+          </a>
+        </div>
       </form>
     </div>
   </div>

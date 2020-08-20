@@ -112,6 +112,22 @@ export default {
         router.push({ name: "ProjectDetail" })
     },
     updateFeed(state, res) {
+        // var tagList = []
+        // for (var i=0; i < res.tag.length; i++) {
+        //     tagList.push('#'+res.tag[i])
+        // }
+        // for (var z=0; z<tagList.length; z++) {
+        //     tagList[z].split(',')
+        //     let data = [];
+        //     for (let k=0; k<tagList[z].length; k++) {
+        //         if (tagList[z][k] !== '' && tagList[z][k] !== ' ') {
+        //             data.push(tagList[z][k])
+        //         }
+        //     }
+        //     console.log(data)
+        // }
+        // console.log(tagList)
+
         state.upFeed = res
         router.push({name: "FeedUpdate"})
     },
