@@ -69,6 +69,7 @@ export default {
       this.$nextTick(() => {
         window.addEventListener('resize', this.onResize);
       })
+      window.scrollTo(0, 0)
     },
     methods: {
         initMap() {

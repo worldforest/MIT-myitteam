@@ -246,6 +246,7 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
     this.userprofile(this.detailFeed.email)
+    window.scrollTo(0, 0)
   },
   created(){
     this.likeCnt(this.likeCntData);

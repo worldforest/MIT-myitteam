@@ -310,6 +310,7 @@ export default {
     this.getContestData()
     this.searchFeed()
     this.myFollowList(this.email)
+    window.scrollTo(0, 0)
   },
 
   beforeDestroy() { 

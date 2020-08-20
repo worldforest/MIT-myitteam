@@ -69,6 +69,9 @@ export default {
   },
   computed: {
     ...mapState(['pwdToken'])
+  },
+  mounted() {
+    window.scrollTo(0, 0)
   }
 }
 

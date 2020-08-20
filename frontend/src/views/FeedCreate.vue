@@ -56,6 +56,7 @@ export default {
   },
   mounted () {
     this.feedData.email = this.$store.state.email
+    window.scrollTo(0, 0)
   }
   
 }

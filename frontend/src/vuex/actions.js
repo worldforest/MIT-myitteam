@@ -156,7 +156,6 @@ export default {
 				title: '필수 항목들을 입력해주세요!(사진, 소개)',
 			})
 		} else {
-      console.log(feedData)
 			const formdata = new FormData();
 			formdata.append('description', feedData.description)
 			formdata.append('email', feedData.email) 
@@ -316,7 +315,6 @@ export default {
 		})
 	},
 	getNickname(context, email){
-		// console.log(email)
 		axios.get(`${SERVER_URL}/api/user/selectNickname?email=${email}`)
 		.then(res => {
 			context.commit('getNick', res.data)
@@ -533,9 +531,6 @@ export default {
 	subEmail(context, res) {	
 		context.commit('chageIsFlag')
 		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
-			.then((response)=>{
-				console.log(response)
-			})
 	},
 
 	pushCode(context, res) {
@@ -581,7 +576,6 @@ export default {
 	},
 
 	feedUpdate(context, res) {
-    console.log(res)
     const formdata = new FormData();
     formdata.append('description', res.description)
     formdata.append('file', res.src)
@@ -594,8 +588,11 @@ export default {
         })
         router.push({ name: "Profile" })
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(() => {
+        Swal.fire({
+          icon: 'fail',
+          text: '수정에 실패하였습니다. 빠진 항목이 없는지 확인해주세요 ㅜㅜ',
+        })
       })
 	},
 	

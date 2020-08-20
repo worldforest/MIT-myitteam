@@ -44,6 +44,7 @@ export default {
   mounted () {
     this.getTeamInfo()
     this.$store.state.myTeamInfo = JSON.parse(sessionStorage.getItem('myTeam'))
+    window.scrollTo(0, 0)
   }
  }
 </script>
