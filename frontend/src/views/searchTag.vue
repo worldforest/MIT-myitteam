@@ -34,7 +34,8 @@
             </v-row>
 
             <div class="my-4 subtitle-1">
-              {{feed.description}}
+              <span v-if="feed.description <= 30">{{feed.description}}</span>
+              <span v-else>{{feed.description.slice(0,30)}}...</span>
             </div>
           </v-card-text>
 
