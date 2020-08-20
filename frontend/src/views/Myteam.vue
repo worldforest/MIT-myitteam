@@ -91,7 +91,7 @@ h1 {
 .dohee {
   perspective: 1000px;
   display: inline-block;
-  margin: 5%;
+  margin: 6%;
 }
 
 .dohee:hover .flipper {

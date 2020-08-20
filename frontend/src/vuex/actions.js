@@ -589,22 +589,39 @@ export default {
 			context.commit('myTeamInfo', response.data)
 		})
 	},
-	postDate (context, dateinfo) {
-		axios.post(`${SERVER_URL}/api/team/insetSchedule`, dateinfo)
-		.then(() =>{
-			setTimeout(() => {
-				router.go()
-			}, 100)
-		})
+	postDate (context, info) {
+		console.log(info)
+		for (let i = 0; i < info.date.length; i++) {
+			const dateinfo = {
+				date : info.date[i],
+				leaderemail: info.leaderemail,
+				memberemail: info.memberemail,
+				no: info.no
+			}
+			axios.post(`${SERVER_URL}/api/team/insetSchedule`, dateinfo)
+			.then(() =>{
+				setTimeout(() => {
+					router.go()
+				}, 100)
+			})
+		}
+
 	},
-	deleteDate (context, dateinfo) {
-		console.log(dateinfo)
-		axios.post(`${SERVER_URL}/api/team/deleteSchedule`, dateinfo)
-		.then(() =>{
-			setTimeout(() => {
-				router.go()
-			}, 100)
-		})
+	deleteDate (context, info) {
+		for (let i = 0; i < info.date.length; i++) {
+			const dateinfo = {
+				date : info.date[i],
+				leaderemail: info.leaderemail,
+				memberemail: info.memberemail,
+				no: info.no
+			}
+			axios.post(`${SERVER_URL}/api/team/deleteSchedule`, dateinfo)
+			.then(() =>{
+				setTimeout(() => {
+					router.go()
+				}, 100)
+			})
+		}
 	},
 	selectMember ({dispatch}, apply) {
 		const params = new URLSearchParams();
