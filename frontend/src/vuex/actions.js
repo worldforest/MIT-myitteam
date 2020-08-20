@@ -6,8 +6,8 @@ import 'url-search-params-polyfill'
 import Swal from 'sweetalert2'
 
 
-const SERVER_URL = 'http://localhost:9999/mit'
-// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
+// const SERVER_URL = 'http://localhost:9999/mit'
+const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
 
 export default {
 	postToken2({ commit }, info) {
@@ -548,10 +548,12 @@ export default {
 	},
 
 	pushCode(context, res) {
-		var params = new URLSearchParams();
-		params.append('code', res.code)
-		params.append('email', res.email)
-		axios.post(`${SERVER_URL}/api/user/pwd`,params)
+		// var params = new URLSearchParams();
+		// params.append('code', res.code)
+		// params.append('email', res.email)
+		console.log(res.code)
+		console.log(res.email)
+		axios.post(`${SERVER_URL}/api/user/pwd?code=${res.code}&email=${res.email}`)
 			.then((response) => {
 				context.commit('getPwdToken', response.data)
 			})
