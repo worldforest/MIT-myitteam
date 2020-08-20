@@ -6,8 +6,8 @@ import 'url-search-params-polyfill'
 import Swal from 'sweetalert2'
 
 
-// const SERVER_URL = 'http://localhost:9999/mit'
-const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
+const SERVER_URL = 'http://localhost:9999/mit'
+// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
 
 export default {
 	postToken2({ commit }, info) {
@@ -343,6 +343,7 @@ export default {
 		.then(res => {
 			context.commit('getNick', res.data)
 			context.dispatch('getalarm', res.data)
+			sessionStorage.setItem('mynick', res.data)
 		})
 		.catch(()=>{
 		})
@@ -640,6 +641,7 @@ export default {
 		})
 	},
 	postDate (context, info) {
+		console.log(info)
 		for (let i = 0; i < info.date.length; i++) {
 			const dateinfo = {
 				date : info.date[i],
@@ -652,6 +654,9 @@ export default {
 				setTimeout(() => {
 					router.go()
 				}, 100)
+			})
+			.catch(error => {
+				console.log(error)
 			})
 		}
 
@@ -721,5 +726,5 @@ export default {
 			context.commit('getDay', response.data)
 		})
 		.catch(() => {})
-	}
+	},
 }
