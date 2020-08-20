@@ -84,6 +84,10 @@ export default {
       })
     },
   },
+
+  mounted() {
+    window.scrollTo(0,document.body.scrollHeight);
+  },
   computed:{
     ...mapState(['email', 'myNick']),
   },
