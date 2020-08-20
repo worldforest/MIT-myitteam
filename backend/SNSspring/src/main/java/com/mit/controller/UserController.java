@@ -178,7 +178,7 @@ public class UserController {
 	@ApiOperation(value = "user image 조회 ", notes = "user Image를 반환합니다. 못찾은경우 기본 image를 반환합니다.")
 	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<byte[]> userImageSearch(@PathVariable("imagename") String imagename) throws IOException {
-		InputStream imageStream = new FileInputStream("C://images/user/" + imagename);
+		InputStream imageStream = new FileInputStream(path.getIm() + "images/user/" + imagename);
 		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
 		imageStream.close();
 		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);

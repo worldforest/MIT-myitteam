@@ -6,8 +6,8 @@ import 'url-search-params-polyfill'
 import Swal from 'sweetalert2'
 
 
-const SERVER_URL = 'http://localhost:9999/mit'
-// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
+// const SERVER_URL = 'http://localhost:9999/mit'
+const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
 
 export default {
 	postToken2({ commit }, info) {
@@ -165,10 +165,17 @@ export default {
 			.then(() => {
 				Swal.fire({
 					icon: 'success',
-					title: '성공적으로 등록하였습니다.',
+					title: '피드 등록 완료!',
 					width: 600
 				})
 				router.push({ name: "Profile"})
+			})
+			.catch(()=>{
+				Swal.fire({
+					icon: 'error',
+					title: '파일 용량을 줄여주세요 :(',
+					width: 600
+				})
 			})
 		}		
 	},
@@ -231,8 +238,13 @@ export default {
 				width: 600
 			})
 		})
-		.catch(err => {
-			console.log(err.response.data)
+		.catch(() => {
+			Swal.fire({
+				icon: 'error',
+				title: '이미 지원한 팀 입니다.',
+				width: 600
+			})
+			router.push({name: 'GongmoDetail'})
 		})
 	},
 	deleteTeam(context, deleteData){
@@ -317,11 +329,12 @@ export default {
 		})
 	},
 	getNickname(context, email){
-		// console.log(email)
 		axios.get(`${SERVER_URL}/api/user/selectNickname?email=${email}`)
 		.then(res => {
 			context.commit('getNick', res.data)
 			context.dispatch('getalarm', res.data)
+		})
+		.catch(()=>{
 		})
 	},
 	privateChat(context, privateData){
@@ -332,6 +345,7 @@ export default {
 		.then( res => {
 			context.commit('privateChatSave', res.data)
 		})
+		.catch(()=>{})
 	},
 	getalarm(context, nickname){
 		const params =  new URLSearchParams();
@@ -340,7 +354,7 @@ export default {
 		.then( res => {
 			context.commit('getalarmList', res.data)
 		})
-		.catch( err => console.log(err.response.data))
+		.catch(()=>{})
 	},
 	deleteAlarm(context, alarm){
 		const params = new URLSearchParams();
@@ -349,7 +363,7 @@ export default {
 		.then( () => {
 			context.dispatch('getalarm', alarm.addressee)
 		})
-		.catch( err => console.log(err.response.data))
+		.catch(()=>{})
 	},
 	getAllChat(context, mynick){
 		const params = new URLSearchParams();
@@ -358,26 +372,19 @@ export default {
 		.then( res => {
 			context.commit('getallList', res.data)
 		})
-		.catch( err => console.log(err.response.data))
+		.catch(()=>{})
 	},
 	teamChat(context, teamChatData){
-		console.log(context)
-		console.log(teamChatData)
 		const params = new URLSearchParams();
 		params.append('no', teamChatData.no)
 		params.append('leaderemail', teamChatData.leaderemail)
 		axios.post(`${SERVER_URL}/api/chat/groupChat`, params)
 		.then( res => {
-			console.log('타이틀 얻으러 가쟝')
-			console.log(res)
 			context.commit('getteamChat', res.data)
 		})
-		.catch( err => {
-			console.log('에러양아아아아ㅏ')		
-			console.log(err.response.data)})
+		.catch(()=>{})
 	},
 	deletePjt(context, deletePjtData){
-		console.log(deletePjtData)
 		const params = new URLSearchParams();
 		params.append('no', deletePjtData.no)
 		axios.get(`${SERVER_URL}/api/contents/delete?no=${deletePjtData.no}`)
@@ -388,6 +395,7 @@ export default {
 			})
 			router.push({ name: "ProjectList"})
 		})
+		.catch(()=>{})
 	},
 	//////////다인///////////////
 
@@ -407,8 +415,14 @@ export default {
 					}
 			}
 		context.commit('contestData', contest.slice(9))
-		context.commit('projectData', project)
+		if (project.length >= 10) {
+			context.commit('projectData', project.slice(9))
+		} else {
+			context.commit('projectData', project)
+		}
+		
 		})
+		.catch(()=>{})
 	},
 	profile(context) {
 		const email = cookies.get('auth-email')
@@ -423,6 +437,7 @@ export default {
 			.then(res => {
 				context.commit('USERINPUT', res.data)
 			})
+			.catch(()=>{})
 	},
 	follow(context, res) {
 		var params = new URLSearchParams();
@@ -434,6 +449,7 @@ export default {
 					context.dispatch('followerCnt', res)
 					context.dispatch('myFollowerList', res)
 				})
+				.catch(()=>{})
 		}
 		else {
 			Swal.fire({
@@ -460,6 +476,7 @@ export default {
 			context.commit('INPUTFOLLOWER', data)
 			context.commit('INPUTFOLLOWER2', data2)
 			})
+			.catch(()=>{})
 	},
 
 	myFollowList(context, res) {
@@ -470,6 +487,7 @@ export default {
 		.then((response) => {
 			context.commit('INPUTFOLLOW', response.data)
 		})
+		.catch(()=>{})
 	},
 
 	unfollow(context, res) {
@@ -480,7 +498,8 @@ export default {
 		.then(() => {
 			context.dispatch('myFollowerList', res)
 			context.dispatch('followerCnt', context.state.email)
-		})	
+		})
+		.catch(()=>{})
 	},
 
 	followerCnt(context, res) {
@@ -496,6 +515,7 @@ export default {
 			.then((response) => {
 				context.commit('setCommunity', response.data)
 			})
+			.catch(()=>{})
 	},
 
 	searchFollowFeed(context, res) {
@@ -505,6 +525,7 @@ export default {
 			.then((response) => {
 				context.commit('setCommunity', response.data)
 			})
+			.catch(()=>{})
 	},
 
 	searchTagFeed(context, res) {
@@ -518,23 +539,21 @@ export default {
 				}
 				context.commit('setTag', data)
 			})
-			.catch(()=>{
-			
-			})
+			.catch(()=>{})
 	},
 
-	subEmail(context, res) {
-		var params = new URLSearchParams();
-		params.append('email', res)
+	subEmail(context, res) {	
 		context.commit('chageIsFlag')
 		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
 	},
 
 	pushCode(context, res) {
-		var params = new URLSearchParams();
-		params.append('code', res.code)
-		params.append('email', res.email)
-		axios.post(`${SERVER_URL}/api/user/pwd`)
+		// var params = new URLSearchParams();
+		// params.append('code', res.code)
+		// params.append('email', res.email)
+		console.log(res.code)
+		console.log(res.email)
+		axios.post(`${SERVER_URL}/api/user/pwd?code=${res.code}&email=${res.email}`)
 			.then((response) => {
 				context.commit('getPwdToken', response.data)
 			})
@@ -553,7 +572,9 @@ export default {
 					}
 				}
 				context.commit('getAllContest', data)
+			}).catch(()=>{
 			})
+			
 	},
 
 	deleteFeed(context, res) {
@@ -574,15 +595,20 @@ export default {
     const formdata = new FormData();
     formdata.append('description', res.description)
     formdata.append('file', res.src)
-    formdata.append('no',res.no)
-    formdata.append('tags', res.tag)
+    formdata.append('no', res.no)
     axios.post(`${SERVER_URL}/api/feed/update`, formdata)
       .then(() => {
         Swal.fire({
-					icon: 'success',
-					text: '성공적으로 수정하였습니다.!',
+          icon: 'success',
+          text: '성공적으로 수정하였습니다.!',
         })
         router.push({ name: "Profile" })
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: 'fail',
+          text: '수정에 실패하였습니다. 빠진 항목이 없는지 확인해주세요 ㅜㅜ',
+        })
       })
 	},
 	
@@ -604,7 +630,6 @@ export default {
 		})
 	},
 	postDate (context, info) {
-		console.log(info)
 		for (let i = 0; i < info.date.length; i++) {
 			const dateinfo = {
 				date : info.date[i],
@@ -644,16 +669,13 @@ export default {
 		params.append('part', apply.part)
 		params.append('teamemail', apply.teamemail)
 		axios.post(`${SERVER_URL}/api/team/selectMember`, params)
-		.then((response) => {
-			console.log(response)
+		.then(() => {
 			dispatch('getTeamInfo')
 			setTimeout(() => {		
 				router.go()
 			}, 250)
 		})
-		.catch(err => {
-			console.log(err)
-		})
+		.catch(() => {})
 	},
 	deleteMember ({dispatch}, apply) {
 		const params = new URLSearchParams();
@@ -677,9 +699,7 @@ export default {
 		.then(response => {
 			context.commit('selectDay', response.data)
 		})
-		.catch(error => {
-			console.log(error)
-		})
+		.catch(() => {})
 	},
 	getMyday(context, info) {
 		const params = new URLSearchParams();
@@ -690,8 +710,6 @@ export default {
 		.then(response => {
 			context.commit('getDay', response.data)
 		})
-		.catch(error => {
-			console.log(error)
-		})
+		.catch(() => {})
 	}
 }

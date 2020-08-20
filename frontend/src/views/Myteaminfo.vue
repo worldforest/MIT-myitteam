@@ -196,7 +196,7 @@
   
 </template>
 
-<script>
+<script scoped>
 import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
@@ -260,6 +260,7 @@ export default {
       }
       this.teamDataSave();
       this.teamChat(this.teamChatData);
+      window.scrollTo(0, 0)
     }, 350)
     setTimeout(() => {
       this.can.dates = this.$store.state.myDay

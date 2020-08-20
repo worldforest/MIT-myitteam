@@ -21,15 +21,6 @@
             <li><div class="text-center ">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
-                  <!-- <v-icon
-                    v-if="allChat.length === 0"
-                    middle
-                    v-bind="attrs"
-                    v-on="on"
-                    @click="getAllChat(myNick)"
-                  >
-                    mdi-message-minus
-                  </v-icon> -->
                   <v-icon
                     middle
                     v-bind="attrs"
@@ -156,6 +147,7 @@
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
+                  v-if="alarmList.length === 0"
                     x-large color="#FFFFFF"
                     v-bind="attrs"
                     v-on="on"
@@ -163,7 +155,13 @@
                   >
                     mdi-bell
                   </v-icon>
-                  <!-- <v-icon>mdi-bell-check</v-icon> -->
+                  <v-icon
+                      v-else
+                      x-large color="#FFFFFF"
+                      v-bind="attrs"
+                      v-on="on"
+                      class="accountIcon not-home mt-1 mr-2"
+                      @click="getalarm(myNick)">mdi-bell-check</v-icon>
                 </template>
                 <v-list v-for="(alarm, index) in alarmList" :key="index">
                   <v-list-item>
@@ -216,7 +214,7 @@
       </div>
     </div>
     <v-app :class="[ {'container': currentRouteName !== 'RealHome' } ]" style="padding:0px; background-color:#FAFAFA;">
-      <div style="background-color:#FAFAFA;">
+      <div style="background-color:#FAFAFA;" :class="[ {'mt-10': currentRouteName !== 'RealHome' } ]">
         <router-view :privateChatTitle="$route.fullPath"/>
       </div>
     </v-app>
@@ -251,19 +249,20 @@ export default {
       this.windowWidth = window.innerWidth
     },
     goPJT(){
-      this.$router.push('/projectlist')
+      this.$router.push('/projectlist').catch(()=>{})
+        
     },
     goCON(){
-      this.$router.push('/AllContest')
+      this.$router.push('/AllContest').catch(()=>{})
     },
     goTEAM(){
-      this.$router.push('/myteam')
+      this.$router.push('/myteam').catch(()=>{})
     },
     goPRO(){
-      this.$router.push('/profile')
+      this.$router.push('/profile').catch(()=>{})
     },
     goChat(chat){
-      this.$router.push({name: 'Chat', params: { privateChatTitle : chat }});
+      this.$router.push({name: 'Chat', params: { privateChatTitle : chat }}).catch(()=>{});
     }
 
   },
@@ -289,21 +288,14 @@ export default {
   created () {
     if (this.$cookies.isKey('auth-token')) {
       this.getNickname(this.email)
-      console.log(this.email)
     }
     this.currentRouteName
-    // this.getAllChat(this.myNick)
   },
 };
 </script>
 
 <style scoped>
-  @font-face {
-    font-family: myFont;
-    src: url("./font/BMJUA_ttf.ttf");
-  }
-
-  *{ font-family: myFont, sans-serif; }
+  *{ font-family: 'Jua', sans-serif; }
 
   .not-home > a { 
     text-decoration: none;

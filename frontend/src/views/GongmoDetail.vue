@@ -64,7 +64,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import Intro from '@/components/Intro.vue'
 import Team from '@/components/Team.vue'
 import { mapActions, mapState } from 'vuex'
@@ -98,6 +98,7 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+    window.scrollTo(0, 0)
   },
 
   beforeDestroy() { 

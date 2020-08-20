@@ -1,8 +1,5 @@
 <template>
   <div :class="[ {'cont10': windowWidth >= 767 } ]">
-    {{email}} <br>
-    {{followerList2}} <br>
-    {{followerList}}
     <v-row v-if="windowWidth >= 1270">
       <v-col col="2" sm="2" class="fg1">
         <div>
@@ -16,7 +13,7 @@
             <span><h3 class="my-3">{{ userprofiledata.nickname }}</h3></span>
             <span class="mt-3 ml-13" v-if="user !== email">
               <v-btn
-                v-if="!followerList.includes(email)"
+                v-if="!followerList2.includes(email)"
                 class="ml-3"
                 color="primary"
                 @click="follow(user)"
@@ -54,12 +51,12 @@
           </v-row>
             <!-- 현재 사용중인 유저 닉네임과 프로필 유저 닉네임이 같지 않고, 팔로우리스트안에 이메일이 없을 경우 -->
         </div>
-        <div class="d-flex my-5 ml-3">
-          <span><h5>팔로우| {{ userprofiledata.followingCnt }}명</h5></span>
-          <span class="ml-15"><h5>팔로워| {{ followerList.length }}명</h5></span>
+        <div class="d-flex my-5 ml-5">
+          <span><h5>팔로우 | {{ userprofiledata.followingCnt }}명</h5></span>
+          <span class="ml-15"><h5>팔로워 | {{ followerList.length }}명</h5></span>
         </div>
-        <div class="d-flex ml-3">
-          <span><h5 class="fontcolor">#{{ userprofiledata.description }} 개발자</h5> </span>
+        <div class="d-flex ml-5">
+          <span><h5 class="fontcolor"># {{ userprofiledata.description }} 개발자</h5> </span>
           <br>
         </div>
       </v-col>
@@ -75,11 +72,11 @@
       
       <v-col col="10" sm="10" class="fg2">
         <div class="ml-5">
-          <span>{{ userprofiledata.nickname }}</span>
           <v-row>
-            <span v-if="user !== email">
+            <span><h3 class="my-3">{{ userprofiledata.nickname }}</h3></span>
+            <span class="mt-3 ml-13" v-if="user !== email">
               <v-btn
-                v-if="!followerList.includes(email)"
+                v-if="!followerList2.includes(email)"
                 class="ml-3"
                 color="primary"
                 @click="follow(user)"
@@ -96,9 +93,7 @@
                 팔로우 취소
               </v-btn>
             </span>
-
-            <!-- 채팅 좀 하겠습니다 ~~~~~~ -->
-            <v-row justify="center" class="chatmodal">
+            <span justify="center" class="chatmodal mt-3 ml-11 ">
               <v-btn color="primary" dark @click.stop="dialog = true">
                 채팅 하기
               </v-btn>
@@ -115,17 +110,16 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
-            </v-row>
+            </span>
           </v-row>
         </div>
         <div class="d-flex my-5 ml-5">
-          <span>팔로우| {{ userprofiledata.followingCnt }}명</span>
-          <span class="mx-auto">팔로워| {{ followerList.length }}명</span>
+          <span><h5>팔로우 | {{ userprofiledata.followingCnt }}명</h5></span>
+          <span><h5>팔로워 | {{ followerList.length }}명</h5></span>
         </div>
         <div class="d-flex ml-5">
-           <span> <h4>{{ userprofiledata.description }} 개발자</h4> </span>
+           <span><h5 class="fontcolor"># {{ userprofiledata.description }} 개발자</h5></span>
           <br>
-          
         </div>
       </v-col>
     </v-row>
@@ -136,8 +130,8 @@
         <img :src="userprofiledata.src" class="thumbnail">
         <h3 class="name">{{ userprofiledata.nickname }}</h3>
         <p class="title">{{ userprofiledata.description }} 개발자</p>
-        <button type="button" class="btn text-center my-2" v-if="!followerList.includes(email)"  @click="follow(user)">팔로우</button>
-        <button type="button" class="btn text-center my-2" v-else-if="followerList.includes(email)" @click="unfollow(user)">팔로우 취소</button>
+        <button type="button" class="btn text-center my-2" v-if="!followerList2.includes(email)"  @click="follow(user)">팔로우</button>
+        <button type="button" class="btn text-center my-2" v-else-if="followerList2.includes(email)" @click="unfollow(user)">팔로우 취소</button>
         <div class="chatmodal">
           <button type="button" class="btn text-center"  @click.stop="dialog = true">채팅하기</button>
           <v-dialog v-model="dialog" max-width="550">
@@ -160,16 +154,13 @@
         <div class="icon"> <h4>{{ userprofiledata.followingCnt }}명</h4> <p>Followings</p></div>
       </div>
     </div>
-    <hr class="mb-3">
-    <div class="text-center">
-      <h3>피드</h3>
-    </div>
+    <hr class="mt-4">
     <router-link class="feed white--text"  to="/feedcreate" v-if="userprofiledata.nickname === profileData.nickname">
       피드등록
     </router-link>
     <div v-if="windowWidth > 760" class="bg-gray">
       <main>
-        <h1>my Feed</h1>
+        <h1 class="mb-3">my Feed</h1>
         <div class="flex-container">
           <figure v-for="(feed, index) in userprofiledata.feeds" :key="index">
             <img :src="feed.src" alt="피드 이미지" @click='feedDetail(feed)'/>
@@ -230,7 +221,7 @@ export default {
     Chat: Chatting
   },
   props: {
-
+    user: String
   },
   data() {
     return {
@@ -284,7 +275,9 @@ export default {
     })
     this.followerCnt(this.user)
     this.myFollowerList(this.user)
+    window.scrollTo(0, 0)
   },
+  
 
   created () {
     
@@ -300,13 +293,9 @@ export default {
 
 <style scoped>
  *{ font-family: 'Jua', sans-serif;}
-
   .h1 {
     font-size: 30px;
   }
-
-
-
   .filebox label 
     { display: inline-block;
       padding: .5em .75em;
@@ -637,7 +626,9 @@ export default {
   main .more:hover {
     opacity: 1;
   }
-
+  .fontcolor{
+    color: rgb(92, 107, 192);
+  }
   /* Media queries*/
   @media screen and (min-width: 701px) {
     figure {

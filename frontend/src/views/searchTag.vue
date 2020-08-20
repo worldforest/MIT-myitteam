@@ -1,13 +1,5 @@
 <template>
   <div>
-    <div class="text-box">
-      <div class="center">
-        <button @click="searchTagFeed(keyword)">전체 게시글</button>
-      </div>
-      <div class="right" v-if="email">
-        <button @click="searchFollowFeed(email)">팔로우 게시물</button>
-      </div>
-    </div>
     <div v-if="windowWidth > 760">
       <main>
         <h1>#{{ keyword }}</h1>
@@ -90,6 +82,7 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+    window.scrollTo(0, 0)
   },
 
    beforeDestroy() { 
@@ -139,7 +132,7 @@ export default {
   }
 
   body {
-    background-color: #fff;
+    background-color: #FAFAFA;
     font-family: 'Montserrat', sans-serif;
     color: #262626;
     font-size: 16px;
@@ -147,7 +140,7 @@ export default {
 
   main {
     max-width: 1000px;
-    background-color: #ffffff;
+    background-color: #FAFAFA;
     margin: 0 auto;
   }
   main h1 {

@@ -11,7 +11,7 @@
                       <div class="received_withd_msg ml-3">
                         {{ message.senduser }}
                         <p>{{ message.message }}</p>
-                        <span class="time_date"> {{ Date(message.createdAt) }}</span>
+                        <span class="time_date"> {{ message.createdAt }}</span>
                       </div>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                   <div class="outgoing_msg mr-3">
                     <div class="sent_msg">
                       <p>{{ message.message }}</p>
-                      <span class="time_date"> {{ Date(message.createdAt) }}</span>
+                      <span class="time_date"> {{ message.createdAt }}</span>
                     </div> 
                   </div>
                 </div>
@@ -46,10 +46,8 @@ export default {
   name: 'Chat',
   data(){
     return {
-      message: null,
+      message: "",
       messages: [],
-      createdAt: null,
-      // chatAt:null,
     }
   },
   props: {
@@ -67,7 +65,7 @@ export default {
       db.collection(this.privateChatTitle).add({
         senduser: sendnick,
         message:this.message,
-        createdAt: new Date()
+        createdAt: new Date().toLocaleString()
       })
       this.message = null
       setTimeout(()=> {

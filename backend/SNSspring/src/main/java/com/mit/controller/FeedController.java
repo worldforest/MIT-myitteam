@@ -167,7 +167,8 @@ public class FeedController {
 
 		if (file == null || file.isEmpty()) {
 			// file image 가 없을 경우
-			sb.append("none.png");
+//			sb.append("none.png");
+			feed.setSrc(feed.getSrc());
 		} else {
 			sb.append(date.getTime());
 			sb.append(file.getOriginalFilename());
@@ -187,9 +188,10 @@ public class FeedController {
 				}
 				// db에 파일 위치랑 번호 등록
 			}
-		} else {
-			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
-		}
+		} 
+//		else {
+//			return new ResponseEntity<String>(FAIL, HttpStatus.EXPECTATION_FAILED);
+//		}
 
 		// feed tag 등록
 		StringTokenizer st = null;

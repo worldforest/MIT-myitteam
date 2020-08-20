@@ -1,9 +1,7 @@
 <template>
   <div>
-		<h2 v-if="windowWidth > 800" class="my-3 ml-3">프로젝트 전체목록</h2>
-    <h3 v-if="windowWidth < 800" class="my-3 ml-3">프로젝트 전체목록</h3>
     <div class="d-flex">
-      <v-btn color="primary" class="ml-auto mb-3"  @click="goTeam"><v-icon  color="#FFFFFF" class="mr-2">mdi-pencil-box-multiple</v-icon>프로젝트 등록</v-btn>
+      <v-btn color="primary" class="ml-auto mb-3 mr-2"  @click="goTeam"><v-icon  color="#FFFFFF" >mdi-pencil-box-multiple</v-icon>프로젝트 등록</v-btn>
     </div>
 
     <v-row no-gutters>
@@ -50,6 +48,7 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+    window.scrollTo(0, 0)
   },
   computed: {
     ...mapState(['clubs2', 'getTeamList', 'email']),

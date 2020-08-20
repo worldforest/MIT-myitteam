@@ -1,9 +1,7 @@
 package com.mit.algorithm;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
 
 /*
  * Pwd 는 랜덤의 6자리의 숫자를 반환해주는 함수입니다.
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
  * */
 
 public class Pwd {
-	
 
 	public String getRnadomcode() {
 		StringBuilder sb = new StringBuilder();
@@ -42,11 +39,12 @@ public class Pwd {
 		return sb.toString();
 	}
 
-	private static final String FROM_ADDRESS = "SSAFY@edu.ssafy.com";
+	private static final String FROM_ADDRESS = "myitteam2020@gmail.com";
 
-	public boolean sedEmail(String email, String certification,JavaMailSender mailSender) {
+	public boolean sedEmail(String email, String certification, JavaMailSender mailSender) {
 		System.out.println("go");
 		System.out.println(certification);
+
 		try {
 			SimpleMailMessage message = new SimpleMailMessage();
 			message.setTo(email);
