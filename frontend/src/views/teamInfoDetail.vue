@@ -1,6 +1,12 @@
 <template>
   <div>
     <div class="cont" v-if="windowWidth >= 900">
+      <v-row class="d-flex">
+        <h3 class="ml-4 mt-3">{{ dataList.title }}</h3>
+        <v-spacer></v-spacer>
+        <span class=" mr-5 local">{{ dataList.local }}</span>
+      </v-row>
+      <hr>
       <li v-for="(item, index) in dataList.dataList" :key="index" class="bord">
         <div class="headline mb-2 white--text partTitle" >
           <v-row class="cardModal">
@@ -24,13 +30,19 @@
           <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
         </v-card-text>
         <v-row justify="center">
-          <v-btn class="mb-3 local" color="primary" dark v-if="email && email !== dataList.email" @click="applyLeader(item); apply(sendData); submitProfile();">
+          <v-btn class="mb-3 applybtn" color="primary" dark v-if="email && email !== dataList.email" @click="applyLeader(item); apply(sendData); submitProfile();">
               지원하기
           </v-btn>
         </v-row>
       </li>
     </div>
     <div class="cont2" v-if="windowWidth < 900">
+      <v-row class="d-flex mx-3">
+        <h4 class="mt-3">{{ dataList.title }}</h4>
+        <v-spacer></v-spacer>
+        <span class="local2">{{ dataList.local }}</span>
+      </v-row>
+      <hr>
       <li v-for="(item, index) in dataList.dataList" :key="index" class="bord mx-3">
         <div class="headline mb-2 white--text partTitle" >
           <v-row class="cardModal">
@@ -54,7 +66,7 @@
           <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
         </v-card-text>
         <v-row justify="center">
-          <v-btn class="mb-3 local" color="primary" dark v-if="email && email !== dataList.email" @click="applyLeader(item); apply(sendData); submitProfile();">
+          <v-btn class="mb-3 applybtn" color="primary" dark v-if="email && email !== dataList.email" @click="applyLeader(item); apply(sendData); submitProfile();">
               지원하기
           </v-btn>
         </v-row>
@@ -63,7 +75,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import { mapActions, mapState } from 'vuex'
 
 export default {
@@ -121,8 +133,8 @@ export default {
 }
 </script>
 
-<style>
-.local {
+<style scoped>
+  .applybtn {
     color: rgb(92, 107, 192);
     font-weight: bold;
   }
@@ -163,5 +175,23 @@ export default {
   .bord {
     border: 2px solid rgb(92, 107, 192);
     margin-bottom: 1rem;
+  }
+  .local {
+    color: white;
+    background-color: rgb(92, 107, 192);
+    font-weight: bold;
+    font-size: 1.3rem;
+    border: 1px solid rgb(92, 107, 192);
+    padding: 1rem 2rem;
+    border-radius: 100%;
+  }
+  .local2 {
+    color: white;
+    background-color: rgb(92, 107, 192);
+    font-weight: bold;
+    font-size: 1rem;
+    border: 1px solid rgb(92, 107, 192);
+    padding: 0.5rem 0.8rem;
+    border-radius: 100%;
   }
 </style>

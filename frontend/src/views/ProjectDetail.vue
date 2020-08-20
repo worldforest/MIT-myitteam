@@ -42,7 +42,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import PjtIntro from '@/components/PjtIntro.vue'
 
 import { mapState, mapActions } from 'vuex'
