@@ -402,7 +402,12 @@ export default {
 					}
 			}
 		context.commit('contestData', contest.slice(9))
-		context.commit('projectData', project)
+		if (project.length >= 10) {
+			context.commit('projectData', project.slice(9))
+		} else {
+			context.commit('projectData', project)
+		}
+		
 		})
 		.catch(()=>{})
 	},
@@ -524,11 +529,12 @@ export default {
 			.catch(()=>{})
 	},
 
-	subEmail(context, res) {
-		var params = new URLSearchParams();
-		params.append('email', res)
+	subEmail(context, res) {	
 		context.commit('chageIsFlag')
 		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
+			.then((response)=>{
+				console.log(response)
+			})
 	},
 
 	pushCode(context, res) {

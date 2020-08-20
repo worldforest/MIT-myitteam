@@ -239,7 +239,6 @@ export default {
     ...mapActions(['like', 'likeCnt', 'likeUser', 'unlike','userprofile', 'searchTagFeed', 'deleteFeed']),
   },
   mounted() {
-    console.log(JSON.parse(sessionStorage.getItem('feedinfo')))
     setTimeout(() => {
       
       }, 200)  
