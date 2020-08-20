@@ -1,5 +1,5 @@
 <template>
-  <div class='cont15'>
+  <div class='cont15'>      
     <div  :class="[ {'login-box': windowWidth >= 767, 'login-box2' : windowWidth < 767 } ]">
       <h2>Login</h2>
       <form>
@@ -41,22 +41,46 @@
             회원가입하기
           </a>
         </div>
+        <div>
+          <KakaoLogin
+            class="mt-5"
+            :api-key="key"
+            image="kakao_login_btn_small"
+            :on-success=onSuccess
+            :on-failure=onFailure
+            />
+        </div>
       </form>
     </div>
+    
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 
+import KakaoLogin from 'vue-kakao-login'
+
+let onSuccess = () => {
+  // console.log(data)
+  // console.log("success")
+}
+let onFailure = () => {
+  // console.log(data)
+  // console.log("failure")
+}
+
+
 export default {
   name: "Loginfo",
+  components: {KakaoLogin},
   data() {
     return {
       loginData: {
         email: "",
         pwd: "",
       },
+      key : process.env.VUE_APP_API_KEY,
       windowWidth: window.innerWidth,
       show2: false,
       password: "Password",
@@ -85,6 +109,8 @@ export default {
     gotofind() {
       this.$router.push('/findpwd')
     },
+    onSuccess,
+    onFailure
   },
   mounted() {
     this.$nextTick(() => {
