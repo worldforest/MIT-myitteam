@@ -291,13 +291,9 @@ export default {
 
 <style scoped>
  *{ font-family: 'Jua', sans-serif;}
-
   .h1 {
     font-size: 30px;
   }
-
-
-
   .filebox label 
     { display: inline-block;
       padding: .5em .75em;

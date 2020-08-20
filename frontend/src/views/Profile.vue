@@ -13,10 +13,10 @@
         </div>
         <div class="d-flex my-5 ml-5">
           <div class="text-center mr-15">
-            <v-dialog v-model="dialog" width="500">
+            <v-dialog v-model="dialog" width="300">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowList(email);">
-                  <h5>팔로잉| {{ profileData.followingCnt }}</h5>
+                  <h5>팔로잉 | {{ profileData.followingCnt }}</h5>
                 </span>
               </template>
 
@@ -39,10 +39,10 @@
           </div>
 
           <div class="text-center">
-            <v-dialog v-model="dialog2" width="500">
+            <v-dialog v-model="dialog2" width="300">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowerList(email);">
-                  <h5>팔로워| {{ profileData.followerCnt }}</h5>
+                  <h5>팔로워 | {{ profileData.followerCnt }}</h5>
                 </span>
               </template>
 
@@ -65,9 +65,8 @@
           </div>
         </div>
         <div class="d-flex ml-5">
-          <span> <h3>{{ profileData.description }} 개발자</h3> </span>
+          <h5 ># <span class="fontcolor">{{ profileData.description }} 개발자</span></h5>
           <br>
-          
         </div>
         <div class="d-flex">
           <div class="ml-auto TeamButton cursor" style="color:white" @click="updateProfile(profileData)">
@@ -117,7 +116,7 @@
           </div>
 
           <div class="text-center">
-            <v-dialog v-model="dialog2" width="500">
+            <v-dialog v-model="dialog2" width="300">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowerList(email);">
                   <h4>팔로워| {{ profileData.followerCnt }}명</h4>
@@ -164,7 +163,7 @@
       
       <div class="social-icons">
         <div class="icon">
-          <v-dialog v-model="dialog2" width="500">
+          <v-dialog v-model="dialog2" width="300">
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowerList(email);">
                 <h4>{{  profileData.followerCnt }}</h4>
@@ -191,7 +190,7 @@
         </div>
         
         <div class="icon">
-          <v-dialog v-model="dialog" width="500">
+          <v-dialog v-model="dialog" width="300">
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowList(email);">
                 <h4>{{  profileData.followingCnt }}</h4>
@@ -219,7 +218,7 @@
         
       </div>
     </div>
-    <hr class="mb-2">
+    <hr class="my-4">
     <div class="text-center" v-if="windowWidth <= 760">
       <h3>피드</h3>
     </div>
@@ -342,7 +341,9 @@ export default {
   .h1 {
     font-size: 30px;
   }
-
+  .fontcolor{
+    color: rgb(92, 107, 192);
+  }
   .filebox label 
     { display: inline-block;
       padding: .5em .75em;

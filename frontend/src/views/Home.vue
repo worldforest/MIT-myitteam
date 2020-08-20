@@ -214,7 +214,7 @@
         ></v-text-field>
       </v-col>
     </v-row>
-      <div class="text-box my-6">
+      <div class="text-box mt-15">
         <v-row style="font-size:1.3rem" class="cont10">
           <div class="center">
             <button @click="searchFeed()"><h5 class="fontcolor">전체 게시글</h5></button>
@@ -223,7 +223,7 @@
             <button @click="searchFollowFeed(email)"><h5 class="fontcolor">팔로우 게시물</h5></button>
           </div>
         </v-row>
-        <hr class="hr2 cont10">
+        <hr class="my-4 cont10">
       </div>
       <div>
         <div v-if="windowWidth > 760">

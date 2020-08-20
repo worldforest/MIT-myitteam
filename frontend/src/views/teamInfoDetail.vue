@@ -163,7 +163,7 @@ export default {
     margin: 1rem auto;
   }
   .cardModal{
-    font-family: myFont, sans-serif;
+    font-family: 'jua', sans-serif;
   }
   .cont{
     margin: 1rem 20%;
