@@ -67,7 +67,7 @@
           <h5 class="ml-16">자신을 한마디로 표현한다면?</h5>
 
           <v-col md="11" class="mx-auto">
-            <v-text-field v-model="signupData.description" label="ex) 유쾌한, 고독한, 행복한 등등의 형용사" outlined id="description"></v-text-field>
+            <v-text-field v-model="signupData.description" label="ex) 어떤 개발자가 되고 싶은지 한 단어로 표현해주세요.(유쾌한, 행복한 등)" outlined id="description"></v-text-field>
           </v-col>
         </div>
 
@@ -131,7 +131,7 @@ export default {
       windowWidth: window.innerWidth,
       rules: {
         required: value => !!value || '필수 값 입니다.',
-        min: v => v.length >= 4 || '비밀번호는 최소 4자리 이상 적어주세요.' ,
+        min: v => v.length >= 8 || '비밀번호는 최소 8자리 이상 적어주세요.' ,
         emailMatch: () => ('The email and password you entered don\'t match'),
         pwdcheck: v => v == this.signupData.pwd || '비밀번호가 일치하지 않습니다',
       },

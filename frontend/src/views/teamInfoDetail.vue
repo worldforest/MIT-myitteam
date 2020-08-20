@@ -30,7 +30,7 @@
           <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
         </v-card-text>
         <v-row justify="center">
-          <v-btn class="mb-3 applybtn" color="primary" dark v-if="email && email !== dataList.email" @click="applyLeader(item); apply(sendData); submitProfile();">
+          <v-btn class="mb-3 applybtn" color="primary" dark v-if="email && email !== dataList.email" @click="applyLeader(item); apply(sendData); submitProfile;">
               지원하기
           </v-btn>
         </v-row>
@@ -66,7 +66,7 @@
           <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
         </v-card-text>
         <v-row justify="center">
-          <v-btn class="mb-3 applybtn" color="primary" dark v-if="email && email !== dataList.email" @click="applyLeader(item); apply(sendData); submitProfile();">
+          <v-btn class="mb-3 applybtn" color="primary" dark v-if="email && email !== dataList.email" @click="applyLeader(item); apply(sendData); submitProfile;">
               지원하기
           </v-btn>
         </v-row>
