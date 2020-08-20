@@ -35,7 +35,7 @@
                         <v-list-item-title style="white-space:pre-line;"><h5>{{ item.advantage }}</h5></v-list-item-title>
                       </v-card-text>
                       <v-row v-if="club2.email !== email" justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);" v-if="email">
                           지원하기
                         </v-btn>
                       </v-row>
@@ -80,7 +80,7 @@
                         <v-list-item-title style="white-space:pre-line;"><h5>{{ item.advantage }}</h5></v-list-item-title>
                       </v-card-text>
                       <v-row v-if="club2.email !== email" justify="center">
-                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
+                        <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);" v-if="email">
                           지원하기
                         </v-btn>
                       </v-row>
@@ -134,7 +134,7 @@
                       <v-list-item-title style="white-space:pre-line;"><h5>{{ item.advantage }}</h5></v-list-item-title>
                     </v-card-text>
                     <v-row v-if="club2.email !== email" justify="center">
-                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
+                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);" v-if="email">
                         지원하기
                       </v-btn>
                     </v-row>
@@ -180,7 +180,7 @@
                       <v-list-item-title style="white-space:pre-line;"><h5>{{ item.advantage }}</h5></v-list-item-title>
                     </v-card-text>
                     <v-row v-if="club2.email !== email" justify="center">
-                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
+                      <v-btn class="mb-3 local" color="primary" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);" v-if="email">
                         지원하기
                       </v-btn>
                     </v-row>
@@ -225,7 +225,7 @@
                       <v-list-item-title style="white-space:pre-line;">{{ item.advantage }}</v-list-item-title>
                     </v-card-text>
                     <v-row v-if="club2.email !== email" justify="center">
-                      <v-btn class="mb-3 local" color="primary" v-if="email" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);">
+                      <v-btn class="mb-3 local" color="primary" v-if="email" dark @click.stop="dialog2 = true" @click="applyLeader(item); emailSave(club2); apply(sendData);" >
                         지원하기
                       </v-btn>
                     </v-row>
