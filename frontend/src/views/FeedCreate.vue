@@ -5,14 +5,14 @@
         <v-col cols="12">
           <v-text-field
             v-model="feedData.description"
-            label="Description"
+            label="피드 설명을 입력해주세요."
             outlined
           ></v-text-field>
         </v-col>
       </v-row>
       
       <v-file-input
-        label="Image input"
+        label="피드 이미지를 입력해주세요."
         filled
         prepend-icon="mdi-camera"
         accept = "image/*"
@@ -23,12 +23,12 @@
         <v-col cols="12">
           <v-text-field
             v-model="feedData.tags"
-            label="Tags"
+            label="#으로 태그를 입력해주세요."
             outlined
           ></v-text-field>
         </v-col>
       </v-row>
-      <v-btn width="100%" large class="white--text" color="#6200EA" @click="feedCreate(feedData)">피드등록</v-btn>
+      <v-btn width="100%" large class="white--text" color="#6200EA" @click="feedCreate(feedData)">피드 등록</v-btn>
     </v-container>
   </v-form>
 </template>

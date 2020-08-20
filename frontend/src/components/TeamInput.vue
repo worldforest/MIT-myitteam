@@ -49,7 +49,8 @@
       </v-col>
 
       <div color="transparent" class="mb-3 mr-8 d-flex justify-end">
-        <v-btn @click="setApplyData">+</v-btn>
+        <h6 style="color:red;">입력 후 '+'버튼을 눌러주세요!</h6>
+        <v-btn clas="ml-2" @click="setApplyData">+</v-btn>
       </div>
 
   </div>

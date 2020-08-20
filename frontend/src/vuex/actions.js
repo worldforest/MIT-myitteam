@@ -134,10 +134,18 @@ export default {
 			}
 			axios.get(`${SERVER_URL}/api/user/checkNickname/${nick.data}`)
 				.then(() => {
-					alert('사용가능한 별명입니다')
+					Swal.fire({
+						icon: 'success',
+						title: "등록가능한 닉네임입니다.",
+						width: 600
+					})
 				})
 				.catch(() => {
-					alert('사용중인 별명입니다.')
+					Swal.fire({
+						icon: 'error',
+						title: '사용중인 닉네임입니다.',
+						width: 600
+					})
 					nickname = ''
 				})
 		}
@@ -281,17 +289,19 @@ export default {
 		})
 	},
 	like(context, likeData){
-		const params = new URLSearchParams();
-		params.append('no', likeData.no),
-		params.append('email', likeData.email)
-		axios.post(`${SERVER_URL}/api/feed/feedlike`, params)
-		.then(() => {
-			context.dispatch('likeCnt', likeData)
-			context.dispatch('likeUser', likeData)
-		})
-		.catch(()=>{
-
-		})
+		if (context.state.email !== "") {
+			const params = new URLSearchParams();
+			params.append('no', likeData.no),
+			params.append('email', likeData.email)
+			axios.post(`${SERVER_URL}/api/feed/feedlike`, params)
+			.then(() => {
+				context.dispatch('likeCnt', likeData)
+				context.dispatch('likeUser', likeData)
+			})
+			.catch(()=>{
+				
+			})
+		}		
 	},
 	unlike(context, likeData){
 		const params = new URLSearchParams();
