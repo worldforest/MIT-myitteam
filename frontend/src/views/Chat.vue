@@ -1,7 +1,7 @@
 <template>
     <div class="py-2">
       <h4 class=" text-center mb-3">{{privateChatTitle}}의 Message</h4>
-      <div class="messaging">
+      <div class="messaging"  :class="[ {'login-box': windowWidth >= 767 } ]">
         <div class="inbox_msg">
             <div class="msg_history">
               <div v-for="(message, index) in messages" :key="index" class="incoming_msg">
