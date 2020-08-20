@@ -1,49 +1,27 @@
 <template>
   <div>
-    <v-row class="d-flex justify-center">
-      <v-col cols='6' sm="12" v-for="(info, index) in this.$store.state.myTeamInfo" :key="index">
-        <v-card
-          class="mx-auto my-12"  
-          max-width="480px"   
-        >
-          <v-card-title>{{ info.title }}</v-card-title>
-          <v-card-text>
-            <div class="my-4 subtitle-1">
-              카테고리:
-              <span v-if="info.category === '0'"> 공모전</span>
-              <span v-else-if="info.category === '1'"> 프로젝트</span>
-            </div>
-
-            <div>{{ info.description }}</div>
-          </v-card-text>
-
-          <v-divider class="mx-4"></v-divider>
-
-          <v-card-title>활동 기간</v-card-title>
-
-          <v-card-text>
-            <v-chip-group
-              active-class="deep-purple accent-4 white--text"
-              column
-            >
-              <v-chip>{{ info.start }}</v-chip> ~
-              <v-chip>{{ info.end }}</v-chip>
-            </v-chip-group>
-          </v-card-text>
-
-          <v-card-actions>
+    <div id="content">
+      <p class="team_title">My team</p>
+      <div class="dohee" v-for="(info, index) in this.$store.state.myTeamInfo" :key="index">
+        <div class="flipper">
+          <div class="front">
+            <img v-if="index%3===0" src="https://picsum.photos/250/250" alt="cherry blossoms">
+            <img v-else-if="index%3===1" src="https://source.unsplash.com/random/250x250/?fruit" alt="cherry blossoms">
+            <img v-else src="https://source.unsplash.com/random/250x250/?animal" alt="cherry blossoms">
+            <span class="caption"><h1>{{ info.title }}</h1></span>
+          </div>
+          <div class="back">
             <router-link class="text-decoration-none mx-auto" :to="{name: 'Myteaminfo', params : {id:info.no}}">
-              <v-btn
-                color="deep-purple lighten-2"
-                text
-              >
-                자세히 보기
-              </v-btn>
-            </router-link >
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+              <h1>Go Team</h1>
+            </router-link>
+            <h1 v-if="info.category === '0'"> 공모전</h1>
+            <h1 v-else-if="info.category === '1'"> 프로젝트</h1>
+            <h1>{{ info.start }}</h1> 
+            ~ <h1> {{ info.end }} </h1>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -70,6 +48,90 @@ export default {
  }
 </script>
 
-<style>
+<style scoped>
+@import url(https://fonts.googleapis.com/css?family=Raleway|Reenie+Beanie);
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 5%;
+  font-family: "Raleway", sans-serif;
+  line-height: 1.5em;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  color: black;
+}
+.team_title {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 5em;
+}
+
+.caption,
+h1
+{
+  margin: 0;
+  text-align: center;
+}
+
+.caption,
+h1 {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 2em;
+  padding: 10px 10px 0 10px;
+}
+
+.dohee {
+  perspective: 1000px;
+  display: inline-block;
+  margin: 6%;
+}
+
+.dohee:hover .flipper {
+  transform: rotateY(180deg);
+}
+
+.dohee,
+.front,
+.back {
+  width: 250px;
+  height: 250px;
+}
+
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.front,
+.back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.front {
+  z-index: 2;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+#content {
+  text-align: center;
+}
 
 </style>

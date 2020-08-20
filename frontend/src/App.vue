@@ -37,8 +37,7 @@
                     @click="getAllChat(myNick)"
                   >
                     mdi-comment-processing
-                  </v-icon> 
-
+                  </v-icon>
                 </template>
                 <v-list v-for="(chat, index) in allChat" :key="index">
                   <v-list-item>
