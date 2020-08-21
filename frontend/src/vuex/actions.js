@@ -413,26 +413,25 @@ export default {
 	getContestData(context) {
 		var contest = []
 		var project = []
-		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
+		axios
+		.get(`${SERVER_URL}/api/contents/readAll/contest`)
 		.then(res => {
 			for(var i=0; i<(res.data).length; i++) {
 				if (res.data[i].category === 0) {
-					contest.push(res.data[i])
+				contest.push(res.data[i])
 				}
 				else {
 					project.push(res.data[i])
 				}
-		 	}
+			}
 			context.commit('contestData', contest.slice(9))
 			if (project.length >= 10) {
 				context.commit('projectData', project.slice(0, 9))
 			} else {
 				context.commit('projectData', project)
-			}
-		
-		})
-		.catch(()=>{})
-	},
+			}      
+		});
+  	},
 	profile(context) {
 		const email = cookies.get('auth-email')
 		axios.get(`${SERVER_URL}/api/feed/${email}`)
