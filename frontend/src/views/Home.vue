@@ -3,7 +3,7 @@
     <!-- /////////////////////////////    화면이 가장 클 때    //////////////////////////////////////// -->
     <div v-if="windowWidth >= 1266">
       <div class="mt-6">
-        <h1 @click="goContest" class="Pjt_h1 mb-4">공모전</h1>
+        <h1 @click="goContest()" class="Pjt_h1 mb-4">공모전</h1>
         <carousel :per-page="4" :mouse-drag="true" style="width:100%">
           <slide v-for="(club, index) in clubs" :key="index">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 85%;">
@@ -137,7 +137,7 @@
 
     <div v-else>
       <div class="mt-6">
-        <h1 class="Pjt_h1 mb-4">공모전</h1>
+        <h1 @click="goContest()" class="Pjt_h1 mb-4">공모전</h1>
         <carousel :per-page="3" :mouse-drag="false" >
           <slide v-for="(club,index) in clubs" :key="index">
             <b-card :img-src="club.imagesrc" img-alt="Image" img-top tag="article" @click="gongmoDetail(club)" class="cursor" style="width: 75%;">
@@ -163,7 +163,6 @@
       <div v-if="windowWidth >= 1266">      
         <carousel :per-page="4" :mouse-drag="false" >
           <slide v-for="(club2,index) in clubs2" :key="index">
-            <!-- {{ club2 }} -->
             <b-card tag="article" class="cursor homeCard" @click="projectDetail(club2); getTeamData(club2.no)">
               <b-card-text @click="projectDetail(club2)">
                 <div v-if="club2.title.length >= 15" >
@@ -208,7 +207,7 @@
         <v-text-field
           v-model="searchData.search"
           append-icon="mdi-magnify"
-          label="Search"
+          label="태그로 게시글을 검색해보세요."
           hide-details
           @keypress.enter="searchTagFeed(searchData.search)"           
         ></v-text-field>
@@ -310,6 +309,7 @@ export default {
     this.getContestData()
     this.searchFeed()
     this.myFollowList(this.email)
+    window.scrollTo(0, 0)
   },
 
   beforeDestroy() { 
@@ -333,7 +333,7 @@ export default {
     },
     Fflag() {
       this.flag = false
-    }
+    },
   },
 
   computed: {

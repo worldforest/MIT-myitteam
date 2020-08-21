@@ -1,7 +1,7 @@
 <template>
     <div class="py-2">
       <h4 class=" text-center mb-3">{{privateChatTitle}}의 Message</h4>
-      <div class="messaging">
+      <div class="messaging"  :class="[ {'login-box': windowWidth >= 767 } ]">
         <div class="inbox_msg">
             <div class="msg_history">
               <div v-for="(message, index) in messages" :key="index" class="incoming_msg">
@@ -48,11 +48,12 @@ export default {
     return {
       message: "",
       messages: [],
+      privateChatTitle: '',
     }
   },
   props: {
     nickname: String,
-    privateChatTitle: String, 
+    // privateChatTitle: String, 
   },
   methods:{
     ...mapActions(['getNickname', 'privateChat']),
@@ -84,10 +85,24 @@ export default {
       })
     },
   },
+
+  mounted() {
+    window.scrollTo(0,document.body.scrollHeight);
+  },
   computed:{
-    ...mapState(['email', 'myNick']),
+    ...mapState(['email', 'myNick', 'privateChatTitle']),
   },
   created(){
+    if (typeof(sessionStorage.getItem('chatinfo')) === 'string') {
+      if (sessionStorage.getItem('chatinfo')[0] === '{' ) {
+        const info = JSON.parse(sessionStorage.getItem('chatinfo'))
+        this.privateChat(info)
+        this.privateChatTitle = this.$store.state.privateChatTitle
+      } else {
+        this.privateChatTitle = sessionStorage.getItem('chatinfo')
+      }
+    } 
+    
     this.fetchMessages();
   },
 }

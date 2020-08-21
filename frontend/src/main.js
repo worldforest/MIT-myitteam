@@ -35,7 +35,6 @@ window.db=db;
 
 var infiniteScroll =  require('vue-infinite-scroll');
 
-
 // Install BootstrapVue
 Vue.use(BootstrapVue)
 Vue.use(VueDaumPostcode)

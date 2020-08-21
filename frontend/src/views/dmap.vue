@@ -63,12 +63,13 @@ export default {
           const script = document.createElement('script');
           /* global kakao */
           script.onload = () => kakao.maps.load(this.initMap);
-          script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=';
+          script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=dcbbf2565c8cbfbd6437c6bd4e215c3d&libraries=services';
           document.head.appendChild(script);
       }
       this.$nextTick(() => {
         window.addEventListener('resize', this.onResize);
       })
+      window.scrollTo(0, 0)
     },
     methods: {
         initMap() {

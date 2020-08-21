@@ -14,7 +14,6 @@
       <hr>
       <div class="d-flex justify-end mb-4">
         <h4>작성일자: {{ detailFeed.writedate.slice(0,10) }}</h4>
-        <h4 class="ml-4">조회수:  {{ detailFeed.views }}</h4>
       </div>
 
       <article class="col-md-12">
@@ -82,7 +81,7 @@
                               <h3 class="modaltitle mb-3"> 좋아요 누른 사람</h3>
                               
                               <li v-for="(item, index) in likeUserList" :key="index">
-                                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                                <h2 class="followa ml-3" style="color:black" @click="goUserProfile(item.email)">{{ item.nickname }}</h2>
                                 <hr>
                               </li>
 
@@ -96,8 +95,8 @@
                           </v-dialog>
                         </div>
                         
-                        <v-icon v-if="!likeUserList2.includes(email)" large class="mr-4 likebtn" @click="like(likeData);">mdi-heart-multiple-outline</v-icon>
-                        <v-icon v-if="likeUserList2.includes(email)" large class="mr-4 likebtn" color="red" @click="unlike(likeData);">mdi-heart-multiple</v-icon>
+                        <v-icon v-if="!likeUserList2.includes(email) && email" large class="mr-4 likebtn" @click="like(likeData);">mdi-heart-multiple-outline</v-icon>
+                        <v-icon v-if="likeUserList2.includes(email) && email" large class="mr-4 likebtn" color="red" @click="unlike(likeData);">mdi-heart-multiple</v-icon>
                       </div>
                     </div>
                   </div>
@@ -120,7 +119,6 @@
       <hr>
       <div class="d-flex justify-end mb-4">
         <span>작성일자: {{ detailFeed.writedate.slice(0,10) }}</span>
-        <span class="ml-4">조회수:  {{ detailFeed.views }}</span>
       </div>
 
       <div>      
@@ -187,7 +185,7 @@
             <v-card class="cardModal">
               <h3 class="modaltitle mb-3"> 좋아요 누른 사람</h3>
               <li v-for="(item, index) in likeUserList" :key="index">
-                <router-link :to="{name: 'UserProfile', params:{user:item.email}}" class="followa"><h4 class="ml-3">{{ item.nickname }}</h4></router-link>
+                <h4 class="followa ml-3" style="color:black" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                 <hr>
               </li>
 
@@ -246,6 +244,7 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
     this.userprofile(this.detailFeed.email)
+    window.scrollTo(0, 0)
   },
   created(){
     this.likeCnt(this.likeCntData);

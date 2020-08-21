@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{upFeed}}
     <v-form>
       <v-container>
         <v-row>
@@ -39,6 +38,10 @@ export default {
 
   methods: {
     ...mapActions(['feedUpdate'])    
+  },
+
+  mounted() {
+    window.scrollTo(0, 0)
   },
 
   

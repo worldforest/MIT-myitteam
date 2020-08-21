@@ -1,11 +1,11 @@
 <template>
-  <div class='cont15'>
+  <div class='cont15'>      
     <div  :class="[ {'login-box': windowWidth >= 767, 'login-box2' : windowWidth < 767 } ]">
       <h2>Login</h2>
       <form>
         <div class="user-box">
           <input type="text" v-model="loginData.email" :rules="emailRules" required outlined>
-          <label>E-mail</label>
+          <label>이메일을 입력해주세요.</label>
         </div>
         <div class="user-box">
           <input type="password" name="" required="" v-model="loginData.pwd" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -14,7 +14,7 @@
               class="input-group--focused passwordfont"
               @click:append="show2 = !show2"
               @keypress.enter="login(loginData)">
-          <label>Password</label>
+          <label>비밀번호를 입력해주세요.</label>
         </div>
         <div class="d-flex">
           <a @click="login(loginData)">
@@ -22,14 +22,14 @@
             <span></span>
             <span></span>
             <span></span>
-            Submit
+            로그인
           </a>
           <a class="ml-auto"  @click="gotofind()">
             <span></span>
             <span></span>
             <span></span>
             <span></span>
-            FindPwd
+            비밀번호 찾기
           </a>
         </div>
         <div class="d-flex">
@@ -38,31 +38,55 @@
             <span></span>
             <span></span>
             <span></span>
-            Sign up
+            회원가입하기
           </a>
+        </div>
+        <div>
+          <KakaoLogin
+            class="mt-5"
+            :api-key="key"
+            image="kakao_login_btn_small"
+            :on-success=onSuccess
+            :on-failure=onFailure
+            />
         </div>
       </form>
     </div>
+    
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 
+import KakaoLogin from 'vue-kakao-login'
+
+let onSuccess = () => {
+  // console.log(data)
+  // console.log("success")
+}
+let onFailure = () => {
+  // console.log(data)
+  // console.log("failure")
+}
+
+
 export default {
   name: "Loginfo",
+  components: {KakaoLogin},
   data() {
     return {
       loginData: {
         email: "",
         pwd: "",
       },
+      key : process.env.dcbbf2565c8cbfbd6437c6bd4e215c3d,
       windowWidth: window.innerWidth,
       show2: false,
       password: "Password",
       rules: {
         required: (value) => !!value || "비밀번호를 입력해주세요.",
-        min: (v) => v.length >= 4 || "비밀번호는 4자리 이상입니다.",
+        min: (v) => v.length >= 8 || "비밀번호는 8자리 이상입니다.",
         emailMatch: () => "이메일과 비밀번호가 일치하지 않습니다.",
       },
       emailRules: [
@@ -85,11 +109,14 @@ export default {
     gotofind() {
       this.$router.push('/findpwd')
     },
+    onSuccess,
+    onFailure
   },
   mounted() {
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
+    window.scrollTo(0, 0)
   },
 };
 </script>

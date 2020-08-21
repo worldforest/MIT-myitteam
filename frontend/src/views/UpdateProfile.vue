@@ -43,7 +43,7 @@
           <h3 class="ml-4">자신을 한마디로 표현한다면?  </h3>
           <v-col xs="6" md="11" class="mx-auto">
             <v-text-field 
-              v-model="updateProfile.description" label="ex) 유쾌한, 고독한, 행복한 등등의 형용사" outlined id="description"></v-text-field>
+              v-model="updateProfile.description" label="ex) 어떤 개발자가 되고 싶은지 한 단어로 표현해주세요.(유쾌한, 행복한 등)" outlined id="description"></v-text-field>
           </v-col>
         </div>
 
@@ -51,7 +51,7 @@
           <h3 class="ml-4"> 프로필 이미지 </h3>
           <v-col xs="6" md="11" class="mx-auto">
             <v-file-input
-              label="Image input"
+              label="프로필 이미지를 등록해주세요."
               filled
               prepend-icon="mdi-camera"
               accept = "image/*"
@@ -70,7 +70,7 @@
         <div>
           <h3 class="ml-4">비밀번호 확인 : </h3>
           <v-col xs="6" md="11" class="mx-auto">
-            <v-text-field class="passwordfont" :rules="[rules.pwdcheck, rules.required]" v-model="updateData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password"></v-text-field>
+            <v-text-field class="passwordfont" :rules="[rules.pwdcheck, rules.required]" v-model="updateData.pwd2" label="비밀번호 확인" outlined id="pwd2" type="password" @keypress.enter="ProfileUpdate(updateProfile, updateData)"></v-text-field>
           </v-col>
         </div>
 
@@ -90,8 +90,8 @@ import { mapState } from 'vuex'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-const SERVER_URL = 'http://localhost:9999/mit'
-// const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
+// const SERVER_URL = 'http://localhost:9999/mit'
+const SERVER_URL = 'https://i3b306.p.ssafy.io/mit'
 
 export default {
   data () {
@@ -104,14 +104,17 @@ export default {
       dialog: false,
       rules: {
         required: value => !!value || '필수 값 입니다.',
-        min: v => v.length >= 4 || '비밀번호는 최소 8s자리 이상 적어주세요.' ,
-        emailMatch: () => ('The email and password you entered don\'t match'),
+        min: v => v.length >= 4 || '비밀번호는 최소 8자리 이상 적어주세요.' ,
+        emailMatch: () => ('이메일과 비밀번호가 일치하지 않습니다.'),
         pwdcheck: v => v == this.updateData.pwd || '비밀번호가 일치하지 않습니다',
       },
     }
   },
   computed : {
     ...mapState(['updateProfile', 'email'])
+  },
+  mounted() {
+    window.scrollTo(0, 0)
   },
   methods: {
     getData(data) {

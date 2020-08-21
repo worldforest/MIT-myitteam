@@ -24,7 +24,7 @@
                 <h3 class="modaltitle mb-3"> 내가 팔로우한 리스트</h3>
                 
                 <li v-for="(item, index) in followList" :key="index">
-                  <h4 class="followa ml-3" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
+                  <h4 class="followa ml-3 my-2" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                   <hr>
                 </li>
 
@@ -50,7 +50,7 @@
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
                 <li v-for="(item, index) in followerList" :key="index">
-                  <h4 class="followa ml-3" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
+                  <h4 class="followa ml-3 my-2" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                   <hr>
                 </li>
 
@@ -90,7 +90,7 @@
         </div>
         <div class="d-flex my-5 ml-5">
           <div class="text-center mr-15">
-            <v-dialog v-model="dialog" width="500">
+            <v-dialog v-model="dialog" width="300">
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on" class="cursor" @click="myFollowList(email);">
                   <h4>팔로잉| {{ profileData.followingCnt }}명</h4>
@@ -101,7 +101,7 @@
                 <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
                 
                 <li v-for="(item, index) in followList" :key="index">
-                  <h4 class="followa ml-3" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
+                  <h4 class="followa ml-3 my-2" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                   <hr>
                 </li>
 
@@ -127,7 +127,7 @@
                 <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
                 
                 <li v-for="(item, index) in followerList" :key="index">
-                  <h4 class="followa ml-3" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
+                  <h4 class="followa ml-3 my-2" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                   <hr>
                 </li>
 
@@ -174,7 +174,7 @@
               <h3 class="modaltitle mb-3"> 나를 팔로우 하는 리스트</h3>
               
               <li v-for="(item, index) in followerList" :key="index">
-                <h4 class="followa ml-3" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
+                <h4 class="followa ml-3 my-2" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                 <hr>
               </li>
 
@@ -201,7 +201,7 @@
               <h3 class="modaltitle mb-3"> 내가 팔로우 한 리스트</h3>
               
               <li v-for="(item, index) in followList" :key="index">
-                <h4 class="followa ml-3" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
+                <h4 class="followa ml-3 my-2" @click="goUserProfile(item.email)">{{ item.nickname }}</h4>
                 <hr>
               </li>
 
@@ -240,7 +240,7 @@
         </div>            
       </main>
     </div>
-    <v-row v-else>
+    <v-row v-else class="cont3">
       <v-col cols='12'  v-for="(feed, index) in profileData.feeds" :key="index">
         <v-card
           class="mx-auto my-3"
@@ -259,7 +259,8 @@
             </v-row>
 
             <div class="my-4 subtitle-1">
-              {{feed.description}}
+              <span v-if="feed.description.length < 30">{{feed.description}}</span>
+              <span v-else-if="feed.description.length >= 30">{{feed.description.slice(0,30)}}...</span>
             </div>
           </v-card-text>
 
@@ -330,6 +331,7 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+    window.scrollTo(0, 0)
   }
 
 }
@@ -371,6 +373,10 @@ export default {
 
   .cont10 {
     margin: 0 10%;
+  }
+  
+  .cont3 {
+    margin: 0 3%;
   }
 
   .box{
@@ -447,6 +453,7 @@ export default {
   .followa{
     text-decoration: none;
     color:black;
+
   }
 
   /* 프로필 데이터 */

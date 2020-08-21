@@ -115,7 +115,7 @@
         </div>
         <div class="d-flex my-5 ml-5">
           <span><h5>팔로우 | {{ userprofiledata.followingCnt }}명</h5></span>
-          <span><h5>팔로워 | {{ followerList.length }}명</h5></span>
+          <span><h5 class="ml-15">팔로워 | {{ followerList.length }}명</h5></span>
         </div>
         <div class="d-flex ml-5">
            <span><h5 class="fontcolor"># {{ userprofiledata.description }} 개발자</h5></span>
@@ -264,10 +264,9 @@ export default {
   mounted() {
     setTimeout(() => {
         this.privateData.yourNickname = JSON.parse(sessionStorage.getItem('userprofileinfo')).nickname
-        console.log(this.privateData.yourNickname)
-        this.privateData.myNickname = this.$store.state.myNick
+        this.privateData.myNickname = sessionStorage.getItem('mynick')
+        sessionStorage.setItem('chatinfo', JSON.stringify(this.privateData))
         this.privateChat(this.privateData)
-        console.log(this.userprofiledata)
 			}, 200)
     this.followList = this.$store.state.followerList
     this.$nextTick(() => {
@@ -275,7 +274,9 @@ export default {
     })
     this.followerCnt(this.user)
     this.myFollowerList(this.user)
+    window.scrollTo(0, 0)
   },
+  
 
   created () {
     
@@ -643,4 +644,55 @@ export default {
       width: 100%;
     }
   }
+
+input[type=checkbox] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+input[type=checkbox]:checked + label:after {
+  -webkit-transform: scale(4.2);
+          transform: scale(4.2);
+}
+
+label {
+  outline: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: #000;
+  font-family: 'Lato', sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.04rem;
+  padding: 1.5rem 3rem;
+  cursor: pointer;
+  border-radius: .4rem;
+  border: 0.3rem solid #000;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 3px 0 0 #000;
+}
+label::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: -webkit-transform 0.3s ease-in;
+  transition: -webkit-transform 0.3s ease-in;
+  transition: transform 0.3s ease-in;
+  transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
+  mix-blend-mode: difference;
+  background: radial-gradient(circle at center, #fff 24%, #000 25%, #000 100%);
+}
+label:active {
+  top: 3px;
+  box-shadow: none;
+}
+
 </style>

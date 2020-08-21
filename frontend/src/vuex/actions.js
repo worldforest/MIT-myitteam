@@ -134,10 +134,18 @@ export default {
 			}
 			axios.get(`${SERVER_URL}/api/user/checkNickname/${nick.data}`)
 				.then(() => {
-					alert('사용가능한 별명입니다')
+					Swal.fire({
+						icon: 'success',
+						title: "등록가능한 닉네임입니다.",
+						width: 600
+					})
 				})
 				.catch(() => {
-					alert('사용중인 별명입니다.')
+					Swal.fire({
+						icon: 'error',
+						title: '사용중인 닉네임입니다.',
+						width: 600
+					})
 					nickname = ''
 				})
 		}
@@ -156,7 +164,6 @@ export default {
 				title: '필수 항목들을 입력해주세요!(사진, 소개)',
 			})
 		} else {
-      console.log(feedData)
 			const formdata = new FormData();
 			formdata.append('description', feedData.description)
 			formdata.append('email', feedData.email) 
@@ -282,17 +289,19 @@ export default {
 		})
 	},
 	like(context, likeData){
-		const params = new URLSearchParams();
-		params.append('no', likeData.no),
-		params.append('email', likeData.email)
-		axios.post(`${SERVER_URL}/api/feed/feedlike`, params)
-		.then(() => {
-			context.dispatch('likeCnt', likeData)
-			context.dispatch('likeUser', likeData)
-		})
-		.catch(()=>{
-
-		})
+		if (context.state.email !== "") {
+			const params = new URLSearchParams();
+			params.append('no', likeData.no),
+			params.append('email', likeData.email)
+			axios.post(`${SERVER_URL}/api/feed/feedlike`, params)
+			.then(() => {
+				context.dispatch('likeCnt', likeData)
+				context.dispatch('likeUser', likeData)
+			})
+			.catch(()=>{
+				
+			})
+		}		
 	},
 	unlike(context, likeData){
 		const params = new URLSearchParams();
@@ -330,11 +339,11 @@ export default {
 		})
 	},
 	getNickname(context, email){
-		// console.log(email)
 		axios.get(`${SERVER_URL}/api/user/selectNickname?email=${email}`)
 		.then(res => {
 			context.commit('getNick', res.data)
 			context.dispatch('getalarm', res.data)
+			sessionStorage.setItem('mynick', res.data)
 		})
 		.catch(()=>{
 		})
@@ -405,27 +414,25 @@ export default {
 	getContestData(context) {
 		var contest = []
 		var project = []
-		axios.get(`${SERVER_URL}/api/contents/readAll/contest`)
-			.then(res => {
-				for(var i=0; i<(res.data).length; i++) {
-					if (res.data[i].category === 0) {
-						contest.push(res.data[i])
-
-					}
-					else {
-						project.push(res.data[i])
-					}
+		axios
+		.get(`${SERVER_URL}/api/contents/readAll/contest`)
+		.then(res => {
+			for(var i=0; i<(res.data).length; i++) {
+				if (res.data[i].category === 0) {
+				contest.push(res.data[i])
+				}
+				else {
+					project.push(res.data[i])
+				}
 			}
-		context.commit('contestData', contest.slice(9))
-		if (project.length >= 10) {
-			context.commit('projectData', project.slice(9))
-		} else {
-			context.commit('projectData', project)
-		}
-		
-		})
-		.catch(()=>{})
-	},
+			context.commit('contestData', contest.slice(9))
+			if (project.length >= 10) {
+				context.commit('projectData', project.slice(0, 9))
+			} else {
+				context.commit('projectData', project)
+			}      
+		});
+  	},
 	profile(context) {
 		const email = cookies.get('auth-email')
 		axios.get(`${SERVER_URL}/api/feed/${email}`)
@@ -547,16 +554,15 @@ export default {
 	subEmail(context, res) {	
 		context.commit('chageIsFlag')
 		axios.get(`${SERVER_URL}/api/user/pwd/?email=${res}`)
-			.then((response)=>{
-				console.log(response)
-			})
 	},
 
 	pushCode(context, res) {
-		var params = new URLSearchParams();
-		params.append('code', res.code)
-		params.append('email', res.email)
-		axios.post(`${SERVER_URL}/api/user/pwd`,params)
+		// var params = new URLSearchParams();
+		// params.append('code', res.code)
+		// params.append('email', res.email)
+		console.log(res.code)
+		console.log(res.email)
+		axios.post(`${SERVER_URL}/api/user/pwd?code=${res.code}&email=${res.email}`)
 			.then((response) => {
 				context.commit('getPwdToken', response.data)
 			})
@@ -595,7 +601,6 @@ export default {
 	},
 
 	feedUpdate(context, res) {
-    console.log(res)
     const formdata = new FormData();
     formdata.append('description', res.description)
     formdata.append('file', res.src)
@@ -608,8 +613,11 @@ export default {
         })
         router.push({ name: "Profile" })
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(() => {
+        Swal.fire({
+          icon: 'fail',
+          text: '수정에 실패하였습니다. 빠진 항목이 없는지 확인해주세요 ㅜㅜ',
+        })
       })
 	},
 	
@@ -631,6 +639,7 @@ export default {
 		})
 	},
 	postDate (context, info) {
+		console.log(info)
 		for (let i = 0; i < info.date.length; i++) {
 			const dateinfo = {
 				date : info.date[i],
@@ -643,6 +652,9 @@ export default {
 				setTimeout(() => {
 					router.go()
 				}, 100)
+			})
+			.catch(error => {
+				console.log(error)
 			})
 		}
 
@@ -712,5 +724,5 @@ export default {
 			context.commit('getDay', response.data)
 		})
 		.catch(() => {})
-	}
+	},
 }
