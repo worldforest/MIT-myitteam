@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{upFeed}}
     <v-form>
       <v-container>
         <v-row>

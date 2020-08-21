@@ -46,9 +46,6 @@
 <script>
 import { mapState } from 'vuex'
 
-const API_KEY = process.env.VUE_APP_API_KEY
-
-
 export default {
   data() {
     return {
@@ -66,7 +63,7 @@ export default {
           const script = document.createElement('script');
           /* global kakao */
           script.onload = () => kakao.maps.load(this.initMap);
-          script.src = `http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${API_KEY}&libraries=services`;
+          script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=dcbbf2565c8cbfbd6437c6bd4e215c3d&libraries=services';
           document.head.appendChild(script);
       }
       this.$nextTick(() => {

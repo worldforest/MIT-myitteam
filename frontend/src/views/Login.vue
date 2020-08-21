@@ -80,7 +80,7 @@ export default {
         email: "",
         pwd: "",
       },
-      key : process.env.VUE_APP_API_KEY,
+      key : process.env.dcbbf2565c8cbfbd6437c6bd4e215c3d,
       windowWidth: window.innerWidth,
       show2: false,
       password: "Password",

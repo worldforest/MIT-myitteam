@@ -28,7 +28,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 // const SERVER_URL = 'http://localhost:9999/mit'
-const SERVER_URL = 'http:/i3b306.p.ssafy.io:9999/mit'
+const SERVER_URL = 'http:/i3b306.p.ssafy.io/mit'
 
 export default {
   data() {
